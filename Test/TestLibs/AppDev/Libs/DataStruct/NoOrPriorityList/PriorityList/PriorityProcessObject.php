@@ -10,8 +10,8 @@
 
         public PriorityProcessObject()
         {
-            this.mPriorityObject = null;
-            this.mPriority = 0.0f;
+            $this->mPriorityObject = null;
+            $this->mPriority = 0.0f;
         }
     }
 }

@@ -25,23 +25,23 @@ namespace SDK.Lib
 
         public BasicConfig()
         {
-            this.mIpList[0] = "192.168.125.79";
-            this.mIpList[1] = "192.168.125.254";
-            this.mIpSelect = IpSelect.IP_192_168_125_254;
+            $this->mIpList[0] = "192.168.125.79";
+            $this->mIpList[1] = "192.168.125.254";
+            $this->mIpSelect = IpSelect.IP_192_168_125_254;
 
-            this.mZoneList[0] = 30;
-            this.mZoneList[1] = 31;
-            this.mZoneSelect = ZoneSelect.Zone_30;
+            $this->mZoneList[0] = 30;
+            $this->mZoneList[1] = 31;
+            $this->mZoneSelect = ZoneSelect.Zone_30;
         }
 
         public string getIp()
         {
-            return this.mIpList[(int)this.mIpSelect];
+            return $this->mIpList[(int)$this->mIpSelect];
         }
 
         public ushort getPort()
         {
-            return this.mZoneList[(int)this.mZoneSelect];
+            return $this->mZoneList[(int)$this->mZoneSelect];
         }
     }
 }

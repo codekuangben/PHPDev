@@ -14,49 +14,49 @@
 
         public PriorityList()
         {
-            this.mPriorityProcessObjectList = new MList<PriorityProcessObject>();
-            this.mPrioritySort = PrioritySort.ePS_Great;
-            this.mIsSpeedUpFind = false;
-            this.mIsOpKeepSort = false;
+            $this->mPriorityProcessObjectList = new MList<PriorityProcessObject>();
+            $this->mPrioritySort = PrioritySort.ePS_Great;
+            $this->mIsSpeedUpFind = false;
+            $this->mIsOpKeepSort = false;
         }
 
         public void setIsSpeedUpFind(bool value)
         {
-            this.mIsSpeedUpFind = value;
+            $this->mIsSpeedUpFind = value;
 
-            if (this.mIsSpeedUpFind)
+            if ($this->mIsSpeedUpFind)
             {
-                this.mDic = new MDictionary<INoOrPriorityObject, int>();
+                $this->mDic = new MDictionary<INoOrPriorityObject, int>();
             }
         }
 
         public void setIsOpKeepSort(bool value)
         {
-            this.mIsOpKeepSort = value;
+            $this->mIsOpKeepSort = value;
         }
 
         public void Clear()
         {
-            this.mPriorityProcessObjectList.Clear();
+            $this->mPriorityProcessObjectList.Clear();
 
-            if(this.mIsSpeedUpFind)
+            if($this->mIsSpeedUpFind)
             {
-                this.mDic.Clear();
+                $this->mDic.Clear();
             }
         }
 
         public int Count()
         {
-            return this.mPriorityProcessObjectList.Count();
+            return $this->mPriorityProcessObjectList.Count();
         }
 
         public INoOrPriorityObject get(int index)
         {
             INoOrPriorityObject ret = null;
 
-            if(index < this.Count())
+            if(index < $this->Count())
             {
-                ret = this.mPriorityProcessObjectList.get(index).mPriorityObject;
+                ret = $this->mPriorityProcessObjectList.get(index).mPriorityObject;
             }
 
             return ret;
@@ -66,9 +66,9 @@
         {
             float ret = 0;
 
-            if (index < this.Count())
+            if (index < $this->Count())
             {
-                ret = this.mPriorityProcessObjectList.get(index).mPriority;
+                ret = $this->mPriorityProcessObjectList.get(index).mPriority;
             }
 
             return ret;
@@ -80,18 +80,18 @@
 
             if (null != item)
             {
-                if (this.mIsSpeedUpFind)
+                if ($this->mIsSpeedUpFind)
                 {
-                    ret = this.mDic.ContainsKey(item);
+                    ret = $this->mDic.ContainsKey(item);
                 }
                 else
                 {
                     int index = 0;
-                    int listLen = this.mPriorityProcessObjectList.Count();
+                    int listLen = $this->mPriorityProcessObjectList.Count();
 
                     while (index < listLen)
                     {
-                        if (item == this.mPriorityProcessObjectList.get(index).mPriorityObject)
+                        if (item == $this->mPriorityProcessObjectList.get(index).mPriorityObject)
                         {
                             ret = true;
                             break;
@@ -114,13 +114,13 @@
 
         public void RemoveAt(int index)
         {
-            if (this.mIsSpeedUpFind)
+            if ($this->mIsSpeedUpFind)
             {
-                this.effectiveRemove(this.mPriorityProcessObjectList[index].mPriorityObject);
+                $this->effectiveRemove($this->mPriorityProcessObjectList[index].mPriorityObject);
             }
             else
             {
-                this.mPriorityProcessObjectList.RemoveAt(index);
+                $this->mPriorityProcessObjectList.RemoveAt(index);
             }
         }
 
@@ -129,21 +129,21 @@
             int retIndex = -1;
 
             int index = 0;
-            int listLen = this.mPriorityProcessObjectList.Count();
+            int listLen = $this->mPriorityProcessObjectList.Count();
 
             while (index < listLen)
             {
-                if (PrioritySort.ePS_Less == this.mPrioritySort)
+                if (PrioritySort.ePS_Less == $this->mPrioritySort)
                 {
-                    if (this.mPriorityProcessObjectList.get(index).mPriority >= priority)
+                    if ($this->mPriorityProcessObjectList.get(index).mPriority >= priority)
                     {
                         retIndex = index;
                         break;
                     }
                 }
-                else if (PrioritySort.ePS_Great == this.mPrioritySort)
+                else if (PrioritySort.ePS_Great == $this->mPrioritySort)
                 {
-                    if (this.mPriorityProcessObjectList.get(index).mPriority <= priority)
+                    if ($this->mPriorityProcessObjectList.get(index).mPriority <= priority)
                     {
                         retIndex = index;
                         break;
@@ -161,11 +161,11 @@
             int retIndex = -1;
 
             int index = 0;
-            int listLen = this.mPriorityProcessObjectList.Count();
+            int listLen = $this->mPriorityProcessObjectList.Count();
 
             while (index < listLen)
             {
-                if (this.mPriorityProcessObjectList.get(index).mPriorityObject == priorityObject)
+                if ($this->mPriorityProcessObjectList.get(index).mPriorityObject == priorityObject)
                 {
                     retIndex = index;
                     break;
@@ -179,14 +179,14 @@
 
         public int getIndexByNoOrPriorityObject(INoOrPriorityObject priorityObject)
         {
-            return this.getIndexByPriorityObject(priorityObject);
+            return $this->getIndexByPriorityObject(priorityObject);
         }
 
         public void addPriorityObject(INoOrPriorityObject priorityObject, float priority = 0.0f)
         {
             if (null != priorityObject)
             {
-                if (!this.Contains(priorityObject))
+                if (!$this->Contains(priorityObject))
                 {
                     PriorityProcessObject priorityProcessObject = null;
                     priorityProcessObject = new PriorityProcessObject();
@@ -194,36 +194,36 @@
                     priorityProcessObject.mPriorityObject = priorityObject;
                     priorityProcessObject.mPriority = priority;
 
-                    if (!this.mIsOpKeepSort)
+                    if (!$this->mIsOpKeepSort)
                     {
-                        this.mPriorityProcessObjectList.Add(priorityProcessObject);
+                        $this->mPriorityProcessObjectList.Add(priorityProcessObject);
 
-                        if (this.mIsSpeedUpFind)
+                        if ($this->mIsSpeedUpFind)
                         {
-                            this.mDic.Add(priorityObject, this.mPriorityProcessObjectList.Count() - 1);
+                            $this->mDic.Add(priorityObject, $this->mPriorityProcessObjectList.Count() - 1);
                         }
                     }
                     else
                     {
-                        int index = this.getIndexByPriority(priority);
+                        int index = $this->getIndexByPriority(priority);
 
                         if (-1 == index)
                         {
-                            this.mPriorityProcessObjectList.Add(priorityProcessObject);
+                            $this->mPriorityProcessObjectList.Add(priorityProcessObject);
 
-                            if (this.mIsSpeedUpFind)
+                            if ($this->mIsSpeedUpFind)
                             {
-                                this.mDic.Add(priorityObject, this.mPriorityProcessObjectList.Count() - 1);
+                                $this->mDic.Add(priorityObject, $this->mPriorityProcessObjectList.Count() - 1);
                             }
                         }
                         else
                         {
-                            this.mPriorityProcessObjectList.Insert(index, priorityProcessObject);
+                            $this->mPriorityProcessObjectList.Insert(index, priorityProcessObject);
 
-                            if (this.mIsSpeedUpFind)
+                            if ($this->mIsSpeedUpFind)
                             {
-                                this.mDic.Add(priorityObject, index);
-                                this.updateIndex(index + 1);
+                                $this->mDic.Add(priorityObject, index);
+                                $this->updateIndex(index + 1);
                             }
                         }
                     }
@@ -240,19 +240,19 @@
 
         public void removePriorityObject(INoOrPriorityObject priorityObject)
         {
-            if (this.Contains(priorityObject))
+            if ($this->Contains(priorityObject))
             {
-                if (this.mIsSpeedUpFind)
+                if ($this->mIsSpeedUpFind)
                 {
-                    this.effectiveRemove(priorityObject);
+                    $this->effectiveRemove(priorityObject);
                 }
                 else
                 {
-                    int index = this.getIndexByPriorityObject(priorityObject);
+                    int index = $this->getIndexByPriorityObject(priorityObject);
 
                     if(-1 != index)
                     {
-                        this.mPriorityProcessObjectList.RemoveAt(index);
+                        $this->mPriorityProcessObjectList.RemoveAt(index);
                     }
                 }
             }
@@ -260,12 +260,12 @@
 
         public void addNoOrPriorityObject(INoOrPriorityObject noPriorityObject, float priority = 0.0f)
         {
-            this.addPriorityObject(noPriorityObject);
+            $this->addPriorityObject(noPriorityObject);
         }
 
         public void removeNoOrPriorityObject(INoOrPriorityObject noPriorityObject)
         {
-            this.removePriorityObject(noPriorityObject);
+            $this->removePriorityObject(noPriorityObject);
         }
 
         // 快速移除元素
@@ -273,30 +273,30 @@
         {
             bool ret = false;
 
-            if (this.mDic.ContainsKey(item))
+            if ($this->mDic.ContainsKey(item))
             {
                 ret = true;
 
-                int index = this.mDic[item];
-                this.mDic.Remove(item);
+                int index = $this->mDic[item];
+                $this->mDic.Remove(item);
 
-                if (index == this.mPriorityProcessObjectList.Count() - 1)    // 如果是最后一个元素，直接移除
+                if (index == $this->mPriorityProcessObjectList.Count() - 1)    // 如果是最后一个元素，直接移除
                 {
-                    this.mPriorityProcessObjectList.RemoveAt(index);
+                    $this->mPriorityProcessObjectList.RemoveAt(index);
                 }
                 else
                 {
                     // 这样移除会使优先级顺序改变
-                    if (!this.mIsOpKeepSort)
+                    if (!$this->mIsOpKeepSort)
                     {
-                        this.mPriorityProcessObjectList.set(index, this.mPriorityProcessObjectList.get(this.mPriorityProcessObjectList.Count() - 1));
-                        this.mPriorityProcessObjectList.RemoveAt(this.mPriorityProcessObjectList.Count() - 1);
-                        this.mDic.Add(this.mPriorityProcessObjectList.get(index).mPriorityObject, index);
+                        $this->mPriorityProcessObjectList.set(index, $this->mPriorityProcessObjectList.get($this->mPriorityProcessObjectList.Count() - 1));
+                        $this->mPriorityProcessObjectList.RemoveAt($this->mPriorityProcessObjectList.Count() - 1);
+                        $this->mDic.Add($this->mPriorityProcessObjectList.get(index).mPriorityObject, index);
                     }
                     else
                     {
-                        this.mPriorityProcessObjectList.RemoveAt(index);
-                        this.updateIndex(index);
+                        $this->mPriorityProcessObjectList.RemoveAt(index);
+                        $this->updateIndex(index);
                     }
                 }
             }
@@ -306,11 +306,11 @@
 
         protected void updateIndex(int index)
         {
-            int listLen = this.mPriorityProcessObjectList.Count();
+            int listLen = $this->mPriorityProcessObjectList.Count();
 
             while (index < listLen)
             {
-                this.mDic.Add(this.mPriorityProcessObjectList.get(index).mPriorityObject, index);
+                $this->mDic.Add($this->mPriorityProcessObjectList.get(index).mPriorityObject, index);
 
                 ++index;
             }

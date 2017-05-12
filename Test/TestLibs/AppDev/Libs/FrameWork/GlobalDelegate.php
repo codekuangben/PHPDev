@@ -24,20 +24,20 @@
 
         public GlobalDelegate()
         {
-            this.mMainChildMassChangedDispatch = new AddOnceEventDispatch();
-            this.mCameraOrientChangedDispatch = new AddOnceEventDispatch();
-            this.mMainOrientChangedDispatch = new AddOnceEventDispatch();
-            this.mMainPosChangedDispatch = new AddOnceEventDispatch();
-            this.mMainOrientStopChangedDispatch = new AddOnceEventDispatch();
-            this.mMainPosStopChangedDispatch = new AddOnceEventDispatch();
-            this.mMainChildChangedDispatch = new AddOnceEventDispatch();
-            this.mMainChildNumChangedDispatch = new AddOnceEventDispatch();
-            this.mTopxPosChangedDispatch = new AddOnceEventDispatch();
+            $this->mMainChildMassChangedDispatch = new AddOnceEventDispatch();
+            $this->mCameraOrientChangedDispatch = new AddOnceEventDispatch();
+            $this->mMainOrientChangedDispatch = new AddOnceEventDispatch();
+            $this->mMainPosChangedDispatch = new AddOnceEventDispatch();
+            $this->mMainOrientStopChangedDispatch = new AddOnceEventDispatch();
+            $this->mMainPosStopChangedDispatch = new AddOnceEventDispatch();
+            $this->mMainChildChangedDispatch = new AddOnceEventDispatch();
+            $this->mMainChildNumChangedDispatch = new AddOnceEventDispatch();
+            $this->mTopxPosChangedDispatch = new AddOnceEventDispatch();
         }
 
         public void addMainChildChangedHandle(ICalleeObject pThis, MAction<IDispatchObject> handle)
         {
-            this.mMainChildChangedDispatch.addEventHandle(pThis, handle);
+            $this->mMainChildChangedDispatch.addEventHandle(pThis, handle);
         }
 
         public void init()

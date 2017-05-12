@@ -19,7 +19,7 @@ namespace SDK.Lib
 
         public void init()
         {
-            Ctx.mInstance.mInputMgr.mOnDeviceOpDispatch.addEventHandle(null, this.QuitApp);
+            Ctx.mInstance.mInputMgr.mOnDeviceOpDispatch.addEventHandle(null, $this->QuitApp);
         }
 
         private void QuitApp(IDispatchObject dispObj)
@@ -45,7 +45,7 @@ namespace SDK.Lib
         
         public void dispose()
         {
-            Ctx.mInstance.mInputMgr.mOnDeviceOpDispatch.removeEventHandle(null, this.QuitApp);
+            Ctx.mInstance.mInputMgr.mOnDeviceOpDispatch.removeEventHandle(null, $this->QuitApp);
         }
     }
 }

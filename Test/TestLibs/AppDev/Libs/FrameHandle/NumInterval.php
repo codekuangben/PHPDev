@@ -12,31 +12,31 @@
 
         public NumInterval()
         {
-            this.mTotalValue = 0;
-            this.mCurValue = 0;
+            $this->mTotalValue = 0;
+            $this->mCurValue = 0;
 
-            this.mNumIntervalMode = NumIntervalMode.eNIM_Inc;
+            $this->mNumIntervalMode = NumIntervalMode.eNIM_Inc;
         }
 
         public void setTotalValue(float value)
         {
-            this.mTotalValue = value;
+            $this->mTotalValue = value;
         }
 
         public void setCurValue(float value)
         {
-            this.mCurValue = value;
+            $this->mCurValue = value;
         }
 
         public void reset()
         {
-            if (NumIntervalMode.eNIM_Inc == this.mNumIntervalMode)
+            if (NumIntervalMode.eNIM_Inc == $this->mNumIntervalMode)
             {
-                this.mCurValue = 0;
+                $this->mCurValue = 0;
             }
             else
             {
-                this.mCurValue = this.mTotalValue;
+                $this->mCurValue = $this->mTotalValue;
             }
         }
 
@@ -44,20 +44,20 @@
         {
             bool ret = false;
 
-            if (NumIntervalMode.eNIM_Inc == this.mNumIntervalMode)
+            if (NumIntervalMode.eNIM_Inc == $this->mNumIntervalMode)
             {
-                this.mCurValue += delta;
+                $this->mCurValue += delta;
 
-                if (this.mCurValue <= this.mTotalValue)
+                if ($this->mCurValue <= $this->mTotalValue)
                 {
                     ret = true;
                 }
             }
             else
             {
-                this.mCurValue -= delta;
+                $this->mCurValue -= delta;
 
-                if (this.mCurValue >= 0)
+                if ($this->mCurValue >= 0)
                 {
                     ret = true;
                 }

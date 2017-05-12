@@ -19,52 +19,52 @@ namespace SDK.Lib
 
         public MList()
         {
-            this.mEleTotal = 0;
-            this.mList = new List<T>();
-            this.mIsSpeedUpFind = false;
-            this.mIsOpKeepSort = false;
+            $this->mEleTotal = 0;
+            $this->mList = new List<T>();
+            $this->mIsSpeedUpFind = false;
+            $this->mIsOpKeepSort = false;
         }
 
         public MList(int capacity)
         {
-            this.mList = new List<T>(capacity);
-            this.mEleTotal = capacity;
+            $this->mList = new List<T>(capacity);
+            $this->mEleTotal = capacity;
         }
 
         public void setIsSpeedUpFind(bool value)
         {
-            this.mIsSpeedUpFind = value;
+            $this->mIsSpeedUpFind = value;
 
-            if(this.mIsSpeedUpFind)
+            if($this->mIsSpeedUpFind)
             {
-                this.mDic = new Dictionary<T, int>();
+                $this->mDic = new Dictionary<T, int>();
             }
         }
 
         public void setIsOpKeepSort(bool value)
         {
-            this.mIsOpKeepSort = value;
+            $this->mIsOpKeepSort = value;
         }
 
         public T[] ToArray()
         {
-            return this.mList.ToArray();
+            return $this->mList.ToArray();
         }
 
         public List<T> list()
         {
-            return this.mList;
+            return $this->mList;
         }
 
         public int uniqueId
         {
             get
             {
-                return this.mUniqueId;
+                return $this->mUniqueId;
             }
             set
             {
-                this.mUniqueId = value;
+                $this->mUniqueId = value;
             }
         }
 
@@ -72,7 +72,7 @@ namespace SDK.Lib
         {
             get
             {
-                return this.mList;
+                return $this->mList;
             }
         }
 
@@ -81,100 +81,100 @@ namespace SDK.Lib
             get
             {
                 // 频繁获取这个字段比较耗时
-                //return this.mList.Count;
-                return this.mEleTotal;
+                //return $this->mList.Count;
+                return $this->mEleTotal;
             }
         }
 
         public void Add(T item)
         {
-            this.mList.Add(item);
-            this.mEleTotal += 1;
+            $this->mList.Add(item);
+            $this->mEleTotal += 1;
 
-            if (this.mIsSpeedUpFind)
+            if ($this->mIsSpeedUpFind)
             {
-                this.mDic[item] = this.Count() - 1;
+                $this->mDic[item] = $this->Count() - 1;
             }
         }
 
         // 主要是 Add 一个 float 类型的 Vector3
         public void Add(T item_1, T item_2, T item_3)
         {
-            this.mList.Add(item_1);
-            this.mEleTotal += 1;
-            this.mList.Add(item_2);
-            this.mEleTotal += 1;
-            this.mList.Add(item_3);
-            this.mEleTotal += 1;
+            $this->mList.Add(item_1);
+            $this->mEleTotal += 1;
+            $this->mList.Add(item_2);
+            $this->mEleTotal += 1;
+            $this->mList.Add(item_3);
+            $this->mEleTotal += 1;
 
-            if (this.mIsSpeedUpFind)
+            if ($this->mIsSpeedUpFind)
             {
-                this.mDic[item_1] = this.Count() - 3;
-                this.mDic[item_2] = this.Count() - 2;
-                this.mDic[item_3] = this.Count() - 1;
+                $this->mDic[item_1] = $this->Count() - 3;
+                $this->mDic[item_2] = $this->Count() - 2;
+                $this->mDic[item_3] = $this->Count() - 1;
             }
         }
 
         // 主要是 Add 一个 float 类型的 UV
         public void Add(T item_1, T item_2)
         {
-            this.mList.Add(item_1);
-            this.mEleTotal += 1;
-            this.mList.Add(item_2);
-            this.mEleTotal += 1;
+            $this->mList.Add(item_1);
+            $this->mEleTotal += 1;
+            $this->mList.Add(item_2);
+            $this->mEleTotal += 1;
 
-            if (this.mIsSpeedUpFind)
+            if ($this->mIsSpeedUpFind)
             {
-                this.mDic[item_1] = this.Count() - 2;
-                this.mDic[item_2] = this.Count() - 1;
+                $this->mDic[item_1] = $this->Count() - 2;
+                $this->mDic[item_2] = $this->Count() - 1;
             }
         }
 
         // 主要是 Add 一个 byte 类型的 Color32
         public void Add(T item_1, T item_2, T item_3, T item_4)
         {
-            this.mList.Add(item_1);
-            this.mEleTotal += 1;
-            this.mList.Add(item_2);
-            this.mEleTotal += 1;
-            this.mList.Add(item_3);
-            this.mEleTotal += 1;
-            this.mList.Add(item_4);
-            this.mEleTotal += 1;
+            $this->mList.Add(item_1);
+            $this->mEleTotal += 1;
+            $this->mList.Add(item_2);
+            $this->mEleTotal += 1;
+            $this->mList.Add(item_3);
+            $this->mEleTotal += 1;
+            $this->mList.Add(item_4);
+            $this->mEleTotal += 1;
 
-            if (this.mIsSpeedUpFind)
+            if ($this->mIsSpeedUpFind)
             {
-                this.mDic[item_1] = this.Count() - 4;
-                this.mDic[item_2] = this.Count() - 3;
-                this.mDic[item_3] = this.Count() - 2;
-                this.mDic[item_4] = this.Count() - 1;
+                $this->mDic[item_1] = $this->Count() - 4;
+                $this->mDic[item_2] = $this->Count() - 3;
+                $this->mDic[item_3] = $this->Count() - 2;
+                $this->mDic[item_4] = $this->Count() - 1;
             }
         }
 
         public void push(T item)
         {
-            this.mList.Add(item);
-            this.mEleTotal += 1;
+            $this->mList.Add(item);
+            $this->mEleTotal += 1;
 
-            if (this.mIsSpeedUpFind)
+            if ($this->mIsSpeedUpFind)
             {
-                this.mDic[item] = this.Count() - 1;
+                $this->mDic[item] = $this->Count() - 1;
             }
         }
 
         public bool Remove(T item)
         {
-            if (this.mIsSpeedUpFind)
+            if ($this->mIsSpeedUpFind)
             {
-                return this.effectiveRemove(item);
+                return $this->effectiveRemove(item);
             }
             else
             {
-                bool ret = this.mList.Remove(item);
+                bool ret = $this->mList.Remove(item);
 
                 if(ret)
                 {
-                    this.mEleTotal -= 1;
+                    $this->mEleTotal -= 1;
                 }
                 return ret;
             }
@@ -184,80 +184,80 @@ namespace SDK.Lib
         {
             get
             {
-                return this.mList[index];
+                return $this->mList[index];
             }
             set
             {
-                if (this.mIsSpeedUpFind)
+                if ($this->mIsSpeedUpFind)
                 {
-                    this.mDic[value] = index;
+                    $this->mDic[value] = index;
                 }
 
-                this.mList[index] = value;
+                $this->mList[index] = value;
             }
         }
 
         public T get(int index)
         {
-            return this.mList[index];
+            return $this->mList[index];
         }
 
         public void set(int index, T value)
         {
-            this.mList[index] = value;
+            $this->mList[index] = value;
         }
 
         public void Clear()
         {
-            this.mList.Clear();
-            this.mEleTotal = 0;
+            $this->mList.Clear();
+            $this->mEleTotal = 0;
 
-            if (this.mIsSpeedUpFind)
+            if ($this->mIsSpeedUpFind)
             {
-                this.mDic.Clear();
+                $this->mDic.Clear();
             }
         }
 
         public int Count()
         {
-            //return this.mList.Count;
-            return this.mEleTotal;
+            //return $this->mList.Count;
+            return $this->mEleTotal;
         }
 
         public int length()
         {
-            //return this.mList.Count;
-            return this.mEleTotal;
+            //return $this->mList.Count;
+            return $this->mEleTotal;
         }
 
         public void setLength(int value)
         {
-            this.mList.Capacity = value;
+            $this->mList.Capacity = value;
         }
 
         public void RemoveAt(int index)
         {
-            if (this.mIsSpeedUpFind)
+            if ($this->mIsSpeedUpFind)
             {
-                this.effectiveRemove(this.mList[index]);
+                $this->effectiveRemove($this->mList[index]);
             }
             else
             {
-                if (index < this.Count())
+                if (index < $this->Count())
                 {
-                    this.mList.RemoveAt(index);
-                    this.mEleTotal -= 1;
+                    $this->mList.RemoveAt(index);
+                    $this->mEleTotal -= 1;
                 }
             }
         }
 
         public int IndexOf(T item)
         {
-            if (this.mIsSpeedUpFind)
+            if ($this->mIsSpeedUpFind)
             {
-                if (this.mDic.ContainsKey(item))
+                if ($this->mDic.ContainsKey(item))
                 {
-                    return this.mDic[item];
+                    return $this->mDic[item];
                 }
                 else
                 {
@@ -266,22 +266,22 @@ namespace SDK.Lib
             }
             else
             {
-                return this.mList.IndexOf(item);
+                return $this->mList.IndexOf(item);
             }
         }
 
         public void Insert(int index, T item)
         {
-            if (index <= this.Count())
+            if (index <= $this->Count())
             {
-                this.mList.Insert(index, item);
-                this.mEleTotal += 1;
+                $this->mList.Insert(index, item);
+                $this->mEleTotal += 1;
 
-                if (this.mIsSpeedUpFind)
+                if ($this->mIsSpeedUpFind)
                 {
-                    this.mDic[item] = index;
+                    $this->mDic[item] = index;
 
-                    this.updateIndex(index + 1);
+                    $this->updateIndex(index + 1);
                 }
             }
             else
@@ -292,19 +292,19 @@ namespace SDK.Lib
 
         public bool Contains(T item)
         {
-            if (this.mIsSpeedUpFind)
+            if ($this->mIsSpeedUpFind)
             {
-                return this.mDic.ContainsKey(item);
+                return $this->mDic.ContainsKey(item);
             }
             else
             {
-                return this.mList.Contains(item);
+                return $this->mList.Contains(item);
             }
         }
 
         public void Sort(System.Comparison<T> comparer)
         {
-            this.mList.Sort(comparer);
+            $this->mList.Sort(comparer);
         }
 
         public void merge(MList<T> appendList)
@@ -313,12 +313,12 @@ namespace SDK.Lib
             {
                 foreach(T item in appendList.list())
                 {
-                    this.mList.Add(item);
-                    this.mEleTotal += 1;
+                    $this->mList.Add(item);
+                    $this->mEleTotal += 1;
 
-                    if (this.mIsSpeedUpFind)
+                    if ($this->mIsSpeedUpFind)
                     {
-                        this.mDic[item] = this.Count() - 1;
+                        $this->mDic[item] = $this->Count() - 1;
                     }
                 }
             }
@@ -329,32 +329,32 @@ namespace SDK.Lib
         {
             bool ret = false;
 
-            if (this.mDic.ContainsKey(item))
+            if ($this->mDic.ContainsKey(item))
             {
                 ret = true;
 
-                int idx = this.mDic[item];
-                this.mDic.Remove(item);
+                int idx = $this->mDic[item];
+                $this->mDic.Remove(item);
 
-                if (idx == this.Count() - 1)    // 如果是最后一个元素，直接移除
+                if (idx == $this->Count() - 1)    // 如果是最后一个元素，直接移除
                 {
-                    this.mList.RemoveAt(idx);
-                    this.mEleTotal -= 1;
+                    $this->mList.RemoveAt(idx);
+                    $this->mEleTotal -= 1;
                 }
                 else
                 {
-                    if (!this.mIsOpKeepSort)
+                    if (!$this->mIsOpKeepSort)
                     {
-                        this.mList[idx] = this.mList[this.Count() - 1];
-                        this.mList.RemoveAt(this.Count() - 1);
-                        this.mDic[this.mList[idx]] = idx;
-                        this.mEleTotal -= 1;
+                        $this->mList[idx] = $this->mList[$this->Count() - 1];
+                        $this->mList.RemoveAt($this->Count() - 1);
+                        $this->mDic[$this->mList[idx]] = idx;
+                        $this->mEleTotal -= 1;
                     }
                     else
                     {
-                        this.mList.RemoveAt(idx);
-                        this.mEleTotal -= 1;
-                        this.updateIndex(idx);
+                        $this->mList.RemoveAt(idx);
+                        $this->mEleTotal -= 1;
+                        $this->updateIndex(idx);
                     }
                 }
             }
@@ -364,11 +364,11 @@ namespace SDK.Lib
 
         protected void updateIndex(int idx)
         {
-            int len = this.Count();
+            int len = $this->Count();
 
             while(idx < len)
             {
-                this.mDic[this.mList[idx]] = idx;
+                $this->mDic[$this->mList[idx]] = idx;
 
                 ++idx;
             }

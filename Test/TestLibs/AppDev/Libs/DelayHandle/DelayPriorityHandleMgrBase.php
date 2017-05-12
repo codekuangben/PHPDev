@@ -7,10 +7,10 @@
     {
         public DelayPriorityHandleMgrBase()
         {
-            this.mDeferredAddQueue = new PriorityList();
-            this.mDeferredAddQueue.setIsSpeedUpFind(true);
-            this.mDeferredDelQueue = new PriorityList();
-            this.mDeferredDelQueue.setIsSpeedUpFind(true);
+            $this->mDeferredAddQueue = new PriorityList();
+            $this->mDeferredAddQueue.setIsSpeedUpFind(true);
+            $this->mDeferredDelQueue = new PriorityList();
+            $this->mDeferredDelQueue.setIsSpeedUpFind(true);
         }
 
         override public void init()

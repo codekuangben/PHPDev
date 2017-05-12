@@ -26,23 +26,23 @@ namespace SDK.Lib
 
         public NetTCPClient(string ip = "localhost", int port = 5000)
         {
-            this.mIsRecvThreadStart = false;
-            this.mIsConnected = false;
-            this.mMsgSendEndEvent = new MEvent(false);
-            this.mSendMutex = new MMutex(false, "NetTCPClient_SendMutex");
+            $this->mIsRecvThreadStart = false;
+            $this->mIsConnected = false;
+            $this->mMsgSendEndEvent = new MEvent(false);
+            $this->mSendMutex = new MMutex(false, "NetTCPClient_SendMutex");
 
-            this.mIp = ip;
-            this.mPort = port;
+            $this->mIp = ip;
+            $this->mPort = port;
 
-            this.mClientBuffer = new ClientBuffer();
-            this.mClientBuffer.setEndian(SystemEndian.msServerEndian);     // 设置服务器字节序
+            $this->mClientBuffer = new ClientBuffer();
+            $this->mClientBuffer.setEndian(SystemEndian.msServerEndian);     // 设置服务器字节序
         }
 
         public ClientBuffer clientBuffer
         {
             get
             {
-                return this.mClientBuffer;
+                return $this->mClientBuffer;
             }
         }
 
@@ -50,11 +50,11 @@ namespace SDK.Lib
         {
             get
             {
-                return this.mIsRecvThreadStart;
+                return $this->mIsRecvThreadStart;
             }
             set
             {
-                this.mIsRecvThreadStart = value;
+                $this->mIsRecvThreadStart = value;
             }
         }
 
@@ -62,7 +62,7 @@ namespace SDK.Lib
         {
             get
             {
-                return this.mIsConnected;
+                return $this->mIsConnected;
             }
         }
 
@@ -70,36 +70,36 @@ namespace SDK.Lib
         {
             get
             {
-                return this.mMsgSendEndEvent;
+                return $this->mMsgSendEndEvent;
             }
             set
             {
-                this.mMsgSendEndEvent = value;
+                $this->mMsgSendEndEvent = value;
             }
         }
 
         // 是否可以发送新的数据，上一次发送的数据是否发送完成，只有上次发送的数据全部发送完成，才能发送新的数据
         public bool canSendNewData()
         {
-            return this.mClientBuffer.sendBuffer.bytesAvailable == 0;
+            return $this->mClientBuffer.sendBuffer.bytesAvailable == 0;
         }
 
         // 设置接收缓冲区大小，和征途服务器对接，这个一定要和服务器大小一致，并且一定要是 8 的整数倍，否则在消息比较多，并且一个包发送过来的时候，会出错
         public void SetRevBufferSize(int size)
         {
-            this.mSocket.ReceiveBufferSize = size;      // ReceiveBufferSize 默认 8096 字节
-            this.mClientBuffer.SetRevBufferSize(size);
+            $this->mSocket.ReceiveBufferSize = size;      // ReceiveBufferSize 默认 8096 字节
+            $this->mClientBuffer.SetRevBufferSize(size);
         }
 
         public void SetSendBufferSize(int size)
         {
-            this.mSocket.SendBufferSize = size;      // SendBufferSize 默认 8096 字节
+            $this->mSocket.SendBufferSize = size;      // SendBufferSize 默认 8096 字节
         }
 
         // 连接服务器
         public bool Connect(string address, int remotePort)
         {
-            if (this.mSocket != null && this.mSocket.Connected)
+            if ($this->mSocket != null && $this->mSocket.Connected)
             {
                 return true;
             }
@@ -109,9 +109,9 @@ namespace SDK.Lib
                 IPAddress remoteAdd = IPAddress.Parse(address);
                 IPEndPoint ipe = new IPEndPoint(remoteAdd, remotePort);
                 // 创建socket
-                this.mSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                $this->mSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 // 开始连接
-                IAsyncResult result = this.mSocket.BeginConnect(ipe, new System.AsyncCallback(ConnectionCallback), mSocket);
+                IAsyncResult result = $this->mSocket.BeginConnect(ipe, new System.AsyncCallback(ConnectionCallback), mSocket);
                 // 这里做一个超时的监测，当连接超过5秒还没成功表示超时
                 bool success = result.AsyncWaitHandle.WaitOne(mConnectTimeout, true);
                 if (!success)
@@ -122,7 +122,7 @@ namespace SDK.Lib
                 else
                 {
                     // 设置建立链接标识
-                    this.mIsConnected = true;
+                    $this->mIsConnected = true;
                     // 打印端口信息
                     string ipPortStr;
 
@@ -147,18 +147,18 @@ namespace SDK.Lib
             try
             {
                 // 与服务器取得连接
-                this.mSocket.EndConnect(ar);
-                this.mIsConnected = true;
+                $this->mSocket.EndConnect(ar);
+                $this->mIsConnected = true;
                 // 设置选项
-                this.mSocket.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.NoDelay, true);
-                this.SetRevBufferSize(8096);
+                $this->mSocket.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.NoDelay, true);
+                $this->SetRevBufferSize(8096);
                 // 设置 timeout
                 //mSocket.SendTimeout = m_sendTimeout;
                 //mSocket.ReceiveTimeout = m_revTimeout;
 
                 if (!MacroDef.NET_MULTHREAD)
                 {
-                    this.Receive();
+                    $this->Receive();
                 }
 
                 // 连接成功，通知
@@ -202,10 +202,10 @@ namespace SDK.Lib
         public void Receive()
         {
             // 只有 socket 连接的时候才继续接收数据
-            if (this.mSocket.Connected)
+            if ($this->mSocket.Connected)
             {
                 // 接收从服务器返回的信息
-                IAsyncResult asyncSend = this.mSocket.BeginReceive(mClientBuffer.dynBuffer.buffer, 0, (int)mClientBuffer.dynBuffer.capacity, SocketFlags.None, new System.AsyncCallback(ReceiveData), 0);
+                IAsyncResult asyncSend = $this->mSocket.BeginReceive(mClientBuffer.dynBuffer.buffer, 0, (int)mClientBuffer.dynBuffer.capacity, SocketFlags.None, new System.AsyncCallback(ReceiveData), 0);
 
                 //checkThread();
 
@@ -220,14 +220,14 @@ namespace SDK.Lib
         // 接收头消息
         private void ReceiveData(System.IAsyncResult ar)
         {
-            if (!this.checkAndUpdateConnect())        // 如果连接完成后直接断开，这个时候如果再使用 mSocket.EndReceive 这个函数就会抛出异常
+            if (!$this->checkAndUpdateConnect())        // 如果连接完成后直接断开，这个时候如果再使用 mSocket.EndReceive 这个函数就会抛出异常
             {
                 return;
             }
 
             //checkThread();
 
-            if (this.mSocket == null)        // SocketShutdown.Both 这样关闭，只有还会收到数据，因此判断一下
+            if ($this->mSocket == null)        // SocketShutdown.Both 这样关闭，只有还会收到数据，因此判断一下
             {
                 return;
             }
@@ -235,7 +235,7 @@ namespace SDK.Lib
             int read = 0;
             try
             {
-                read = this.mSocket.EndReceive(ar);          // 获取读取的长度
+                read = $this->mSocket.EndReceive(ar);          // 获取读取的长度
 
                 if (read > 0)
                 {
@@ -244,17 +244,17 @@ namespace SDK.Lib
                         Ctx.mInstance.mLogSys.log("Receive data " + read.ToString());
                     }
 
-                    this.mClientBuffer.dynBuffer.size = (uint)read; // 设置读取大小
-                    //this.mClientBuffer.moveDyn2Raw();             // 将接收到的数据放到原始数据队列
-                    //this.mClientBuffer.moveRaw2Msg();             // 将完整的消息移动到消息缓冲区
-                    this.mClientBuffer.moveDyn2Raw_KBE();
-                    this.mClientBuffer.moveRaw2Msg_KBE();
-                    this.Receive();                  // 继续接收
+                    $this->mClientBuffer.dynBuffer.size = (uint)read; // 设置读取大小
+                    //$this->mClientBuffer.moveDyn2Raw();             // 将接收到的数据放到原始数据队列
+                    //$this->mClientBuffer.moveRaw2Msg();             // 将完整的消息移动到消息缓冲区
+                    $this->mClientBuffer.moveDyn2Raw_KBE();
+                    $this->mClientBuffer.moveRaw2Msg_KBE();
+                    $this->Receive();                  // 继续接收
                 }
                 else
                 {
                     // Socket 已经断开或者异常，需要断开链接
-                    this.Disconnect(0);
+                    $this->Disconnect(0);
                 }
             }
             catch (System.Exception e)
@@ -263,7 +263,7 @@ namespace SDK.Lib
                 Ctx.mInstance.mLogSys.error(e.Message);
                 Ctx.mInstance.mLogSys.error("Receive data error");
                 // 断开链接
-                this.Disconnect(0);
+                $this->Disconnect(0);
             }
         }
 
@@ -272,31 +272,31 @@ namespace SDK.Lib
         {
             using (MLock mlock = new MLock(mSendMutex))
             {
-                if (!this.checkAndUpdateConnect())
+                if (!$this->checkAndUpdateConnect())
                 {
                     return;
                 }
 
                 //checkThread();
 
-                if (this.mSocket == null)
+                if ($this->mSocket == null)
                 {
                     return;
                 }
 
-                if (this.mClientBuffer.sendBuffer.bytesAvailable == 0)     // 如果发送缓冲区没有要发送的数据
+                if ($this->mClientBuffer.sendBuffer.bytesAvailable == 0)     // 如果发送缓冲区没有要发送的数据
                 {
-                    if (this.mClientBuffer.sendTmpBuffer.circularBuffer.size > 0)      // 如果发送临时缓冲区有数据要发
+                    if ($this->mClientBuffer.sendTmpBuffer.circularBuffer.size > 0)      // 如果发送临时缓冲区有数据要发
                     {
-                        //this.mClientBuffer.getSocketSendData();
-                        this.mClientBuffer.getSocketSendData_KBE();
+                        //$this->mClientBuffer.getSocketSendData();
+                        $this->mClientBuffer.getSocketSendData_KBE();
                     }
 
-                    if (this.mClientBuffer.sendBuffer.bytesAvailable == 0)        // 如果发送缓冲区中确实没有数据
+                    if ($this->mClientBuffer.sendBuffer.bytesAvailable == 0)        // 如果发送缓冲区中确实没有数据
                     {
                         if (MacroDef.NET_MULTHREAD)
                         {
-                            this.mMsgSendEndEvent.Set();        // 通知等待线程，所有数据都发送完成
+                            $this->mMsgSendEndEvent.Set();        // 通知等待线程，所有数据都发送完成
                         }
                         return;
                     }
@@ -309,7 +309,7 @@ namespace SDK.Lib
                         Ctx.mInstance.mLogSys.log(string.Format("Start send byte num {0} ", mClientBuffer.sendBuffer.bytesAvailable));
                     }
 
-                    IAsyncResult asyncSend = this.mSocket.BeginSend(mClientBuffer.sendBuffer.dynBuffer.buffer, (int)mClientBuffer.sendBuffer.position, (int)mClientBuffer.sendBuffer.bytesAvailable, 0, new System.AsyncCallback(SendCallback), 0);
+                    IAsyncResult asyncSend = $this->mSocket.BeginSend(mClientBuffer.sendBuffer.dynBuffer.buffer, (int)mClientBuffer.sendBuffer.position, (int)mClientBuffer.sendBuffer.bytesAvailable, 0, new System.AsyncCallback(SendCallback), 0);
                     //bool success = asyncSend.AsyncWaitHandle.WaitOne(m_sendTimeout, true);
                     //if (!success)
                     //{
@@ -320,12 +320,12 @@ namespace SDK.Lib
                 {
                     if (MacroDef.NET_MULTHREAD)
                     {
-                        this.mMsgSendEndEvent.Set();        // 发生异常，通知等待线程，所有数据都发送完成，防止等待线程不能解锁
+                        $this->mMsgSendEndEvent.Set();        // 发生异常，通知等待线程，所有数据都发送完成，防止等待线程不能解锁
                     }
                     // 输出日志
                     Ctx.mInstance.mLogSys.error(e.Message);
                     // 断开链接
-                    this.Disconnect(0);
+                    $this->Disconnect(0);
                 }
             }
         }
@@ -335,7 +335,7 @@ namespace SDK.Lib
         {
             using (MLock mlock = new MLock(mSendMutex))
             {
-                if (!this.checkAndUpdateConnect())
+                if (!$this->checkAndUpdateConnect())
                 {
                     return;
                 }
@@ -344,7 +344,7 @@ namespace SDK.Lib
 
                 try
                 {
-                    int bytesSent = this.mSocket.EndSend(ar);
+                    int bytesSent = $this->mSocket.EndSend(ar);
 
                     if (MacroDef.ENABLE_LOG)
                     {
@@ -358,23 +358,23 @@ namespace SDK.Lib
                             Ctx.mInstance.mLogSys.log(string.Format("End send bytes error {0}", bytesSent));
                         }
 
-                        this.mClientBuffer.sendBuffer.setPos(mClientBuffer.sendBuffer.length);
+                        $this->mClientBuffer.sendBuffer.setPos(mClientBuffer.sendBuffer.length);
                     }
                     else
                     {
-                        this.mClientBuffer.sendBuffer.setPos(mClientBuffer.sendBuffer.position + (uint)bytesSent);
+                        $this->mClientBuffer.sendBuffer.setPos(mClientBuffer.sendBuffer.position + (uint)bytesSent);
                     }
 
-                    if (this.mClientBuffer.sendBuffer.bytesAvailable > 0)     // 如果上一次发送的数据还没发送完成，继续发送
+                    if ($this->mClientBuffer.sendBuffer.bytesAvailable > 0)     // 如果上一次发送的数据还没发送完成，继续发送
                     {
-                        this.Send();                 // 继续发送数据
+                        $this->Send();                 // 继续发送数据
                     }
                 }
                 catch (System.Exception e)
                 {
                     // 输出日志
                     Ctx.mInstance.mLogSys.error(e.Message);
-                    this.Disconnect(0);
+                    $this->Disconnect(0);
                 }
             }
         }
@@ -383,41 +383,41 @@ namespace SDK.Lib
         public void Disconnect(int timeout = 0)
         {
             // 关闭之后 mSocket.Connected 设置成 false
-            if (this.mSocket != null)
+            if ($this->mSocket != null)
             {
-                if (this.mSocket.Connected)
+                if ($this->mSocket.Connected)
                 {
-                    this.mSocket.Shutdown(SocketShutdown.Both);
+                    $this->mSocket.Shutdown(SocketShutdown.Both);
                     //mSocket.Close(timeout);  // timeout 不能是 0 ，是 0 含义未定义
                     if (timeout > 0)
                     {
-                        this.mSocket.Close(timeout);
+                        $this->mSocket.Close(timeout);
                     }
                     else
                     {
-                        this.mSocket.Close();
+                        $this->mSocket.Close();
                     }
                 }
                 else
                 {
-                    this.mSocket.Close();
+                    $this->mSocket.Close();
                 }
 
-                this.mSocket = null;
+                $this->mSocket = null;
             }
         }
         
         // 检查并且更新连接状态
         protected bool checkAndUpdateConnect()
         {
-            if (this.mSocket != null && !this.mSocket.Connected)
+            if ($this->mSocket != null && !$this->mSocket.Connected)
             {
-                if (this.mIsConnected)
+                if ($this->mIsConnected)
                 {
                     Ctx.mInstance.mSysMsgRoute.pushMsg(new SocketCloseedMR());
                 }
 
-                this.mIsConnected = false;
+                $this->mIsConnected = false;
             }
 
             return mIsConnected;

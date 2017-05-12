@@ -37,12 +37,12 @@
 
         public void addTick(ITickedObject tickObj, float priority = 0.0f)
         {
-            this.addObject(tickObj as IDelayHandleItem, priority);
+            $this->addObject(tickObj as IDelayHandleItem, priority);
         }
 
         public void removeTick(ITickedObject tickObj)
         {
-            this.removeObject(tickObj as IDelayHandleItem);
+            $this->removeObject(tickObj as IDelayHandleItem);
         }
     }
 }

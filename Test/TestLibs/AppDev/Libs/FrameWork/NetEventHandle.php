@@ -33,7 +33,7 @@ namespace SDK.Lib
 
         public void OnDisconnect()
         {
-            this.Disconnect();
+            $this->Disconnect();
             Ctx.mInstance.mLuaSystem.receiveToLua_KBE("notifyNetworkInvalid", null);
             if(null != Ctx.mInstance.mPlayerMgr.getHero())
                 (Ctx.mInstance.mPlayerMgr.getHero().mMovement as BeingEntityMovement).Stop = true;

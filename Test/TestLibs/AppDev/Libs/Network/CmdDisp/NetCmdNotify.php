@@ -13,38 +13,38 @@ namespace SDK.Lib
 
         public NetCmdNotify()
         {
-            this.mRevMsgCnt = 0;
-            this.mHandleMsgCnt = 0;
-            this.mNetModuleDispList = new List<NetModuleDispHandle>();
-            this.mIsStopNetHandle = false;
-            this.mCmdDispInfo = new CmdDispInfo();
+            $this->mRevMsgCnt = 0;
+            $this->mHandleMsgCnt = 0;
+            $this->mNetModuleDispList = new List<NetModuleDispHandle>();
+            $this->mIsStopNetHandle = false;
+            $this->mCmdDispInfo = new CmdDispInfo();
         }
 
         public bool isStopNetHandle
         {
             get
             {
-                return this.mIsStopNetHandle;
+                return $this->mIsStopNetHandle;
             }
             set
             {
-                this.mIsStopNetHandle = value;
+                $this->mIsStopNetHandle = value;
             }
         }
 
         public void addOneNofity(NetModuleDispHandle disp)
         {
-            if (this.mNetModuleDispList.IndexOf(disp) == -1)
+            if ($this->mNetModuleDispList.IndexOf(disp) == -1)
             {
-                this.mNetModuleDispList.Add(disp);
+                $this->mNetModuleDispList.Add(disp);
             }
         }
 
         public void removeOneNotify(NetModuleDispHandle disp)
         {
-            if (this.mNetModuleDispList.IndexOf(disp) != -1)
+            if ($this->mNetModuleDispList.IndexOf(disp) != -1)
             {
-                this.mNetModuleDispList.Remove(disp);
+                $this->mNetModuleDispList.Remove(disp);
             }
         }
 
@@ -71,22 +71,22 @@ namespace SDK.Lib
 
         public void addOneRevMsg()
         {
-            ++this.mRevMsgCnt;            
+            ++$this->mRevMsgCnt;            
         }
 
         public void addOneHandleMsg()
         {
-            ++this.mHandleMsgCnt;
+            ++$this->mHandleMsgCnt;
         }
 
         public void clearOneRevMsg()
         {
-            this.mRevMsgCnt = 0;
+            $this->mRevMsgCnt = 0;
         }
 
         public void clearOneHandleMsg()
         {
-            this.mHandleMsgCnt = 0;
+            $this->mHandleMsgCnt = 0;
         }
     }
 }

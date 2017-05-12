@@ -13,8 +13,8 @@ namespace SDK.Lib
 
         public LockList(string name, uint initCapacity = 32/*DataCV.INIT_ELEM_CAPACITY*/, uint maxCapacity = 8 * 1024 * 1024/*DataCV.MAX_CAPACITY*/)
         {
-            this.mDynamicBuffer = new DynBuffer<T>(initCapacity, maxCapacity);
-            this.mVisitMutex = new MMutex(false, name);
+            $this->mDynamicBuffer = new DynBuffer<T>(initCapacity, maxCapacity);
+            $this->mVisitMutex = new MMutex(false, name);
         }
 
         //public uint Count
@@ -32,7 +32,7 @@ namespace SDK.Lib
         {
             using (MLock mlock = new MLock(mVisitMutex))
             {
-                return this.mDynamicBuffer.mSize;
+                return $this->mDynamicBuffer.mSize;
             }
         }
 
@@ -44,7 +44,7 @@ namespace SDK.Lib
                 {
                     if (index < mDynamicBuffer.mSize)
                     {
-                        return this.mDynamicBuffer.mBuffer[index];
+                        return $this->mDynamicBuffer.mBuffer[index];
                     }
                     else
                     {
@@ -57,7 +57,7 @@ namespace SDK.Lib
             {
                 using (MLock mlock = new MLock(mVisitMutex))
                 {
-                    this.mDynamicBuffer.mBuffer[index] = value;
+                    $this->mDynamicBuffer.mBuffer[index] = value;
                 }
             }
         }
@@ -66,13 +66,13 @@ namespace SDK.Lib
         {
             using (MLock mlock = new MLock(mVisitMutex))
             {
-                if (this.mDynamicBuffer.mSize >= mDynamicBuffer.mCapacity)
+                if ($this->mDynamicBuffer.mSize >= mDynamicBuffer.mCapacity)
                 {
-                    this.mDynamicBuffer.extendDeltaCapicity(1);
+                    $this->mDynamicBuffer.extendDeltaCapicity(1);
                 }
 
-                this.mDynamicBuffer.mBuffer[mDynamicBuffer.mSize] = item;
-                ++this.mDynamicBuffer.mSize;
+                $this->mDynamicBuffer.mBuffer[mDynamicBuffer.mSize] = item;
+                ++$this->mDynamicBuffer.mSize;
             }
         }
 
@@ -81,11 +81,11 @@ namespace SDK.Lib
             using (MLock mlock = new MLock(mVisitMutex))
             {
                 int idx = 0;
-                foreach (var elem in this.mDynamicBuffer.mBuffer)
+                foreach (var elem in $this->mDynamicBuffer.mBuffer)
                 {
                     if(item.Equals(elem))       // 地址比较
                     {
-                        this.RemoveAt(idx);
+                        $this->RemoveAt(idx);
                         return true;
                     }
 
@@ -100,26 +100,26 @@ namespace SDK.Lib
         {
             using (MLock mlock = new MLock(mVisitMutex))
             {
-                if (index < this.mDynamicBuffer.mSize)
+                if (index < $this->mDynamicBuffer.mSize)
                 {
-                    this.mRetItem = this.mDynamicBuffer.mBuffer[index];
+                    $this->mRetItem = $this->mDynamicBuffer.mBuffer[index];
 
-                    if (index < this.mDynamicBuffer.mSize)
+                    if (index < $this->mDynamicBuffer.mSize)
                     {
-                        if (index != this.mDynamicBuffer.mSize - 1 && 1 != this.mDynamicBuffer.mSize) // 如果删除不是最后一个元素或者总共就大于一个元素
+                        if (index != $this->mDynamicBuffer.mSize - 1 && 1 != $this->mDynamicBuffer.mSize) // 如果删除不是最后一个元素或者总共就大于一个元素
                         {
-                            Array.Copy(this.mDynamicBuffer.mBuffer, index + 1, this.mDynamicBuffer.mBuffer, index, this.mDynamicBuffer.mSize - 1 - index);
+                            Array.Copy($this->mDynamicBuffer.mBuffer, index + 1, $this->mDynamicBuffer.mBuffer, index, $this->mDynamicBuffer.mSize - 1 - index);
                         }
 
-                        --this.mDynamicBuffer.mSize;
+                        --$this->mDynamicBuffer.mSize;
                     }
                 }
                 else
                 {
-                    this.mRetItem = default(T);
+                    $this->mRetItem = default(T);
                 }
 
-                return this.mRetItem;
+                return $this->mRetItem;
             }
         }
 
@@ -129,11 +129,11 @@ namespace SDK.Lib
             {
                 int idx = 0;
 
-                foreach (var elem in this.mDynamicBuffer.mBuffer)
+                foreach (var elem in $this->mDynamicBuffer.mBuffer)
                 {
                     if (item.Equals(elem))       // 地址比较
                     {
-                        this.RemoveAt(idx);
+                        $this->RemoveAt(idx);
                         return idx;
                     }
 

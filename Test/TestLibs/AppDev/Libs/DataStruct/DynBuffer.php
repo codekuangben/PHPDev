@@ -57,7 +57,7 @@ namespace SDK.Lib
                 {
                     return;
                 }
-                if (value < this.size)       // 不能分配比当前已经占有的空间还小的空间
+                if (value < $this->size)       // 不能分配比当前已经占有的空间还小的空间
                 {
                     return;
                 }
@@ -76,7 +76,7 @@ namespace SDK.Lib
             }
             set
             {
-                if (value > this.capacity)
+                if (value > $this->capacity)
                 {
                     extendDeltaCapicity(value - size);
                 }

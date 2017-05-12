@@ -171,13 +171,13 @@
         public void editorToolInit()
         {
             MFileSys.init();
-            this.mDataPlayer = new DataPlayer();
-            this.mLogSys = new LogSys();
+            $this->mDataPlayer = new DataPlayer();
+            $this->mLogSys = new LogSys();
         }
 
         protected void constructInit()
         {
-            this.mUniqueStrIdGen = new UniqueStrIdGen("FindEvt", 0);
+            $this->mUniqueStrIdGen = new UniqueStrIdGen("FindEvt", 0);
 
             MFileSys.init();            // 初始化本地文件系统的一些数据
             PlatformDefine.init();      // 初始化平台相关的定义
@@ -187,208 +187,208 @@
 
             mTerrainGlobalOption = new TerrainGlobalOption();
 
-            this.mNetCmdNotify = new NetCmdNotify();
-            this.mMsgRouteNotify = new MsgRouteNotify();
-            this.mGlobalDelegate = new GlobalDelegate();
+            $this->mNetCmdNotify = new NetCmdNotify();
+            $this->mMsgRouteNotify = new MsgRouteNotify();
+            $this->mGlobalDelegate = new GlobalDelegate();
 
-            this.mMyExcelLoader = new MyExcelLoader();
-            this.mXmlCfgMgr = new XmlCfgMgr();
-            this.mMatMgr = new MaterialMgr();
-            this.mModelMgr = new ModelMgr();
-            this.mTextureMgr = new TextureMgr();
-            this.mSkelAniMgr = new SkelAniMgr();
-            this.mSkinResMgr = new SkinResMgr();
-            this.mPrefabMgr = new PrefabMgr();
-            this.mControllerMgr = new ControllerMgr();
-            this.mBytesResMgr = new BytesResMgr();
-            this.mSpriteMgr = new SpriteMgr();
+            $this->mMyExcelLoader = new MyExcelLoader();
+            $this->mXmlCfgMgr = new XmlCfgMgr();
+            $this->mMatMgr = new MaterialMgr();
+            $this->mModelMgr = new ModelMgr();
+            $this->mTextureMgr = new TextureMgr();
+            $this->mSkelAniMgr = new SkelAniMgr();
+            $this->mSkinResMgr = new SkinResMgr();
+            $this->mPrefabMgr = new PrefabMgr();
+            $this->mControllerMgr = new ControllerMgr();
+            $this->mBytesResMgr = new BytesResMgr();
+            $this->mSpriteMgr = new SpriteMgr();
 
-            this.mSystemSetting = new SystemSetting();
-            this.mCoordConv = new CoordConv();
-            this.mFlyNumMgr = new FlyNumMgr();              // Header Num
+            $this->mSystemSetting = new SystemSetting();
+            $this->mCoordConv = new CoordConv();
+            $this->mFlyNumMgr = new FlyNumMgr();              // Header Num
 
-            this.mTimerMsgHandle = new TimerMsgHandle();
-            this.mPoolSys = new PoolSys();
-            this.mWordFilterManager = new WordFilterManager();
-            this.mVersionSys = new VersionSys();
-            this.mAutoUpdateSys = new AutoUpdateSys();
+            $this->mTimerMsgHandle = new TimerMsgHandle();
+            $this->mPoolSys = new PoolSys();
+            $this->mWordFilterManager = new WordFilterManager();
+            $this->mVersionSys = new VersionSys();
+            $this->mAutoUpdateSys = new AutoUpdateSys();
 
-            this.mTaskQueue = new TaskQueue("TaskQueue");
-            this.mTaskThreadPool = new TaskThreadPool();
+            $this->mTaskQueue = new TaskQueue("TaskQueue");
+            $this->mTaskThreadPool = new TaskThreadPool();
 
-            this.mRandName = new RandName();
-            this.mPakSys = new PakSys();
-            this.mGameRunStage = new GameRunStage();
-            this.mSoundMgr = new SoundMgr();
-            this.mMapCfg = new MapCfg();
+            $this->mRandName = new RandName();
+            $this->mPakSys = new PakSys();
+            $this->mGameRunStage = new GameRunStage();
+            $this->mSoundMgr = new SoundMgr();
+            $this->mMapCfg = new MapCfg();
 
-            this.mAtlasMgr = new AtlasMgr();
-            this.mAuxUIHelp = new AuxUIHelp();
-            this.mWidgetStyleMgr = new WidgetStyleMgr();
-            this.mSystemFrameData = new SystemFrameData();
-            this.mSystemTimeData = new SystemTimeData();
-            this.mScriptDynLoad = new ScriptDynLoad();
-            this.mScenePlaceHolder = new ScenePlaceHolder();
+            $this->mAtlasMgr = new AtlasMgr();
+            $this->mAuxUIHelp = new AuxUIHelp();
+            $this->mWidgetStyleMgr = new WidgetStyleMgr();
+            $this->mSystemFrameData = new SystemFrameData();
+            $this->mSystemTimeData = new SystemTimeData();
+            $this->mScriptDynLoad = new ScriptDynLoad();
+            $this->mScenePlaceHolder = new ScenePlaceHolder();
 
-            this.mLuaSystem = new LuaSystem();
-            this.mMovieMgr = new MovieMgr();
-            this.mNativeInterface = new NativeInterface();
-            this.mGcAutoCollect = new GCAutoCollect();
-            this.mMemoryCheck = new MemoryCheck();
-            this.mDepResMgr = new DepResMgr();
-            this.mTerrainGroup = new MTerrainGroup(mTerrainGlobalOption.mTerrainSize, mTerrainGlobalOption.mTerrainWorldSize);
-            this.mTextResMgr = new TextResMgr();
-            this.mTerrainBufferSys = new TerrainBufferSys();
-            //this.mTerrainGroup = new MTerrainGroup(513, 512);
+            $this->mLuaSystem = new LuaSystem();
+            $this->mMovieMgr = new MovieMgr();
+            $this->mNativeInterface = new NativeInterface();
+            $this->mGcAutoCollect = new GCAutoCollect();
+            $this->mMemoryCheck = new MemoryCheck();
+            $this->mDepResMgr = new DepResMgr();
+            $this->mTerrainGroup = new MTerrainGroup(mTerrainGlobalOption.mTerrainSize, mTerrainGlobalOption.mTerrainWorldSize);
+            $this->mTextResMgr = new TextResMgr();
+            $this->mTerrainBufferSys = new TerrainBufferSys();
+            //$this->mTerrainGroup = new MTerrainGroup(513, 512);
 
-            this.mCfg = new Config();
-            this.mDataPlayer = new DataPlayer();
-            this.mFactoryBuild = new FactoryBuild();
+            $this->mCfg = new Config();
+            $this->mDataPlayer = new DataPlayer();
+            $this->mFactoryBuild = new FactoryBuild();
 
-            this.mNetMgr = new NetworkMgr();
-            this.mResLoadMgr = new ResLoadMgr();
-            this.mInputMgr = new InputMgr();
+            $this->mNetMgr = new NetworkMgr();
+            $this->mResLoadMgr = new ResLoadMgr();
+            $this->mInputMgr = new InputMgr();
 
-            this.mProcessSys = new ProcessSys();
+            $this->mProcessSys = new ProcessSys();
 
-            this.mTickMgr = new TickMgr();
-            this.mFixedTickMgr = new FixedTickMgr();
-            this.mLateTickMgr = new LateTickMgr();
+            $this->mTickMgr = new TickMgr();
+            $this->mFixedTickMgr = new FixedTickMgr();
+            $this->mLateTickMgr = new LateTickMgr();
 
-            this.mTimerMgr = new TimerMgr();
-            this.mFrameTimerMgr = new FrameTimerMgr();
-            this.mCoroutineMgr = new CoroutineMgr();
-            this.mShareData = new ShareData();
-            this.mSceneSys = new SceneSys();
-            this.mLayerMgr = new LayerMgr();
+            $this->mTimerMgr = new TimerMgr();
+            $this->mFrameTimerMgr = new FrameTimerMgr();
+            $this->mCoroutineMgr = new CoroutineMgr();
+            $this->mShareData = new ShareData();
+            $this->mSceneSys = new SceneSys();
+            $this->mLayerMgr = new LayerMgr();
 
-            this.mUiMgr = new UIMgr();
-            this.mEngineLoop = new EngineLoop();
-            this.mResizeMgr = new ResizeMgr();
+            $this->mUiMgr = new UIMgr();
+            $this->mEngineLoop = new EngineLoop();
+            $this->mResizeMgr = new ResizeMgr();
 
-            this.mPlayerMgr = new PlayerMgr();
-            this.mMonsterMgr = new MonsterMgr();
-            this.mFObjectMgr = new FObjectMgr();
-            this.mNpcMgr = new NpcMgr();
-            this.mSpriteAniMgr = new SpriteAniMgr();
+            $this->mPlayerMgr = new PlayerMgr();
+            $this->mMonsterMgr = new MonsterMgr();
+            $this->mFObjectMgr = new FObjectMgr();
+            $this->mNpcMgr = new NpcMgr();
+            $this->mSpriteAniMgr = new SpriteAniMgr();
 
-            this.mCamSys = new CamSys();
-            this.mSysMsgRoute = new SysMsgRoute("SysMsgRoute");
-            this.mModuleSys = new ModuleSys();
-            this.mTableSys = new TableSys();
-            this.mFileSys = new MFileSys();
-            this.mLogSys = new LogSys();
-            this.mLangMgr = new LangMgr();
-            this.mSceneEffectMgr = new SceneEffectMgr();
+            $this->mCamSys = new CamSys();
+            $this->mSysMsgRoute = new SysMsgRoute("SysMsgRoute");
+            $this->mModuleSys = new ModuleSys();
+            $this->mTableSys = new TableSys();
+            $this->mFileSys = new MFileSys();
+            $this->mLogSys = new LogSys();
+            $this->mLangMgr = new LangMgr();
+            $this->mSceneEffectMgr = new SceneEffectMgr();
 
-            this.mSceneManager = new MOctreeSceneManager("DummyScene");
-            this.mCoroutineTaskMgr = new CoroutineTaskMgr();
-            this.mSceneNodeGraph = new SceneNodeGraph();
-            this.mTerrainEntityMgr = new TerrainEntityMgr();
+            $this->mSceneManager = new MOctreeSceneManager("DummyScene");
+            $this->mCoroutineTaskMgr = new CoroutineTaskMgr();
+            $this->mSceneNodeGraph = new SceneNodeGraph();
+            $this->mTerrainEntityMgr = new TerrainEntityMgr();
 
-            this.mResRedirect = new ResRedirect();
-            this.mDownloadMgr = new DownloadMgr();
+            $this->mResRedirect = new ResRedirect();
+            $this->mDownloadMgr = new DownloadMgr();
 
-            this.mSnowBlockMgr = new SnowBlockMgr();
-            this.mComputerBallMgr = new ComputerBallMgr();
-            this.mFrameCollideMgr = new FrameCollideMgr();
-            this.mAbandonPlaneMgr = new AbandonPlaneMgr();
-            this.mFlyBulletMgr = new FlyBulletMgr();
-            this.mSnowBallCfg = new SnowBallCfg();
-            this.mCameraPositonMgr = new CameraPositionMgr();
+            $this->mSnowBlockMgr = new SnowBlockMgr();
+            $this->mComputerBallMgr = new ComputerBallMgr();
+            $this->mFrameCollideMgr = new FrameCollideMgr();
+            $this->mAbandonPlaneMgr = new AbandonPlaneMgr();
+            $this->mFlyBulletMgr = new FlyBulletMgr();
+            $this->mSnowBallCfg = new SnowBallCfg();
+            $this->mCameraPositonMgr = new CameraPositionMgr();
 
-            this.mHudSystem = new HudSystem();
-            this.mCommonData = new CommonData();
-            this.mEventHandleSystem = new EventHandleSystem();
-            this.mDelayTaskMgr = new DelayTaskMgr();
+            $this->mHudSystem = new HudSystem();
+            $this->mCommonData = new CommonData();
+            $this->mEventHandleSystem = new EventHandleSystem();
+            $this->mDelayTaskMgr = new DelayTaskMgr();
 
-            this.mLoadProgressMgr = new LoadProgressMgr();
-            this.mSoundLoadStateCheckMgr = new SoundLoadStateCheckMgr();
-            this.mIdPoolSys = new IdPoolSys();
+            $this->mLoadProgressMgr = new LoadProgressMgr();
+            $this->mSoundLoadStateCheckMgr = new SoundLoadStateCheckMgr();
+            $this->mIdPoolSys = new IdPoolSys();
 
-            this.mLogicTickMgr = new LogicTickMgr();
-            this.mDownloadFileMgr = new DownloadFileMgr();
-            this.mDownloadAppMgr = new DownloadAppMgr();
-            this.mClipRect = new TDClipRect();
+            $this->mLogicTickMgr = new LogicTickMgr();
+            $this->mDownloadFileMgr = new DownloadFileMgr();
+            $this->mDownloadAppMgr = new DownloadAppMgr();
+            $this->mClipRect = new TDClipRect();
 
-            this.mTileMgr = new TDTileMgr();
-            this.mTwoDTerrain = new MTwoDTerrain();
-            this.mNetEventHandle = new NetEventHandle();
-            this.mFlyBulletFlockMgr = new FlyBulletFlockMgr();
-            this.mPlayerTargetMgr = new PlayerTargetMgr();
-            this.mRenderSys = new RenderSys();
-            this.mSceneLayerSys = new SceneLayerSys();
+            $this->mTileMgr = new TDTileMgr();
+            $this->mTwoDTerrain = new MTwoDTerrain();
+            $this->mNetEventHandle = new NetEventHandle();
+            $this->mFlyBulletFlockMgr = new FlyBulletFlockMgr();
+            $this->mPlayerTargetMgr = new PlayerTargetMgr();
+            $this->mRenderSys = new RenderSys();
+            $this->mSceneLayerSys = new SceneLayerSys();
 
-            this.mDeviceOptionListenSys = new DeviceOptionListenSys();
-            this.mProfiler = new MProfiler();
+            $this->mDeviceOptionListenSys = new DeviceOptionListenSys();
+            $this->mProfiler = new MProfiler();
         }
 
         public void logicInit()
         {
-            this.mGlobalDelegate.init();
-            this.mLogSys.init();
-            this.mInputMgr.init();
-            this.mDataPlayer.init();
+            $this->mGlobalDelegate.init();
+            $this->mLogSys.init();
+            $this->mInputMgr.init();
+            $this->mDataPlayer.init();
 
-            this.mTickMgr.init();
-            this.mFixedTickMgr.init();
-            this.mLateTickMgr.init();
+            $this->mTickMgr.init();
+            $this->mFixedTickMgr.init();
+            $this->mLateTickMgr.init();
 
             // 初始化重定向
-            this.mResRedirect.init();
-            this.mResLoadMgr.init();
-            this.mDownloadMgr.init();
+            $this->mResRedirect.init();
+            $this->mResLoadMgr.init();
+            $this->mDownloadMgr.init();
 
-            this.mTaskQueue.mTaskThreadPool = this.mTaskThreadPool;
-            this.mTaskThreadPool.initThreadPool(2, this.mTaskQueue);
+            $this->mTaskQueue.mTaskThreadPool = $this->mTaskThreadPool;
+            $this->mTaskThreadPool.initThreadPool(2, $this->mTaskQueue);
 
-            this.mVersionSys.init();    // 加载版本文件
-            this.mDepResMgr.init();             // 加载依赖文件
-            this.mCoroutineTaskMgr.init();
+            $this->mVersionSys.init();    // 加载版本文件
+            $this->mDepResMgr.init();             // 加载依赖文件
+            $this->mCoroutineTaskMgr.init();
 
-            this.mLuaSystem.init();
-            this.mUiMgr.init();
+            $this->mLuaSystem.init();
+            $this->mUiMgr.init();
 
-            this.mSnowBlockMgr.init();
-            this.mComputerBallMgr.init();
-            this.mFrameCollideMgr.init();
-            this.mSceneSys.init();
-            //this.mSnowBallCfg.init();
-            this.mAbandonPlaneMgr.init();
-            this.mFlyBulletMgr.init();
-            this.mHudSystem.init();
-            this.mPlayerMgr.init();
+            $this->mSnowBlockMgr.init();
+            $this->mComputerBallMgr.init();
+            $this->mFrameCollideMgr.init();
+            $this->mSceneSys.init();
+            //$this->mSnowBallCfg.init();
+            $this->mAbandonPlaneMgr.init();
+            $this->mFlyBulletMgr.init();
+            $this->mHudSystem.init();
+            $this->mPlayerMgr.init();
 
-            this.mCommonData.init();
-            this.mEventHandleSystem.init();
-            this.mResizeMgr.init();
-            this.mCameraPositonMgr.init();
-            this.mDelayTaskMgr.init();
-            this.mLoadProgressMgr.init();
+            $this->mCommonData.init();
+            $this->mEventHandleSystem.init();
+            $this->mResizeMgr.init();
+            $this->mCameraPositonMgr.init();
+            $this->mDelayTaskMgr.init();
+            $this->mLoadProgressMgr.init();
 
-            this.mSoundLoadStateCheckMgr.init();
-            this.mIdPoolSys.init();
-            this.mLogicTickMgr.init();
-            this.mDownloadFileMgr.init();
-            this.mDownloadAppMgr.init();
+            $this->mSoundLoadStateCheckMgr.init();
+            $this->mIdPoolSys.init();
+            $this->mLogicTickMgr.init();
+            $this->mDownloadFileMgr.init();
+            $this->mDownloadAppMgr.init();
 
-            this.mClipRect.init();
-            this.mTileMgr.init();
-            this.mTwoDTerrain.init();
-            this.mNetEventHandle.init();
+            $this->mClipRect.init();
+            $this->mTileMgr.init();
+            $this->mTwoDTerrain.init();
+            $this->mNetEventHandle.init();
 
-            this.mFlyBulletFlockMgr.init();
-            this.mPlayerTargetMgr.init();
-            this.mRenderSys.init();
-            this.mSceneLayerSys.init();
-            this.mMyExcelLoader.init();
+            $this->mFlyBulletFlockMgr.init();
+            $this->mPlayerTargetMgr.init();
+            $this->mRenderSys.init();
+            $this->mSceneLayerSys.init();
+            $this->mMyExcelLoader.init();
 
-            this.mDeviceOptionListenSys.init();
-            this.mProfiler.init();
+            $this->mDeviceOptionListenSys.init();
+            $this->mProfiler.init();
 
             //if(MacroDef.ENABLE_PROFILE)
             //{
-            //    this.mProfiler.setIsStartProfile(true);
+            //    $this->mProfiler.setIsStartProfile(true);
             //}
 
             // 添加事件处理
@@ -398,7 +398,7 @@
                 Ctx.mInstance.mCamSys.setSceneCamera2UICamera();
             }
 
-            this.addEventHandle();
+            $this->addEventHandle();
         }
 
         public void init()
@@ -415,235 +415,235 @@
 
         public void dispose()
         {
-            if (null != this.mPlayerMgr)
+            if (null != $this->mPlayerMgr)
             {
-                this.mPlayerMgr.dispose();
-                this.mPlayerMgr = null;
+                $this->mPlayerMgr.dispose();
+                $this->mPlayerMgr = null;
             }
-            if (null != this.mSnowBlockMgr)
+            if (null != $this->mSnowBlockMgr)
             {
-                this.mSnowBlockMgr.dispose();
-                this.mSnowBlockMgr = null;
+                $this->mSnowBlockMgr.dispose();
+                $this->mSnowBlockMgr = null;
             }
-            if (null != this.mComputerBallMgr)
+            if (null != $this->mComputerBallMgr)
             {
-                this.mComputerBallMgr.dispose();
-                this.mComputerBallMgr = null;
+                $this->mComputerBallMgr.dispose();
+                $this->mComputerBallMgr = null;
             }
-            if (null != this.mAbandonPlaneMgr)
+            if (null != $this->mAbandonPlaneMgr)
             {
-                this.mAbandonPlaneMgr.dispose();
-                this.mAbandonPlaneMgr = null;
+                $this->mAbandonPlaneMgr.dispose();
+                $this->mAbandonPlaneMgr = null;
             }
-            if(null != this.mFlyBulletMgr)
+            if(null != $this->mFlyBulletMgr)
             {
-                this.mFlyBulletMgr.dispose();
-                this.mFlyBulletMgr = null;
+                $this->mFlyBulletMgr.dispose();
+                $this->mFlyBulletMgr = null;
             }
             // 场景卸载
-            if (null != this.mSceneSys)
+            if (null != $this->mSceneSys)
             {
-                this.mSceneSys.dispose();
-                this.mSceneSys = null;
+                $this->mSceneSys.dispose();
+                $this->mSceneSys = null;
             }
 
-            if (null != this.mCameraPositonMgr)
+            if (null != $this->mCameraPositonMgr)
             {
-                this.mCameraPositonMgr.dispose();
-                this.mCameraPositonMgr = null;
+                $this->mCameraPositonMgr.dispose();
+                $this->mCameraPositonMgr = null;
             }
-            if (null != this.mFlyBulletFlockMgr)
+            if (null != $this->mFlyBulletFlockMgr)
             {
-                this.mFlyBulletFlockMgr.dispose();
-                this.mFlyBulletFlockMgr = null;
+                $this->mFlyBulletFlockMgr.dispose();
+                $this->mFlyBulletFlockMgr = null;
             }
-            if (null != this.mPlayerTargetMgr)
+            if (null != $this->mPlayerTargetMgr)
             {
-                this.mPlayerTargetMgr.dispose();
-                this.mPlayerTargetMgr = null;
+                $this->mPlayerTargetMgr.dispose();
+                $this->mPlayerTargetMgr = null;
             }
 
-            if (null != this.mInputMgr)
+            if (null != $this->mInputMgr)
             {
-                this.mInputMgr.dispose();
-                this.mInputMgr = null;
+                $this->mInputMgr.dispose();
+                $this->mInputMgr = null;
             }
-            if (null != this.mUiMgr)
+            if (null != $this->mUiMgr)
             {
-                this.mUiMgr.dispose();
-                this.mUiMgr = null;
+                $this->mUiMgr.dispose();
+                $this->mUiMgr = null;
             }
             // 卸载音乐
-            if (null != this.mSoundMgr)
+            if (null != $this->mSoundMgr)
             {
-                this.mSoundMgr.dispose();
-                this.mSoundMgr = null;
+                $this->mSoundMgr.dispose();
+                $this->mSoundMgr = null;
             }
             // 等待网络关闭
-            if (null != this.mNetMgr)
+            if (null != $this->mNetMgr)
             {
-                this.mNetMgr.dispose();
-                this.mNetMgr = null;
+                $this->mNetMgr.dispose();
+                $this->mNetMgr = null;
             }
-            if (null != this.mClipRect)
+            if (null != $this->mClipRect)
             {
-                this.mClipRect.dispose();
-                this.mClipRect = null;
+                $this->mClipRect.dispose();
+                $this->mClipRect = null;
             }
-            if (null != this.mTileMgr)
+            if (null != $this->mTileMgr)
             {
-                this.mTileMgr.dispose();
-                this.mTileMgr = null;
+                $this->mTileMgr.dispose();
+                $this->mTileMgr = null;
             }
-            if (null != this.mTwoDTerrain)
+            if (null != $this->mTwoDTerrain)
             {
-                this.mTwoDTerrain.dispose();
-                this.mTwoDTerrain = null;
-            }
-
-            if (null != this.mGlobalDelegate)
-            {
-                this.mGlobalDelegate.dispose();
-                this.mGlobalDelegate = null;
+                $this->mTwoDTerrain.dispose();
+                $this->mTwoDTerrain = null;
             }
 
-            if (null != this.mResizeMgr)
+            if (null != $this->mGlobalDelegate)
             {
-                this.mResizeMgr.dispose();
-                this.mResizeMgr = null;
+                $this->mGlobalDelegate.dispose();
+                $this->mGlobalDelegate = null;
+            }
+
+            if (null != $this->mResizeMgr)
+            {
+                $this->mResizeMgr.dispose();
+                $this->mResizeMgr = null;
             }
 
             // 卸载所有的模型
-            if (null != this.mModelMgr)
+            if (null != $this->mModelMgr)
             {
-                this.mModelMgr.dispose();
-                this.mModelMgr = null;
+                $this->mModelMgr.dispose();
+                $this->mModelMgr = null;
             }
             // 卸载所有的材质
-            if (null != this.mMatMgr)
+            if (null != $this->mMatMgr)
             {
-                this.mMatMgr.dispose();
-                this.mMatMgr = null;
+                $this->mMatMgr.dispose();
+                $this->mMatMgr = null;
             }
             // 卸载所有的纹理
-            if (null != this.mTextureMgr)
+            if (null != $this->mTextureMgr)
             {
-                this.mTextureMgr.dispose();
-                this.mTextureMgr = null;
+                $this->mTextureMgr.dispose();
+                $this->mTextureMgr = null;
             }
-            if (null != this.mCommonData)
+            if (null != $this->mCommonData)
             {
-                this.mCommonData.dispose();
-                this.mCommonData = null;
+                $this->mCommonData.dispose();
+                $this->mCommonData = null;
             }
-            if (null != this.mEventHandleSystem)
+            if (null != $this->mEventHandleSystem)
             {
-                this.mEventHandleSystem.dispose();
-                this.mEventHandleSystem = null;
+                $this->mEventHandleSystem.dispose();
+                $this->mEventHandleSystem = null;
             }
-            if(null != this.mLoadProgressMgr)
+            if(null != $this->mLoadProgressMgr)
             {
-                this.mLoadProgressMgr.dispose();
-                this.mLoadProgressMgr = null;
+                $this->mLoadProgressMgr.dispose();
+                $this->mLoadProgressMgr = null;
             }
-            if(null != this.mSoundLoadStateCheckMgr)
+            if(null != $this->mSoundLoadStateCheckMgr)
             {
-                this.mSoundLoadStateCheckMgr.dispose();
-                this.mSoundLoadStateCheckMgr = null;
+                $this->mSoundLoadStateCheckMgr.dispose();
+                $this->mSoundLoadStateCheckMgr = null;
             }
-            if(null != this.mLogicTickMgr)
+            if(null != $this->mLogicTickMgr)
             {
-                this.mLogicTickMgr.dispose();
-                this.mLogicTickMgr = null;
+                $this->mLogicTickMgr.dispose();
+                $this->mLogicTickMgr = null;
             }
-            if(null != this.mDownloadFileMgr)
+            if(null != $this->mDownloadFileMgr)
             {
-                this.mDownloadFileMgr.dispose();
-                this.mDownloadFileMgr = null;
+                $this->mDownloadFileMgr.dispose();
+                $this->mDownloadFileMgr = null;
             }
-            if (null != this.mDownloadAppMgr)
+            if (null != $this->mDownloadAppMgr)
             {
-                this.mDownloadAppMgr.dispose();
-                this.mDownloadAppMgr = null;
-            }
-
-            if(null != this.mNetEventHandle)
-            {
-                this.mNetEventHandle.dispose();
-                this.mNetEventHandle = null;
-            }
-            if(null != this.mDataPlayer)
-            {
-                this.mDataPlayer.dispose();
-                this.mDataPlayer = null;
-            }
-            if(null != this.mRenderSys)
-            {
-                this.mRenderSys.dispose();
-                this.mRenderSys = null;
-            }
-            if (null != this.mDelayTaskMgr)
-            {
-                this.mDelayTaskMgr.dispose();
-                this.mDelayTaskMgr = null;
-            }
-            if (null != this.mIdPoolSys)
-            {
-                this.mIdPoolSys.dispose();
-                this.mIdPoolSys = null;
-            }
-            if (null != this.mTickMgr)
-            {
-                this.mTickMgr.dispose();
-                this.mTickMgr = null;
-            }
-            if (null != this.mFixedTickMgr)
-            {
-                this.mFixedTickMgr.dispose();
-                this.mFixedTickMgr = null;
-            }
-            if (null != this.mLateTickMgr)
-            {
-                this.mLateTickMgr.dispose();
-                this.mLateTickMgr = null;
-            }
-            if(null != this.mLuaSystem)
-            {
-                this.mLuaSystem.dispose();
-                this.mLuaSystem = null;
-            }
-            if(null != this.mSceneLayerSys)
-            {
-                this.mSceneLayerSys.dispose();
-                this.mSceneLayerSys = null;
-            }
-            if(null != this.mMyExcelLoader)
-            {
-                this.mMyExcelLoader.dispose();
-                this.mMyExcelLoader = null;
+                $this->mDownloadAppMgr.dispose();
+                $this->mDownloadAppMgr = null;
             }
 
-            if (null != this.mDeviceOptionListenSys)
+            if(null != $this->mNetEventHandle)
             {
-                this.mDeviceOptionListenSys.dispose();
-                this.mDeviceOptionListenSys = null;
+                $this->mNetEventHandle.dispose();
+                $this->mNetEventHandle = null;
             }
-            if(null != this.mProfiler)
+            if(null != $this->mDataPlayer)
             {
-                this.mProfiler.dispose();
-                this.mProfiler = null;
+                $this->mDataPlayer.dispose();
+                $this->mDataPlayer = null;
+            }
+            if(null != $this->mRenderSys)
+            {
+                $this->mRenderSys.dispose();
+                $this->mRenderSys = null;
+            }
+            if (null != $this->mDelayTaskMgr)
+            {
+                $this->mDelayTaskMgr.dispose();
+                $this->mDelayTaskMgr = null;
+            }
+            if (null != $this->mIdPoolSys)
+            {
+                $this->mIdPoolSys.dispose();
+                $this->mIdPoolSys = null;
+            }
+            if (null != $this->mTickMgr)
+            {
+                $this->mTickMgr.dispose();
+                $this->mTickMgr = null;
+            }
+            if (null != $this->mFixedTickMgr)
+            {
+                $this->mFixedTickMgr.dispose();
+                $this->mFixedTickMgr = null;
+            }
+            if (null != $this->mLateTickMgr)
+            {
+                $this->mLateTickMgr.dispose();
+                $this->mLateTickMgr = null;
+            }
+            if(null != $this->mLuaSystem)
+            {
+                $this->mLuaSystem.dispose();
+                $this->mLuaSystem = null;
+            }
+            if(null != $this->mSceneLayerSys)
+            {
+                $this->mSceneLayerSys.dispose();
+                $this->mSceneLayerSys = null;
+            }
+            if(null != $this->mMyExcelLoader)
+            {
+                $this->mMyExcelLoader.dispose();
+                $this->mMyExcelLoader = null;
+            }
+
+            if (null != $this->mDeviceOptionListenSys)
+            {
+                $this->mDeviceOptionListenSys.dispose();
+                $this->mDeviceOptionListenSys = null;
+            }
+            if(null != $this->mProfiler)
+            {
+                $this->mProfiler.dispose();
+                $this->mProfiler = null;
             }
             // 关闭日志设备
-            if (null != this.mLogSys)
+            if (null != $this->mLogSys)
             {
-                this.mLogSys.dispose();
-                this.mLogSys = null;
+                $this->mLogSys.dispose();
+                $this->mLogSys = null;
             }
         }
 
         public void quitApp()
         {
-            this.dispose();
+            $this->dispose();
 
             // 释放自己
             //mInstance = null;
@@ -658,30 +658,30 @@
 
         protected void addEventHandle()
         {
-            this.mResizeMgr.addResizeObject(this.mUiMgr as IResizeObject);
+            $this->mResizeMgr.addResizeObject($this->mUiMgr as IResizeObject);
 
-            this.mTickMgr.addTick(this.mResizeMgr as ITickedObject, TickPriority.eTPResizeMgr);
-            this.mTickMgr.addTick(this.mInputMgr as ITickedObject, TickPriority.eTPInputMgr);
-            this.mTickMgr.addTick(this.mLoadProgressMgr as ITickedObject, TickPriority.eTPLoadProgressMgr);
-            this.mTickMgr.addTick(this.mCameraPositonMgr as ITickedObject, TickPriority.eTPCameraMgr);
-            this.mTickMgr.addTick(this.mDelayTaskMgr as ITickedObject, TickPriority.eTPDelayTaskMgr);
-            this.mTickMgr.addTick(this.mSoundLoadStateCheckMgr as ITickedObject, TickPriority.eTPSoundLoadStateCheckMgr);
+            $this->mTickMgr.addTick($this->mResizeMgr as ITickedObject, TickPriority.eTPResizeMgr);
+            $this->mTickMgr.addTick($this->mInputMgr as ITickedObject, TickPriority.eTPInputMgr);
+            $this->mTickMgr.addTick($this->mLoadProgressMgr as ITickedObject, TickPriority.eTPLoadProgressMgr);
+            $this->mTickMgr.addTick($this->mCameraPositonMgr as ITickedObject, TickPriority.eTPCameraMgr);
+            $this->mTickMgr.addTick($this->mDelayTaskMgr as ITickedObject, TickPriority.eTPDelayTaskMgr);
+            $this->mTickMgr.addTick($this->mSoundLoadStateCheckMgr as ITickedObject, TickPriority.eTPSoundLoadStateCheckMgr);
 
-            this.mTickMgr.addTick(this.mComputerBallMgr as ITickedObject, TickPriority.eTPComputerBallMgr);
+            $this->mTickMgr.addTick($this->mComputerBallMgr as ITickedObject, TickPriority.eTPComputerBallMgr);
             // 静止的雪块没有必要更新
-            //this.mTickMgr.addTick(this.mSnowBlockMgr as ITickedObject, TickPriority.eTPSnowBlockMgr);
-            //this.mTickMgr.addTick(this.mAbandonPlaneMgr as ITickedObject, TickPriority.eTPAbandonPlaneMgr);
-            this.mTickMgr.addTick(this.mPlayerMgr as ITickedObject, TickPriority.eTPPlayerMgr);
-            //this.mTickMgr.addTick(this.mFlyBulletMgr as ITickedObject, TickPriority.eTPFlyBulletMgr);
-            this.mTickMgr.addTick(this.mFlyBulletFlockMgr as ITickedObject, TickPriority.eTPFlyBulletMgr);
+            //$this->mTickMgr.addTick($this->mSnowBlockMgr as ITickedObject, TickPriority.eTPSnowBlockMgr);
+            //$this->mTickMgr.addTick($this->mAbandonPlaneMgr as ITickedObject, TickPriority.eTPAbandonPlaneMgr);
+            $this->mTickMgr.addTick($this->mPlayerMgr as ITickedObject, TickPriority.eTPPlayerMgr);
+            //$this->mTickMgr.addTick($this->mFlyBulletMgr as ITickedObject, TickPriority.eTPFlyBulletMgr);
+            $this->mTickMgr.addTick($this->mFlyBulletFlockMgr as ITickedObject, TickPriority.eTPFlyBulletMgr);
 
-            this.mLateTickMgr.addTick(this.mPlayerMgr as ITickedObject, TickPriority.eTPPlayerMgr);
-            this.mLateTickMgr.addTick(this.mClipRect as ITickedObject, TickPriority.eTPClipRect);
+            $this->mLateTickMgr.addTick($this->mPlayerMgr as ITickedObject, TickPriority.eTPPlayerMgr);
+            $this->mLateTickMgr.addTick($this->mClipRect as ITickedObject, TickPriority.eTPClipRect);
         }
 
         public void setNoDestroyObject()
         {
-            this.mLayerMgr.mPath2Go[NotDestroyPath.ND_CV_Root] = UtilApi.GoFindChildByName(NotDestroyPath.ND_CV_Root);
+            $this->mLayerMgr.mPath2Go[NotDestroyPath.ND_CV_Root] = UtilApi.GoFindChildByName(NotDestroyPath.ND_CV_Root);
             UtilApi.DontDestroyOnLoad(Ctx.mInstance.mLayerMgr.mPath2Go[NotDestroyPath.ND_CV_Root]);
 
             setNoDestroyObject_impl(NotDestroyPath.ND_CV_App, NotDestroyPath.ND_CV_Root);
@@ -715,17 +715,17 @@
 
         protected void setNoDestroyObject_impl(string child, string parent)
         {
-            this.mLayerMgr.mPath2Go[child] = UtilApi.TransFindChildByPObjAndPath(this.mLayerMgr.mPath2Go[parent], child);
+            $this->mLayerMgr.mPath2Go[child] = UtilApi.TransFindChildByPObjAndPath($this->mLayerMgr.mPath2Go[parent], child);
             //UtilApi.DontDestroyOnLoad(mLayerMgr.mPath2Go[child]);
         }
 
         protected void initBasicCfg()
         {
-            if (null != this.mLayerMgr.mPath2Go[NotDestroyPath.ND_CV_Root])
+            if (null != $this->mLayerMgr.mPath2Go[NotDestroyPath.ND_CV_Root])
             {
-                BasicConfig basicCfg = this.mLayerMgr.mPath2Go[NotDestroyPath.ND_CV_Root].GetComponent<BasicConfig>();
+                BasicConfig basicCfg = $this->mLayerMgr.mPath2Go[NotDestroyPath.ND_CV_Root].GetComponent<BasicConfig>();
                 //mCfg.mIp = basicCfg.getIp();
-                this.mCfg.mZone = basicCfg.getPort();
+                $this->mCfg.mZone = basicCfg.getPort();
             }
         }
     }

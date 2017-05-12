@@ -9,20 +9,20 @@
 
         public uint getTotalFrameCount()
         {
-            return this.mTotalFrameCount;
+            return $this->mTotalFrameCount;
         }
 
         public void nextFrame(float delta)
         {
-            ++this.mTotalFrameCount;
-            ++this.mCurFrameCount;
-            this.mCurTime += delta;
+            ++$this->mTotalFrameCount;
+            ++$this->mCurFrameCount;
+            $this->mCurTime += delta;
 
-            if(this.mCurTime > 1.0f)
+            if($this->mCurTime > 1.0f)
             {
-                this.mFps = (int)(this.mCurFrameCount / this.mCurTime);
-                this.mCurFrameCount = 0;
-                this.mCurTime = 0;
+                $this->mFps = (int)($this->mCurFrameCount / $this->mCurTime);
+                $this->mCurFrameCount = 0;
+                $this->mCurTime = 0;
             }
         }
     }

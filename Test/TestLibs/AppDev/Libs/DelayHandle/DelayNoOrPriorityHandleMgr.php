@@ -19,20 +19,20 @@
 
         override public void dispose()
         {
-            this.mNoOrPriorityList.Clear();
+            $this->mNoOrPriorityList.Clear();
         }
 
         override protected void addObject(IDelayHandleItem delayObject, float priority = 0.0f)
         {
             if (null != delayObject)
             {
-                if (this.isInDepth())
+                if ($this->isInDepth())
                 {
                     base.addObject(delayObject, priority);
                 }
                 else
                 {
-                    this.mNoOrPriorityList.addNoOrPriorityObject(delayObject as INoOrPriorityObject, priority);
+                    $this->mNoOrPriorityList.addNoOrPriorityObject(delayObject as INoOrPriorityObject, priority);
                 }
             }
             else
@@ -48,13 +48,13 @@
         {
             if (null != delayObject)
             {
-                if (this.isInDepth())
+                if ($this->isInDepth())
                 {
                     base.removeObject(delayObject);
                 }
                 else
                 {
-                    this.mNoOrPriorityList.removeNoOrPriorityObject(delayObject as INoOrPriorityObject);
+                    $this->mNoOrPriorityList.removeNoOrPriorityObject(delayObject as INoOrPriorityObject);
                 }
             }
             else
@@ -68,12 +68,12 @@
 
         public void addNoOrPriorityObject(INoOrPriorityObject priorityObject, float priority = 0.0f)
         {
-            this.addObject(priorityObject as IDelayHandleItem, priority);
+            $this->addObject(priorityObject as IDelayHandleItem, priority);
         }
 
         public void removeNoOrPriorityObject(ITickedObject tickObj)
         {
-            this.removeObject(tickObj as IDelayHandleItem);
+            $this->removeObject(tickObj as IDelayHandleItem);
         }
     }
 }

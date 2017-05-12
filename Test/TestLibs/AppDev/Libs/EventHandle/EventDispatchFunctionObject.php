@@ -14,68 +14,68 @@ namespace SDK.Lib
 
         public EventDispatchFunctionObject()
         {
-            this.mIsClientDispose = false;
+            $this->mIsClientDispose = false;
         }
 
         public LuaCSDispatchFunctionObject luaCSDispatchFunctionObject
         {
             get
             {
-                return this.mLuaCSDispatchFunctionObject;
+                return $this->mLuaCSDispatchFunctionObject;
             }
             set
             {
-                this.mLuaCSDispatchFunctionObject = value;
+                $this->mLuaCSDispatchFunctionObject = value;
             }
         }
 
         public void setFuncObject(ICalleeObject pThis, MAction<IDispatchObject> function, uint eventId = 0)
         {
-            this.mThis = pThis;
-            this.mHandle = function;
-            this.mEventId = eventId;
+            $this->mThis = pThis;
+            $this->mHandle = function;
+            $this->mEventId = eventId;
         }
 
         public void setLuaTable(LuaTable luaTable)
         {
-            if(this.mLuaCSDispatchFunctionObject == null)
+            if($this->mLuaCSDispatchFunctionObject == null)
             {
-                this.mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
+                $this->mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
             }
 
-            this.mLuaCSDispatchFunctionObject.setTable(luaTable);
+            $this->mLuaCSDispatchFunctionObject.setTable(luaTable);
         }
 
         public void setLuaFunction(LuaFunction function)
         {
-            if(this.mLuaCSDispatchFunctionObject == null)
+            if($this->mLuaCSDispatchFunctionObject == null)
             {
-                this.mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
+                $this->mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
             }
 
-            this.mLuaCSDispatchFunctionObject.setFunction(function);
+            $this->mLuaCSDispatchFunctionObject.setFunction(function);
         }
 
         public void setLuaFunctor(LuaTable luaTable, LuaFunction function, uint eventId = 0)
         {
-            if(this.mLuaCSDispatchFunctionObject == null)
+            if($this->mLuaCSDispatchFunctionObject == null)
             {
-                this.mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
+                $this->mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
             }
 
-            this.mLuaCSDispatchFunctionObject.setTable(luaTable);
-            this.mLuaCSDispatchFunctionObject.setFunction(function);
-            this.mLuaCSDispatchFunctionObject.setEventId(eventId);
+            $this->mLuaCSDispatchFunctionObject.setTable(luaTable);
+            $this->mLuaCSDispatchFunctionObject.setFunction(function);
+            $this->mLuaCSDispatchFunctionObject.setEventId(eventId);
         }
 
         public bool isValid()
         {
-            return this.mThis != null || this.mHandle != null || (this.mLuaCSDispatchFunctionObject != null && this.mLuaCSDispatchFunctionObject.isValid());
+            return $this->mThis != null || $this->mHandle != null || ($this->mLuaCSDispatchFunctionObject != null && $this->mLuaCSDispatchFunctionObject.isValid());
         }
 
         public bool isEventIdEqual(uint eventId)
         {
-            return this.mEventId == eventId;
+            return $this->mEventId == eventId;
         }
 
         public bool isEqual(ICalleeObject pThis, MAction<IDispatchObject> handle, uint eventId, LuaTable luaTable = null, LuaFunction luaFunction = null, uint luaEventId = 0)
@@ -84,7 +84,7 @@ namespace SDK.Lib
 
             if (pThis != null)
             {
-                ret = UtilApi.isAddressEqual(this.mThis, pThis);
+                ret = UtilApi.isAddressEqual($this->mThis, pThis);
 
                 if (!ret)
                 {
@@ -94,8 +94,8 @@ namespace SDK.Lib
 
             if (handle != null)
             {
-                //ret = UtilApi.isAddressEqual(this.mHandle, handle);
-                ret = UtilApi.isDelegateEqual(ref this.mHandle, ref handle);
+                //ret = UtilApi.isAddressEqual($this->mHandle, handle);
+                ret = UtilApi.isDelegateEqual(ref $this->mHandle, ref handle);
 
                 if (!ret)
                 {
@@ -105,7 +105,7 @@ namespace SDK.Lib
 
             if (pThis != null || handle != null)
             {
-                ret = this.isEventIdEqual(eventId);
+                ret = $this->isEventIdEqual(eventId);
 
                 if (!ret)
                 {
@@ -113,9 +113,9 @@ namespace SDK.Lib
                 }
             }
 
-            if (null != luaTable && null != this.mLuaCSDispatchFunctionObject)
+            if (null != luaTable && null != $this->mLuaCSDispatchFunctionObject)
             {
-                ret = this.mLuaCSDispatchFunctionObject.isTableEqual(luaTable);
+                ret = $this->mLuaCSDispatchFunctionObject.isTableEqual(luaTable);
 
                 if(!ret)
                 {
@@ -123,9 +123,9 @@ namespace SDK.Lib
                 }
             }
 
-            if (null != luaFunction && null != this.mLuaCSDispatchFunctionObject)
+            if (null != luaFunction && null != $this->mLuaCSDispatchFunctionObject)
             {
-                ret = this.mLuaCSDispatchFunctionObject.isFunctionEqual(luaFunction);
+                ret = $this->mLuaCSDispatchFunctionObject.isFunctionEqual(luaFunction);
 
                 if(!ret)
                 {
@@ -133,9 +133,9 @@ namespace SDK.Lib
                 }
             }
 
-            if (null != this.mLuaCSDispatchFunctionObject && (null != luaTable || null != luaFunction))
+            if (null != $this->mLuaCSDispatchFunctionObject && (null != luaTable || null != luaFunction))
             {
-                ret = this.mLuaCSDispatchFunctionObject.isEventIdEqual(luaEventId);
+                ret = $this->mLuaCSDispatchFunctionObject.isEventIdEqual(luaEventId);
 
                 if (!ret)
                 {
@@ -153,25 +153,25 @@ namespace SDK.Lib
             //    mThis.call(dispObj);
             //}
 
-            if(null != this.mHandle)
+            if(null != $this->mHandle)
             {
-                this.mHandle(dispObj);
+                $this->mHandle(dispObj);
             }
 
-            if(this.mLuaCSDispatchFunctionObject != null)
+            if($this->mLuaCSDispatchFunctionObject != null)
             {
-                this.mLuaCSDispatchFunctionObject.call(dispObj);
+                $this->mLuaCSDispatchFunctionObject.call(dispObj);
             }
         }
 
         public void setClientDispose(bool isDispose)
         {
-            this.mIsClientDispose = isDispose;
+            $this->mIsClientDispose = isDispose;
         }
 
         public bool isClientDispose()
         {
-            return this.mIsClientDispose;
+            return $this->mIsClientDispose;
         }
     }
 }

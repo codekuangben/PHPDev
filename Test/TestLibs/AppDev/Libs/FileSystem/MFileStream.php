@@ -34,65 +34,65 @@ namespace SDK.Lib
          */
         public MFileStream(string filePath, MAction<IDispatchObject> openedHandle = null, FileMode mode = FileMode.Open, FileAccess access = FileAccess.Read)
         {
-            this.mTypeId = "MFileStream";
+            $this->mTypeId = "MFileStream";
 
-            this.mFilePath = filePath;
-            this.mMode = mode;
-            this.mAccess = access;
-            this.mFileOpState = eFileOpState.eNoOp;
+            $this->mFilePath = filePath;
+            $this->mMode = mode;
+            $this->mAccess = access;
+            $this->mFileOpState = eFileOpState.eNoOp;
 
-            this.checkAndOpen(openedHandle);
+            $this->checkAndOpen(openedHandle);
         }
 
         public void seek(long offset, SeekOrigin origin)
         {
-            if(this.mFileOpState == eFileOpState.eOpenSuccess)
+            if($this->mFileOpState == eFileOpState.eOpenSuccess)
             {
-                this.mFileStream.Seek(offset, origin);
+                $this->mFileStream.Seek(offset, origin);
             }
         }
 
         public void addOpenedHandle(MAction<IDispatchObject> openedDisp = null)
         {
-            if (this.mOpenedEventDispatch == null)
+            if ($this->mOpenedEventDispatch == null)
             {
-                this.mOpenedEventDispatch = new AddOnceAndCallOnceEventDispatch();
+                $this->mOpenedEventDispatch = new AddOnceAndCallOnceEventDispatch();
             }
 
-            this.mOpenedEventDispatch.addEventHandle(null, openedDisp);
+            $this->mOpenedEventDispatch.addEventHandle(null, openedDisp);
         }
 
         public void dispose()
         {
-            this.close();
+            $this->close();
         }
 
         protected void syncOpenFileStream()
         {
-            if (this.mFileOpState == eFileOpState.eNoOp)
+            if ($this->mFileOpState == eFileOpState.eNoOp)
             {
-                this.mFileOpState = eFileOpState.eOpening;
+                $this->mFileOpState = eFileOpState.eOpening;
 
                 try
                 {
-                    this.mFileStream = new FileStream(mFilePath, mMode, mAccess);
-                    this.mFileOpState = eFileOpState.eOpenSuccess;
+                    $this->mFileStream = new FileStream(mFilePath, mMode, mAccess);
+                    $this->mFileOpState = eFileOpState.eOpenSuccess;
                 }
                 catch(Exception exp)
                 {
-                    this.mFileOpState = eFileOpState.eOpenFail;
+                    $this->mFileOpState = eFileOpState.eOpenFail;
                 }
 
-                this.onAsyncOpened();
+                $this->onAsyncOpened();
             }
         }
 
         // 异步打开结束
         public void onAsyncOpened()
         {
-            if (this.mOpenedEventDispatch != null)
+            if ($this->mOpenedEventDispatch != null)
             {
-                this.mOpenedEventDispatch.dispatchEvent(this);
+                $this->mOpenedEventDispatch.dispatchEvent(this);
             }
         }
 
@@ -100,18 +100,18 @@ namespace SDK.Lib
         {
             if (openedHandle != null)
             {
-                this.addOpenedHandle(openedHandle);
+                $this->addOpenedHandle(openedHandle);
             }
 
-            if (this.mFileOpState == eFileOpState.eNoOp)
+            if ($this->mFileOpState == eFileOpState.eNoOp)
             {
-                this.syncOpenFileStream();
+                $this->syncOpenFileStream();
             }
         }
 
         public bool isValid()
         {
-            return this.mFileOpState == eFileOpState.eOpenSuccess;
+            return $this->mFileOpState == eFileOpState.eOpenSuccess;
         }
 
         // 获取总共长度
@@ -119,11 +119,11 @@ namespace SDK.Lib
         {
             int len = 0;
 
-            if (this.mFileOpState == eFileOpState.eOpenSuccess)
+            if ($this->mFileOpState == eFileOpState.eOpenSuccess)
             {
-                if (this.mFileStream != null)
+                if ($this->mFileStream != null)
                 {
-                    len = (int)this.mFileStream.Length;
+                    len = (int)$this->mFileStream.Length;
                 }
                 /*
                 if (mFileStream != null && mFileStream.CanSeek)
@@ -145,23 +145,23 @@ namespace SDK.Lib
 
         protected void close()
         {
-            if (this.mFileOpState == eFileOpState.eOpenSuccess)
+            if ($this->mFileOpState == eFileOpState.eOpenSuccess)
             {
-                if (this.mFileStream != null)
+                if ($this->mFileStream != null)
                 {
-                    this.mFileStream.Close();
-                    this.mFileStream.Dispose();
-                    this.mFileStream = null;
+                    $this->mFileStream.Close();
+                    $this->mFileStream.Dispose();
+                    $this->mFileStream = null;
                 }
 
-                this.mFileOpState = eFileOpState.eOpenClose;
-                this.mFileOpState = eFileOpState.eNoOp;
+                $this->mFileOpState = eFileOpState.eOpenClose;
+                $this->mFileOpState = eFileOpState.eNoOp;
             }
         }
 
         public string readText(int offset = 0, int count = 0, Encoding encode = null)
         {
-            this.checkAndOpen();
+            $this->checkAndOpen();
 
             string retStr = "";
             byte[] bytes = null;
@@ -176,14 +176,14 @@ namespace SDK.Lib
                 count = getLength();
             }
 
-            if (this.mFileOpState == eFileOpState.eOpenSuccess)
+            if ($this->mFileOpState == eFileOpState.eOpenSuccess)
             {
-                if (this.mFileStream.CanRead)
+                if ($this->mFileStream.CanRead)
                 {
                     try
                     {
                         bytes = new byte[count];
-                        this.mFileStream.Read(bytes, 0, count);
+                        $this->mFileStream.Read(bytes, 0, count);
 
                         retStr = encode.GetString(bytes);
                     }
@@ -199,7 +199,7 @@ namespace SDK.Lib
 
         public byte[] readByte(int offset = 0, int count = 0)
         {
-            this.checkAndOpen();
+            $this->checkAndOpen();
 
             if (count == 0)
             {
@@ -208,12 +208,12 @@ namespace SDK.Lib
 
             byte[] bytes = null;
 
-            if (this.mFileStream.CanRead)
+            if ($this->mFileStream.CanRead)
             {
                 try
                 {
                     bytes = new byte[count];
-                    this.mFileStream.Read(bytes, 0, count);
+                    $this->mFileStream.Read(bytes, 0, count);
                 }
                 catch (Exception err)
                 {
@@ -228,9 +228,9 @@ namespace SDK.Lib
         {
             Encoding encode = UtilApi.convGkEncode2EncodingEncoding(gkEncode);
 
-            this.checkAndOpen();
+            $this->checkAndOpen();
 
-            if (this.mFileStream.CanWrite)
+            if ($this->mFileStream.CanWrite)
             {
                 //if (encode == null)
                 //{
@@ -242,7 +242,7 @@ namespace SDK.Lib
                 {
                     try
                     {
-                        this.mFileStream.Write(bytes, 0, bytes.Length);
+                        $this->mFileStream.Write(bytes, 0, bytes.Length);
                     }
                     catch (Exception err)
                     {
@@ -254,9 +254,9 @@ namespace SDK.Lib
 
         public void writeByte(byte[] bytes, int offset = 0, int count = 0)
         {
-            this.checkAndOpen();
+            $this->checkAndOpen();
 
-            if (this.mFileStream.CanWrite)
+            if ($this->mFileStream.CanWrite)
             {
                 if (bytes != null)
                 {
@@ -269,7 +269,7 @@ namespace SDK.Lib
                     {
                         try
                         {
-                            this.mFileStream.Write(bytes, offset, count);
+                            $this->mFileStream.Write(bytes, offset, count);
                         }
                         catch (Exception err)
                         {

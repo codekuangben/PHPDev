@@ -7,19 +7,19 @@
 
         public UniqueNumIdGen(uint baseUniqueId)
         {
-            this.mCurId = 0;
+            $this->mCurId = 0;
         }
 
         public uint genNewId()
         {
-            this.mPreIdx = this.mCurId;
-            this.mCurId++;
-            return this.mPreIdx;
+            $this->mPreIdx = $this->mCurId;
+            $this->mCurId++;
+            return $this->mPreIdx;
         }
 
         public uint getCurId()
         {
-            return this.mCurId;
+            return $this->mCurId;
         }
     }
 }

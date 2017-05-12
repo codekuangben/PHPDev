@@ -6,12 +6,12 @@
 
         public LockQueue(string name)
         {
-            this.mList = new LockList<T>(name);
+            $this->mList = new LockList<T>(name);
         }
 
         public void push(T item)
         {
-            this.mList.Add(item);
+            $this->mList.Add(item);
         }
 
         public T pop()

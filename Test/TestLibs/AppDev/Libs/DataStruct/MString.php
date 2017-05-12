@@ -11,76 +11,76 @@
 
         public MString()
         {
-            this.mNativeStr = "";
-            this.mStartIndex = 0;
-            this.mStrLen = 0;
+            $this->mNativeStr = "";
+            $this->mStartIndex = 0;
+            $this->mStrLen = 0;
         }
 
         public string getNativeStr()
         {
-            return this.mNativeStr;
+            return $this->mNativeStr;
         }
 
         public int getStartIndex()
         {
-            return this.mStartIndex;
+            return $this->mStartIndex;
         }
 
         public int getStrLen()
         {
-            return this.mStrLen;
+            return $this->mStrLen;
         }
 
         public void setNativeStr(string value)
         {
-            this.mNativeStr = value;
+            $this->mNativeStr = value;
         }
 
         public void setStartIndex(int value)
         {
-            this.mStartIndex = value;
+            $this->mStartIndex = value;
         }
 
         public void setStrLen(int value)
         {
-            this.mStrLen = value;
+            $this->mStrLen = value;
         }
 
         // 回去内部表示的字符串
         public string getInterStr()
         {
-            if (this.mStrLen == this.mNativeStr.Length)
+            if ($this->mStrLen == $this->mNativeStr.Length)
             {
-                return this.mNativeStr;
+                return $this->mNativeStr;
             }
             else
             {
-                return this.mNativeStr.Substring(this.mStartIndex, this.mStrLen);
+                return $this->mNativeStr.Substring($this->mStartIndex, $this->mStrLen);
             }
         }
 
         public void assign(ref string str)
         {
-            this.mNativeStr = str;
-            this.mStartIndex = 0;
-            this.mStrLen = this.mNativeStr.Length;
+            $this->mNativeStr = str;
+            $this->mStartIndex = 0;
+            $this->mStrLen = $this->mNativeStr.Length;
         }
 
         public void copyFrom(MString rhv)
         {
-            this.mNativeStr = rhv.getNativeStr();
-            this.mStartIndex = rhv.getStartIndex();
-            this.mStrLen = rhv.getStrLen();
+            $this->mNativeStr = rhv.getNativeStr();
+            $this->mStartIndex = rhv.getStartIndex();
+            $this->mStrLen = rhv.getStrLen();
         }
 
         public int IndexOf(char findChar)
         {
             int retIndex = -1;
-            int index = this.mStartIndex;
+            int index = $this->mStartIndex;
 
-            while (index < this.mStrLen)
+            while (index < $this->mStrLen)
             {
-                if (this.mNativeStr[this.mStartIndex + index] == findChar)
+                if ($this->mNativeStr[$this->mStartIndex + index] == findChar)
                 {
                     retIndex = index;
                     break;
@@ -95,11 +95,11 @@
         public int LastIndexOf(char findChar)
         {
             int lastIndex = -1;
-            int index = this.mStartIndex + this.mStrLen - 1;
+            int index = $this->mStartIndex + $this->mStrLen - 1;
 
             while (index >= 0)
             {
-                if (this.mNativeStr[this.mStartIndex + index] == findChar)
+                if ($this->mNativeStr[$this->mStartIndex + index] == findChar)
                 {
                     lastIndex = index;
                     break;
@@ -118,23 +118,23 @@
             MString ret = new MString();
             ret.copyFrom(this);
 
-            if (startIndex >= 0 && startIndex < this.mStrLen)
+            if (startIndex >= 0 && startIndex < $this->mStrLen)
             {
-                ret.setStartIndex(this.mStartIndex + startIndex);
-                length = this.mStrLen - startIndex;
+                ret.setStartIndex($this->mStartIndex + startIndex);
+                length = $this->mStrLen - startIndex;
             }
             else
             {
                 startIndex = 0;
             }
 
-            if (startIndex + length <= this.mStrLen)
+            if (startIndex + length <= $this->mStrLen)
             {
                 ret.setStrLen(length);
             }
             else
             {
-                ret.setStrLen(this.mStrLen - startIndex);
+                ret.setStrLen($this->mStrLen - startIndex);
             }
 
             return ret;
@@ -145,22 +145,22 @@
             MString ret = new MString();
             ret.copyFrom(this);
 
-            if (startIndex >= 0 && startIndex < this.mStrLen)
+            if (startIndex >= 0 && startIndex < $this->mStrLen)
             {
-                ret.setStartIndex(this.mStartIndex + startIndex);
+                ret.setStartIndex($this->mStartIndex + startIndex);
             }
             else
             {
                 startIndex = 0;
             }
 
-            if (startIndex + length <= this.mStrLen)
+            if (startIndex + length <= $this->mStrLen)
             {
                 ret.setStrLen(length);
             }
             else
             {
-                ret.setStrLen(this.mStrLen - startIndex);
+                ret.setStrLen($this->mStrLen - startIndex);
             }
 
             return ret;

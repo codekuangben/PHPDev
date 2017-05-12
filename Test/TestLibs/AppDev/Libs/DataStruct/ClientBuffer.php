@@ -24,25 +24,25 @@
 
         public ClientBuffer()
         {
-            this.mRawBuffer = new MsgBuffer();
-            this.mMsgBuffer = new MsgBuffer();
+            $this->mRawBuffer = new MsgBuffer();
+            $this->mMsgBuffer = new MsgBuffer();
             //mSendTmpBA = new ByteBuffer();
-            this.mSendTmpBuffer = new MsgBuffer();
-            this.mSocketSendBA = new ByteBuffer();
+            $this->mSendTmpBuffer = new MsgBuffer();
+            $this->mSocketSendBA = new ByteBuffer();
             //mSocketSendBA.mId = 1000;
 
             //mDynBuffer = new DynamicBuffer<byte>(8096);
-            this.mUnCompressHeaderBA = new ByteBuffer();
-            this.mSendData = new ByteBuffer();
-            this.mTmpData = new ByteBuffer(4);
-            this.mTmp1fData = new ByteBuffer(4);
+            $this->mUnCompressHeaderBA = new ByteBuffer();
+            $this->mSendData = new ByteBuffer();
+            $this->mTmpData = new ByteBuffer(4);
+            $this->mTmp1fData = new ByteBuffer(4);
 
-            this.mReadMutex = new MMutex(false, "ReadMutex");
-            this.mWriteMutex = new MMutex(false, "WriteMutex");
+            $this->mReadMutex = new MMutex(false, "ReadMutex");
+            $this->mWriteMutex = new MMutex(false, "WriteMutex");
 
             if (MacroDef.MSG_ENCRIPT)
             {
-                this.mCryptContext = new CryptContext();
+                $this->mCryptContext = new CryptContext();
             }
         }
 
@@ -50,7 +50,7 @@
         {
             get
             {
-                return this.mDynBuffer;
+                return $this->mDynBuffer;
             }
         }
 
@@ -66,7 +66,7 @@
         {
             get
             {
-                return this.mSendTmpBuffer;
+                return $this->mSendTmpBuffer;
             }
         }
 
@@ -74,7 +74,7 @@
         {
             get
             {
-                return this.mSocketSendBA;
+                return $this->mSocketSendBA;
             }
         }
 
@@ -82,37 +82,37 @@
         {
             get
             {
-                return this.mSendData;
+                return $this->mSendData;
             }
         }
 
         // 设置 ClientBuffer 字节序
         public void setEndian(EEndian end)
         {
-            this.mRawBuffer.setEndian(end);
-            this.mMsgBuffer.setEndian(end);
+            $this->mRawBuffer.setEndian(end);
+            $this->mMsgBuffer.setEndian(end);
 
-            this.mSendTmpBuffer.setEndian(end);
-            this.mSocketSendBA.setEndian(end);
+            $this->mSendTmpBuffer.setEndian(end);
+            $this->mSocketSendBA.setEndian(end);
 
-            this.mUnCompressHeaderBA.setEndian(end);
-            this.mSendData.setEndian(end);
-            this.mTmpData.setEndian(end);
-            this.mTmp1fData.setEndian(end);
+            $this->mUnCompressHeaderBA.setEndian(end);
+            $this->mSendData.setEndian(end);
+            $this->mTmpData.setEndian(end);
+            $this->mTmp1fData.setEndian(end);
         }
 
         public void setCryptKey(byte[] encrypt)
         {
             //mCryptContext.cryptAlgorithm = CryptAlgorithm.DES;
-            this.mCryptContext.m_cryptKey = encrypt;
-            Dec.DES_set_key_unchecked(this.mCryptContext.m_cryptKey, this.mCryptContext.m_cryptKeyArr[(int)CryptAlgorithm.DES] as DES_key_schedule);
+            $this->mCryptContext.m_cryptKey = encrypt;
+            Dec.DES_set_key_unchecked($this->mCryptContext.m_cryptKey, $this->mCryptContext.m_cryptKeyArr[(int)CryptAlgorithm.DES] as DES_key_schedule);
         }
 
         public void checkDES()
         {
-            if (this.mCryptContext.m_cryptKey != null && this.mCryptContext.m_cryptAlgorithm != CryptAlgorithm.DES)
+            if ($this->mCryptContext.m_cryptKey != null && $this->mCryptContext.m_cryptAlgorithm != CryptAlgorithm.DES)
             {
-                this.mCryptContext.m_cryptAlgorithm = CryptAlgorithm.DES;
+                $this->mCryptContext.m_cryptAlgorithm = CryptAlgorithm.DES;
             }
         }
 
@@ -120,18 +120,18 @@
         {
             get
             {
-                return this.mRawBuffer;
+                return $this->mRawBuffer;
             }
         }
 
         public void SetRevBufferSize(int size)
         {
-            this.mDynBuffer = new DynBuffer<byte>((uint)size);
+            $this->mDynBuffer = new DynBuffer<byte>((uint)size);
         }
 
         public void moveDyn2Raw()
         {
-            UtilMsg.formatBytes2Array(this.mDynBuffer.buffer, this.mDynBuffer.size);
+            UtilMsg.formatBytes2Array($this->mDynBuffer.buffer, $this->mDynBuffer.size);
 
             if (MacroDef.MSG_ENCRIPT)
             {
@@ -169,9 +169,9 @@
         // KBEngine 引擎消息流程
         public void moveRaw2Msg_KBE()
         {
-            this.mRawBuffer.circularBuffer.linearize();
-            this.mMsgBuffer.circularBuffer.pushBackCB(this.mRawBuffer.circularBuffer);
-            this.mRawBuffer.circularBuffer.clear();
+            $this->mRawBuffer.circularBuffer.linearize();
+            $this->mMsgBuffer.circularBuffer.pushBackCB($this->mRawBuffer.circularBuffer);
+            $this->mRawBuffer.circularBuffer.clear();
         }
 
         public void send(bool bnet = true)

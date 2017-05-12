@@ -12,7 +12,7 @@ namespace SDK.Lib
 
         public TimerMgr()
         {
-            this.mTimerList = new MList<TimerItemBase>();
+            $this->mTimerList = new MList<TimerItemBase>();
         }
 
         override public void init()
@@ -28,15 +28,15 @@ namespace SDK.Lib
         protected override void addObject(IDelayHandleItem delayObject, float priority = 0.0f)
         {
             // 检查当前是否已经在队列中
-            if (!this.mTimerList.Contains(delayObject as TimerItemBase))
+            if (!$this->mTimerList.Contains(delayObject as TimerItemBase))
             {
-                if (this.isInDepth())
+                if ($this->isInDepth())
                 {
                     base.addObject(delayObject, priority);
                 }
                 else
                 {
-                    this.mTimerList.Add(delayObject as TimerItemBase);
+                    $this->mTimerList.Add(delayObject as TimerItemBase);
                 }
             }
         }
@@ -44,21 +44,21 @@ namespace SDK.Lib
         protected override void removeObject(IDelayHandleItem delayObject)
         {
             // 检查当前是否在队列中
-            if (this.mTimerList.Contains(delayObject as TimerItemBase))
+            if ($this->mTimerList.Contains(delayObject as TimerItemBase))
             {
                 (delayObject as TimerItemBase).mDisposed = true;
 
-                if (this.isInDepth())
+                if ($this->isInDepth())
                 {
                     base.removeObject(delayObject);
                 }
                 else
                 {
-                    foreach (TimerItemBase item in this.mTimerList.list())
+                    foreach (TimerItemBase item in $this->mTimerList.list())
                     {
                         if (UtilApi.isAddressEqual(item, delayObject))
                         {
-                            this.mTimerList.Remove(item);
+                            $this->mTimerList.Remove(item);
                             break;
                         }
                     }
@@ -69,7 +69,7 @@ namespace SDK.Lib
         // 从 Lua 中添加定时器，这种定时器尽量整个定时器周期只与 Lua 通信一次
         public void addTimer(TimerItemBase delayObject, float priority = 0.0f)
         {
-            this.addObject(delayObject, priority);
+            $this->addObject(delayObject, priority);
         }
 
         public void addTimer(LuaTable luaTimer)
@@ -81,19 +81,19 @@ namespace SDK.Lib
             timer.mTotalTime = Convert.ToSingle(luaTimer["totaltime"]);
             timer.setLuaFunctor(table, function);
 
-            this.addTimer(timer);
+            $this->addTimer(timer);
         }
 
         public void removeTimer(TimerItemBase timer)
         {
-            this.removeObject(timer);
+            $this->removeObject(timer);
         }
 
         public void Advance(float delta)
         {
-            this.incDepth();
+            $this->incDepth();
 
-            foreach (TimerItemBase timerItem in this.mTimerList.list())
+            foreach (TimerItemBase timerItem in $this->mTimerList.list())
             {
                 if (!timerItem.isClientDispose())
                 {
@@ -102,11 +102,11 @@ namespace SDK.Lib
 
                 if (timerItem.mDisposed)        // 如果已经结束
                 {
-                    this.removeObject(timerItem);
+                    $this->removeObject(timerItem);
                 }
             }
 
-            this.decDepth();
+            $this->decDepth();
         }
     }
 }

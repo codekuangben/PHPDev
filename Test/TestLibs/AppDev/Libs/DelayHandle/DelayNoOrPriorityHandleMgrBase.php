@@ -12,8 +12,8 @@
 
         public DelayNoOrPriorityHandleMgrBase()
         {
-            this.mLoopDepth = new LoopDepth();
-            this.mLoopDepth.setZeroHandle(null, this.processDelayObjects);
+            $this->mLoopDepth = new LoopDepth();
+            $this->mLoopDepth.setZeroHandle(null, $this->processDelayObjects);
         }
 
         virtual public void init()
@@ -28,34 +28,34 @@
 
         virtual protected void addObject(IDelayHandleItem delayObject, float priority = 0.0f)
         {
-            if(this.mLoopDepth.isInDepth())
+            if($this->mLoopDepth.isInDepth())
             {
-                if (!this.mDeferredAddQueue.Contains(delayObject as INoOrPriorityObject))        // 如果添加列表中没有
+                if (!$this->mDeferredAddQueue.Contains(delayObject as INoOrPriorityObject))        // 如果添加列表中没有
                 {
-                    if (this.mDeferredDelQueue.Contains(delayObject as INoOrPriorityObject))     // 如果已经添加到删除列表中
+                    if ($this->mDeferredDelQueue.Contains(delayObject as INoOrPriorityObject))     // 如果已经添加到删除列表中
                     {
-                        this.mDeferredDelQueue.removeNoOrPriorityObject(delayObject as INoOrPriorityObject);
+                        $this->mDeferredDelQueue.removeNoOrPriorityObject(delayObject as INoOrPriorityObject);
                     }
                     
-                    this.mDeferredAddQueue.addNoOrPriorityObject(delayObject as INoOrPriorityObject);
+                    $this->mDeferredAddQueue.addNoOrPriorityObject(delayObject as INoOrPriorityObject);
                 }
             }
         }
 
         virtual protected void removeObject(IDelayHandleItem delayObject)
         {
-            if (this.mLoopDepth.isInDepth())
+            if ($this->mLoopDepth.isInDepth())
             {
-                if (!this.mDeferredDelQueue.Contains(delayObject as INoOrPriorityObject))
+                if (!$this->mDeferredDelQueue.Contains(delayObject as INoOrPriorityObject))
                 {
-                    if (this.mDeferredAddQueue.Contains(delayObject as INoOrPriorityObject))    // 如果已经添加到删除列表中
+                    if ($this->mDeferredAddQueue.Contains(delayObject as INoOrPriorityObject))    // 如果已经添加到删除列表中
                     {
-                        this.mDeferredAddQueue.removeNoOrPriorityObject(delayObject as INoOrPriorityObject);
+                        $this->mDeferredAddQueue.removeNoOrPriorityObject(delayObject as INoOrPriorityObject);
                     }
 
                     delayObject.setClientDispose(true);
                     
-                    this.mDeferredDelQueue.addNoOrPriorityObject(delayObject as INoOrPriorityObject);
+                    $this->mDeferredDelQueue.addNoOrPriorityObject(delayObject as INoOrPriorityObject);
                 }
             }
         }
@@ -66,53 +66,53 @@
             // len 是 Python 的关键字
             int elemLen = 0;
 
-            if (!this.mLoopDepth.isInDepth())       // 只有全部退出循环后，才能处理添加删除
+            if (!$this->mLoopDepth.isInDepth())       // 只有全部退出循环后，才能处理添加删除
             {
-                if (this.mDeferredAddQueue.Count() > 0)
+                if ($this->mDeferredAddQueue.Count() > 0)
                 {
                     idx = 0;
-                    elemLen = this.mDeferredAddQueue.Count();
+                    elemLen = $this->mDeferredAddQueue.Count();
 
                     while(idx < elemLen)
                     {
-                        this.addObject(this.mDeferredAddQueue.get(idx) as IDelayHandleItem);
+                        $this->addObject($this->mDeferredAddQueue.get(idx) as IDelayHandleItem);
 
                         idx += 1;
                     }
 
-                    this.mDeferredAddQueue.Clear();
+                    $this->mDeferredAddQueue.Clear();
                 }
 
-                if (this.mDeferredDelQueue.Count() > 0)
+                if ($this->mDeferredDelQueue.Count() > 0)
                 {
                     idx = 0;
-                    elemLen = this.mDeferredDelQueue.Count();
+                    elemLen = $this->mDeferredDelQueue.Count();
 
                     while(idx < elemLen)
                     {
-                        this.removeObject(this.mDeferredDelQueue.get(idx) as IDelayHandleItem);
+                        $this->removeObject($this->mDeferredDelQueue.get(idx) as IDelayHandleItem);
 
                         idx += 1;
                     }
 
-                    this.mDeferredDelQueue.Clear();
+                    $this->mDeferredDelQueue.Clear();
                 }
             }
         }
 
         protected void incDepth()
         {
-            this.mLoopDepth.incDepth();
+            $this->mLoopDepth.incDepth();
         }
 
         protected void decDepth()
         {
-            this.mLoopDepth.decDepth();
+            $this->mLoopDepth.decDepth();
         }
 
         protected bool isInDepth()
         {
-            return this.mLoopDepth.isInDepth();
+            return $this->mLoopDepth.isInDepth();
         }
     }
 }

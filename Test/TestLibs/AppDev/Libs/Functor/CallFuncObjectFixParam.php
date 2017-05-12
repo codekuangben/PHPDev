@@ -7,18 +7,18 @@
 
         public CallFuncObjectFixParam()
         {
-            this.mHandle = null;
-            this.mParam = null;
+            $this->mHandle = null;
+            $this->mParam = null;
         }
 
         override public void clear()
         {
-            this.mThis = null;
+            $this->mThis = null;
         }
 
         override public bool isValid()
         {
-            if (null != this.mHandle)
+            if (null != $this->mHandle)
             {
                 return true;
             }
@@ -32,15 +32,15 @@
         {
             base.setPThisAndHandle(pThis, handle, param);
 
-            this.mHandle = handle;
-            this.mParam = param;
+            $this->mHandle = handle;
+            $this->mParam = param;
         }
 
         override public void call()
         {
-            if (null != this.mHandle)
+            if (null != $this->mHandle)
             {
-                this.mHandle(this.mParam);
+                $this->mHandle($this->mParam);
             }
         }
     }

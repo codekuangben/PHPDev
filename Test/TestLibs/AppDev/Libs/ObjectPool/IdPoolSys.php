@@ -9,7 +9,7 @@
 
         public IdPoolSys()
         {
-            this.mId2PoolDic = new MDictionary<string, MList<IRecycle>>();
+            $this->mId2PoolDic = new MDictionary<string, MList<IRecycle>>();
         }
 
         public void init()
@@ -26,12 +26,12 @@
         {
             IRecycle ret = null;
 
-            if (this.mId2PoolDic.ContainsKey(id))
+            if ($this->mId2PoolDic.ContainsKey(id))
             {
-                if (this.mId2PoolDic[id].Count() > 0)
+                if ($this->mId2PoolDic[id].Count() > 0)
                 {
-                    ret = this.mId2PoolDic[id][0];
-                    this.mId2PoolDic[id].RemoveAt(0);
+                    ret = $this->mId2PoolDic[id][0];
+                    $this->mId2PoolDic[id].RemoveAt(0);
                 }
             }
 
@@ -40,15 +40,15 @@
 
         public void deleteObj(string id, IRecycle obj)
         {
-            if(!this.mId2PoolDic.ContainsKey(id))
+            if(!$this->mId2PoolDic.ContainsKey(id))
             {
-                this.mId2PoolDic[id] = new MList<IRecycle>();
-                this.mId2PoolDic[id].setIsSpeedUpFind(true);
+                $this->mId2PoolDic[id] = new MList<IRecycle>();
+                $this->mId2PoolDic[id].setIsSpeedUpFind(true);
             }
 
-            if(!this.mId2PoolDic[id].Contains(obj))
+            if(!$this->mId2PoolDic[id].Contains(obj))
             {
-                this.mId2PoolDic[id].Add(obj);
+                $this->mId2PoolDic[id].Add(obj);
             }
         }
     }

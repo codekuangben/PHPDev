@@ -14,7 +14,7 @@
 
         public ResizeMgr()
         {
-            this.mResizeList = new MList<IResizeObject>();
+            $this->mResizeList = new MList<IResizeObject>();
         }
 
         override public void init()
@@ -24,88 +24,88 @@
 
         override public void dispose()
         {
-            this.mResizeList.Clear();
+            $this->mResizeList.Clear();
         }
 
         public int getWidth()
         {
-            return this.mCurWidth;
+            return $this->mCurWidth;
         }
 
         public int getHeight()
         {
-            return this.mCurHeight;
+            return $this->mCurHeight;
         }
 
         public int getHalfWidth()
         {
-            return this.mCurHalfWidth;
+            return $this->mCurHalfWidth;
         }
 
         public int getHalfHeight()
         {
-            return this.mCurHalfHeight;
+            return $this->mCurHalfHeight;
         }
 
         override protected void addObject(IDelayHandleItem delayObject, float priority = 0.0f)
         {
-            if(this.isInDepth())
+            if($this->isInDepth())
             {
                 base.addObject(delayObject, priority);
             }
             else
             {
-                this.addResizeObject(delayObject as IResizeObject, priority);
+                $this->addResizeObject(delayObject as IResizeObject, priority);
             }
         }
 
         override protected void removeObject(IDelayHandleItem delayObject)
         {
-            if(this.isInDepth())
+            if($this->isInDepth())
             {
                 base.removeObject(delayObject);
             }
             else
             {
-                this.removeResizeObject(delayObject as IResizeObject);
+                $this->removeResizeObject(delayObject as IResizeObject);
             }
         }
 
         public void addResizeObject(IResizeObject obj, float priority = 0)
         {
-            if (!this.mResizeList.Contains(obj))
+            if (!$this->mResizeList.Contains(obj))
             {
-                this.mResizeList.Add(obj);
+                $this->mResizeList.Add(obj);
             }
         }
 
         public void removeResizeObject(IResizeObject obj)
         {
-            if (this.mResizeList.IndexOf(obj) != -1)
+            if ($this->mResizeList.IndexOf(obj) != -1)
             {
-                this.mResizeList.Remove(obj);
+                $this->mResizeList.Remove(obj);
             }
         }
 
         public void onTick(float delta, TickMode tickMode)
         {
-            this.mPreWidth = this.mCurWidth;
-            this.mCurWidth = UtilApi.getScreenWidth();
-            this.mCurHalfWidth = this.mCurWidth / 2;
+            $this->mPreWidth = $this->mCurWidth;
+            $this->mCurWidth = UtilApi.getScreenWidth();
+            $this->mCurHalfWidth = $this->mCurWidth / 2;
 
-            this.mPreHeight = this.mCurHeight;
-            this.mCurHeight = UtilApi.getScreenHeight();
-            this.mCurHalfHeight = this.mCurHeight / 2;
+            $this->mPreHeight = $this->mCurHeight;
+            $this->mCurHeight = UtilApi.getScreenHeight();
+            $this->mCurHalfHeight = $this->mCurHeight / 2;
 
-            if (this.mPreWidth != this.mCurWidth || this.mPreHeight != this.mCurHeight)
+            if ($this->mPreWidth != $this->mCurWidth || $this->mPreHeight != $this->mCurHeight)
             {
-                this.onResize(this.mCurWidth, this.mCurHeight);
+                $this->onResize($this->mCurWidth, $this->mCurHeight);
             }
         }
 
         public void onResize(int viewWidth, int viewHeight)
         {
-            foreach (IResizeObject resizeObj in this.mResizeList.list())
+            foreach (IResizeObject resizeObj in $this->mResizeList.list())
             {
                 resizeObj.onResize(viewWidth, viewHeight);
             }

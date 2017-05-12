@@ -6,12 +6,12 @@
 
         public CallFuncObjectBase()
         {
-            this.mThis = null;
+            $this->mThis = null;
         }
 
         virtual public void setPThisAndHandle(ICalleeObject pThis, MAction<IDispatchObject> handle, IDispatchObject param)
         {
-            this.mThis = pThis;
+            $this->mThis = pThis;
         }
 
         virtual public void setThisAndHandleNoParam(ICalleeObject pThis, MAction handle)
@@ -21,7 +21,7 @@
 
         virtual public void clear()
         {
-            this.mThis = null;
+            $this->mThis = null;
         }
 
         virtual public bool isValid()

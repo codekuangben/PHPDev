@@ -9,7 +9,7 @@ namespace SDK.Lib
 
         public FrameTimerMgr()
         {
-            this.mTimerList = new MList<FrameTimerItem>();
+            $this->mTimerList = new MList<FrameTimerItem>();
         }
 
         override public void init()
@@ -25,15 +25,15 @@ namespace SDK.Lib
         override protected void addObject(IDelayHandleItem delayObject, float priority = 0.0f)
         {
             // 检查当前是否已经在队列中
-            if (!this.mTimerList.Contains(delayObject as FrameTimerItem))
+            if (!$this->mTimerList.Contains(delayObject as FrameTimerItem))
             {
-                if (this.isInDepth())
+                if ($this->isInDepth())
                 {
                     base.addObject(delayObject, priority);
                 }
                 else
                 {
-                    this.mTimerList.Add(delayObject as FrameTimerItem);
+                    $this->mTimerList.Add(delayObject as FrameTimerItem);
                 }
             }
         }
@@ -41,21 +41,21 @@ namespace SDK.Lib
         override protected void removeObject(IDelayHandleItem delayObject)
         {
             // 检查当前是否在队列中
-            if (this.mTimerList.Contains(delayObject as FrameTimerItem))
+            if ($this->mTimerList.Contains(delayObject as FrameTimerItem))
             {
                 (delayObject as FrameTimerItem).mDisposed = true;
 
-                if (this.isInDepth())
+                if ($this->isInDepth())
                 {
                     base.addObject(delayObject);
                 }
                 else
                 {
-                    foreach (FrameTimerItem item in this.mTimerList.list())
+                    foreach (FrameTimerItem item in $this->mTimerList.list())
                     {
                         if (UtilApi.isAddressEqual(item, delayObject))
                         {
-                            this.mTimerList.Remove(item);
+                            $this->mTimerList.Remove(item);
                             break;
                         }
                     }
@@ -65,19 +65,19 @@ namespace SDK.Lib
 
         public void addFrameTimer(FrameTimerItem timer, float priority = 0.0f)
         {
-            this.addObject(timer, priority);
+            $this->addObject(timer, priority);
         }
 
         public void removeFrameTimer(FrameTimerItem timer)
         {
-            this.removeObject(timer);
+            $this->removeObject(timer);
         }
 
         public void Advance(float delta)
         {
-            this.incDepth();
+            $this->incDepth();
 
-            foreach (FrameTimerItem timerItem in this.mTimerList.list())
+            foreach (FrameTimerItem timerItem in $this->mTimerList.list())
             {
                 if (!timerItem.isClientDispose())
                 {
@@ -89,7 +89,7 @@ namespace SDK.Lib
                 }
             }
 
-            this.decDepth();
+            $this->decDepth();
         }
     }
 }

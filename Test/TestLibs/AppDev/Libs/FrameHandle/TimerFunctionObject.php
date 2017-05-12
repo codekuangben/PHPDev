@@ -10,60 +10,60 @@ namespace SDK.Lib
 
         public TimerFunctionObject()
         {
-            this.mHandle = null;
+            $this->mHandle = null;
         }
 
         public LuaCSDispatchFunctionObject luaCSDispatchFunctionObject
         {
             get
             {
-                return this.mLuaCSDispatchFunctionObject;
+                return $this->mLuaCSDispatchFunctionObject;
             }
             set
             {
-                this.mLuaCSDispatchFunctionObject = value;
+                $this->mLuaCSDispatchFunctionObject = value;
             }
         }
 
         public void setFuncObject(Action<TimerItemBase> handle)
         {
-            this.mHandle = handle;
+            $this->mHandle = handle;
         }
 
         public void setLuaTable(LuaTable luaTable)
         {
-            if(this.mLuaCSDispatchFunctionObject == null)
+            if($this->mLuaCSDispatchFunctionObject == null)
             {
-                this.mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
+                $this->mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
             }
 
-            this.mLuaCSDispatchFunctionObject.setTable(luaTable);
+            $this->mLuaCSDispatchFunctionObject.setTable(luaTable);
         }
 
         public void setLuaFunction(LuaFunction function)
         {
-            if(this.mLuaCSDispatchFunctionObject == null)
+            if($this->mLuaCSDispatchFunctionObject == null)
             {
-                this.mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
+                $this->mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
             }
 
-            this.mLuaCSDispatchFunctionObject.setFunction(function);
+            $this->mLuaCSDispatchFunctionObject.setFunction(function);
         }
 
         public void setLuaFunctor(LuaTable luaTable, LuaFunction function)
         {
-            if(this.mLuaCSDispatchFunctionObject == null)
+            if($this->mLuaCSDispatchFunctionObject == null)
             {
-                this.mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
+                $this->mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
             }
 
-            this.mLuaCSDispatchFunctionObject.setTable(luaTable);
-            this.mLuaCSDispatchFunctionObject.setFunction(function);
+            $this->mLuaCSDispatchFunctionObject.setTable(luaTable);
+            $this->mLuaCSDispatchFunctionObject.setFunction(function);
         }
 
         public bool isValid()
         {
-            return this.mHandle != null || (this.mLuaCSDispatchFunctionObject != null && this.mLuaCSDispatchFunctionObject.isValid());
+            return $this->mHandle != null || ($this->mLuaCSDispatchFunctionObject != null && $this->mLuaCSDispatchFunctionObject.isValid());
         }
 
         public bool isEqual(MAction<IDispatchObject> handle, LuaTable luaTable = null, LuaFunction luaFunction = null)
@@ -71,7 +71,7 @@ namespace SDK.Lib
             bool ret = false;
             if(handle != null)
             {
-                ret = UtilApi.isAddressEqual(this.mHandle, handle);
+                ret = UtilApi.isAddressEqual($this->mHandle, handle);
                 if(!ret)
                 {
                     return ret;
@@ -79,7 +79,7 @@ namespace SDK.Lib
             }
             if(luaTable != null)
             {
-                ret = this.mLuaCSDispatchFunctionObject.isTableEqual(luaTable);
+                ret = $this->mLuaCSDispatchFunctionObject.isTableEqual(luaTable);
                 if(!ret)
                 {
                     return ret;
@@ -87,7 +87,7 @@ namespace SDK.Lib
             }
             if(luaTable != null)
             {
-                ret = this.mLuaCSDispatchFunctionObject.isFunctionEqual(luaFunction);
+                ret = $this->mLuaCSDispatchFunctionObject.isFunctionEqual(luaFunction);
                 if (!ret)
                 {
                     return ret;
@@ -99,14 +99,14 @@ namespace SDK.Lib
 
         public void call(TimerItemBase dispObj)
         {
-            if (null != this.mHandle)
+            if (null != $this->mHandle)
             {
-                this.mHandle(dispObj);
+                $this->mHandle(dispObj);
             }
 
-            if(this.mLuaCSDispatchFunctionObject != null)
+            if($this->mLuaCSDispatchFunctionObject != null)
             {
-                this.mLuaCSDispatchFunctionObject.call(dispObj);
+                $this->mLuaCSDispatchFunctionObject.call(dispObj);
             }
         }
     }

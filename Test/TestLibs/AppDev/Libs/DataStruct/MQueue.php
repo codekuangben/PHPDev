@@ -8,27 +8,27 @@ namespace SDK.Lib
 
         public MQueue()
         {
-            this.mQueue = new Queue<T>();
+            $this->mQueue = new Queue<T>();
         }
 
         public int Count()
         {
-            return this.mQueue.Count;
+            return $this->mQueue.Count;
         }
 
         public T Dequeue()
         {
-            return this.mQueue.Dequeue();
+            return $this->mQueue.Dequeue();
         }
 
         public void Enqueue(T item)
         {
-            this.mQueue.Enqueue(item);
+            $this->mQueue.Enqueue(item);
         }
 
         public T Peek()
         {
-            return this.mQueue.Peek();
+            return $this->mQueue.Peek();
         }
     }
 }

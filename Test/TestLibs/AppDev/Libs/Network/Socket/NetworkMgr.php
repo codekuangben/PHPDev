@@ -28,7 +28,7 @@ namespace SDK.Lib
 
         public void dispose()
         {
-            this.closeNet();
+            $this->closeNet();
         }
 
         /**

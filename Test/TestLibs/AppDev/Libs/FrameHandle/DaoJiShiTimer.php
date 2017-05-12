@@ -8,41 +8,41 @@
         override public void setTotalTime(float value)
         {
             base.setTotalTime(value);
-            this.mCurRunTime = value;
+            $this->mCurRunTime = value;
         }
 
         override public float getRunTime()
         {
-            return this.mTotalTime - this.mCurRunTime;
+            return $this->mTotalTime - $this->mCurRunTime;
         }
 
         // 如果要获取剩余的倒计时时间，使用 getLeftCallTime
         override public float getLeftRunTime()
         {
-            return this.mCurRunTime;
+            return $this->mCurRunTime;
         }
 
         public override void OnTimer(float delta)
         {
-            if (this.mDisposed)
+            if ($this->mDisposed)
             {
                 return;
             }
 
-            this.mCurRunTime -= delta;
-            if(this.mCurRunTime < 0)
+            $this->mCurRunTime -= delta;
+            if($this->mCurRunTime < 0)
             {
-                this.mCurRunTime = 0;
+                $this->mCurRunTime = 0;
             }
-            this.mIntervalLeftTime += delta;
+            $this->mIntervalLeftTime += delta;
 
-            if (this.mIsInfineLoop)
+            if ($this->mIsInfineLoop)
             {
                 checkAndDisp();
             }
             else
             {
-                if (this.mCurRunTime <= 0)
+                if ($this->mCurRunTime <= 0)
                 {
                     disposeAndDisp();
                 }
@@ -55,10 +55,10 @@
 
         public override void reset()
         {
-            this.mCurRunTime = this.mTotalTime;
-            this.mCurCallTime = 0;
-            this.mIntervalLeftTime = 0;
-            this.mDisposed = false;
+            $this->mCurRunTime = $this->mTotalTime;
+            $this->mCurCallTime = 0;
+            $this->mIntervalLeftTime = 0;
+            $this->mDisposed = false;
         }
     }
 }

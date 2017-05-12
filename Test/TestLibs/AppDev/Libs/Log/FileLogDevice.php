@@ -18,18 +18,18 @@ namespace SDK.Lib
 
         public FileLogDevice()
         {
-            this.mFilePrefix = "log";
+            $this->mFilePrefix = "log";
         }
 
         public string fileSuffix
         {
             get
             {
-                return this.mFileSuffix;
+                return $this->mFileSuffix;
             }
             set
             {
-                this.mFileSuffix = value;
+                $this->mFileSuffix = value;
             }
         }
 
@@ -37,17 +37,17 @@ namespace SDK.Lib
         {
             get
             {
-                return this.mFilePrefix; 
+                return $this->mFilePrefix; 
             }
             set
             {
-                this.mFilePrefix = value;
+                $this->mFilePrefix = value;
             }
         }
 
         public bool isValid()
         {
-            return null != this.mFileStream;
+            return null != $this->mFileStream;
         }
 
         public override void initDevice()
@@ -58,7 +58,7 @@ namespace SDK.Lib
 #else
             string path = string.Format("{0}{1}", Application.persistentDataPath,"/Debug");
 #endif
-            this.checkDirSize(path); // 检查目录大小
+            $this->checkDirSize(path); // 检查目录大小
 
             string file;
             if(string.IsNullOrEmpty(mFileSuffix))
@@ -88,35 +88,35 @@ namespace SDK.Lib
             {
                 //mFileStream = new FileStream(file, FileMode.Append);
                 File.Delete(@file);
-                this.mFileStream = new FileStream(file, FileMode.Create);
+                $this->mFileStream = new FileStream(file, FileMode.Create);
             }
             else
             {
-                this.mFileStream = new FileStream(file, FileMode.Create);
+                $this->mFileStream = new FileStream(file, FileMode.Create);
             }
 
-            this.mStreamWriter = new StreamWriter(this.mFileStream);
+            $this->mStreamWriter = new StreamWriter($this->mFileStream);
         }
 
         public override void closeDevice()
         {
-            this.mStreamWriter.Flush();
+            $this->mStreamWriter.Flush();
             //关闭流
-            this.mStreamWriter.Close();
-            this.mStreamWriter = null;
-            this.mFileStream.Close();
-            this.mFileStream = null;
+            $this->mStreamWriter.Close();
+            $this->mStreamWriter = null;
+            $this->mFileStream.Close();
+            $this->mFileStream = null;
         }
 
         // 写文件
         public override void logout(string message, LogColor type = LogColor.eLC_LOG)
         {
-            if (this.isValid())
+            if ($this->isValid())
             {
-                if (this.mStreamWriter != null)
+                if ($this->mStreamWriter != null)
                 {
-                    this.mStreamWriter.Write(message);
-                    this.mStreamWriter.Write("\n");
+                    $this->mStreamWriter.Write(message);
+                    $this->mStreamWriter.Write("\n");
                     //if (type == LogColor.WARN || type == LogColor.ERROR)
                     //{
                     //    m_stackTrace = new StackTrace(true);        // 这个在 new 的地方生成当时堆栈数据，需要的时候再 new ，否则是旧的堆栈数据
@@ -124,7 +124,7 @@ namespace SDK.Lib
                     //    mStreamWriter.Write(m_traceStr);
                     //    mStreamWriter.Write("\n");
                     //}
-                    this.mStreamWriter.Flush();             // 立马输出
+                    $this->mStreamWriter.Flush();             // 立马输出
                 }
             }
         }

@@ -6,12 +6,12 @@
 
         public GObject()
         {
-            this.mTypeId = "GObject";
+            $this->mTypeId = "GObject";
         }
 
         public string getTypeId()
         {
-            return this.mTypeId;
+            return $this->mTypeId;
         }
     }
 }

@@ -20,10 +20,10 @@ namespace SDK.Lib
         // 构造函数仅仅是初始化变量，不涉及逻辑
         public LogSys()
         {
-            this.mAsyncLogList = new LockList<string>("Logger_asyncLogList");
-            this.mAsyncWarnList = new LockList<string>("Logger_asyncWarnList");
-            this.mAsyncErrorList = new LockList<string>("Logger_asyncErrorList");
-            this.mLogDeviceList = new MList<LogDeviceBase>();
+            $this->mAsyncLogList = new LockList<string>("Logger_asyncLogList");
+            $this->mAsyncWarnList = new LockList<string>("Logger_asyncWarnList");
+            $this->mAsyncErrorList = new LockList<string>("Logger_asyncErrorList");
+            $this->mLogDeviceList = new MList<LogDeviceBase>();
 
 #if UNITY_5
             Application.logMessageReceived += onDebugLogCallbackHandler;
@@ -33,88 +33,88 @@ namespace SDK.Lib
             Application.RegisterLogCallbackThreaded(onDebugLogCallbackThreadHandler);
 #endif
 
-            this.mEnableLogTypeList = new MList<LogTypeId>[(int)LogColor.eLC_Count];
+            $this->mEnableLogTypeList = new MList<LogTypeId>[(int)LogColor.eLC_Count];
 
-            this.mEnableLogTypeList[(int)LogColor.eLC_LOG] = new MList<LogTypeId>();
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogCommon);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogResLoader);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogLocalFile);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogTestRL);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogAcceleration);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogUnityCB);
+            $this->mEnableLogTypeList[(int)LogColor.eLC_LOG] = new MList<LogTypeId>();
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogCommon);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogResLoader);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogLocalFile);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogTestRL);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogAcceleration);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogUnityCB);
 
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogSplitMergeEmit);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogSceneInterActive);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogKBE);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogScene);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogBeingMove);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogEventRemove);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogMusicBug);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogLoadBug);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogMergeBug);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogEatBug);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogSimHitBullet);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogTwoDTerrain);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogPriorityListCheck);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogNoPriorityListCheck);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogPosSyn);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogPlaneError);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogDownload);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogAutoUpdate);
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogProfileDebug);
-            this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogProfile);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogSplitMergeEmit);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogSceneInterActive);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogKBE);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogScene);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogBeingMove);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogEventRemove);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogMusicBug);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogLoadBug);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogMergeBug);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogEatBug);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogSimHitBullet);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogTwoDTerrain);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogPriorityListCheck);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogNoPriorityListCheck);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogPosSyn);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogPlaneError);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogDownload);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogAutoUpdate);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogProfileDebug);
+            $this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogProfile);
 
             // 编辑器日志
-            //this.mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogEditorBuildPlayer);
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogEditorBuildPlayer);
 
-            this.mEnableLogTypeList[(int)LogColor.eLC_WARN] = new MList<LogTypeId>();
+            $this->mEnableLogTypeList[(int)LogColor.eLC_WARN] = new MList<LogTypeId>();
 
-            this.mEnableLogTypeList[(int)LogColor.eLC_ERROR] = new MList<LogTypeId>();
-            //this.mEnableLogTypeList[(int)LogColor.eLC_ERROR].Add(LogTypeId.eLogLoadBug);
-            this.mEnableLogTypeList[(int)LogColor.eLC_ERROR].Add(LogTypeId.eErrorDownload);
+            $this->mEnableLogTypeList[(int)LogColor.eLC_ERROR] = new MList<LogTypeId>();
+            //$this->mEnableLogTypeList[(int)LogColor.eLC_ERROR].Add(LogTypeId.eLogLoadBug);
+            $this->mEnableLogTypeList[(int)LogColor.eLC_ERROR].Add(LogTypeId.eErrorDownload);
 
-            this.mEnableLog = new bool[(int)LogColor.eLC_Count];
-            this.mEnableLog[(int)LogColor.eLC_LOG] = MacroDef.ENABLE_LOG;
-            this.mEnableLog[(int)LogColor.eLC_WARN] = MacroDef.ENABLE_WARN;
-            this.mEnableLog[(int)LogColor.eLC_ERROR] = MacroDef.ENABLE_ERROR;
+            $this->mEnableLog = new bool[(int)LogColor.eLC_Count];
+            $this->mEnableLog[(int)LogColor.eLC_LOG] = MacroDef.ENABLE_LOG;
+            $this->mEnableLog[(int)LogColor.eLC_WARN] = MacroDef.ENABLE_WARN;
+            $this->mEnableLog[(int)LogColor.eLC_ERROR] = MacroDef.ENABLE_ERROR;
 
-            this.mIsOutStack = new bool[(int)LogColor.eLC_Count];
-            this.mIsOutStack[(int)LogColor.eLC_LOG] = false;
-            this.mIsOutStack[(int)LogColor.eLC_WARN] = false;
-            this.mIsOutStack[(int)LogColor.eLC_ERROR] = false;
+            $this->mIsOutStack = new bool[(int)LogColor.eLC_Count];
+            $this->mIsOutStack[(int)LogColor.eLC_LOG] = false;
+            $this->mIsOutStack[(int)LogColor.eLC_WARN] = false;
+            $this->mIsOutStack[(int)LogColor.eLC_ERROR] = false;
 
-            this.mIsOutTimeStamp = new bool[(int)LogColor.eLC_Count];
-            this.mIsOutTimeStamp[(int)LogColor.eLC_LOG] = false;
-            this.mIsOutTimeStamp[(int)LogColor.eLC_WARN] = false;
-            this.mIsOutTimeStamp[(int)LogColor.eLC_ERROR] = false;
+            $this->mIsOutTimeStamp = new bool[(int)LogColor.eLC_Count];
+            $this->mIsOutTimeStamp[(int)LogColor.eLC_LOG] = false;
+            $this->mIsOutTimeStamp[(int)LogColor.eLC_WARN] = false;
+            $this->mIsOutTimeStamp[(int)LogColor.eLC_ERROR] = false;
         }
 
         // 初始化逻辑处理
         public void init()
         {
-            this.registerDevice();
-            this.registerFileLogDevice();
+            $this->registerDevice();
+            $this->registerFileLogDevice();
         }
 
         // 析构
         public void dispose()
         {
-            this.closeDevice();
+            $this->closeDevice();
         }
 
         public void setEnableLog(bool value)
         {
-            this.mEnableLog[(int)LogColor.eLC_LOG] = value;
+            $this->mEnableLog[(int)LogColor.eLC_LOG] = value;
         }
 
         public void setEnableWarn(bool value)
         {
-            this.mEnableLog[(int)LogColor.eLC_WARN] = value;
+            $this->mEnableLog[(int)LogColor.eLC_WARN] = value;
         }
 
         public void setEnableError(bool value)
         {
-            this.mEnableLog[(int)LogColor.eLC_ERROR] = value;
+            $this->mEnableLog[(int)LogColor.eLC_ERROR] = value;
         }
 
         protected void registerDevice()
@@ -125,14 +125,14 @@ namespace SDK.Lib
             {
                 logDevice = new WinLogDevice();
                 logDevice.initDevice();
-                this.mLogDeviceList.Add(logDevice);
+                $this->mLogDeviceList.Add(logDevice);
             }
 
             if (MacroDef.ENABLE_NETLOG)
             {
                 logDevice = new NetLogDevice();
                 logDevice.initDevice();
-                this.mLogDeviceList.Add(logDevice);
+                $this->mLogDeviceList.Add(logDevice);
             }
         }
 
@@ -149,7 +149,7 @@ namespace SDK.Lib
                 logDevice = new FileLogDevice();
                 (logDevice as FileLogDevice).fileSuffix = Ctx.mInstance.mDataPlayer.mAccountData.m_account;
                 logDevice.initDevice();
-                this.mLogDeviceList.Add(logDevice);
+                $this->mLogDeviceList.Add(logDevice);
             }
         }
 
@@ -160,7 +160,7 @@ namespace SDK.Lib
                 if(typeof(FileLogDevice) == item.GetType())
                 {
                     item.closeDevice();
-                    this.mLogDeviceList.Remove(item);
+                    $this->mLogDeviceList.Remove(item);
                     break;
                 }
             }
@@ -170,7 +170,7 @@ namespace SDK.Lib
         public void debugLog_1(LangItemID idx, string str)
         {
             string textStr = Ctx.mInstance.mLangMgr.getText(LangTypeId.eDebug5, idx);
-            this.mTmpStr = string.Format(textStr, str);
+            $this->mTmpStr = string.Format(textStr, str);
             //Ctx.mInstance.mLogSys.log(mTmpStr);
         }
 
@@ -178,11 +178,11 @@ namespace SDK.Lib
         {
             if (param.Length == 0)
             {
-                this.mTmpStr = Ctx.mInstance.mLangMgr.getText(type, item);
+                $this->mTmpStr = Ctx.mInstance.mLangMgr.getText(type, item);
             }
             else if (param.Length == 1)
             {
-                this.mTmpStr = string.Format(Ctx.mInstance.mLangMgr.getText(type, item), param[0], param[1]);
+                $this->mTmpStr = string.Format(Ctx.mInstance.mLangMgr.getText(type, item), param[0], param[1]);
             }
             //Ctx.mInstance.mLogSys.log(mTmpStr);
         }
@@ -198,9 +198,9 @@ namespace SDK.Lib
 
         protected bool isInFilter(LogTypeId logTypeId, LogColor logColor)
         {
-            if (this.mEnableLog[(int)logColor])
+            if ($this->mEnableLog[(int)logColor])
             {
-                if (this.mEnableLogTypeList[(int)logColor].Contains(logTypeId))
+                if ($this->mEnableLogTypeList[(int)logColor].Contains(logTypeId))
                 {
                     return true;
                 }
@@ -214,19 +214,19 @@ namespace SDK.Lib
         // Lua 调用 Log 这个函数的时候， LogTypeId 类型转换会报错，不能使用枚举类型
         public void lua_log(string message, int logTypeId = 0)
         {
-            this.log(message, (LogTypeId)logTypeId);
+            $this->log(message, (LogTypeId)logTypeId);
         }
 
         public void log(string message, LogTypeId logTypeId = LogTypeId.eLogCommon)
         {
             if (isInFilter(logTypeId, LogColor.eLC_LOG))
             {
-                if(this.mIsOutTimeStamp[(int)LogColor.eLC_LOG])
+                if($this->mIsOutTimeStamp[(int)LogColor.eLC_LOG])
                 {
                     message = string.Format("{0}: {1}", UtilApi.getFormatTime(), message);
                 }
 
-                if (this.mIsOutStack[(int)LogColor.eLC_LOG])
+                if ($this->mIsOutStack[(int)LogColor.eLC_LOG])
                 {
                     System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace(true);
                     string traceStr = stackTrace.ToString();
@@ -235,30 +235,30 @@ namespace SDK.Lib
 
                 if (MThread.isMainThread())
                 {
-                    this.logout(message, LogColor.eLC_LOG);
+                    $this->logout(message, LogColor.eLC_LOG);
                 }
                 else
                 {
-                    this.asyncLog(message);
+                    $this->asyncLog(message);
                 }
             }
         }
 
         public void lua_warn(string message, int logTypeId = 0)
         {
-            this.warn(message, (LogTypeId)logTypeId);
+            $this->warn(message, (LogTypeId)logTypeId);
         }
 
         public void warn(string message, LogTypeId logTypeId = LogTypeId.eLogCommon)
         {
             if (isInFilter(logTypeId, LogColor.eLC_WARN))
             {
-                if (this.mIsOutTimeStamp[(int)LogColor.eLC_WARN])
+                if ($this->mIsOutTimeStamp[(int)LogColor.eLC_WARN])
                 {
                     message = string.Format("{0}: {1}", UtilApi.getFormatTime(), message);
                 }
 
-                if (this.mIsOutStack[(int)LogColor.eLC_WARN])
+                if ($this->mIsOutStack[(int)LogColor.eLC_WARN])
                 {
                     System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace(true);
                     string traceStr = stackTrace.ToString();
@@ -267,30 +267,30 @@ namespace SDK.Lib
 
                 if (MThread.isMainThread())
                 {
-                    this.logout(message, LogColor.eLC_WARN);
+                    $this->logout(message, LogColor.eLC_WARN);
                 }
                 else
                 {
-                    this.asyncWarn(message);
+                    $this->asyncWarn(message);
                 }
             }
         }
 
         public void lua_error(string message, int logTypeId = 0)
         {
-            this.error(message, (LogTypeId)logTypeId);
+            $this->error(message, (LogTypeId)logTypeId);
         }
 
         public void error(string message, LogTypeId logTypeId = LogTypeId.eLogCommon)
         {
             if (isInFilter(logTypeId, LogColor.eLC_ERROR))
             {
-                if (this.mIsOutTimeStamp[(int)LogColor.eLC_ERROR])
+                if ($this->mIsOutTimeStamp[(int)LogColor.eLC_ERROR])
                 {
                     message = string.Format("{0}: {1}", UtilApi.getFormatTime(), message);
                 }
 
-                if (this.mIsOutStack[(int)LogColor.eLC_ERROR])
+                if ($this->mIsOutStack[(int)LogColor.eLC_ERROR])
                 {
                     System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace(true);
                     string traceStr = stackTrace.ToString();
@@ -299,11 +299,11 @@ namespace SDK.Lib
 
                 if (MThread.isMainThread())
                 {
-                    this.logout(message, LogColor.eLC_ERROR);
+                    $this->logout(message, LogColor.eLC_ERROR);
                 }
                 else
                 {
-                    this.asyncError(message);
+                    $this->asyncError(message);
                 }
             }
         }
@@ -317,13 +317,13 @@ namespace SDK.Lib
         // 多线程日志
         protected void asyncWarn(string message)
         {
-            this.mAsyncWarnList.Add(message);
+            $this->mAsyncWarnList.Add(message);
         }
 
         // 多线程日志
         protected void asyncError(string message)
         {
-            this.mAsyncErrorList.Add(message);
+            $this->mAsyncErrorList.Add(message);
         }
 
         public void logout(string message, LogColor type = LogColor.eLC_LOG)
@@ -334,12 +334,12 @@ namespace SDK.Lib
             }
 
             int idx = 0;
-            int len = this.mLogDeviceList.Count();
+            int len = $this->mLogDeviceList.Count();
             LogDeviceBase logDevice = null;
 
             while (idx < len)
             {
-                logDevice = this.mLogDeviceList[idx];
+                logDevice = $this->mLogDeviceList[idx];
                 logDevice.logout(message, type);
 
                 ++idx;
@@ -353,19 +353,19 @@ namespace SDK.Lib
                 MThread.needMainThread();
             }
 
-            while ((this.mTmpStr = mAsyncLogList.RemoveAt(0)) != default(string))
+            while (($this->mTmpStr = mAsyncLogList.RemoveAt(0)) != default(string))
             {
-                this.logout(mTmpStr, LogColor.eLC_LOG);
+                $this->logout(mTmpStr, LogColor.eLC_LOG);
             }
 
-            while ((this.mTmpStr = mAsyncWarnList.RemoveAt(0)) != default(string))
+            while (($this->mTmpStr = mAsyncWarnList.RemoveAt(0)) != default(string))
             {
-                this.logout(mTmpStr, LogColor.eLC_WARN);
+                $this->logout(mTmpStr, LogColor.eLC_WARN);
             }
 
-            while ((this.mTmpStr = mAsyncErrorList.RemoveAt(0)) != default(string))
+            while (($this->mTmpStr = mAsyncErrorList.RemoveAt(0)) != default(string))
             {
-                this.logout(mTmpStr, LogColor.eLC_ERROR);
+                $this->logout(mTmpStr, LogColor.eLC_ERROR);
             }
         }
 

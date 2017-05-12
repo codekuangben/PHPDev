@@ -11,7 +11,7 @@
         {
             base.dispatchEvent(dispatchObject);
 
-            this.clearEventHandle();
+            $this->clearEventHandle();
         }
     }
 }

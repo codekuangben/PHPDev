@@ -19,26 +19,26 @@ namespace SDK.Lib
 
         public SystemTimeData()
         {
-            this.mPreTime = 0;
-            this.mCurTime = 0;
-            this.mDeltaSec = 0.0f;
-            this.mIsFixFrameRate = false;
-            this.mFixFrameRate = 0.0417f;       //  1 / 24;
-            this.mScale = 1;
+            $this->mPreTime = 0;
+            $this->mCurTime = 0;
+            $this->mDeltaSec = 0.0f;
+            $this->mIsFixFrameRate = false;
+            $this->mFixFrameRate = 0.0417f;       //  1 / 24;
+            $this->mScale = 1;
 
-            this.mFixedTimestep = 0.02f;
-            this.mServerBaseTime = 0;
+            $this->mFixedTimestep = 0.02f;
+            $this->mServerBaseTime = 0;
         }
 
         public float deltaSec
         {
             get
             {
-                return this.mDeltaSec;
+                return $this->mDeltaSec;
             }
             set
             {
-                this.mDeltaSec = value;
+                $this->mDeltaSec = value;
             }
         }
 
@@ -46,62 +46,62 @@ namespace SDK.Lib
         {
             if (Ctx.mInstance.mCfg.mIsActorMoveUseFixUpdate)
             {
-                return this.mFixedTimestep;
+                return $this->mFixedTimestep;
             }
             else
             {
-                return this.mDeltaSec;
+                return $this->mDeltaSec;
             }
         }
 
         // 获取固定帧率时间间隔
         public float getFixFrameRateInterval()
         {
-            return this.mFixFrameRate;
+            return $this->mFixFrameRate;
         }
 
         public long curTime
         {
             get
             {
-                return this.mCurTime;
+                return $this->mCurTime;
             }
             set
             {
-                this.mCurTime = value;
+                $this->mCurTime = value;
             }
         }
 
         public void nextFrame()
         {
-            this.mPreTime = this.mCurTime;
-            this.mCurTime = DateTime.Now.Ticks;
+            $this->mPreTime = $this->mCurTime;
+            $this->mCurTime = DateTime.Now.Ticks;
 
             if (mIsFixFrameRate)
             {
-                this.mDeltaSec = this.mFixFrameRate;        // 每秒 24 帧
+                $this->mDeltaSec = $this->mFixFrameRate;        // 每秒 24 帧
             }
             else
             {
-                if (this.mPreTime != 0f)     // 第一帧跳过，因为这一帧不好计算间隔
+                if ($this->mPreTime != 0f)     // 第一帧跳过，因为这一帧不好计算间隔
                 {
-                    TimeSpan ts = new TimeSpan(this.mCurTime - this.mPreTime);
-                    this.mDeltaSec = (float)(ts.TotalSeconds);
+                    TimeSpan ts = new TimeSpan($this->mCurTime - $this->mPreTime);
+                    $this->mDeltaSec = (float)(ts.TotalSeconds);
                 }
                 else
                 {
-                    this.mDeltaSec = this.mFixFrameRate;        // 每秒 24 帧
+                    $this->mDeltaSec = $this->mFixFrameRate;        // 每秒 24 帧
                 }
             }
 
-            this.mDeltaSec *= this.mScale;
+            $this->mDeltaSec *= $this->mScale;
         }
 
         // 服务器传递过来的是毫秒，本地存储的是秒
         public void setServerTime(uint value)
         {
-            this.mServerBaseTime = value;
-            this.mServerRelTime = DateTime.Now.Ticks;
+            $this->mServerBaseTime = value;
+            $this->mServerRelTime = DateTime.Now.Ticks;
         }
 
         // 获取服务器毫秒时间
@@ -113,8 +113,8 @@ namespace SDK.Lib
         // 获取服务器秒时间
         public long getServerMilliSecTime()
         {
-            TimeSpan ts = new TimeSpan(this.mCurTime - this.mServerRelTime);
-            return this.mServerBaseTime + ts.Milliseconds;
+            TimeSpan ts = new TimeSpan($this->mCurTime - $this->mServerRelTime);
+            return $this->mServerBaseTime + ts.Milliseconds;
         }
     }
 }

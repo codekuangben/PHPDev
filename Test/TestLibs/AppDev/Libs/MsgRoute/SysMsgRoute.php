@@ -21,18 +21,18 @@
                 }
                 else
                 {
-                    this.push(msg);
+                    $this->push(msg);
                 }
             }
             else
             {
-                this.push(msg);
+                $this->push(msg);
             }
         }
 
         public MsgRouteBase popMsg()
         {
-            return this.pop();
+            return $this->pop();
         }
     }
 }

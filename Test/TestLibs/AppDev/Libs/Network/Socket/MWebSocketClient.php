@@ -78,7 +78,7 @@ namespace SDK.Lib
             var data = Encoding.UTF8.GetBytes(msg);
             m_pWebSocket.Send(data, 0, data.Length);
 
-            if (!this.DataReceiveEvent.WaitOne(1000))
+            if (!$this->DataReceiveEvent.WaitOne(1000))
             {
                 //Assert.Fail("Cannot get response in time!");
             }

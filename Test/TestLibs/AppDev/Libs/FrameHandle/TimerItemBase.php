@@ -20,45 +20,45 @@ namespace SDK.Lib
 
         public TimerItemBase()
         {
-            this.mInternal = 1;
-            this.mTotalTime = 1;
-            this.mCurRunTime = 0;
-            this.mCurCallTime = 0;
-            this.mIsInfineLoop = false;
-            this.mIntervalLeftTime = 0;
-            this.mTimerDisp = new TimerFunctionObject();
-            this.mDisposed = false;
-            this.mIsContinuous = false;
+            $this->mInternal = 1;
+            $this->mTotalTime = 1;
+            $this->mCurRunTime = 0;
+            $this->mCurCallTime = 0;
+            $this->mIsInfineLoop = false;
+            $this->mIntervalLeftTime = 0;
+            $this->mTimerDisp = new TimerFunctionObject();
+            $this->mDisposed = false;
+            $this->mIsContinuous = false;
         }
 
         public void setFuncObject(Action<TimerItemBase> handle)
         {
-            this.mTimerDisp.setFuncObject(handle);
+            $this->mTimerDisp.setFuncObject(handle);
         }
 
         virtual public void setTotalTime(float value)
         {
-            this.mTotalTime = value;
+            $this->mTotalTime = value;
         }
 
         virtual public float getRunTime()
         {
-            return this.mCurRunTime;
+            return $this->mCurRunTime;
         }
 
         virtual public float getCallTime()
         {
-            return this.mCurCallTime;
+            return $this->mCurCallTime;
         }
 
         virtual public float getLeftRunTime()
         {
-            return this.mTotalTime - this.mCurRunTime;
+            return $this->mTotalTime - $this->mCurRunTime;
         }
 
         virtual public float getLeftCallTime()
         {
-            return this.mTotalTime - this.mCurCallTime;
+            return $this->mTotalTime - $this->mCurCallTime;
         }
 
         // 在调用回调函数之前处理
@@ -69,25 +69,25 @@ namespace SDK.Lib
 
         public virtual void OnTimer(float delta)
         {
-            if (this.mDisposed)
+            if ($this->mDisposed)
             {
                 return;
             }
 
-            this.mCurRunTime += delta;
-            if (this.mCurRunTime > this.mTotalTime)
+            $this->mCurRunTime += delta;
+            if ($this->mCurRunTime > $this->mTotalTime)
             {
-                this.mCurRunTime = this.mTotalTime;
+                $this->mCurRunTime = $this->mTotalTime;
             }
-            this.mIntervalLeftTime += delta;
+            $this->mIntervalLeftTime += delta;
 
-            if (this.mIsInfineLoop)
+            if ($this->mIsInfineLoop)
             {
                 checkAndDisp();
             }
             else
             {
-                if (this.mCurRunTime >= this.mTotalTime)
+                if ($this->mCurRunTime >= $this->mTotalTime)
                 {
                     disposeAndDisp();
                 }
@@ -100,48 +100,48 @@ namespace SDK.Lib
 
         public virtual void disposeAndDisp()
         {
-            if (this.mIsContinuous)
+            if ($this->mIsContinuous)
             {
-                this.continueDisposeAndDisp();
+                $this->continueDisposeAndDisp();
             }
             else
             {
-                this.discontinueDisposeAndDisp();
+                $this->discontinueDisposeAndDisp();
             }
         }
 
         protected void continueDisposeAndDisp()
         {
-            this.mDisposed = true;
+            $this->mDisposed = true;
 
-            while (this.mIntervalLeftTime >= this.mInternal && this.mCurCallTime < this.mTotalTime)
+            while ($this->mIntervalLeftTime >= $this->mInternal && $this->mCurCallTime < $this->mTotalTime)
             {
-                this.mCurCallTime = this.mCurCallTime + this.mInternal;
-                this.mIntervalLeftTime = this.mIntervalLeftTime - this.mInternal;
-                this.onPreCallBack();
+                $this->mCurCallTime = $this->mCurCallTime + $this->mInternal;
+                $this->mIntervalLeftTime = $this->mIntervalLeftTime - $this->mInternal;
+                $this->onPreCallBack();
 
-                if (this.mTimerDisp.isValid())
+                if ($this->mTimerDisp.isValid())
                 {
-                    this.mTimerDisp.call(this);
+                    $this->mTimerDisp.call(this);
                 }
             }
         }
 
         protected void discontinueDisposeAndDisp()
         {
-            this.mDisposed = true;
-            this.mCurCallTime = this.mTotalTime;
-            this.onPreCallBack();
+            $this->mDisposed = true;
+            $this->mCurCallTime = $this->mTotalTime;
+            $this->onPreCallBack();
 
-            if (this.mTimerDisp.isValid())
+            if ($this->mTimerDisp.isValid())
             {
-                this.mTimerDisp.call(this);
+                $this->mTimerDisp.call(this);
             }
         }
 
         public virtual void checkAndDisp()
         {
-            if(this.mIsContinuous)
+            if($this->mIsContinuous)
             {
                 continueCheckAndDisp();
             }
@@ -154,16 +154,16 @@ namespace SDK.Lib
         // 连续的定时器
         protected void continueCheckAndDisp()
         {
-            while (this.mIntervalLeftTime >= this.mInternal)
+            while ($this->mIntervalLeftTime >= $this->mInternal)
             {
                 // 这个地方 m_curCallTime 肯定会小于 m_totalTime，因为在调用这个函数的外部已经进行了判断
-                this.mCurCallTime = this.mCurCallTime + this.mInternal;
-                this.mIntervalLeftTime = this.mIntervalLeftTime - this.mInternal;
-                this.onPreCallBack();
+                $this->mCurCallTime = $this->mCurCallTime + $this->mInternal;
+                $this->mIntervalLeftTime = $this->mIntervalLeftTime - $this->mInternal;
+                $this->onPreCallBack();
 
-                if (this.mTimerDisp.isValid())
+                if ($this->mTimerDisp.isValid())
                 {
-                    this.mTimerDisp.call(this);
+                    $this->mTimerDisp.call(this);
                 }
             }
         }
@@ -171,26 +171,26 @@ namespace SDK.Lib
         // 不连续的定时器
         protected void discontinueCheckAndDisp()
         {
-            if (this.mIntervalLeftTime >= this.mInternal)
+            if ($this->mIntervalLeftTime >= $this->mInternal)
             {
                 // 这个地方 m_curCallTime 肯定会小于 m_totalTime，因为在调用这个函数的外部已经进行了判断
-                this.mCurCallTime = this.mCurCallTime + (((int)(this.mIntervalLeftTime / this.mInternal)) * this.mInternal);
-                this.mIntervalLeftTime = this.mIntervalLeftTime % this.mInternal;   // 只保留余数
-                this.onPreCallBack();
+                $this->mCurCallTime = $this->mCurCallTime + (((int)($this->mIntervalLeftTime / $this->mInternal)) * $this->mInternal);
+                $this->mIntervalLeftTime = $this->mIntervalLeftTime % $this->mInternal;   // 只保留余数
+                $this->onPreCallBack();
 
-                if (this.mTimerDisp.isValid())
+                if ($this->mTimerDisp.isValid())
                 {
-                    this.mTimerDisp.call(this);
+                    $this->mTimerDisp.call(this);
                 }
             }
         }
 
         public virtual void reset()
         {
-            this.mCurRunTime = 0;
-            this.mCurCallTime = 0;
-            this.mIntervalLeftTime = 0;
-            this.mDisposed = false;
+            $this->mCurRunTime = 0;
+            $this->mCurCallTime = 0;
+            $this->mIntervalLeftTime = 0;
+            $this->mDisposed = false;
         }
 
         public void setClientDispose(bool isDispose)
@@ -205,7 +205,7 @@ namespace SDK.Lib
 
         public void setLuaFunctor(LuaTable luaTable, LuaFunction function)
         {
-            this.mTimerDisp.setLuaFunctor(luaTable, function);
+            $this->mTimerDisp.setLuaFunctor(luaTable, function);
         }
 
         public void startTimer()

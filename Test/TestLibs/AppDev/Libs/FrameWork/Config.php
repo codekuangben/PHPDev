@@ -35,49 +35,49 @@ namespace SDK.Lib
         {
             StreamingAssets = "StreamingAssets/";
 
-            this.mIp = "192.168.96.14";
-            this.mPort = 20013;
-            this.mZone = 30;
+            $this->mIp = "192.168.96.14";
+            $this->mPort = 20013;
+            $this->mZone = 30;
 
-            this.mWebIP = "http://127.0.0.1/UnityServer/";
-            this.mWebPort = 80;
-            this.mNetLogPhp = "/netlog/NetLog.php";
-            this.mPakExtNameList = new List<string>();
+            $this->mWebIP = "http://127.0.0.1/UnityServer/";
+            $this->mWebPort = 80;
+            $this->mNetLogPhp = "/netlog/NetLog.php";
+            $this->mPakExtNameList = new List<string>();
 
-            this.mResLoadType = ResLoadType.eLoadResource;
-            this.mPathLst = new string[(int)ResPathType.eTotal];
-            this.mPathLst[(int)ResPathType.ePathScene] = "Scenes/";
-            this.mPathLst[(int)ResPathType.ePathSceneXml] = "Scenes/Xml/";
-            this.mPathLst[(int)ResPathType.ePathModule] = "Module/";
-            this.mPathLst[(int)ResPathType.ePathComUI] = "UI/";
-            this.mPathLst[(int)ResPathType.ePathComUIScene] = "UIScene/";
-            this.mPathLst[(int)ResPathType.ePathBeingPath] = "Being/";
-            this.mPathLst[(int)ResPathType.ePathAIPath] = "AI/";
-            this.mPathLst[(int)ResPathType.ePathTablePath] = "Table/";
-            this.mPathLst[(int)ResPathType.ePathLangXml] = "Languages/";
-            this.mPathLst[(int)ResPathType.ePathXmlCfg] = "XmlConfig/";
-            this.mPathLst[(int)ResPathType.ePathModel] = "Model/";
-            this.mPathLst[(int)ResPathType.ePathMaterial] = "Model/Materials/";
-            this.mPathLst[(int)ResPathType.ePathBuildImage] = "Image/Build/";
-            this.mPathLst[(int)ResPathType.ePathCardImage] = "Image/Card/";
-            this.mPathLst[(int)ResPathType.ePathWord] = "Word/";
-            this.mPathLst[(int)ResPathType.ePathAudio] = "Sound/";
-            this.mPathLst[(int)ResPathType.ePathAtlas] = "Atlas/";
-            this.mPathLst[(int)ResPathType.ePathSpriteAni] = "Effect/SpriteEffect/";
-            this.mPathLst[(int)ResPathType.ePathSceneAnimatorController] = "Animation/Scene/";
-            this.mPathLst[(int)ResPathType.ePathULua] = "LuaScript/";
-            this.mPathLst[(int)ResPathType.ePathLuaScript] = "LuaScript/";
-            this.mPathLst[(int)ResPathType.ePathSkillAction] = "SkillAction/";
+            $this->mResLoadType = ResLoadType.eLoadResource;
+            $this->mPathLst = new string[(int)ResPathType.eTotal];
+            $this->mPathLst[(int)ResPathType.ePathScene] = "Scenes/";
+            $this->mPathLst[(int)ResPathType.ePathSceneXml] = "Scenes/Xml/";
+            $this->mPathLst[(int)ResPathType.ePathModule] = "Module/";
+            $this->mPathLst[(int)ResPathType.ePathComUI] = "UI/";
+            $this->mPathLst[(int)ResPathType.ePathComUIScene] = "UIScene/";
+            $this->mPathLst[(int)ResPathType.ePathBeingPath] = "Being/";
+            $this->mPathLst[(int)ResPathType.ePathAIPath] = "AI/";
+            $this->mPathLst[(int)ResPathType.ePathTablePath] = "Table/";
+            $this->mPathLst[(int)ResPathType.ePathLangXml] = "Languages/";
+            $this->mPathLst[(int)ResPathType.ePathXmlCfg] = "XmlConfig/";
+            $this->mPathLst[(int)ResPathType.ePathModel] = "Model/";
+            $this->mPathLst[(int)ResPathType.ePathMaterial] = "Model/Materials/";
+            $this->mPathLst[(int)ResPathType.ePathBuildImage] = "Image/Build/";
+            $this->mPathLst[(int)ResPathType.ePathCardImage] = "Image/Card/";
+            $this->mPathLst[(int)ResPathType.ePathWord] = "Word/";
+            $this->mPathLst[(int)ResPathType.ePathAudio] = "Sound/";
+            $this->mPathLst[(int)ResPathType.ePathAtlas] = "Atlas/";
+            $this->mPathLst[(int)ResPathType.ePathSpriteAni] = "Effect/SpriteEffect/";
+            $this->mPathLst[(int)ResPathType.ePathSceneAnimatorController] = "Animation/Scene/";
+            $this->mPathLst[(int)ResPathType.ePathULua] = "LuaScript/";
+            $this->mPathLst[(int)ResPathType.ePathLuaScript] = "LuaScript/";
+            $this->mPathLst[(int)ResPathType.ePathSkillAction] = "SkillAction/";
 
-            this.mDataPath = Application.dataPath;
+            $this->mDataPath = Application.dataPath;
 
-            this.mPakExtNameList.Add("prefab");
-            this.mPakExtNameList.Add("png");
-            this.mPakExtNameList.Add("shader");
-            this.mPakExtNameList.Add("unity");
+            $this->mPakExtNameList.Add("prefab");
+            $this->mPakExtNameList.Add("png");
+            $this->mPakExtNameList.Add("shader");
+            $this->mPakExtNameList.Add("unity");
 
-            this.mIsActorMoveUseFixUpdate = false;
-            this.mDownloadURL = "git5.club";
+            $this->mIsActorMoveUseFixUpdate = false;
+            $this->mDownloadURL = "git5.club";
         }
     }
 }

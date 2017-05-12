@@ -19,24 +19,24 @@ namespace SDK.Lib
 
         public FrameTimerItem()
         {
-            this.mInternal = 1;
-            this.mTotalFrameCount = 1;
-            this.mCurFrame = 0;
-            this.mIsInfineLoop = false;
-            this.mCurLeftFrame = 0;
-            this.mTimerDisp = null;
-            this.mDisposed = false;
+            $this->mInternal = 1;
+            $this->mTotalFrameCount = 1;
+            $this->mCurFrame = 0;
+            $this->mIsInfineLoop = false;
+            $this->mCurLeftFrame = 0;
+            $this->mTimerDisp = null;
+            $this->mDisposed = false;
         }
 
         public virtual void OnFrameTimer()
         {
-            if (this.mDisposed)
+            if ($this->mDisposed)
             {
                 return;
             }
 
-            ++this.mCurFrame;
-            ++this.mCurLeftFrame;
+            ++$this->mCurFrame;
+            ++$this->mCurLeftFrame;
 
             //if (m_preFrame == m_curFrame)
             //{
@@ -45,36 +45,36 @@ namespace SDK.Lib
 
             //m_curFrame = m_preFrame;
 
-            if (this.mIsInfineLoop)
+            if ($this->mIsInfineLoop)
             {
-                if (this.mCurLeftFrame == this.mInternal)
+                if ($this->mCurLeftFrame == $this->mInternal)
                 {
-                    this.mCurLeftFrame = 0;
+                    $this->mCurLeftFrame = 0;
 
-                    if (this.mTimerDisp != null)
+                    if ($this->mTimerDisp != null)
                     {
-                        this.mTimerDisp(this);
+                        $this->mTimerDisp(this);
                     }
                 }
             }
             else
             {
-                if (this.mCurFrame == this.mTotalFrameCount)
+                if ($this->mCurFrame == $this->mTotalFrameCount)
                 {
-                    this.mDisposed = true;
-                    if (this.mTimerDisp != null)
+                    $this->mDisposed = true;
+                    if ($this->mTimerDisp != null)
                     {
-                        this.mTimerDisp(this);
+                        $this->mTimerDisp(this);
                     }
                 }
                 else
                 {
-                    if (this.mCurLeftFrame == this.mInternal)
+                    if ($this->mCurLeftFrame == $this->mInternal)
                     {
-                        this.mCurLeftFrame = 0;
-                        if (this.mTimerDisp != null)
+                        $this->mCurLeftFrame = 0;
+                        if ($this->mTimerDisp != null)
                         {
-                            this.mTimerDisp(this);
+                            $this->mTimerDisp(this);
                         }
                     }
                 }
@@ -83,9 +83,9 @@ namespace SDK.Lib
 
         public virtual void reset()
         {
-            this.mCurFrame = 0;
-            this.mCurLeftFrame = 0;
-            this.mDisposed = false;
+            $this->mCurFrame = 0;
+            $this->mCurLeftFrame = 0;
+            $this->mDisposed = false;
         }
 
         public void setClientDispose(bool isDispose)

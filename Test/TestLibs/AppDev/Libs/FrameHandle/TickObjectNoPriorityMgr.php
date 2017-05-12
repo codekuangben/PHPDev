@@ -30,13 +30,13 @@
 
         public void onTick(float delta, TickMode tickMode)
         {
-            this.incDepth();
+            $this->incDepth();
 
-            this.onPreAdvance(delta, tickMode);
-            this.onExecAdvance(delta, tickMode);
-            this.onPostAdvance(delta, tickMode);
+            $this->onPreAdvance(delta, tickMode);
+            $this->onExecAdvance(delta, tickMode);
+            $this->onPostAdvance(delta, tickMode);
 
-            this.decDepth();
+            $this->decDepth();
         }
 
         virtual protected void onPreAdvance(float delta, TickMode tickMode)
@@ -47,12 +47,12 @@
         virtual protected void onExecAdvance(float delta, TickMode tickMode)
         {
             int idx = 0;
-            int count = this.mNoOrPriorityList.Count();
+            int count = $this->mNoOrPriorityList.Count();
             ITickedObject tickObject = null;
 
             while (idx < count)
             {
-                tickObject = this.mNoOrPriorityList.get(idx) as ITickedObject;
+                tickObject = $this->mNoOrPriorityList.get(idx) as ITickedObject;
 
                 if (null != (tickObject as IDelayHandleItem))
                 {

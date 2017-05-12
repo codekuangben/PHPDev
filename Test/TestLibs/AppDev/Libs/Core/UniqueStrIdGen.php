@@ -19,32 +19,32 @@
         public UniqueStrIdGen(string prefix, uint baseUniqueId)
             : base(baseUniqueId)
         {
-            this.mPrefix = prefix;
+            $this->mPrefix = prefix;
         }
 
         public string genNewStrId()
         {
-            this.mStringBuilder = new System.Text.StringBuilder();
-            this.mStringBuilder.Append(this.mPrefix);
-            this.mStringBuilder.Append('_');
-            this.mStringBuilder.Append(this.genNewId());
-            this.mRetId = this.mStringBuilder.ToString();
-            return this.mRetId;
+            $this->mStringBuilder = new System.Text.StringBuilder();
+            $this->mStringBuilder.Append($this->mPrefix);
+            $this->mStringBuilder.Append('_');
+            $this->mStringBuilder.Append($this->genNewId());
+            $this->mRetId = $this->mStringBuilder.ToString();
+            return $this->mRetId;
         }
 
         public string getCurStrId()
         {
-            return this.mRetId;
+            return $this->mRetId;
         }
 
         public string genStrIdById(uint id)
         {
-            this.mStringBuilder = new System.Text.StringBuilder();
-            this.mStringBuilder.Append(this.mPrefix);
-            this.mStringBuilder.Append('_');
-            this.mStringBuilder.Append(id);
-            this.mRetId = this.mStringBuilder.ToString();
-            return this.mRetId;
+            $this->mStringBuilder = new System.Text.StringBuilder();
+            $this->mStringBuilder.Append($this->mPrefix);
+            $this->mStringBuilder.Append('_');
+            $this->mStringBuilder.Append(id);
+            $this->mRetId = $this->mStringBuilder.ToString();
+            return $this->mRetId;
         }
     }
 }

@@ -11,20 +11,20 @@
 
         override public void setThisAndHandleNoParam(ICalleeObject pThis, MAction handle)
         {
-            this.mThis = pThis;
-            this.mHandleNoParam = handle;
+            $this->mThis = pThis;
+            $this->mHandleNoParam = handle;
         }
 
         override public void clear()
         {
-            this.mHandleNoParam = null;
+            $this->mHandleNoParam = null;
 
             base.clear();
         }
 
         override public bool isValid()
         {
-            if (null != this.mHandleNoParam)
+            if (null != $this->mHandleNoParam)
             {
                 return true;
             }
@@ -36,9 +36,9 @@
 
         override public void call()
         {
-            if (null != this.mHandleNoParam)
+            if (null != $this->mHandleNoParam)
             {
-                this.mHandleNoParam();
+                $this->mHandleNoParam();
             }
         }
     }

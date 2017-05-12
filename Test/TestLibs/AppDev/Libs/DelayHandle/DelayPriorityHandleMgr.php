@@ -7,14 +7,14 @@
     {
         public DelayPriorityHandleMgr()
         {
-            this.mDeferredAddQueue = new NoPriorityList();
-            this.mDeferredAddQueue.setIsSpeedUpFind(true);
-            this.mDeferredDelQueue = new NoPriorityList();
-            this.mDeferredDelQueue.setIsSpeedUpFind(true);
+            $this->mDeferredAddQueue = new NoPriorityList();
+            $this->mDeferredAddQueue.setIsSpeedUpFind(true);
+            $this->mDeferredDelQueue = new NoPriorityList();
+            $this->mDeferredDelQueue.setIsSpeedUpFind(true);
 
-            this.mNoOrPriorityList = new PriorityList();
-            this.mNoOrPriorityList.setIsSpeedUpFind(true);
-            this.mNoOrPriorityList.setIsOpKeepSort(true);
+            $this->mNoOrPriorityList = new PriorityList();
+            $this->mNoOrPriorityList.setIsSpeedUpFind(true);
+            $this->mNoOrPriorityList.setIsOpKeepSort(true);
         }
 
         override public void init()
@@ -29,12 +29,12 @@
 
         public void addPriorityObject(INoOrPriorityObject priorityObject, float priority = 0.0f)
         {
-            this.addNoOrPriorityObject(priorityObject, priority);
+            $this->addNoOrPriorityObject(priorityObject, priority);
         }
 
         public void removePriorityObject(ITickedObject tickObj)
         {
-            this.removeNoOrPriorityObject(tickObj);
+            $this->removeNoOrPriorityObject(tickObj);
         }
     }
 }

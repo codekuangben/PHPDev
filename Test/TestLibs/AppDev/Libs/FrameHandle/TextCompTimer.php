@@ -9,7 +9,7 @@ namespace SDK.Lib
         protected override void onPreCallBack()
         {
             base.onPreCallBack();
-            this.mText.text = UtilLogic.formatTime((int)this.mCurRunTime);
+            $this->mText.text = UtilLogic.formatTime((int)$this->mCurRunTime);
         }
     }
 }

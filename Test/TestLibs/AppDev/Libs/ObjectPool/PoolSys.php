@@ -10,9 +10,9 @@
 
         public PoolSys()
         {
-            this.mPoolList = new MList<IRecycle>();
-            this.mPoolList.setIsSpeedUpFind(true);
-            //this.mPoolList = new LockList<IRecycle>("PoolSys_List");
+            $this->mPoolList = new MList<IRecycle>();
+            $this->mPoolList.setIsSpeedUpFind(true);
+            //$this->mPoolList = new LockList<IRecycle>("PoolSys_List");
         }
 
         public T newObject<T>() where T : IRecycle, new()
@@ -24,16 +24,16 @@
             // 查找
             int idx = 0;
 
-            for(idx = 0; idx < this.mPoolList.Count(); ++idx)
+            for(idx = 0; idx < $this->mPoolList.Count(); ++idx)
             {
-                tmpObj = this.mPoolList[idx];
+                tmpObj = $this->mPoolList[idx];
 
                 if (typeof(T) == tmpObj.GetType())
                 {
                     finded = true;
 
                     retObj = (T)tmpObj;
-                    this.mPoolList.RemoveAt(idx);
+                    $this->mPoolList.RemoveAt(idx);
 
                     retObj.resetDefault();
 
@@ -58,9 +58,9 @@
 
         public void deleteObj(IRecycle obj)
         {
-            if (!this.mPoolList.Contains(obj))
+            if (!$this->mPoolList.Contains(obj))
             {
-                this.mPoolList.Add(obj);
+                $this->mPoolList.Add(obj);
             }
         }
     }

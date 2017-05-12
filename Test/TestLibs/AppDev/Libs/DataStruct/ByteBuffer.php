@@ -562,49 +562,49 @@ namespace SDK.Lib
         // 写入 EOF 结束符
         public void end()
         {
-            mDynBuffer.buffer[this.length] = 0;
+            mDynBuffer.buffer[$this->length] = 0;
         }
 
         public void writeVector2(Vector2 vec)
         {
-            this.writeFloat(vec.x);
-            this.writeFloat(vec.y);
+            $this->writeFloat(vec.x);
+            $this->writeFloat(vec.y);
         }
 
         public void writeVector3(Vector3 vec)
         {
-            this.writeFloat(vec.x);
-            this.writeFloat(vec.y);
-            this.writeFloat(vec.z);
+            $this->writeFloat(vec.x);
+            $this->writeFloat(vec.y);
+            $this->writeFloat(vec.z);
         }
 
         public void writeVector4(Vector4 vec)
         {
-            this.writeFloat(vec.x);
-            this.writeFloat(vec.y);
-            this.writeFloat(vec.z);
-            this.writeFloat(vec.w);
+            $this->writeFloat(vec.x);
+            $this->writeFloat(vec.y);
+            $this->writeFloat(vec.z);
+            $this->writeFloat(vec.w);
         }
 
         public void readVector2(ref Vector2 vec)
         {
-            this.readFloat(ref vec.x);
-            this.readFloat(ref vec.y);
+            $this->readFloat(ref vec.x);
+            $this->readFloat(ref vec.y);
         }
 
         public void readVector3(ref Vector3 vec)
         {
-            this.readFloat(ref vec.x);
-            this.readFloat(ref vec.y);
-            this.readFloat(ref vec.z);
+            $this->readFloat(ref vec.x);
+            $this->readFloat(ref vec.y);
+            $this->readFloat(ref vec.z);
         }
 
         public void readVector4(ref Vector4 vec)
         {
-            this.readFloat(ref vec.x);
-            this.readFloat(ref vec.y);
-            this.readFloat(ref vec.z);
-            this.readFloat(ref vec.w);
+            $this->readFloat(ref vec.x);
+            $this->readFloat(ref vec.y);
+            $this->readFloat(ref vec.z);
+            $this->readFloat(ref vec.w);
         }
 
         public void writeAABB(MAxisAlignedBox aabb)

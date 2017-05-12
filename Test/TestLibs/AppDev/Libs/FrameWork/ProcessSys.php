@@ -18,7 +18,7 @@ namespace SDK.Lib
             }
 
             //Ctx.mInstance.mSystemTimeData.nextFrame();
-            this.Advance(Ctx.mInstance.mSystemTimeData.deltaSec);
+            $this->Advance(Ctx.mInstance.mSystemTimeData.deltaSec);
 
             if (MacroDef.ENABLE_PROFILE)
             {
@@ -43,7 +43,7 @@ namespace SDK.Lib
                 Ctx.mInstance.mProfiler.enter("ProcessSys::ProcessNextFixedFrame");
             }
 
-            this.FixedAdvance(Ctx.mInstance.mSystemTimeData.getFixedTimestep());
+            $this->FixedAdvance(Ctx.mInstance.mSystemTimeData.getFixedTimestep());
 
             if (MacroDef.ENABLE_PROFILE)
             {
@@ -73,7 +73,7 @@ namespace SDK.Lib
                 Ctx.mInstance.mProfiler.enter("ProcessSys::ProcessNextLateFrame");
             }
 
-            this.LateAdvance(Ctx.mInstance.mSystemTimeData.deltaSec);
+            $this->LateAdvance(Ctx.mInstance.mSystemTimeData.deltaSec);
 
             if (MacroDef.ENABLE_PROFILE)
             {

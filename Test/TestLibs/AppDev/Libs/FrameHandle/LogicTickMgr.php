@@ -9,12 +9,12 @@
 
         public LogicTickMgr()
         {
-            this.mTimeInterval = new TimeInterval();
+            $this->mTimeInterval = new TimeInterval();
         }
 
         override protected void onExecAdvance(float delta, TickMode tickMode)
         {
-            if(this.mTimeInterval.canExec(delta))
+            if($this->mTimeInterval.canExec(delta))
             {
                 base.onExecAdvance(delta, tickMode);
             }

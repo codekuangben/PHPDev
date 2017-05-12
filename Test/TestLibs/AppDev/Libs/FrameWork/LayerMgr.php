@@ -9,7 +9,7 @@
 
         public LayerMgr()
         {
-            this.mPath2Go = new MDictionary<string, UnityEngine.GameObject>();
+            $this->mPath2Go = new MDictionary<string, UnityEngine.GameObject>();
         }
 
         public void init()

@@ -7,10 +7,10 @@
     {
         public DelayNoPriorityHandleMgrBase()
         {
-            this.mDeferredAddQueue = new NoPriorityList();
-            this.mDeferredAddQueue.setIsSpeedUpFind(true);
-            this.mDeferredDelQueue = new NoPriorityList();
-            this.mDeferredDelQueue.setIsSpeedUpFind(true);
+            $this->mDeferredAddQueue = new NoPriorityList();
+            $this->mDeferredAddQueue.setIsSpeedUpFind(true);
+            $this->mDeferredDelQueue = new NoPriorityList();
+            $this->mDeferredDelQueue.setIsSpeedUpFind(true);
         }
 
         override public void init()

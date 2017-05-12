@@ -8,10 +8,10 @@
 
         public MsgRouteBase(MsgRouteID id, MsgRouteType type = MsgRouteType.eMRT_BASIC)
         {
-            this.mMsgType = type;
-            this.mMsgID = id;
+            $this->mMsgType = type;
+            $this->mMsgID = id;
 
-            this.mIsMainThreadImmeHandle = true;
+            $this->mIsMainThreadImmeHandle = true;
         }
 
         virtual public void resetDefault()
@@ -21,12 +21,12 @@
 
         public void setIsMainThreadImmeHandle(bool value)
         {
-            this.mIsMainThreadImmeHandle = value;
+            $this->mIsMainThreadImmeHandle = value;
         }
 
         public bool isMainThreadImmeHandle()
         {
-            return this.mIsMainThreadImmeHandle;
+            return $this->mIsMainThreadImmeHandle;
         }
     }
 }

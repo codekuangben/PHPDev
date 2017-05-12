@@ -22,17 +22,17 @@ namespace SDK.Lib
         {
             Coroutine ret = null;
 
-            if (null == this.mCoroutineComponent)
+            if (null == $this->mCoroutineComponent)
             {
                 if (null != Ctx.mInstance.mLayerMgr.mPath2Go[NotDestroyPath.ND_CV_App])
                 {
-                    this.mCoroutineComponent = Ctx.mInstance.mLayerMgr.mPath2Go[NotDestroyPath.ND_CV_App].AddComponent<CoroutineComponent>();
+                    $this->mCoroutineComponent = Ctx.mInstance.mLayerMgr.mPath2Go[NotDestroyPath.ND_CV_App].AddComponent<CoroutineComponent>();
                 }
             }
 
-            if (null != this.mCoroutineComponent)
+            if (null != $this->mCoroutineComponent)
             {
-                ret = this.mCoroutineComponent.StartCoroutine(routine);
+                ret = $this->mCoroutineComponent.StartCoroutine(routine);
             }
 
             return ret;

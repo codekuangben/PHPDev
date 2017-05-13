@@ -2,119 +2,98 @@
 
 namespace SDK\Lib;
 
-//public class MDictionary<TKey, TValue> where TValue : IComparer<TValue>
-//public class MDictionary<TKey, TValue> where TValue : class
-public class MDictionary<TKey, TValue>
+class MDictionary
 {
-	protected Dictionary<TKey, TValue> mData;
+	protected $mData;
 
-	public MDictionary()
+	public function __construct()
 	{
-		mData = new Dictionary<TKey, TValue>();
+		$this->mData = array();
 	}
 
-	public Dictionary<TKey, TValue> getData()
+	public function getData()
 	{
 		return $this->mData;
 	}
 
-	public int getCount()
+	public function getCount()
 	{
 		return $this->mData.Count;
 	}
 
-	public TValue this[TKey key]
+	public function value($key)
 	{
-		get
+		if ($this->mData.ContainsKey($key))
 		{
-			return $this->value(key);
+			return $this->mData[$key];
 		}
-		set
-		{
-			$this->Add(key, value);
-		}
+
+		return null;
 	}
 
-	public TValue value(TKey key)
+	public function key($value)
 	{
-		if ($this->mData.ContainsKey(key))
+		while(list($key, $val)= each($this->mData))
 		{
-			return $this->mData[key];
-		}
-
-		return default(TValue);
-	}
-
-	public TKey key(TValue value)
-	{
-		foreach (KeyValuePair<TKey, TValue> kv in $this->mData)
-		{
-			if (kv.Value.Equals(value))
-			//if (kv.Value == value)
+			if ($val.Equals($value))
+				//if ($val== == $value)
 			{
-				return kv.Key;
+				return $key;
 			}
 		}
-		return default(TKey);
+		return null;
 	}
 
-	public Dictionary<TKey, TValue>.KeyCollection Keys
+	public function getKeys()
 	{
-		get
-		{
-			return $this->mData.Keys;
-		}
+		return $this->mData.Keys;
 	}
 
-	public Dictionary<TKey, TValue>.ValueCollection Values
+	public function getValues()
 	{
-		get
-		{
-			return $this->mData.Values;
-		}
+		return $this->mData.Values;
 	}
 
-	public int Count()
+	public function Count()
 	{
 		return $this->mData.Keys.Count;
 	}
 
-	public Dictionary<TKey, TValue>.Enumerator GetEnumerator()
+	public function GetEnumerator()
 	{
 		return $this->mData.GetEnumerator();
 	}
 
-	public void Add(TKey key, TValue value)
+	public function Add($key, $value)
 	{
-		$this->mData[key] = value;
+		$this->mData[$key] = $value;
 	}
 
-	public void Remove(TKey key)
+	public function Remove($key)
 	{
-		$this->mData.Remove(key);
+		$this->mData.Remove($key);
 	}
 
-	public void Clear()
+	public function Clear()
 	{
 		$this->mData.Clear();
 	}
 
-	public bool TryGetValue(TKey key, out TValue value)
+	public function TryGetValue($key, $value)
 	{
-		return $this->mData.TryGetValue(key, out value);
+		return $this->mData.TryGetValue($key, $value);
 	}
 
-	public bool ContainsKey(TKey key)
+	public function ContainsKey($key)
 	{
-		return $this->mData.ContainsKey(key);
+		return $this->mData.ContainsKey($key);
 	}
 
-	public bool ContainsValue(TValue value)
+	public function ContainsValue($value)
 	{
-		foreach (KeyValuePair<TKey, TValue> kv in $this->mData)
+		while(list($key, $val)= each($this->mData))
 		{
-			if (kv.Value.Equals(value))
-			//if (kv.Value == value)
+			if($val.Equals($value))
 			{
 				return true;
 			}
@@ -123,21 +102,21 @@ public class MDictionary<TKey, TValue>
 		return false;
 	}
 
-	public TValue at(int idx)
+	public function at($idx)
 	{
-		int curidx = 0;
-		TValue ret = default(TValue);
+		$curidx = 0;
+		$ret = null;
 
-		foreach (KeyValuePair<TKey, TValue> kvp in $this->mData)
+		while(list($key, $val)= each($this->mData))
 		{
-			if(curidx == idx)
+			if($curidx == $idx)
 			{
-				ret = kvp.Value;
+				$ret = $val;
 				break;
 			}
 		}
 
-		return ret;
+		return $ret;
 	}
 }
 

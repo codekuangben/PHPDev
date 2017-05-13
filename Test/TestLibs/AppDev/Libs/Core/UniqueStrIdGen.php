@@ -1,7 +1,7 @@
 ﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 唯一字符串生成器
  */
@@ -48,7 +48,6 @@ public class UniqueStrIdGen : UniqueNumIdGen
 		$this->mRetId = $this->mStringBuilder.ToString();
 		return $this->mRetId;
 	}
-}
 }
 
 ?>

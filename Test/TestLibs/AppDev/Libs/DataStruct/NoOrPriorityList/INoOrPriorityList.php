@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 非优先级或者优先级列表
  */
@@ -18,4 +20,5 @@ public interface INoOrPriorityList
 	void addNoOrPriorityObject(INoOrPriorityObject noPriorityObject, float priority = 0.0f);
 	void removeNoOrPriorityObject(INoOrPriorityObject noPriorityObject);
 }
-}
+
+?>

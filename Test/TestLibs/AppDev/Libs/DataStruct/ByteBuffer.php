@@ -1,9 +1,7 @@
-﻿using System;
-using System.Text;
-using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  *@brief ByteBuffer 功能
  */
@@ -736,4 +734,5 @@ public class ByteBuffer : IDispatchObject
 		return this;
 	}
 }
-}
+
+?>

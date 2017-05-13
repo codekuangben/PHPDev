@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 优先级队列对象
  */
@@ -14,4 +16,5 @@ public class PriorityProcessObject
 		$this->mPriority = 0.0f;
 	}
 }
-}
+
+?>

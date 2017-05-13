@@ -1,5 +1,7 @@
-﻿namespace SDK.Lib
-{
+﻿<?php
+
+namespace SDK.Lib
+
 public class IndexItemBase
 {
 	protected int mIndex;   // 索引
@@ -24,4 +26,5 @@ public class IndexItemBase
 		this.mIndex = -1;
 	}
 }
-}
+
+?>

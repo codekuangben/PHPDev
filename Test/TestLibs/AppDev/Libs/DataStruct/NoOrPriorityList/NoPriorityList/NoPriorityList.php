@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 优先级队列
  */
@@ -236,4 +238,5 @@ public class NoPriorityList : INoOrPriorityList
 		}
 	}
 }
-}
+
+?>

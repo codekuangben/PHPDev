@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  *@brief 网络数据缓冲区
  */
@@ -514,4 +516,5 @@ public class ClientBuffer
 		}
 	}
 }
-}
+
+?>

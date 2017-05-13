@@ -1,7 +1,7 @@
 <?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief Profile，要一段时间配置一次，每一帧配置是没有意义的
  */
@@ -459,7 +459,6 @@ public class MProfiler
 
 		return retStr;
 	}
-}
 }
 
 ?>

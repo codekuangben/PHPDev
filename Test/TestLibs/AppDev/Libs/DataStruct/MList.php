@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 对系统 List 的封装
  */
@@ -374,4 +374,5 @@ public class MList<T>
 		}
 	}
 }
-}
+
+?>

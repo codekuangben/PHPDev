@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿<?php
 
-namespace SDK.Lib
-{
+namespace SDK\Lib;
+
 /**
  * @brief MIndexList ，元素是保存一个在列表中的索引的，减少 Key 比较，加快查找
  */
@@ -270,4 +270,5 @@ public class MIndexList<T> where T : IndexItemBase, new()
 		}
 	}
 }
-}
+
+?>

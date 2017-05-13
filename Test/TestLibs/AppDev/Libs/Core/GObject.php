@@ -2,7 +2,6 @@
 
 namespace SDK\Lib;
 
-{
 public class GObject
 {
 	protected string mTypeId;     // 名字
@@ -16,7 +15,6 @@ public class GObject
 	{
 		return $this->mTypeId;
 	}
-}
 }
 
 ?>

@@ -1,10 +1,10 @@
-﻿using System;
+﻿<?php
 
 /**
 *@brief 环形缓冲区，不支持多线程写操作
 */
 namespace SDK\Lib;
-{
+
 /**
  * @brief 浪费一个自己，这样判断也好判断，并且索引也不用减 1 ，因此浪费一个字节
  * @brief 判空: mFirst == mLast
@@ -329,4 +329,5 @@ public class CircularBuffer
 		//rhv.clear();
 	}
 }
-}
+
+?>

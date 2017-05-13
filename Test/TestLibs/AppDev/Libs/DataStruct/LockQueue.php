@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class LockQueue<T>
 {
 	protected LockList<T> mList;
@@ -19,4 +21,5 @@ public class LockQueue<T>
 		return mList.RemoveAt(0);
 	}
 }
-}
+
+?>

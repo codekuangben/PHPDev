@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 //public class MDictionary<TKey, TValue> where TValue : IComparer<TValue>
 //public class MDictionary<TKey, TValue> where TValue : class
 public class MDictionary<TKey, TValue>
@@ -140,4 +140,5 @@ public class MDictionary<TKey, TValue>
 		return ret;
 	}
 }
-}
+
+?>

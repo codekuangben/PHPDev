@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public class MQueue<T>
 {
 	protected Queue<T> mQueue;
@@ -31,4 +31,5 @@ public class MQueue<T>
 		return $this->mQueue.Peek();
 	}
 }
-}
+
+?>

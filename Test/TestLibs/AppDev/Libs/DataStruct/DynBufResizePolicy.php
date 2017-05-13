@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class DynBufResizePolicy
 {
 	// 获取一个最近的大小
@@ -32,4 +34,5 @@ public class DynBufResizePolicy
 		return ret;
 	}
 }
-}
+
+?>

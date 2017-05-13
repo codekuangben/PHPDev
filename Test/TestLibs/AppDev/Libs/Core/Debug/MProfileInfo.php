@@ -1,7 +1,7 @@
 ﻿<?php
 
 namespace SDK\Lib;
-{
+
 public class MProfileInfo
 {
 	public string mName;
@@ -37,7 +37,6 @@ public class MProfileInfo
 		$this->mMaxTime = int.MinValue;
 		$this->mMinTime = int.MaxValue;
 	}
-}
 }
 
 ?>

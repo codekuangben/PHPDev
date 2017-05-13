@@ -1,7 +1,7 @@
 ﻿<?php
 
 namespace SDK\Lib;
-{
+
 public class UniqueNumIdGen
 {
 	protected uint mPreIdx;
@@ -23,7 +23,6 @@ public class UniqueNumIdGen
 	{
 		return $this->mCurId;
 	}
-}
 }
 
 ?>

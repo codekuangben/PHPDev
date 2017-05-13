@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief Unity 调用本机原生接口
  */
@@ -31,4 +31,5 @@ public class NativeInterface
 //[DllImport("__Internal")]
 //private static extern void aaa();
 #endif
-}
+
+?>

@@ -1,7 +1,7 @@
-﻿using System.Text;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  *@brief 字节编码解码，大端小端
  */
@@ -47,4 +47,5 @@ public class UtilByte
 		return retStr;
 	}
 }
-}
+
+?>

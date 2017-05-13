@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class UtilStr
 {
 	static public void removeLastCR(ref string srcStr)
@@ -99,4 +101,5 @@ public class UtilStr
 		return s;
 	}
 }
-}
+
+?>

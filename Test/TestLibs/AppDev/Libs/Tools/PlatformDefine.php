@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class PlatformDefine
 {
 	static public string PlatformFolder;
@@ -40,4 +42,5 @@ public class PlatformDefine
 #endif
 	}
 }
-}
+
+?>

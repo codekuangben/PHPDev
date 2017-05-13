@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
-using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 文件日志
  */
@@ -181,4 +179,5 @@ public class FileLogDevice : LogDeviceBase
 		}
 	}
 }
-}
+
+?>

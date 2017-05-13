@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public class CoroutineTaskMgr
 {
 	protected MList<CoroutineTaskBase> mCoroutineTaskList;
@@ -109,4 +109,5 @@ public class CoroutineTaskMgr
 		yield break;
 	}
 }
-}
+
+?>

@@ -1,8 +1,7 @@
-﻿using System;
-using System.Threading;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  *@brief 基本的线程
  */
@@ -112,4 +111,5 @@ public class MThread
 		Thread.Sleep(millisecondsTimeout);
 	}
 }
-}
+
+?>

@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Security;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public class UtilXml
 {
 	public const int XML_OK = 0;
@@ -254,4 +253,5 @@ public class UtilXml
 		}
 	}
 }
-}
+
+?>

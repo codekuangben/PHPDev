@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class Singleton<T> where T : class, IMyDispose, new()
 {
 	protected static T msSingleton;
@@ -24,4 +26,5 @@ public class Singleton<T> where T : class, IMyDispose, new()
 		}
 	}
 }
-}
+
+?>

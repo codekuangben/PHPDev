@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 共享内容，主要是数据
  */
@@ -28,4 +30,5 @@ public class ShareData
 	public UnityEngine.Vector2 top3_arrow_pos;//指示箭头pos
 	public UnityEngine.Quaternion top3_arrow_rotation;//指示箭头rotation
 }
-}
+
+?>

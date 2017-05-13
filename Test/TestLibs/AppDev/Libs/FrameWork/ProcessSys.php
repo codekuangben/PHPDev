@@ -1,8 +1,10 @@
-﻿/**
+﻿<?php
+
+/**
 * @brief 系统循环
 */
 namespace SDK\Lib;
-{
+
 public class ProcessSys
 {
 	public ProcessSys()
@@ -96,4 +98,5 @@ public class ProcessSys
 		}
 	}
 }
-}
+
+?>

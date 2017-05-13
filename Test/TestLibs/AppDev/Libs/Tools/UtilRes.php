@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 // 资源工具类
 public class UtilRes
 {
@@ -17,4 +19,5 @@ public class UtilRes
 		return ResPathType.ePathComUI;
 	}
 }
-}
+
+?>

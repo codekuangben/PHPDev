@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public class UtilCaptureScreen
 {
 	static public void CaptureScreen()
@@ -69,4 +69,5 @@ public class UtilCaptureScreen
 		return screenShot;
 	}
 }
-}
+
+?>

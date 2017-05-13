@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class TaskQueue : LockQueue<ITask>
 {
 	public TaskThreadPool mTaskThreadPool;
@@ -18,4 +20,5 @@ public class TaskQueue : LockQueue<ITask>
 		mTaskThreadPool.notifyIdleThread();
 	}
 }
-}
+
+?>

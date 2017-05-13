@@ -1,8 +1,7 @@
-﻿using LuaInterface;
-using System;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public class UtilLua2CS
 {
 	static public int getTableAttrInt(LuaTable luaTable, string name)
@@ -42,4 +41,5 @@ public class UtilLua2CS
 		return ret;
 	}
 }
-}
+
+?>

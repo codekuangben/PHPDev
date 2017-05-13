@@ -1,7 +1,7 @@
-﻿using Game.Msg;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public class TimerMsgHandle
 {
 	public uint m_loginTempID;
@@ -40,4 +40,5 @@ public class TimerMsgHandle
 		//Ctx.mInstance.mModuleSys.loadModule(ModuleName.GAMEMN);
 	}
 }
-}
+
+?>

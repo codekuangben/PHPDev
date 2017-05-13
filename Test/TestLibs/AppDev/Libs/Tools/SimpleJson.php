@@ -1,16 +1,7 @@
-//#define USE_SharpZipLib
-#if !UNITY_WEBPLAYER
-#define USE_FileIO
-#endif
+<?php
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+namespace SimpleJSON;
 
-namespace SimpleJSON
-{
 public enum JSONNodeType
 {
 	Array = 1,
@@ -1353,4 +1344,5 @@ public static class JSON
 		return JSONNode.Parse(aJSON);
 	}
 }
-}
+
+?>

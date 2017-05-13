@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 系统消息流程，整个系统的消息分发都走这里，仅限单线程
  */
@@ -35,4 +37,5 @@ public class SysMsgRoute : LockQueue<MsgRouteBase>
 		return $this->pop();
 	}
 }
-}
+
+?>

@@ -1,10 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public enum MSearchOption
 {
 	eTopDirectoryOnly = 0,
@@ -884,4 +881,5 @@ public class UtilPath
 		}
 	}
 }
-}
+
+?>

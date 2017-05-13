@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class SystemFrameData
 {
 	protected uint mTotalFrameCount;       // 总帧数
@@ -26,4 +28,5 @@ public class SystemFrameData
 		}
 	}
 }
-}
+
+?>

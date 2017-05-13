@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 生成一些需要的数据结构
  */
@@ -10,4 +12,5 @@ public class FactoryBuild
 		return new ByteBuffer();
 	}
 }
-}
+
+?>

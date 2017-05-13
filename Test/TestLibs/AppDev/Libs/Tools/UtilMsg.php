@@ -1,8 +1,7 @@
-﻿using LuaInterface;
-using System.Text;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 处理消息工具
  */
@@ -104,4 +103,5 @@ public class UtilMsg
 		str += " }";            
 	}
 }
-}
+
+?>

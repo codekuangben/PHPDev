@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class LoopDepth
 {
 	private int mLoopDepth;         // 是否在循环中，支持多层嵌套，就是循环中再次调用循环
@@ -85,4 +87,5 @@ public class LoopDepth
 		return $this->mLoopDepth > 0;
 	}
 }
-}
+
+?>

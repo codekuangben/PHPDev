@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 时间段
  */
@@ -63,4 +65,5 @@ public class TimeSegment
 		return percent;
 	}
 }
-}
+
+?>

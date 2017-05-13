@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief Coroutine 入口
  */
@@ -38,4 +37,5 @@ public class CoroutineMgr
 		return ret;
 	}
 }
-}
+
+?>

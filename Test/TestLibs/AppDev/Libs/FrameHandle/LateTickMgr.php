@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 对应事件 LateUpdate
  */
@@ -15,4 +17,5 @@ public class LateTickMgr : TickMgr
 		base.onExecAdvance(delta, tickMode);
 	}
 }
-}
+
+?>

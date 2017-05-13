@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public enum CryptAlgorithm
 {
 	DES,        // des 加密算法
@@ -7,4 +9,5 @@ public enum CryptAlgorithm
 
 	eTotal
 }
-}
+
+?>

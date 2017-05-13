@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 文件日志
  */
@@ -97,4 +95,5 @@ public class NetLogDevice : LogDeviceBase
 		Ctx.mInstance.mCoroutineMgr.StartCoroutine(POST(string.Format("{0}/{1}", Ctx.mInstance.mCfg.mWebIP, Ctx.mInstance.mCfg.mNetLogPhp), dic));
 	}
 }
-}
+
+?>

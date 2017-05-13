@@ -1,8 +1,7 @@
-using LuaInterface;
-using System;
+<?php
 
 namespace SDK\Lib;
-{
+
 public class TimerFunctionObject
 {
 	public Action<TimerItemBase> mHandle;
@@ -110,4 +109,5 @@ public class TimerFunctionObject
 		}
 	}
 }
-}
+
+?>

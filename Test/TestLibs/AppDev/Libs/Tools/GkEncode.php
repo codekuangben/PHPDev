@@ -1,7 +1,7 @@
-﻿using System.Text;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public enum GkEncode
 {
 	/**
@@ -16,4 +16,5 @@ public enum GkEncode
 	eUnicode = 2,
 	eDefault = 3,
 }
-}
+
+?>

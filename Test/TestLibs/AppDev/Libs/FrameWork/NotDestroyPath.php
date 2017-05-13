@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 不释放的路径
  */
@@ -39,4 +41,5 @@ public class NotDestroyPath
 
 	public const string ND_CV_EventSystem = "EventSystem";
 }
-}
+
+?>

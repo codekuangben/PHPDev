@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 查找内存数据
  */
@@ -32,4 +32,5 @@ public class MemoryCheck
 		return iNum;
 	}
 }
-}
+
+?>

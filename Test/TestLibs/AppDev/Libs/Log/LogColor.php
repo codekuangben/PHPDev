@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public enum LogColor
 {
 	eLC_LOG = 0,
@@ -7,4 +9,5 @@ public enum LogColor
 	eLC_ERROR = 2,
 	eLC_Count,
 }
-}
+
+?>

@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 系统设置
  */
@@ -64,4 +64,5 @@ public class SystemSetting
 		((Ctx.mInstance.mLoginModule) as Game.Login.LoginModule).mLoginNetNotify.setServerIP();
 	}
 }
-}
+
+?>

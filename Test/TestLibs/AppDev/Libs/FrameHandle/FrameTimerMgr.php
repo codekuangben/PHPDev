@@ -1,8 +1,10 @@
-﻿/**
+﻿<?php
+
+/**
 * @brief 定时器管理器
 */
 namespace SDK\Lib;
-{
+
 public class FrameTimerMgr : DelayPriorityHandleMgrBase
 {
 	protected MList<FrameTimerItem> mTimerList;     // 当前所有的定时器列表
@@ -92,4 +94,5 @@ public class FrameTimerMgr : DelayPriorityHandleMgrBase
 		$this->decDepth();
 	}
 }
-}
+
+?>

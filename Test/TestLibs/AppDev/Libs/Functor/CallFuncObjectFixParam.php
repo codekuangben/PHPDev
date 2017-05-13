@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class CallFuncObjectFixParam : CallFuncObjectBase
 {
 	protected MAction<IDispatchObject> mHandle;
@@ -44,4 +46,5 @@ public class CallFuncObjectFixParam : CallFuncObjectBase
 		}
 	}
 }
-}
+
+?>

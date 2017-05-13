@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class FixedTickMgr : TickMgr
 {
 	public FixedTickMgr()
@@ -12,4 +14,5 @@ public class FixedTickMgr : TickMgr
 		base.onExecAdvance(delta, tickMode);
 	}
 }
-}
+
+?>

@@ -1,7 +1,7 @@
-﻿using System;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public enum EGameStage
 {
 	eStage_None,            // 未知状态
@@ -92,4 +92,5 @@ public class GameRunStage
 		$this->m_quitedAndEnteredStageDisp -= handle;
 	}
 }
-}
+
+?>

@@ -1,7 +1,7 @@
-﻿using System;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public class SystemTimeData
 {
 	protected long mPreTime;            // 上一次更新时的秒数
@@ -117,4 +117,5 @@ public class SystemTimeData
 		return $this->mServerBaseTime + ts.Milliseconds;
 	}
 }
-}
+
+?>

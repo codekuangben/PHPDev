@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class LoadedWebResMR : MsgRouteBase
 {
 	public ITask mTask;
@@ -16,3 +18,4 @@ public class LoadedWebResMR : MsgRouteBase
 	}
 }
 }
+?>

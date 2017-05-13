@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
-using System.Text.RegularExpressions;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public class WordFilterManager
 {
 	protected string[] m_filterArr;
@@ -103,4 +101,5 @@ public class WordFilterManager
 		return false;
 	}
 }
-}
+
+?>

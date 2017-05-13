@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public enum AngleUnit
 {
 	AU_DEGREE,
@@ -982,4 +981,5 @@ public class UtilMath
 		return true;
 	}
 }
-}
+
+?>

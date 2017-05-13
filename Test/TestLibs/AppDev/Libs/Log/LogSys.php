@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public class LogSys
 {
 	protected LockList<string> mAsyncLogList;              // 这个是多线程访问的
@@ -422,4 +422,5 @@ public class LogSys
 		}
 	}
 }
-}
+
+?>

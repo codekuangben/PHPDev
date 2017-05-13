@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public enum IpSelect
 {
 	IP_192_168_125_79,
@@ -44,4 +44,5 @@ public class BasicConfig : MonoBehaviour
 		return $this->mZoneList[(int)$this->mZoneSelect];
 	}
 }
-}
+
+?>

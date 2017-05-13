@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 坐标转换
  */
@@ -100,4 +100,5 @@ public class CoordConv
 		return lastWorldPosition;
 	}
 }
-}
+
+?>

@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class CallFuncObjectNoParam : CallFuncObjectBase
 {
 	protected MAction mHandleNoParam;
@@ -42,4 +44,5 @@ public class CallFuncObjectNoParam : CallFuncObjectBase
 		}
 	}
 }
-}
+
+?>

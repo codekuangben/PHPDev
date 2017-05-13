@@ -1,8 +1,7 @@
-﻿using System.IO;
-using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 本地文件系统
  */
@@ -217,4 +216,5 @@ public class MFileSys
 		return buffer;
 	}
 }
-}
+
+?>

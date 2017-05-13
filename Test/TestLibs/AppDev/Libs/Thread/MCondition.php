@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 单一对象同步
  */
@@ -55,4 +57,5 @@ public class MCondition
 		}
 	}
 }
-}
+
+?>

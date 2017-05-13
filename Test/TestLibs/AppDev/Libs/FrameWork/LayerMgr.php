@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 框架层管理器
  */
@@ -22,4 +24,5 @@ public class LayerMgr
 
 	}
 }
-}
+
+?>

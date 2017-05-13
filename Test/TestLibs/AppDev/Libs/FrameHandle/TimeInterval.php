@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 时间间隔
  */
@@ -88,4 +90,5 @@ public class TimeInterval
 		return ret;
 	}
 }
-}
+
+?>

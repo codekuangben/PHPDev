@@ -1,7 +1,7 @@
-﻿using System;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 锁操作
  */
@@ -38,4 +38,5 @@ public class MLock : IDisposable
 	//    mMutex.ReleaseMutex();
 	//}
 }
-}
+
+?>

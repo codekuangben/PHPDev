@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 有 Id 的缓存池
  */
@@ -52,4 +54,5 @@ public class IdPoolSys
 		}
 	}
 }
-}
+
+?>

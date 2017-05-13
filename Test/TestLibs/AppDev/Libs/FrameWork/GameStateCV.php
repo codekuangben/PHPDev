@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 游戏状态常量
  */
@@ -11,4 +13,5 @@ public enum GameStateCV
 	eGSRun = 3,                     // 运行状态
 	eGSQuit = 4,                    // 退出状态
 }
-}
+
+?>

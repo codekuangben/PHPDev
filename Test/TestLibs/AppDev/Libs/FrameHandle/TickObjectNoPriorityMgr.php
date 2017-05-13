@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 // 每一帧执行的对象管理器
 public class TickObjectNoPriorityMgr : DelayNoPriorityHandleMgr, ITickedObject, IDelayHandleItem, INoOrPriorityObject
 {
@@ -78,4 +80,5 @@ public class TickObjectNoPriorityMgr : DelayNoPriorityHandleMgr, ITickedObject, 
 
 	}
 }
-}
+
+?>

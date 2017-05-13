@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 心跳管理器
  */
@@ -45,4 +47,5 @@ public class TickMgr : TickObjectPriorityMgr
 		$this->removeObject(tickObj as IDelayHandleItem);
 	}
 }
-}
+
+?>

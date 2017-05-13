@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class SocketCloseedMR : MsgRouteBase
 {
 	public SocketCloseedMR()
@@ -8,4 +10,5 @@ public class SocketCloseedMR : MsgRouteBase
 
 	}
 }
-}
+
+?>

@@ -1,7 +1,7 @@
-using System;
+<?php
 
 namespace SDK\Lib;
-{
+
 public class UAssert
 {
 	public static void DebugAssert(bool condation)
@@ -12,4 +12,5 @@ public class UAssert
 		}
 	}
 }
-}
+
+?>

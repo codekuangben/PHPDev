@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class MsgRouteNotify
 {
 	protected MList<MsgRouteDispHandle> mDispList;
@@ -41,4 +43,5 @@ public class MsgRouteNotify
 		//Ctx.mInstance.mPoolSys.deleteObj(msg);
 	}
 }
-}
+
+?>

@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 // 线程日志
 public class ThreadLogMR : MsgRouteBase
 {
@@ -11,4 +13,5 @@ public class ThreadLogMR : MsgRouteBase
 
 	}
 }
-}
+
+?>

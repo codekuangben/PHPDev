@@ -1,11 +1,10 @@
-﻿using LuaInterface;
-using System;
+﻿<?php
 
 /**
 * @brief 定时器管理器
 */
 namespace SDK\Lib;
-{
+
 public class TimerMgr : DelayPriorityHandleMgrBase
 {
 	protected MList<TimerItemBase> mTimerList;     // 当前所有的定时器列表
@@ -109,4 +108,5 @@ public class TimerMgr : DelayPriorityHandleMgrBase
 		$this->decDepth();
 	}
 }
-}
+
+?>

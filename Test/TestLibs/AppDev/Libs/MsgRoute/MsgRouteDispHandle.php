@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class MsgRouteDispHandle
 {
 	protected EventDispatchGroup mEventDispatchGroup;
@@ -44,4 +46,5 @@ public class MsgRouteDispHandle
 		}
 	}
 }
-}
+
+?>

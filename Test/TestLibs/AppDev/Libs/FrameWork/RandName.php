@@ -1,8 +1,7 @@
-﻿using System;
-using System.IO;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 随机名字
  */
@@ -58,4 +57,5 @@ public class RandName
 		Ctx.mInstance.mResLoadMgr.unload(res.getLoadPath(), onLoadEventHandle);
 	}
 }
-}
+
+?>

@@ -1,8 +1,7 @@
-﻿using System;
-using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief Android返回键
  */
@@ -48,4 +47,5 @@ public class DeviceOptionListenSys:MonoBehaviour
 		Ctx.mInstance.mInputMgr.mOnDeviceOpDispatch.removeEventHandle(null, $this->QuitApp);
 	}
 }
-}
+
+?>

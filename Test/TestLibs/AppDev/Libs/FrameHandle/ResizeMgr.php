@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class ResizeMgr : DelayPriorityHandleMgrBase, ITickedObject, IDelayHandleItem, INoOrPriorityObject
 {
 	protected int mPreWidth;       // 之前宽度
@@ -121,4 +123,5 @@ public class ResizeMgr : DelayPriorityHandleMgrBase, ITickedObject, IDelayHandle
 		return false;
 	}
 }
-}
+
+?>

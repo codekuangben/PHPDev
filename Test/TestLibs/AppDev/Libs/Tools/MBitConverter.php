@@ -1,7 +1,7 @@
-﻿using System;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public class MBitConverter
 {
 	public static bool ToBoolean(
@@ -377,4 +377,5 @@ public class MBitConverter
 		return Convert.ToInt32(value);
 	}
 }
-}
+
+?>

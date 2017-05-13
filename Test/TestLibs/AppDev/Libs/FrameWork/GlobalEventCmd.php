@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 全局性的事件
  */
@@ -69,4 +71,5 @@ public class GlobalEventCmd
 		Ctx.mInstance.mProxyPullPlane_GB.Call("ReqRankData", new rpc.EmptyMsg());
 	}
 }
-}
+
+?>

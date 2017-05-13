@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 文件日志
  */
@@ -23,4 +23,5 @@ public class WinLogDevice : LogDeviceBase
 		}
 	}
 }
-}
+
+?>

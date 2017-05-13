@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 主循环
  */
@@ -85,3 +87,4 @@ public class EngineLoop
 	}
 }
 }
+?>

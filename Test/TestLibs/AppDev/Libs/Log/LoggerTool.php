@@ -1,7 +1,7 @@
-﻿using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 日志系统，只有工具在使用
  */
@@ -22,4 +22,5 @@ public class LoggerTool
 		Debug.LogError(message);
 	}
 }
-}
+
+?>

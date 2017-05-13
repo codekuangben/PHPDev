@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 对象池
  */
@@ -64,4 +66,5 @@ public class PoolSys
 		}
 	}
 }
-}
+
+?>

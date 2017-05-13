@@ -1,7 +1,7 @@
-﻿using System.Threading;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @同步使用的 Event
  */
@@ -29,4 +29,5 @@ public class MEvent
 		return mEvent.Set();
 	}
 }
-}
+
+?>

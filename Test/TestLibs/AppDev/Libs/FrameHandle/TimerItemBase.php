@@ -1,8 +1,7 @@
-﻿using LuaInterface;
-using System;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 定时器，这个是不断增长的
  */
@@ -218,4 +217,5 @@ public class TimerItemBase : IDelayHandleItem, IDispatchObject
 		Ctx.mInstance.mTimerMgr.removeTimer(this);
 	}
 }
-}
+
+?>

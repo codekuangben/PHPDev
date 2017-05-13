@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 宏定义说明区域
  */
@@ -80,4 +79,5 @@ public class Config
 		$this->mDownloadURL = "git5.club";
 	}
 }
-}
+
+?>

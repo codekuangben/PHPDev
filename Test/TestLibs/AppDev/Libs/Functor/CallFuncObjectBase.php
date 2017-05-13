@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class CallFuncObjectBase
 {
 	protected ICalleeObject mThis;
@@ -34,4 +36,5 @@ public class CallFuncObjectBase
 
 	}
 }
-}
+
+?>

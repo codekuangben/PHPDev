@@ -1,8 +1,7 @@
-﻿using GameBox.Framework;
-using GameBox.Service.GiantLightServer;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 不依赖模块的网络事件处理
  */
@@ -39,4 +38,5 @@ public class NetEventHandle
 			(Ctx.mInstance.mPlayerMgr.getHero().mMovement as BeingEntityMovement).Stop = true;
 	}
 }
-}
+
+?>

@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief Tick 的优先级
  * @brief TP TickPriority 缩写
@@ -23,4 +25,5 @@ public class TickPriority
 	public static float eTPSoundLoadStateCheckMgr = 1f;   // 更新音乐状态检查
 	public static float eTPClipRect = 1f;
 }
-}
+
+?>

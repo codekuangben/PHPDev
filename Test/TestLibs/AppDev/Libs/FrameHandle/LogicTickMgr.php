@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 逻辑心跳管理器
  */
@@ -20,4 +22,5 @@ public class LogicTickMgr : TickMgr
 		}
 	}
 }
-}
+
+?>

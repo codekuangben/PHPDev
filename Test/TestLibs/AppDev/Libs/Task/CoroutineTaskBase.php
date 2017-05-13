@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class CoroutineTaskBase
 {
 	protected eCoroutineTaskState mState;
@@ -50,4 +52,5 @@ public class CoroutineTaskBase
 		mState = eCoroutineTaskState.eStopped;
 	}
 }
-}
+
+?>

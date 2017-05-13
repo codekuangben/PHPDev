@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 数字间隔
  */
@@ -66,4 +68,5 @@ public class NumInterval
 		return ret;
 	}
 }
-}
+
+?>

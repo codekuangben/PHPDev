@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 垃圾自动回收
  */
@@ -12,4 +14,5 @@ public class GCAutoCollect
 		UtilApi.ImmeUnloadUnusedAssets();
 	}
 }
-}
+
+?>

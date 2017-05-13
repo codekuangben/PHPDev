@@ -1,7 +1,7 @@
-﻿using UnityEngine.UI;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public class TextCompTimer : DaoJiShiTimer
 {
 	protected Text mText;
@@ -12,4 +12,5 @@ public class TextCompTimer : DaoJiShiTimer
 		$this->mText.text = UtilLogic.formatTime((int)$this->mCurRunTime);
 	}
 }
-}
+
+?>

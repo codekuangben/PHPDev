@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 倒计时定时器
  */
@@ -61,4 +63,5 @@ public class DaoJiShiTimer : TimerItemBase
 		$this->mDisposed = false;
 	}
 }
-}
+
+?>

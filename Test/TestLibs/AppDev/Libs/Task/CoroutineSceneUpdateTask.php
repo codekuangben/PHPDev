@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 场景更新任务
  */
@@ -17,4 +19,5 @@ public class CoroutineSceneUpdateTask : CoroutineTaskBase
 		Ctx.mInstance.mSceneManager.cullScene();
 	}
 }
-}
+
+?>

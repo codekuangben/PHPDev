@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 任务线程
  */
@@ -46,4 +48,5 @@ public class TaskThread : MThread
 		return false;
 	}
 }
-}
+
+?>

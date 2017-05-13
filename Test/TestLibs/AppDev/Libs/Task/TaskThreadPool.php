@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public class TaskThreadPool
 {
 	protected List<TaskThread> mList;
@@ -33,4 +33,5 @@ public class TaskThreadPool
 		}
 	}
 }
-}
+
+?>

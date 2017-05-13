@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 日志设备
  */
@@ -17,4 +19,5 @@ public abstract class LogDeviceBase
 
 	abstract public void logout(string message, LogColor type = LogColor.eLC_LOG);
 }
-}
+
+?>

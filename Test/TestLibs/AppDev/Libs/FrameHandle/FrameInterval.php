@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 帧间隔
  */
@@ -47,4 +49,5 @@ public class FrameInterval
 		return ret;
 	}
 }
-}
+
+?>

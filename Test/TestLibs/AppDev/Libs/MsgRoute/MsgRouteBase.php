@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class MsgRouteBase : IRecycle, IDispatchObject
 {
 	public MsgRouteType mMsgType;
@@ -29,4 +31,5 @@ public class MsgRouteBase : IRecycle, IDispatchObject
 		return $this->mIsMainThreadImmeHandle;
 	}
 }
-}
+
+?>

@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 /**
  * @brief 全局数据区
  */
@@ -729,4 +731,5 @@ public class Ctx
 		}
 	}
 }
-}
+
+?>

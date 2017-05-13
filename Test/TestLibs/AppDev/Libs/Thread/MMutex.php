@@ -1,7 +1,7 @@
-﻿using System.Threading;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 互斥
  */
@@ -45,4 +45,5 @@ public class MMutex
 		}
 	}
 }
-}
+
+?>

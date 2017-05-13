@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 public class UtilLogic
 {
 	/* 
@@ -576,4 +574,5 @@ public class UtilLogic
 		}
 	}
 }
-}
+
+?>

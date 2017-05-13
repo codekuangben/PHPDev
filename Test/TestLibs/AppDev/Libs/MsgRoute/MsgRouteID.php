@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public enum MsgRouteID
 {
 	eMRIDSocketOpened,      // socket Opened
@@ -26,4 +28,5 @@ public enum MsgRouteID
 	eMRID_BatchRemovePlane,
 	eMRID_NewTeamShoot,
 }
-}
+
+?>

@@ -1,5 +1,7 @@
-﻿namespace SDK\Lib;
-{
+﻿<?php
+
+namespace SDK\Lib;
+
 public class MsgRouteHandleBase : GObject, ICalleeObject
 {
 	public MDictionary<int, AddOnceEventDispatch> mId2HandleDic;
@@ -58,4 +60,5 @@ public class MsgRouteHandleBase : GObject, ICalleeObject
 
 	}
 }
-}
+
+?>

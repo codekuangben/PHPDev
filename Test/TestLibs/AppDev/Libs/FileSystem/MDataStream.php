@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.IO;
-using System.Text;
-using UnityEngine;
+﻿<?php
 
 namespace SDK\Lib;
-{
+
 /**
  * @brief 仅支持本地文件操作，仅支持同步操作
  */
@@ -618,4 +614,5 @@ public class MDataStream : GObject, IDispatchObject
 		$this->writeText(text, gkEncode);
 	}
 }
-}
+
+?>

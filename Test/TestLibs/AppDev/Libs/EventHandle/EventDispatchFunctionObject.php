@@ -1,177 +1,95 @@
-﻿using LuaInterface;
-using System;
+﻿<?php
 
-namespace SDK.Lib
+namespace SDK\Lib;
+
+class EventDispatchFunctionObject implements IDelayHandleItem, INoOrPriorityObject
 {
-    public class EventDispatchFunctionObject : IDelayHandleItem, INoOrPriorityObject
-    {
-        public bool mIsClientDispose;       // 是否释放了资源
-        public ICalleeObject mThis;
-        public MAction<IDispatchObject> mHandle;
-        public uint mEventId;   // 事件唯一 Id
+	public $mIsClientDispose;       // 是否释放了资源
+	public $mThis;
+	public $mHandle;
+	public $mEventId;   // 事件唯一 Id
 
-        protected LuaCSDispatchFunctionObject mLuaCSDispatchFunctionObject;
+	public function __construct()
+	{
+		$this->mIsClientDispose = false;
+	}
 
-        public EventDispatchFunctionObject()
-        {
-            $this->mIsClientDispose = false;
-        }
+	public function setFuncObject($pThis, $handle, $eventId = 0)
+	{
+		$this->mThis = $pThis;
+		$this->mHandle = $handle;
+		$this->mEventId = $eventId;
+	}
 
-        public LuaCSDispatchFunctionObject luaCSDispatchFunctionObject
-        {
-            get
-            {
-                return $this->mLuaCSDispatchFunctionObject;
-            }
-            set
-            {
-                $this->mLuaCSDispatchFunctionObject = value;
-            }
-        }
+	public function isValid()
+	{
+		return $this->mThis != null || $this->mHandle != null;
+	}
 
-        public void setFuncObject(ICalleeObject pThis, MAction<IDispatchObject> function, uint eventId = 0)
-        {
-            $this->mThis = pThis;
-            $this->mHandle = function;
-            $this->mEventId = eventId;
-        }
+	public function isEventIdEqual($eventId)
+	{
+		return $this->mEventId == eventId;
+	}
 
-        public void setLuaTable(LuaTable luaTable)
-        {
-            if($this->mLuaCSDispatchFunctionObject == null)
-            {
-                $this->mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
-            }
+	public function isEqual($pThis, $handle, $eventId)
+	{
+		$ret = false;
 
-            $this->mLuaCSDispatchFunctionObject.setTable(luaTable);
-        }
+		if($pThis != null)
+		{
+			$ret = UtilApi.isAddressEqual($this->mThis, $pThis);
 
-        public void setLuaFunction(LuaFunction function)
-        {
-            if($this->mLuaCSDispatchFunctionObject == null)
-            {
-                $this->mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
-            }
+			if (!$ret)
+			{
+				return $ret;
+			}
+		}
 
-            $this->mLuaCSDispatchFunctionObject.setFunction(function);
-        }
+		if ($handle != null)
+		{
+			$ret = UtilApi.isDelegateEqual($this->mHandle, $handle);
 
-        public void setLuaFunctor(LuaTable luaTable, LuaFunction function, uint eventId = 0)
-        {
-            if($this->mLuaCSDispatchFunctionObject == null)
-            {
-                $this->mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
-            }
+			if (!$ret)
+			{
+				return $ret;
+			}
+		}
 
-            $this->mLuaCSDispatchFunctionObject.setTable(luaTable);
-            $this->mLuaCSDispatchFunctionObject.setFunction(function);
-            $this->mLuaCSDispatchFunctionObject.setEventId(eventId);
-        }
+		if ($pThis != null || $handle != null)
+		{
+			$ret = $this->isEventIdEqual($eventId);
 
-        public bool isValid()
-        {
-            return $this->mThis != null || $this->mHandle != null || ($this->mLuaCSDispatchFunctionObject != null && $this->mLuaCSDispatchFunctionObject.isValid());
-        }
+			if (!$ret)
+			{
+				return ret;
+			}
+		}
 
-        public bool isEventIdEqual(uint eventId)
-        {
-            return $this->mEventId == eventId;
-        }
+		return ret;
+	}
 
-        public bool isEqual(ICalleeObject pThis, MAction<IDispatchObject> handle, uint eventId, LuaTable luaTable = null, LuaFunction luaFunction = null, uint luaEventId = 0)
-        {
-            bool ret = false;
+	public function call($dispObj)
+	{
+		//if($mThis != null)
+		//{
+		//    $mThis.call($dispObj);
+		//}
 
-            if (pThis != null)
-            {
-                ret = UtilApi.isAddressEqual($this->mThis, pThis);
+		if(null != $this->mHandle)
+		{
+			$this->mHandle($dispObj);
+		}
+	}
 
-                if (!ret)
-                {
-                    return ret;
-                }
-            }
+	public function setClientDispose($isDispose)
+	{
+		$this->mIsClientDispose = $isDispose;
+	}
 
-            if (handle != null)
-            {
-                //ret = UtilApi.isAddressEqual($this->mHandle, handle);
-                ret = UtilApi.isDelegateEqual(ref $this->mHandle, ref handle);
-
-                if (!ret)
-                {
-                    return ret;
-                }
-            }
-
-            if (pThis != null || handle != null)
-            {
-                ret = $this->isEventIdEqual(eventId);
-
-                if (!ret)
-                {
-                    return ret;
-                }
-            }
-
-            if (null != luaTable && null != $this->mLuaCSDispatchFunctionObject)
-            {
-                ret = $this->mLuaCSDispatchFunctionObject.isTableEqual(luaTable);
-
-                if(!ret)
-                {
-                    return ret;
-                }
-            }
-
-            if (null != luaFunction && null != $this->mLuaCSDispatchFunctionObject)
-            {
-                ret = $this->mLuaCSDispatchFunctionObject.isFunctionEqual(luaFunction);
-
-                if(!ret)
-                {
-                    return ret;
-                }
-            }
-
-            if (null != $this->mLuaCSDispatchFunctionObject && (null != luaTable || null != luaFunction))
-            {
-                ret = $this->mLuaCSDispatchFunctionObject.isEventIdEqual(luaEventId);
-
-                if (!ret)
-                {
-                    return ret;
-                }
-            }
-
-            return ret;
-        }
-
-        public void call(IDispatchObject dispObj)
-        {
-            //if(mThis != null)
-            //{
-            //    mThis.call(dispObj);
-            //}
-
-            if(null != $this->mHandle)
-            {
-                $this->mHandle(dispObj);
-            }
-
-            if($this->mLuaCSDispatchFunctionObject != null)
-            {
-                $this->mLuaCSDispatchFunctionObject.call(dispObj);
-            }
-        }
-
-        public void setClientDispose(bool isDispose)
-        {
-            $this->mIsClientDispose = isDispose;
-        }
-
-        public bool isClientDispose()
-        {
-            return $this->mIsClientDispose;
-        }
-    }
+	public function isClientDispose()
+	{
+		return $this->mIsClientDispose;
+	}
 }
+
+?>

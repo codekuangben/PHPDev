@@ -1,10 +1,13 @@
-﻿namespace SDK.Lib
+﻿<?php
+
+namespace SDK\Lib;
+
+/**
+ * @brief 可被调用的函数对象
+ */
+interface ICalleeObject
 {
-    /**
-     * @brief 可被调用的函数对象
-     */
-    public interface ICalleeObject
-    {
-        void call(IDispatchObject dispObj);
-    }
+	function call($dispObj);
 }
+
+?>

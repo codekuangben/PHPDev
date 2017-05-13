@@ -1,17 +1,20 @@
-﻿namespace SDK.Lib
+﻿<?php
+
+namespace SDK\Lib;
+
+class ResEventDispatch extends EventDispatch
 {
-    public class ResEventDispatch : EventDispatch
-    {
-        public ResEventDispatch()
-        {
+	public function __construct()
+	{
 
-        }
+	}
 
-        override public void dispatchEvent(IDispatchObject dispatchObject)
-        {
-            base.dispatchEvent(dispatchObject);
+	public function dispatchEvent($dispatchObject)
+	{
+		parent::dispatchEvent($dispatchObject);
 
-            $this->clearEventHandle();
-        }
-    }
+		$this->clearEventHandle();
+	}
 }
+
+?>

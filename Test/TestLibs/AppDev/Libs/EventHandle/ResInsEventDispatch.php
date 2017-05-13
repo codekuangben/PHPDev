@@ -1,51 +1,52 @@
-﻿using UnityEngine;
+﻿<?php
 
-namespace SDK.Lib
+namespace SDK\Lib;
+
+/**
+ * @brief 资源实例化事件分发器
+ */
+class ResInsEventDispatch extends EventDispatch implements IDispatchObject
 {
-    /**
-     * @brief 资源实例化事件分发器
-     */
-    public class ResInsEventDispatch : EventDispatch, IDispatchObject
-    {
-        protected bool mIsValid;
-        protected GameObject mInsGO;
+	protected $mIsValid;
+	protected $mInsGO;
 
-        public ResInsEventDispatch()
-        {
-            $this->mIsValid = true;
-        }
+	public function __construct()
+	{
+		$this->mIsValid = true;
+	}
 
-        public void setIsValid(bool value)
-        {
-            $this->mIsValid = value;
-        }
+	public function setIsValid($value)
+	{
+		$this->mIsValid = value;
+	}
 
-        public bool getIsValid()
-        {
-            return $this->mIsValid;
-        }
+	public function getIsValid()
+	{
+		return $this->mIsValid;
+	}
 
-        public void setInsGO(GameObject go)
-        {
-            $this->mInsGO = go;
-        }
+	public function setInsGO($go)
+	{
+		$this->mInsGO = go;
+	}
 
-        public GameObject getInsGO()
-        {
-            return $this->mInsGO;
-        }
+	public function getInsGO()
+	{
+		return $this->mInsGO;
+	}
 
-        override public void dispatchEvent(IDispatchObject dispatchObject)
-        {
-            if($this->mIsValid)
-            {
-                base.dispatchEvent(dispatchObject);
-            }
-            else
-            {
-                UtilApi.Destroy($this->mInsGO);
-                $this->mInsGO = null;
-            }
-        }
-    }
+	public function dispatchEvent($dispatchObject)
+	{
+		if($this->mIsValid)
+		{
+			parent::dispatchEvent($dispatchObject);
+		}
+		else
+		{
+			UtilApi.Destroy($this->mInsGO);
+			$this->mInsGO = null;
+		}
+	}
 }
+
+?>

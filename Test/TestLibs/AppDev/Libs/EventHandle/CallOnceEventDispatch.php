@@ -1,20 +1,23 @@
-﻿namespace SDK.Lib
+﻿<?php
+
+namespace SDK\Lib;
+
+/**
+ * @brief 一次事件分发，分发一次就清理
+ */
+class CallOnceEventDispatch extends EventDispatch
 {
-    /**
-     * @brief 一次事件分发，分发一次就清理
-     */
-    public class CallOnceEventDispatch : EventDispatch
-    {
-        public CallOnceEventDispatch()
-        {
+	public function __construct()
+	{
 
-        }
+	}
 
-        override public void dispatchEvent(IDispatchObject dispatchObject)
-        {
-            base.dispatchEvent(dispatchObject);
+	public function dispatchEvent($dispatchObject)
+	{
+		parent::dispatchEvent($dispatchObject);
 
-            $this->clearEventHandle();
-        }
-    }
+		$this->clearEventHandle();
+	}
 }
+
+?>

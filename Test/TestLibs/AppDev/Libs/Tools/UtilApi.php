@@ -1218,13 +1218,13 @@ namespace SDK.Lib
         }
 
         // 判断两个 GameObject 地址是否相等
-        public static bool isAddressEqual(GameObject a, GameObject b)
+        public static function isAddressEqual(GameObject a, GameObject b)
         {
             return object.ReferenceEquals(a, b);
         }
 
         // 判断两个 GameObject 地址是否相等
-        public static bool isAddressEqual(System.Object a, System.Object b)
+        public static function isAddressEqual(System.Object a, System.Object b)
         {
             return object.ReferenceEquals(a, b);
         }

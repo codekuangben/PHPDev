@@ -2,7 +2,7 @@
 
 namespace SDK\Lib;
 
-public class MQueue<T>
+class MQueue<T>
 {
 	protected Queue<T> mQueue;
 

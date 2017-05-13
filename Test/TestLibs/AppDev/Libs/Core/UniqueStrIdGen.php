@@ -5,26 +5,26 @@ namespace SDK\Lib;
 /**
  * @brief 唯一字符串生成器
  */
-public class UniqueStrIdGen : UniqueNumIdGen
+class UniqueStrIdGen extends UniqueNumIdGen
 {
-	public const string PlayerPrefix = "PL";
-	public const string PlayerChildPrefix = "PC";
-	public const string AbandonPlanePrefix = "AP";
-	public const string RobotPrefix = "RT";
-	public const string SnowBlockPrefix = "SM";
-	public const string PlayerTargetPrefix = "PT";
+	const PlayerPrefix = "PL";
+	const PlayerChildPrefix = "PC";
+	const AbandonPlanePrefix = "AP";
+	const RobotPrefix = "RT";
+	const SnowBlockPrefix = "SM";
+	const PlayerTargetPrefix = "PT";
 
-	protected string mPrefix;
-	protected string mRetId;
-	protected System.Text.StringBuilder mStringBuilder;
+	protected $mPrefix;
+	protected $mRetId;
+	protected $mStringBuilder;
 
-	public UniqueStrIdGen(string prefix, uint baseUniqueId)
-		: base(baseUniqueId)
+	public function __construct($prefix, $baseUniqueId)
 	{
+		parent::__construct($baseUniqueId);
 		$this->mPrefix = prefix;
 	}
 
-	public string genNewStrId()
+	public function genNewStrId()
 	{
 		$this->mStringBuilder = new System.Text.StringBuilder();
 		$this->mStringBuilder.Append($this->mPrefix);
@@ -34,12 +34,12 @@ public class UniqueStrIdGen : UniqueNumIdGen
 		return $this->mRetId;
 	}
 
-	public string getCurStrId()
+	public function getCurStrId()
 	{
 		return $this->mRetId;
 	}
 
-	public string genStrIdById(uint id)
+	public function genStrIdById($id)
 	{
 		$this->mStringBuilder = new System.Text.StringBuilder();
 		$this->mStringBuilder.Append($this->mPrefix);

@@ -1,66 +1,60 @@
-﻿namespace SDK\Lib;
+﻿<?php
+
+namespace SDK\Lib;
+
+class MsgBuffer
 {
-public class MsgBuffer
-{
-	protected CircularBuffer mCircularBuffer;  // 环形缓冲区
+	protected $mCircularBuffer;  // 环形缓冲区
 
-	protected ByteBuffer mHeaderBA;            // 主要是用来分析头的大小
-	protected ByteBuffer mMsgBodyBA;           // 返回的字节数组
+	protected $mHeaderBA;            // 主要是用来分析头的大小
+	protected $mMsgBodyBA;           // 返回的字节数组
 
-	public MsgBuffer(uint initCapacity = BufferCV.INIT_CAPACITY, uint maxCapacity = BufferCV.MAX_CAPACITY)
+	public function __construct($initCapacity = BufferCV.INIT_CAPACITY, $maxCapacity = BufferCV.MAX_CAPACITY)
 	{
-		mCircularBuffer = new CircularBuffer(initCapacity, maxCapacity);
-		mHeaderBA = new ByteBuffer();
-		mMsgBodyBA = new ByteBuffer();
+		$this->mCircularBuffer = new CircularBuffer(initCapacity, maxCapacity);
+		$this->mHeaderBA = new ByteBuffer();
+		$this->mMsgBodyBA = new ByteBuffer();
 	}
 
-	public ByteBuffer headerBA
+	public function getHeaderBA()
 	{
-		get
-		{
-			return mHeaderBA;
-		}
+		return $this->mHeaderBA;
 	}
 
-	public ByteBuffer msgBodyBA
+	public function getMsgBodyBA()
 	{
-		get
-		{
-			return mMsgBodyBA;
-		}
+		return $this->mMsgBodyBA;
 	}
 
-	public CircularBuffer circularBuffer
+	public function getCircularBuffer()
 	{
-		get
-		{
-			return mCircularBuffer;
-		}
+		return $this->mCircularBuffer;
 	}
 
 	// 设置网络字节序
-	public void setEndian(EEndian end)
+	public function setEndian($endian)
 	{
-		mHeaderBA.setEndian(end);
-		mMsgBodyBA.setEndian(end);
+		$this->mHeaderBA.setEndian($endian);
+		$this->mMsgBodyBA.setEndian($endian);
 	}
 
 	/**
 	 * @brief 检查 CB 中是否有一个完整的消息
 	 */
-	protected bool checkHasMsg()
+	protected function checkHasMsg()
 	{
-		mCircularBuffer.frontBA(mHeaderBA, MsgCV.HEADER_SIZE);  // 将数据读取到 mHeaderBA
-		uint msglen = 0;
-		mHeaderBA.readUnsignedInt32(ref msglen);
-		if (MacroDef.MSG_COMPRESS)
+		$this->mCircularBuffer.frontBA($this->mHeaderBA, MsgCV::HEADER_SIZE);  // 将数据读取到 mHeaderBA
+		$msglen = 0;
+		$this->mHeaderBA.readUnsignedInt32($this->msglen);
+		
+		if (MacroDef::MSG_COMPRESS)
 		{
-			if ((msglen & MsgCV.PACKET_ZIP) > 0)         // 如果有压缩标志
+			if (($msglen & MsgCV::PACKET_ZIP) > 0)         // 如果有压缩标志
 			{
-				msglen &= (~MsgCV.PACKET_ZIP);         // 去掉压缩标志位
+				$msglen &= (~MsgCV::PACKET_ZIP);         // 去掉压缩标志位
 			}
 		}
-		if (msglen <= mCircularBuffer.size - MsgCV.HEADER_SIZE)
+		if ($msglen <= $this->mCircularBuffer.size - MsgCV::HEADER_SIZE)
 		{
 			return true;
 		}
@@ -73,33 +67,35 @@ public class MsgBuffer
 	/**
 	 * @brief 获取前面的第一个完整的消息数据块
 	 */
-	public bool popFront()
+	public function popFront()
 	{
-		bool ret = false;
-		if (mCircularBuffer.size > MsgCV.HEADER_SIZE)         // 至少要是 DataCV.HEADER_SIZE 大小加 1 ，如果正好是 DataCV.HEADER_SIZE ，那只能说是只有大小字段，没有内容
+		$ret = false;
+		
+		if ($this->mCircularBuffer.size > MsgCV::HEADER_SIZE)         // 至少要是 DataCV.HEADER_SIZE 大小加 1 ，如果正好是 DataCV.HEADER_SIZE ，那只能说是只有大小字段，没有内容
 		{
-			mCircularBuffer.frontBA(mHeaderBA, MsgCV.HEADER_SIZE);  // 如果不够整个消息的长度，还是不能去掉消息头的
-			uint msglen = 0;
-			mHeaderBA.readUnsignedInt32(ref msglen);
+			$this->mCircularBuffer.frontBA($this->mHeaderBA, MsgCV::HEADER_SIZE);  // 如果不够整个消息的长度，还是不能去掉消息头的
+			$msglen = 0;
+			$this->mHeaderBA.readUnsignedInt32($this->msglen);
+			
 			if (MacroDef.MSG_COMPRESS)
 			{
-				if ((msglen & MsgCV.PACKET_ZIP) > 0)         // 如果有压缩标志
+				if (($msglen & MsgCV.PACKET_ZIP) > 0)         // 如果有压缩标志
 				{
-					msglen &= (~MsgCV.PACKET_ZIP);         // 去掉压缩标志位
+					$msglen &= (~MsgCV.PACKET_ZIP);         // 去掉压缩标志位
 				}
 			}
 
-			if (msglen <= mCircularBuffer.size - MsgCV.HEADER_SIZE)
+			if (msglen <= $this->mCircularBuffer.size - MsgCV::HEADER_SIZE)
 			{
-				mCircularBuffer.popFrontLen(MsgCV.HEADER_SIZE);
-				mCircularBuffer.popFrontBA(mMsgBodyBA, msglen);
-				ret = true;
+				$this->mCircularBuffer.popFrontLen(MsgCV::HEADER_SIZE);
+				$this->mCircularBuffer.popFrontBA($this->mMsgBodyBA, msglen);
+				$ret = true;
 			}
 		}
 
-		if (mCircularBuffer.empty())     // 如果已经清空，就直接重置
+		if ($this->mCircularBuffer->empty())     // 如果已经清空，就直接重置
 		{
-			mCircularBuffer.clear();    // 读写指针从头开始，方式写入需要写入两部分
+			$this->mCircularBuffer->clear();    // 读写指针从头开始，方式写入需要写入两部分
 		}
 
 		return ret;
@@ -108,19 +104,20 @@ public class MsgBuffer
 	/**
 	 * @brief KBEngine 引擎消息处理
 	 */
-	public bool popFrontAll()
+	public function popFrontAll()
 	{
-		bool ret = false;
+		$ret = false;
 
-		if (!mCircularBuffer.empty())
+		if (!$this->mCircularBuffer->empty())
 		{
-			ret = true;
-			mCircularBuffer.linearize();
-			mCircularBuffer.popFrontBA(mMsgBodyBA, mCircularBuffer.size);
-			mCircularBuffer.clear();
+			$ret = true;
+			$this->mCircularBuffer.linearize();
+			$this->mCircularBuffer.popFrontBA($this->mMsgBodyBA, $this->mCircularBuffer.size);
+			$this->mCircularBuffer.clear();
 		}
 
-		return ret;
+		return $ret;
 	}
 }
-}
+
+?>

@@ -5,10 +5,8 @@ namespace SDK\Lib;
 /**
  * @brief 对系统 List 的封装
  */
-public class MList<T>
+class MList<T>
 {
-	//public delegate int CompareFunc(T left, T right);
-
 	protected List<T> mList;
 	protected int mUniqueId;       // 唯一 Id ，调试使用
 	protected int mEleTotal;       // 元素总数

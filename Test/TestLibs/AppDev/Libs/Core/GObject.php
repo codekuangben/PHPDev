@@ -2,16 +2,16 @@
 
 namespace SDK\Lib;
 
-public class GObject
+class GObject
 {
-	protected string mTypeId;     // 名字
+	protected $mTypeId;     // 名字
 
-	public GObject()
+	public function __construct()
 	{
 		$this->mTypeId = "GObject";
 	}
 
-	public string getTypeId()
+	public function getTypeId()
 	{
 		return $this->mTypeId;
 	}

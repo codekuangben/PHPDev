@@ -5,51 +5,51 @@ namespace SDK\Lib;
 /**
  * @brief 表示一个字符串，因为 string 的很多操作都会重新生成一个新的字符串，主要解决这个问题
  */
-public class MString
+class MString
 {
-	protected string mNativeStr;    // 本地字符串
-	protected int mStartIndex;      // 从 0 开始的索引
-	protected int mStrLen;          // 长度
+	protected $mNativeStr;    // 本地字符串
+	protected $mStartIndex;      // 从 0 开始的索引
+	protected $mStrLen;          // 长度
 
-	public MString()
+	public function __construct()
 	{
 		$this->mNativeStr = "";
 		$this->mStartIndex = 0;
 		$this->mStrLen = 0;
 	}
 
-	public string getNativeStr()
+	public function getNativeStr()
 	{
 		return $this->mNativeStr;
 	}
 
-	public int getStartIndex()
+	public function getStartIndex()
 	{
 		return $this->mStartIndex;
 	}
 
-	public int getStrLen()
+	public function getStrLen()
 	{
 		return $this->mStrLen;
 	}
 
-	public void setNativeStr(string value)
+	public function setNativeStr($value)
 	{
 		$this->mNativeStr = value;
 	}
 
-	public void setStartIndex(int value)
+	public function setStartIndex($value)
 	{
 		$this->mStartIndex = value;
 	}
 
-	public void setStrLen(int value)
+	public function setStrLen($value)
 	{
 		$this->mStrLen = value;
 	}
 
 	// 回去内部表示的字符串
-	public string getInterStr()
+	public function getInterStr()
 	{
 		if ($this->mStrLen == $this->mNativeStr.Length)
 		{
@@ -61,111 +61,111 @@ public class MString
 		}
 	}
 
-	public void assign(ref string str)
+	public function assign($str)
 	{
 		$this->mNativeStr = str;
 		$this->mStartIndex = 0;
 		$this->mStrLen = $this->mNativeStr.Length;
 	}
 
-	public void copyFrom(MString rhv)
+	public function copyFrom($rhv)
 	{
 		$this->mNativeStr = rhv.getNativeStr();
 		$this->mStartIndex = rhv.getStartIndex();
 		$this->mStrLen = rhv.getStrLen();
 	}
 
-	public int IndexOf(char findChar)
+	public function IndexOf($findChar)
 	{
-		int retIndex = -1;
-		int index = $this->mStartIndex;
+		$retIndex = -1;
+		$index = $this->mStartIndex;
 
 		while (index < $this->mStrLen)
 		{
-			if ($this->mNativeStr[$this->mStartIndex + index] == findChar)
+			if ($this->mNativeStr[$this->mStartIndex + $index] == $findChar)
 			{
-				retIndex = index;
+				$retIndex = $index;
 				break;
 			}
 
-			index += 1;
+			$index += 1;
 		}
 
-		return retIndex;
+		return $retIndex;
 	}
 
-	public int LastIndexOf(char findChar)
+	public function LastIndexOf($findChar)
 	{
-		int lastIndex = -1;
-		int index = $this->mStartIndex + $this->mStrLen - 1;
+		$lastIndex = -1;
+		$index = $this->mStartIndex + $this->mStrLen - 1;
 
-		while (index >= 0)
+		while ($index >= 0)
 		{
-			if ($this->mNativeStr[$this->mStartIndex + index] == findChar)
+			if ($this->mNativeStr[$this->mStartIndex + $index] == $findChar)
 			{
-				lastIndex = index;
+				$lastIndex = $index;
 				break;
 			}
 
-			index -= 1;
+			$index -= 1;
 		}
 
-		return lastIndex;
+		return $lastIndex;
 	}
 
-	public MString Substring(int startIndex)
+	public function Substring($startIndex)
 	{
-		int length = 0;
+		$length = 0;
 
-		MString ret = new MString();
-		ret.copyFrom(this);
+		$ret = new MString();
+		$ret->copyFrom(this);
 
-		if (startIndex >= 0 && startIndex < $this->mStrLen)
+		if ($startIndex >= 0 && $startIndex < $this->mStrLen)
 		{
-			ret.setStartIndex($this->mStartIndex + startIndex);
-			length = $this->mStrLen - startIndex;
+			$ret->setStartIndex($this->mStartIndex + $startIndex);
+			$length = $this->mStrLen - $startIndex;
 		}
 		else
 		{
-			startIndex = 0;
+			$startIndex = 0;
 		}
 
-		if (startIndex + length <= $this->mStrLen)
+		if ($startIndex + $length <= $this->mStrLen)
 		{
-			ret.setStrLen(length);
+			$ret.setStrLen($length);
 		}
 		else
 		{
-			ret.setStrLen($this->mStrLen - startIndex);
+			$ret->setStrLen($this->mStrLen - $startIndex);
 		}
 
-		return ret;
+		return $ret;
 	}
 
-	public MString Substring(int startIndex, int length)
+	public function Substring($startIndex, $length)
 	{
-		MString ret = new MString();
-		ret.copyFrom(this);
+		$ret = new MString();
+		$ret->copyFrom(this);
 
-		if (startIndex >= 0 && startIndex < $this->mStrLen)
+		if ($startIndex >= 0 && $startIndex < $this->mStrLen)
 		{
-			ret.setStartIndex($this->mStartIndex + startIndex);
+			$ret.setStartIndex($this->mStartIndex + $startIndex);
 		}
 		else
 		{
-			startIndex = 0;
+			$startIndex = 0;
 		}
 
-		if (startIndex + length <= $this->mStrLen)
+		if ($startIndex + $length <= $this->mStrLen)
 		{
-			ret.setStrLen(length);
+			$ret->setStrLen($length);
 		}
 		else
 		{
-			ret.setStrLen($this->mStrLen - startIndex);
+			$ret->setStrLen($this->mStrLen - $startIndex);
 		}
 
-		return ret;
+		return $ret;
 	}
 }
 

@@ -1,9 +1,12 @@
-﻿namespace SDK\Lib;
+﻿<?php
+
+namespace SDK\Lib;
+
+class MsgCV
 {
-public class MsgCV
-{
-	public const uint PACKET_ZIP_MIN = 32;
-	public const uint PACKET_ZIP = 0x40000000;
-	public const uint HEADER_SIZE = 4;   // 包长度占据几个字节
+	const PACKET_ZIP_MIN = 32;
+	const PACKET_ZIP = 0x40000000;
+	const HEADER_SIZE = 4;   // 包长度占据几个字节
 }
-}
+
+?>

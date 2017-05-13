@@ -2,24 +2,24 @@
 
 namespace SDK\Lib;
 
-public class UniqueNumIdGen
+class UniqueNumIdGen
 {
-	protected uint mPreIdx;
-	protected uint mCurId;
+	protected $mPreIdx;
+	protected $mCurId;
 
-	public UniqueNumIdGen(uint baseUniqueId)
+	public function __construct($baseUniqueId)
 	{
-		$this->mCurId = 0;
+		$this->mCurId = $baseUniqueId;
 	}
 
-	public uint genNewId()
+	public function genNewId()
 	{
 		$this->mPreIdx = $this->mCurId;
 		$this->mCurId++;
 		return $this->mPreIdx;
 	}
 
-	public uint getCurId()
+	public function getCurId()
 	{
 		return $this->mCurId;
 	}

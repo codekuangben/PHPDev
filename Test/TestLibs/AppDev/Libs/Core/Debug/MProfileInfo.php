@@ -2,18 +2,18 @@
 
 namespace SDK\Lib;
 
-public class MProfileInfo
+class MProfileInfo
 {
-	public string mName;
-	public MDictionary<string, MProfileInfo> mChildren;
-	public MProfileInfo mParent;
+	public $mName;
+	public $mChildren;
+	public $mParent;
 
-	public double mStartTime;       // 进入块开始时间
-	public double mTotalTime;       // 当前块总共执行时间,包括子函数调用
-	public double mSelfTime;        // 当前块自己执行时间,不包括子函数调用
-	public int mActivations;        // 调用次数
-	public double mMaxTime;         // 最大一次执行时间
-	public double mMinTime;         // 最小一次执行时间
+	public $mStartTime;       // 进入块开始时间
+	public $mTotalTime;       // 当前块总共执行时间,包括子函数调用
+	public $mSelfTime;        // 当前块自己执行时间,不包括子函数调用
+	public $mActivations;        // 调用次数
+	public $mMaxTime;         // 最大一次执行时间
+	public $mMinTime;         // 最小一次执行时间
 
 	public MProfileInfo(string name, MProfileInfo parent = null)
 	{

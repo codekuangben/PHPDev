@@ -1,40 +1,43 @@
-﻿namespace SDK.Lib
+﻿<?php
+
+namespace SDK\Lib;
+
+/**
+ * @brief 延迟优先级处理管理器
+ */
+class DelayPriorityHandleMgr extends DelayNoOrPriorityHandleMgr
 {
-    /**
-     * @brief 延迟优先级处理管理器
-     */
-    public class DelayPriorityHandleMgr : DelayNoOrPriorityHandleMgr
-    {
-        public DelayPriorityHandleMgr()
-        {
-            $this->mDeferredAddQueue = new NoPriorityList();
-            $this->mDeferredAddQueue.setIsSpeedUpFind(true);
-            $this->mDeferredDelQueue = new NoPriorityList();
-            $this->mDeferredDelQueue.setIsSpeedUpFind(true);
+	public function __construct()
+	{
+		$this->mDeferredAddQueue = new NoPriorityList();
+		$this->mDeferredAddQueue->setIsSpeedUpFind(true);
+		$this->mDeferredDelQueue = new NoPriorityList();
+		$this->mDeferredDelQueue->setIsSpeedUpFind(true);
 
-            $this->mNoOrPriorityList = new PriorityList();
-            $this->mNoOrPriorityList.setIsSpeedUpFind(true);
-            $this->mNoOrPriorityList.setIsOpKeepSort(true);
-        }
+		$this->mNoOrPriorityList = new PriorityList();
+		$this->mNoOrPriorityList->setIsSpeedUpFind(true);
+		$this->mNoOrPriorityList->setIsOpKeepSort(true);
+	}
 
-        override public void init()
-        {
-            base.init();
-        }
+	public function init()
+	{
+		parent::init();
+	}
 
-        override public void dispose()
-        {
-            base.dispose();
-        }
+	public function dispose()
+	{
+		parent::dispose();
+	}
 
-        public void addPriorityObject(INoOrPriorityObject priorityObject, float priority = 0.0f)
-        {
-            $this->addNoOrPriorityObject(priorityObject, priority);
-        }
+	public function addPriorityObject($priorityObject, $priority = 0.0)
+	{
+		$this->addNoOrPriorityObject(priorityObject, priority);
+	}
 
-        public void removePriorityObject(ITickedObject tickObj)
-        {
-            $this->removeNoOrPriorityObject(tickObj);
-        }
-    }
+	public function removePriorityObject($tickObj)
+	{
+		$this->removeNoOrPriorityObject($tickObj);
+	}
 }
+
+?>

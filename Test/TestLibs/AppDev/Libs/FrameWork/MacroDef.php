@@ -1,4 +1,6 @@
-﻿namespace SDK.Lib
+﻿<?php
+
+namespace SDK.Lib
 {
     public class MacroDef
     {
@@ -110,3 +112,5 @@
         // 宏定义结束
     }
 }
+
+?>

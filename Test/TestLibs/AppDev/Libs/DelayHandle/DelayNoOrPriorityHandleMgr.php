@@ -1,79 +1,82 @@
-﻿namespace SDK.Lib
+﻿<?php
+
+namespace SDK\Lib;
+
+/**
+ * @brief 延迟优先级处理管理器
+ */
+class DelayNoOrPriorityHandleMgr extends DelayNoOrPriorityHandleMgrBase
 {
-    /**
-     * @brief 延迟优先级处理管理器
-     */
-    public class DelayNoOrPriorityHandleMgr : DelayNoOrPriorityHandleMgrBase
-    {
-        protected INoOrPriorityList mNoOrPriorityList;
+	protected $mNoOrPriorityList;
 
-        public DelayNoOrPriorityHandleMgr()
-        {
+	public function __construct()
+	{
 
-        }
+	}
 
-        override public void init()
-        {
-            base.init();
-        }
+	public function init()
+	{
+		parent::init();
+	}
 
-        override public void dispose()
-        {
-            $this->mNoOrPriorityList.Clear();
-        }
+	public function dispose()
+	{
+		$this->mNoOrPriorityList->Clear();
+	}
 
-        override protected void addObject(IDelayHandleItem delayObject, float priority = 0.0f)
-        {
-            if (null != delayObject)
-            {
-                if ($this->isInDepth())
-                {
-                    base.addObject(delayObject, priority);
-                }
-                else
-                {
-                    $this->mNoOrPriorityList.addNoOrPriorityObject(delayObject as INoOrPriorityObject, priority);
-                }
-            }
-            else
-            {
-                if (MacroDef.ENABLE_LOG)
-                {
-                    Ctx.mInstance.mLogSys.log("DelayPriorityHandleMgr::addObject, failed", LogTypeId.eLogCommon);
-                }
-            }
-        }
+	protected function addObject($delayObject, $priority = 0.0)
+	{
+		if (null != delayObject)
+		{
+			if ($this->isInDepth())
+			{
+				parent::addObject(delayObject, priority);
+			}
+			else
+			{
+				$this->mNoOrPriorityList->addNoOrPriorityObject($delayObject, $priority);
+			}
+		}
+		else
+		{
+			if (MacroDef.ENABLE_LOG)
+			{
+				Ctx::mInstance.mLogSys.log("DelayPriorityHandleMgr::addObject, failed", LogTypeId.eLogCommon);
+			}
+		}
+	}
 
-        override protected void removeObject(IDelayHandleItem delayObject)
-        {
-            if (null != delayObject)
-            {
-                if ($this->isInDepth())
-                {
-                    base.removeObject(delayObject);
-                }
-                else
-                {
-                    $this->mNoOrPriorityList.removeNoOrPriorityObject(delayObject as INoOrPriorityObject);
-                }
-            }
-            else
-            {
-                if (MacroDef.ENABLE_LOG)
-                {
-                    Ctx.mInstance.mLogSys.log("DelayPriorityHandleMgr::removeObject, failed", LogTypeId.eLogCommon);
-                }
-            }
-        }
+	protected function removeObject($delayObject)
+	{
+		if (null != $delayObject)
+		{
+			if ($this->isInDepth())
+			{
+				parent::removeObject($delayObject);
+			}
+			else
+			{
+				$this->mNoOrPriorityList->removeNoOrPriorityObject($delayObject);
+			}
+		}
+		else
+		{
+			if (MacroDef.ENABLE_LOG)
+			{
+				Ctx.mInstance.mLogSys.log("DelayPriorityHandleMgr::removeObject, failed", LogTypeId.eLogCommon);
+			}
+		}
+	}
 
-        public void addNoOrPriorityObject(INoOrPriorityObject priorityObject, float priority = 0.0f)
-        {
-            $this->addObject(priorityObject as IDelayHandleItem, priority);
-        }
+	public function addNoOrPriorityObject($priorityObject, $priority = 0.0)
+	{
+		$this->addObject($priorityObject, $priority);
+	}
 
-        public void removeNoOrPriorityObject(ITickedObject tickObj)
-        {
-            $this->removeObject(tickObj as IDelayHandleItem);
-        }
-    }
+	public function removeNoOrPriorityObject($tickObj)
+	{
+		$this->removeObject($tickObj);
+	}
 }
+
+?>

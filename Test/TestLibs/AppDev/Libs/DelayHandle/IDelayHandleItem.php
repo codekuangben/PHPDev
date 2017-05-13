@@ -1,11 +1,14 @@
-﻿namespace SDK.Lib
+﻿<?php
+
+namespace SDK\Lib;
+
+/**
+ * @brief 延迟添加的对象
+ */
+interface IDelayHandleItem
 {
-    /**
-     * @brief 延迟添加的对象
-     */
-    public interface IDelayHandleItem
-    {
-        void setClientDispose(bool isDispose);
-        bool isClientDispose();
-    }
+	function setClientDispose($isDispose);
+	function isClientDispose();
 }
+
+?>

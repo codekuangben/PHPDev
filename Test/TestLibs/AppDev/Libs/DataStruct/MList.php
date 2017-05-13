@@ -14,6 +14,11 @@ class MList
 	protected $mDic;    // 为了加快查找速度，当前 Element 到索引映射
 	protected $mIsSpeedUpFind;  // 是否加快查询，这个只适用于元素在列表中是唯一的，例如引用之类的，如果有相同的，就会有问题，注意了
 	protected $mIsOpKeepSort;           // 操作的时候是否保持排序
+	
+	public static function isArray($list)
+	{
+		return is_array($list);
+	}
 
 	public function __construct()
 	{
@@ -44,11 +49,6 @@ class MList
 		$this->mIsOpKeepSort = $value;
 	}
 
-	public function ToArray()
-	{
-		return $this->mList->ToArray();
-	}
-
 	public function list()
 	{
 		return $this->mList;
@@ -67,7 +67,7 @@ class MList
 	public function getSize()
 	{
 		// 频繁获取这个字段比较耗时
-		//return $this->mList.Count;
+		//return count($this->mList);
 		return $this->mEleTotal;
 	}
 
@@ -138,7 +138,7 @@ class MList
 
 	public function push($item)
 	{
-		$this->mList.Add($item);
+		array_push($this->mList, $item);
 		$this->mEleTotal += 1;
 
 		if ($this->mIsSpeedUpFind)
@@ -213,7 +213,11 @@ class MList
 		{
 			if ($index < $this->Count())
 			{
-				$this->mList->RemoveAt($index);
+				// http://www.jb51.net/article/30689.htm
+				// unset 这种方法的最大缺点是没有重建数组索引，就是说，数组的第三个元素没了。
+				// array_splice 重建数组索引
+				//unset($this->mList[$index]);
+				array_splice($this->mList, $index, 1); 
 				$this->mEleTotal -= 1;
 			}
 		}
@@ -234,7 +238,10 @@ class MList
 		}
 		else
 		{
-			return $this->mList->IndexOf($item);
+			/**
+			 * @ref PHP array_search() 函数 http://www.w3school.com.cn/php/func_array_search.asp 
+			 */
+			return array_search($this->mList, $item);
 		}
 	}
 
@@ -242,7 +249,7 @@ class MList
 	{
 		if (index <= $this->Count())
 		{
-			$this->mList.Insert($index, $item);
+			$this->arrayPushBefore($this->mList, array($item), $index);
 			$this->mEleTotal += 1;
 
 			if ($this->mIsSpeedUpFind)
@@ -266,7 +273,7 @@ class MList
 		}
 		else
 		{
-			return $this->mList.Contains($item);
+			return in_array($this->mList, $item, true);
 		}
 	}
 
@@ -281,7 +288,7 @@ class MList
 		{
 			foreach ($item as $appendList->list())
 			{
-				$this->mList.Add($item);
+				array_push($this->mList, $item);
 				$this->mEleTotal += 1;
 
 				if ($this->mIsSpeedUpFind)
@@ -306,7 +313,7 @@ class MList
 
 			if (idx == $this->Count() - 1)    // 如果是最后一个元素，直接移除
 			{
-				$this->mList.RemoveAt($idx);
+				array_splice($this->mList, $idx, 1);
 				$this->mEleTotal -= 1;
 			}
 			else
@@ -314,13 +321,13 @@ class MList
 				if (!$this->mIsOpKeepSort)
 				{
 					$this->mList[$idx] = $this->mList[$this->Count() - 1];
-					$this->mList->RemoveAt($this->Count() - 1);
+					array_splice($this->mList, $this->Count() - 1, 1);
 					$this->mDic[$this->mList[$idx]] = $idx;
 					$this->mEleTotal -= 1;
 				}
 				else
 				{
-					$this->mList.RemoveAt($idx);
+					array_splice($this->mList, $idx, 1);
 					$this->mEleTotal -= 1;
 					$this->updateIndex($idx);
 				}
@@ -340,6 +347,67 @@ class MList
 
 			++$idx;
 		}
+	}
+	
+	/**
+	 * @ref http://php.net/manual/en/function.array-push.php
+	 * @return array
+	 * @param array $src
+	 * @param array $in
+	 * @param int|string $pos
+	 */
+	function arrayPushBefore($src, $in, $pos)
+	{
+		if(is_int($pos))
+		{
+			/**
+			 * @ref 更新日志： 	自 PHP 5.0 起，该函数仅接受数组类型的参数。 http://www.w3school.com.cn/php/func_array_merge.asp 
+			 */
+			$R=array_merge(array_slice($src, 0 ,$pos), $in, array_slice($src, $pos));
+		}
+		else
+		{
+			foreach($src as $k=>$v)
+			{
+				if($k==$pos)
+				{
+					$R=array_merge($R,$in);
+				}
+				
+				$R[$k]=$v;
+			}
+		}
+		
+		return $R;
+	}
+	
+	/**
+	 * @ref http://php.net/manual/en/function.array-push.php
+	 * @return array
+	 * @param array $src
+	 * @param array $in
+	 * @param int|string $pos
+	 */
+	function arrayPushAfter($src, $in, $pos)
+	{
+		if(is_int($pos))
+		{
+			$R=array_merge(array_slice($src, 0, $pos + 1), $in, array_slice($src, $pos+1));
+		}
+		else
+		{
+			foreach($src as $k=>$v)
+			{
+				$R[$k]=$v;
+				
+				if($k==$pos)
+				{
+					$R=array_merge($R, $in);
+				}
+			}
+		}
+		
+		return $R;
 	}
 }
 

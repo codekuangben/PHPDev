@@ -1,43 +1,43 @@
 ﻿namespace SDK.Lib
 {
-    public class PlatformDefine
-    {
-        static public string PlatformFolder;
+public class PlatformDefine
+{
+	static public string PlatformFolder;
 
-        // http://docs.unity3d.com/Manual/PlatformDependentCompilation.html
-        static public void init()
-        {
+	// http://docs.unity3d.com/Manual/PlatformDependentCompilation.html
+	static public void init()
+	{
 #if UNITY_EDITOR_WIN
-            PlatformFolder = "Windows";
+		PlatformFolder = "Windows";
 #elif UNITY_EDITOR_OSX
-            PlatformFolder = "OSX";
+		PlatformFolder = "OSX";
 #elif UNITY_STANDALONE_OSX
-            PlatformFolder = "OSX";
+		PlatformFolder = "OSX";
 #elif UNITY_DASHBOARD_WIDGET
-            PlatformFolder = "OSX";
+		PlatformFolder = "OSX";
 #elif UNITY_STANDALONE_WIN
-            PlatformFolder = "Windows";
+		PlatformFolder = "Windows";
 #elif UNITY_STANDALONE_LINUX
-            PlatformFolder = "Linux";
+		PlatformFolder = "Linux";
 #elif UNITY_IOS
-            PlatformFolder = "iOS";
+		PlatformFolder = "iOS";
 #elif UNITY_IPHONE
-            PlatformFolder = "iOS";
+		PlatformFolder = "iOS";
 #elif UNITY_ANDROID
-            PlatformFolder = "Android";
+		PlatformFolder = "Android";
 #elif UNITY_WEBPLAYER
-            PlatformFolder = "WebPlayer";
+		PlatformFolder = "WebPlayer";
 #elif UNITY_WII
-            PlatformFolder = "Wii";
+		PlatformFolder = "Wii";
 #elif UNITY_PS3
-            PlatformFolder = "Ps3";
+		PlatformFolder = "Ps3";
 #elif UNITY_XBOX360
-            PlatformFolder = "Xbox360";
+		PlatformFolder = "Xbox360";
 #elif UNITY_NACL
-            PlatformFolder = "Nacl";
+		PlatformFolder = "Nacl";
 #else
-            PlatformFolder = "Windows";
+		PlatformFolder = "Windows";
 #endif
-        }
-    }
+	}
+}
 }

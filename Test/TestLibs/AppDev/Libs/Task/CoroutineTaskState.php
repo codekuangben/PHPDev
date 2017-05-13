@@ -1,9 +1,9 @@
 ﻿namespace SDK.Lib
 {
-    public enum eCoroutineTaskState
-    {
-        eRunning,
-        ePaused,
-        eStopped,
-    }
+public enum eCoroutineTaskState
+{
+	eRunning,
+	ePaused,
+	eStopped,
+}
 }

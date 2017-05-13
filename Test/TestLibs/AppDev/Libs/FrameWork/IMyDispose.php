@@ -1,8 +1,8 @@
 ﻿namespace SDK.Lib
 {
-    public interface IMyDispose
-    {
-        void init();
-        void dispose();
-    }
+public interface IMyDispose
+{
+	void init();
+	void dispose();
+}
 }

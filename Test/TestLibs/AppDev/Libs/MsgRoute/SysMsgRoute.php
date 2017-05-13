@@ -1,38 +1,38 @@
 ﻿namespace SDK.Lib
 {
-    /**
-     * @brief 系统消息流程，整个系统的消息分发都走这里，仅限单线程
-     */
-    public class SysMsgRoute : LockQueue<MsgRouteBase>
-    {
-        public SysMsgRoute(string name)
-            : base(name)
-        {
+/**
+ * @brief 系统消息流程，整个系统的消息分发都走这里，仅限单线程
+ */
+public class SysMsgRoute : LockQueue<MsgRouteBase>
+{
+	public SysMsgRoute(string name)
+		: base(name)
+	{
 
-        }
+	}
 
-        public void pushMsg(MsgRouteBase msg)
-        {
-            if (msg.isMainThreadImmeHandle())
-            {
-                if(MThread.isMainThread())
-                {
-                    Ctx.mInstance.mMsgRouteNotify.handleMsg(msg);
-                }
-                else
-                {
-                    $this->push(msg);
-                }
-            }
-            else
-            {
-                $this->push(msg);
-            }
-        }
+	public void pushMsg(MsgRouteBase msg)
+	{
+		if (msg.isMainThreadImmeHandle())
+		{
+			if(MThread.isMainThread())
+			{
+				Ctx.mInstance.mMsgRouteNotify.handleMsg(msg);
+			}
+			else
+			{
+				$this->push(msg);
+			}
+		}
+		else
+		{
+			$this->push(msg);
+		}
+	}
 
-        public MsgRouteBase popMsg()
-        {
-            return $this->pop();
-        }
-    }
+	public MsgRouteBase popMsg()
+	{
+		return $this->pop();
+	}
+}
 }

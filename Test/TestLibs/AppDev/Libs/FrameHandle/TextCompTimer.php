@@ -2,14 +2,14 @@
 
 namespace SDK.Lib
 {
-    public class TextCompTimer : DaoJiShiTimer
-    {
-        protected Text mText;
+public class TextCompTimer : DaoJiShiTimer
+{
+	protected Text mText;
 
-        protected override void onPreCallBack()
-        {
-            base.onPreCallBack();
-            $this->mText.text = UtilLogic.formatTime((int)$this->mCurRunTime);
-        }
-    }
+	protected override void onPreCallBack()
+	{
+		base.onPreCallBack();
+		$this->mText.text = UtilLogic.formatTime((int)$this->mCurRunTime);
+	}
+}
 }

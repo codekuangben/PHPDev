@@ -2,36 +2,36 @@
 
 namespace SDK\Lib;
 
-public class DynBufResizePolicy
+class DynBufResizePolicy
 {
 	// 获取一个最近的大小
-	static public uint getCloseSize(uint needSize, uint capacity, uint maxCapacity)
+	static public function getCloseSize($needSize, $capacity, $maxCapacity)
 	{
-		uint ret = 0;
-		if (capacity > needSize)        // 使用 > ，不使用 >= ，浪费一个自己，方便判断
+		$ret = 0;
+		if ($capacity > $needSize)        // 使用 > ，不使用 >= ，浪费一个自己，方便判断
 		{
-			ret = capacity;
+			$ret = $capacity;
 		}
 		else
 		{
-			ret = 2 * capacity;
-			while (ret < needSize && ret < maxCapacity)
+			$ret = 2 * $capacity;
+			while ($ret < $needSize && $ret < $maxCapacity)
 			{
-				ret *= 2;
+				$ret *= 2;
 			}
 
-			if (ret > maxCapacity)
+			if ($ret > $maxCapacity)
 			{
-				ret = maxCapacity;
+				$ret = $maxCapacity;
 			}
 
-			if (ret < needSize)      // 分配失败
+			if ($ret < $needSize)      // 分配失败
 			{
 				Ctx.mInstance.mLogSys.error(string.Format("Malloc byte buffer failed，cannot malloc {0} byte buffer", needSize));
 			}
 		}
 
-		return ret;
+		return $ret;
 	}
 }
 

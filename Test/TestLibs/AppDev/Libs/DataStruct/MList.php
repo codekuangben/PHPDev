@@ -155,29 +155,37 @@ class MList
 		}
 		else
 		{
-			$ret = $this->mList.Remove($item);
-
-			if($ret)
+			$ret = false;
+			
+			$index = array_search($this->mList, $item);
+			
+			if($index)
 			{
+				$ret = true;
+				array_splice($this->mList, $index, 1);
 				$this->mEleTotal -= 1;
 			}
+			
 			return $ret;
 		}
 	}
 
 	public function get($index)
 	{
-		return $this->mList[index];
+		return $this->mList[$index];
 	}
 
 	public function set($index, $value)
 	{
-		$this->mList[$index] = value;
+		$this->mList[$index] = $value;
 	}
 
 	public function Clear()
 	{
-		$this->mList->Clear();
+		// 真正的释放资源
+		unset($this->mList);
+		// 重新申请资源
+		$this->mList = array();
 		$this->mEleTotal = 0;
 
 		if ($this->mIsSpeedUpFind)
@@ -227,7 +235,7 @@ class MList
 	{
 		if ($this->mIsSpeedUpFind)
 		{
-			if ($this->mDic.ContainsKey($item))
+			if ($this->mDic->ContainsKey($item))
 			{
 				return $this->mDic[$item];
 			}
@@ -269,7 +277,7 @@ class MList
 	{
 		if ($this->mIsSpeedUpFind)
 		{
-			return $this->mDic.ContainsKey($item);
+			return $this->mDic->ContainsKey($item);
 		}
 		else
 		{
@@ -279,7 +287,7 @@ class MList
 
 	public function Sort($comparer)
 	{
-		$this->mList->Sort(comparer);
+		$this->mList->Sort($comparer);
 	}
 
 	public function merge($appendList)
@@ -356,7 +364,7 @@ class MList
 	 * @param array $in
 	 * @param int|string $pos
 	 */
-	function arrayPushBefore($src, $in, $pos)
+	public function arrayPushBefore($src, $in, $pos)
 	{
 		if(is_int($pos))
 		{
@@ -388,7 +396,7 @@ class MList
 	 * @param array $in
 	 * @param int|string $pos
 	 */
-	function arrayPushAfter($src, $in, $pos)
+	public function arrayPushAfter($src, $in, $pos)
 	{
 		if(is_int($pos))
 		{

@@ -1212,16 +1212,16 @@ public class UtilApi
 		str.TrimEnd('\0');
 	}
 
-	// 判断两个 GameObject 地址是否相等
-	public static function isAddressEqual(GameObject a, GameObject b)
+	// 判断两个 Object 地址是否相等
+	public static function isAddressEqual(a, b)
 	{
-		return object.ReferenceEquals(a, b);
+		return a === b;
 	}
 
-	// 判断两个 GameObject 地址是否相等
-	public static function isAddressEqual(System.Object a, System.Object b)
+	// 判断两个 Object 内容是否相等
+	public static function isObjectEqual(System.Object a, System.Object b)
 	{
-		return object.ReferenceEquals(a, b);
+		return a == b;
 	}
 
 	// 判断两个函数是否相等，不能使用 isAddressEqual 判断函数是否相等

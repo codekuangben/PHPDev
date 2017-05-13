@@ -5,139 +5,126 @@ namespace SDK\Lib;
 /**
  * @brief 线程安全列表， T 是 Object ，便于使用 Equal 比较地址
  */
-public class LockList<T>
+class LockList
 {
-	protected DynBuffer<T> mDynamicBuffer;
-	protected MMutex mVisitMutex;
-	protected T mRetItem;
+	protected $mDynamicBuffer;
+	protected $mVisitMutex;
+	protected $mRetItem;
 
-	public LockList(string name, uint initCapacity = 32/*DataCV.INIT_ELEM_CAPACITY*/, uint maxCapacity = 8 * 1024 * 1024/*DataCV.MAX_CAPACITY*/)
+	public function __construct($name, $initCapacity = 32/*DataCV.INIT_ELEM_CAPACITY*/, $maxCapacity = 8 * 1024 * 1024/*DataCV.MAX_CAPACITY*/)
 	{
-		$this->mDynamicBuffer = new DynBuffer<T>(initCapacity, maxCapacity);
-		$this->mVisitMutex = new MMutex(false, name);
+		$this->mDynamicBuffer = new DynBuffer($initCapacity, $maxCapacity);
+		$this->mVisitMutex = new MMutex(false, $name);
 	}
 
-	//public uint Count
-	//{ 
-	//    get
-	//    {
-	//        using (MLock mlock = new MLock(mVisitMutex))
-	//        {
-	//            return mDynamicBuffer.mSize;
-	//        }
-	//    }
-	//}
-
-	public uint Count()
+	public function Count()
 	{
-		using (MLock mlock = new MLock(mVisitMutex))
+		$mlock = new MLock($this->mVisitMutex);
 		{
-			return $this->mDynamicBuffer.mSize;
+			return $this->mDynamicBuffer->mSize;
 		}
 	}
 
-	public T this[int index] 
-	{ 
-		get
+	public function get($index) 
+	{
+		$mlock = new MLock($this->mVisitMutex);
 		{
-			using (MLock mlock = new MLock(mVisitMutex))
+			if ($index< $this->mDynamicBuffer.mSize)
 			{
-				if (index < mDynamicBuffer.mSize)
-				{
-					return $this->mDynamicBuffer.mBuffer[index];
-				}
-				else
-				{
-					return default(T);
-				}
+				return $this->mDynamicBuffer->mBuffer[$index];
 			}
-		}
-
-		set
-		{
-			using (MLock mlock = new MLock(mVisitMutex))
+			else
 			{
-				$this->mDynamicBuffer.mBuffer[index] = value;
+				return null;
 			}
 		}
 	}
 
-	public void Add(T item)
+	public function set($index, $item) 
 	{
-		using (MLock mlock = new MLock(mVisitMutex))
+		$mlock = new MLock($this->mVisitMutex);
 		{
-			if ($this->mDynamicBuffer.mSize >= mDynamicBuffer.mCapacity)
-			{
-				$this->mDynamicBuffer.extendDeltaCapicity(1);
-			}
-
-			$this->mDynamicBuffer.mBuffer[mDynamicBuffer.mSize] = item;
-			++$this->mDynamicBuffer.mSize;
+			$this->mDynamicBuffer->mBuffer->set($index, $value);
 		}
 	}
 
-	public bool Remove(T item)
+
+	public function Add($item)
 	{
-		using (MLock mlock = new MLock(mVisitMutex))
+		$mlock = new MLock($this->mVisitMutex);
 		{
-			int idx = 0;
-			foreach (var elem in $this->mDynamicBuffer.mBuffer)
+			if ($this->mDynamicBuffer->mSize >= $this->mDynamicBuffer->mCapacity)
 			{
-				if(item.Equals(elem))       // 地址比较
+				$this->mDynamicBuffer->extendDeltaCapicity(1);
+			}
+
+			$this->mDynamicBuffer->mBuffer->set($this->mDynamicBuffer->mSize, item);
+			++$this->mDynamicBuffer->mSize;
+		}
+	}
+
+	public function Remove($item)
+	{
+		$mlock = new MLock($this->mVisitMutex);
+		{
+			$idx = 0;
+			foreach($this->mDynamicBuffer->mBuffer as $elem)
+			{
+				if(UtilApi::isObjectEqual($item, $elem))       // 地址比较
 				{
-					$this->RemoveAt(idx);
+					$this->RemoveAt($idx);
 					return true;
 				}
 
-				++idx;
+				++$idx;
 			}
 
 			return false;
 		}
 	}
 
-	public T RemoveAt(int index)
+	public function RemoveAt($index)
 	{
-		using (MLock mlock = new MLock(mVisitMutex))
+		$mlock = new MLock($this->mVisitMutex);
 		{
-			if (index < $this->mDynamicBuffer.mSize)
+			if ($index < $this->mDynamicBuffer->mSize)
 			{
-				$this->mRetItem = $this->mDynamicBuffer.mBuffer[index];
+				$this->mRetItem = $this->mDynamicBuffer->mBuffer[$index];
 
-				if (index < $this->mDynamicBuffer.mSize)
+				if ($index < $this->mDynamicBuffer->mSize)
 				{
-					if (index != $this->mDynamicBuffer.mSize - 1 && 1 != $this->mDynamicBuffer.mSize) // 如果删除不是最后一个元素或者总共就大于一个元素
+					if ($index != $this->mDynamicBuffer->mSize - 1 && 1 != $this->mDynamicBuffer->mSize) // 如果删除不是最后一个元素或者总共就大于一个元素
 					{
-						Array.Copy($this->mDynamicBuffer.mBuffer, index + 1, $this->mDynamicBuffer.mBuffer, index, $this->mDynamicBuffer.mSize - 1 - index);
+						Array.Copy($this->mDynamicBuffer->mBuffer, $index + 1, $this->mDynamicBuffer->mBuffer, index, $this->mDynamicBuffer->mSize - 1 - $index);
 					}
 
-					--$this->mDynamicBuffer.mSize;
+					--$this->mDynamicBuffer->mSize;
 				}
 			}
 			else
 			{
-				$this->mRetItem = default(T);
+				$this->mRetItem = null;
 			}
 
 			return $this->mRetItem;
 		}
 	}
 
-	public int IndexOf(T item)
+	public function IndexOf($item)
 	{
-		using (MLock mlock = new MLock(mVisitMutex))
+		$mlock = new MLock($this->mVisitMutex);
 		{
-			int idx = 0;
+			$idx = 0;
 
-			foreach (var elem in $this->mDynamicBuffer.mBuffer)
+			foreach ($this->mDynamicBuffer->mBuffer as $item)
 			{
-				if (item.Equals(elem))       // 地址比较
+				if (UtilApi::isObjectEqual($item, $elem))       // 地址比较
 				{
-					$this->RemoveAt(idx);
-					return idx;
+					$this->RemoveAt($idx);
+					return $idx;
 				}
 
-				++idx;
+				++$idx;
 			}
 
 			return -1;

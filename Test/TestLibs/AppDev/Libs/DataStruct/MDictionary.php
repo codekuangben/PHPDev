@@ -18,12 +18,12 @@ class MDictionary
 
 	public function getCount()
 	{
-		return $this->mData.Count;
+		return count($this->mData);
 	}
 
 	public function value($key)
 	{
-		if ($this->mData.ContainsKey($key))
+		if(array_key_exists($key, $this->mData))
 		{
 			return $this->mData[$key];
 		}
@@ -35,33 +35,28 @@ class MDictionary
 	{
 		while(list($key, $val)= each($this->mData))
 		{
-			if ($val.Equals($value))
-				//if ($val== == $value)
+			if (UtilApi::isObjectEqual($val, $value))
 			{
 				return $key;
 			}
 		}
+		
 		return null;
 	}
 
 	public function getKeys()
 	{
-		return $this->mData.Keys;
+		return array_keys($this->mData);
 	}
 
 	public function getValues()
 	{
-		return $this->mData.Values;
+		return array_values($this->mData);
 	}
 
 	public function Count()
 	{
-		return $this->mData.Keys.Count;
-	}
-
-	public function GetEnumerator()
-	{
-		return $this->mData.GetEnumerator();
+		return count($this->mData);
 	}
 
 	public function Add($key, $value)
@@ -71,29 +66,42 @@ class MDictionary
 
 	public function Remove($key)
 	{
-		$this->mData.Remove($key);
+		if(array_key_exists($key, $this->mData))
+		{
+			$index = array_search($key, $this->mData);
+			array_splice($this->mData, $index, 1);
+		}
 	}
 
 	public function Clear()
 	{
-		$this->mData.Clear();
+		unset($this->mData);
+		$this->mData = array();
 	}
 
 	public function TryGetValue($key, $value)
 	{
-		return $this->mData.TryGetValue($key, $value);
+		$ret = false;
+		
+		if(array_key_exists($key, $this->mData))
+		{
+			$value = $this->mData[$key];
+			$ret = true;
+		}
+		
+		return $ret;
 	}
 
 	public function ContainsKey($key)
 	{
-		return $this->mData.ContainsKey($key);
+		return array_key_exists($key, $this->mData);
 	}
 
 	public function ContainsValue($value)
 	{
 		while(list($key, $val)= each($this->mData))
 		{
-			if($val.Equals($value))
+			if(UtilApi::isObjectEqual($val, $value))
 			{
 				return true;
 			}

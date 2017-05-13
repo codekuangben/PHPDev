@@ -2,23 +2,23 @@
 
 namespace SDK\Lib;
 
-public class LockQueue<T>
+class LockQueue
 {
-	protected LockList<T> mList;
+	protected $mList;
 
-	public LockQueue(string name)
+	public function __construct($name)
 	{
-		$this->mList = new LockList<T>(name);
+		$this->mList = new LockList($name);
 	}
 
-	public void push(T item)
+	public function push($item)
 	{
-		$this->mList.Add(item);
+		$this->mList->Add($item);
 	}
 
-	public T pop()
+	public function pop()
 	{
-		return mList.RemoveAt(0);
+		return $this->mList->RemoveAt(0);
 	}
 }
 

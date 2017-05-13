@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 public enum AngleUnit
 {

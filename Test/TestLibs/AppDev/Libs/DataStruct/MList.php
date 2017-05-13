@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  * @brief 对系统 List 的封装

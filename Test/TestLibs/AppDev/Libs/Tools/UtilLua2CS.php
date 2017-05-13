@@ -1,7 +1,7 @@
 ﻿using LuaInterface;
 using System;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 public class UtilLua2CS
 {

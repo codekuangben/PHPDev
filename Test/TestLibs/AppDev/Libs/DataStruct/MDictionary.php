@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 //public class MDictionary<TKey, TValue> where TValue : IComparer<TValue>
 //public class MDictionary<TKey, TValue> where TValue : class

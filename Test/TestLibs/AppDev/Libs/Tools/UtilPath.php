@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 public enum MSearchOption
 {

@@ -1,4 +1,4 @@
-﻿namespace SDK.Lib
+﻿namespace SDK\Lib;
 {
 /**
  * @brief 坐标模式， XZ 平面，还是 XY 平面

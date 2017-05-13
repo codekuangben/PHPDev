@@ -1,4 +1,4 @@
-﻿namespace SDK.Lib
+﻿namespace SDK\Lib;
 {
 /**
  * @brief 任务线程

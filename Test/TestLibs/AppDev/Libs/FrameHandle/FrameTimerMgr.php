@@ -1,7 +1,7 @@
 ﻿/**
 * @brief 定时器管理器
 */
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 public class FrameTimerMgr : DelayPriorityHandleMgrBase
 {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  * @brief 查找内存数据

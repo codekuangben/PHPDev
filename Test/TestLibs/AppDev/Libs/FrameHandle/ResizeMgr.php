@@ -1,4 +1,4 @@
-﻿namespace SDK.Lib
+﻿namespace SDK\Lib;
 {
 public class ResizeMgr : DelayPriorityHandleMgrBase, ITickedObject, IDelayHandleItem, INoOrPriorityObject
 {

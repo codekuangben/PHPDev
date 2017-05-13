@@ -1,4 +1,6 @@
-﻿namespace SDK.Lib
+﻿<?php
+
+namespace SDK\Lib;
 {
 public class MProfileInfo
 {
@@ -37,3 +39,5 @@ public class MProfileInfo
 	}
 }
 }
+
+?>

@@ -1,4 +1,4 @@
-﻿namespace SDK.Lib
+﻿namespace SDK\Lib;
 {
 /**
  * @brief 记录当前的游戏属性

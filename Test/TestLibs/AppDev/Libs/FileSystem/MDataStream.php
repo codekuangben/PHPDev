@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using UnityEngine;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  * @brief 仅支持本地文件操作，仅支持同步操作

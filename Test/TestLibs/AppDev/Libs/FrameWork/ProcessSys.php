@@ -1,7 +1,7 @@
 ﻿/**
 * @brief 系统循环
 */
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 public class ProcessSys
 {

@@ -1,4 +1,6 @@
-﻿namespace SDK.Lib
+﻿<?php
+
+namespace SDK\Lib;
 {
 public class UniqueNumIdGen
 {
@@ -23,3 +25,5 @@ public class UniqueNumIdGen
 	}
 }
 }
+
+?>

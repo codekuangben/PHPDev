@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  * @同步使用的 Event

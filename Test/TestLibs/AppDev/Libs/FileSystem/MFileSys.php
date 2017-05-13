@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using UnityEngine;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  * @brief 本地文件系统

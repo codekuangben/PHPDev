@@ -1,4 +1,6 @@
-namespace SDK.Lib
+<?php
+
+namespace SDK\Lib;
 {
 public class StatsColors
 {
@@ -31,3 +33,5 @@ public class Stats
 	}
 }
 }
+
+?>

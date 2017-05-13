@@ -2,7 +2,7 @@
 using System.Text;
 using UnityEngine;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  *@brief ByteBuffer 功能

@@ -1,4 +1,7 @@
-﻿namespace SDK.Lib
+﻿<?php
+
+namespace SDK\Lib;
+
 {
 public class GObject
 {
@@ -15,3 +18,5 @@ public class GObject
 	}
 }
 }
+
+?>

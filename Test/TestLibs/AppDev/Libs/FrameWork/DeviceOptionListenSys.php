@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  * @brief Android返回键

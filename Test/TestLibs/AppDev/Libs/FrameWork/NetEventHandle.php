@@ -1,7 +1,7 @@
 ﻿using GameBox.Framework;
 using GameBox.Service.GiantLightServer;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  * @brief 不依赖模块的网络事件处理

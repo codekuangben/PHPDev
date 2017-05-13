@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UI;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 public class TextCompTimer : DaoJiShiTimer
 {

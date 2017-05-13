@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  * @brief Coroutine 入口

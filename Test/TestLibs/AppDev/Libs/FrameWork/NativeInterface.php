@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  * @brief Unity 调用本机原生接口

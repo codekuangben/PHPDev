@@ -1,4 +1,4 @@
-﻿namespace SDK.Lib
+﻿namespace SDK\Lib;
 {
 public delegate void MAction();
 public delegate void MAction<T>(T arg1);

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  *@brief 字节编码解码，大端小端

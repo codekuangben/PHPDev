@@ -1,4 +1,4 @@
-﻿namespace SDK.Lib
+﻿namespace SDK\Lib;
 {
 public class Singleton<T> where T : class, IMyDispose, new()
 {

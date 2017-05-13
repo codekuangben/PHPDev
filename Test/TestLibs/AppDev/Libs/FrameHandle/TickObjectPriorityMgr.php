@@ -1,4 +1,4 @@
-﻿namespace SDK.Lib
+﻿namespace SDK\Lib;
 {
 // 每一帧执行的对象管理器
 public class TickObjectPriorityMgr : DelayPriorityHandleMgr, ITickedObject, IDelayHandleItem, INoOrPriorityObject

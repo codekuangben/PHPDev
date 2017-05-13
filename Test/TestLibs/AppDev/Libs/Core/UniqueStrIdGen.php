@@ -1,4 +1,6 @@
-﻿namespace SDK.Lib
+﻿<?php
+
+namespace SDK\Lib;
 {
 /**
  * @brief 唯一字符串生成器
@@ -48,3 +50,5 @@ public class UniqueStrIdGen : UniqueNumIdGen
 	}
 }
 }
+
+?>

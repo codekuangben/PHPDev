@@ -1,4 +1,4 @@
-﻿namespace SDK.Lib
+﻿namespace SDK\Lib;
 {
 /**
  * @brief 表示一个字符串，因为 string 的很多操作都会重新生成一个新的字符串，主要解决这个问题

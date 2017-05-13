@@ -1,7 +1,7 @@
 ﻿using LuaInterface;
 using System;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  * @brief 定时器，这个是不断增长的

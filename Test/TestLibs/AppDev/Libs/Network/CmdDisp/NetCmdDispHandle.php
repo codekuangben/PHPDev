@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 public class NetCmdDispHandle : ICalleeObject
 {

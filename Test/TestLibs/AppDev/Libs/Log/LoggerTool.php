@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  * @brief 日志系统，只有工具在使用

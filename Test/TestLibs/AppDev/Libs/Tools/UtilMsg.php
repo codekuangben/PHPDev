@@ -1,7 +1,7 @@
 ﻿using LuaInterface;
 using System.Text;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  * @brief 处理消息工具

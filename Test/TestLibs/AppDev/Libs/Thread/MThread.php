@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  *@brief 基本的线程

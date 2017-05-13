@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace SDK.Lib
+namespace SDK\Lib;
 {
 /**
  * @brief 随机名字

@@ -65,19 +65,21 @@ class EventDispatchFunctionObject implements IDelayHandleItem, INoOrPriorityObje
 			}
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	public function call($dispObj)
 	{
-		//if($mThis != null)
-		//{
-		//    $mThis.call($dispObj);
-		//}
-
 		if(null != $this->mHandle)
 		{
-			$this->mHandle($dispObj);
+			if(null != $this->mThis)
+			{
+				call_user_func(array($this->mThis, $this->mHandle), $dispObj);
+			}
+			else
+			{
+				call_user_func($this->mHandle, $dispObj);
+			}
 		}
 	}
 

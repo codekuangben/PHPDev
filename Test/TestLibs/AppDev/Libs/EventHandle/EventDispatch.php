@@ -58,7 +58,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 	// 相同的函数只能增加一次，Lua ，Python 这些语言不支持同时存在几个相同名字的函数，只支持参数可以赋值，因此不单独提供同一个名字不同参数的接口了，但是 java 不支持参数默认值，只能通过重载实现参数默认值，真是悲剧中的悲剧， eventId: 分发事件上层唯一 Id，这样一个事件处理函数可以根据 EventId 处理不同的事件
 	public function addEventHandle($pThis, $handle, $eventId = 0)
 	{
-		if (null != pThis || null != handle || null != luaTable || null != luaFunction)
+		if (null != $pThis || null != $handle)
 		{
 			$funcObject = new EventDispatchFunctionObject();
 
@@ -67,7 +67,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 				$funcObject->setFuncObject($pThis, $handle, $eventId);
 			}
 
-			$this->addDispatch(funcObject);
+			$this->addDispatch($funcObject);
 		}
 		else
 		{
@@ -83,7 +83,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 
 		while ($idx < $elemLen)
 		{
-			if ($this->mHandleList[idx]->isEqual($pThis, $handle, $eventId))
+			if ($this->mHandleList[$idx]->isEqual($pThis, $handle, $eventId))
 			{
 				break;
 			}
@@ -194,7 +194,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		{
 			$item = $this->mHandleList[$idx];
 
-			if (item.isEqual(pThis, handle, eventId))
+			if ($item->isEqual($pThis, $handle, $eventId))
 			{
 				$bFinded = true;
 				break;
@@ -212,11 +212,11 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		$len = $this->mHandleList->Count();
 		$handle = null;
 
-		while (idx < len)
+		while ($idx < $len)
 		{
 			$handle = $this->mHandleList[idx];
 
-			$this->mHandleList.Add(handle);
+			$this->mHandleList.Add($handle);
 
 			++$idx;
 		}

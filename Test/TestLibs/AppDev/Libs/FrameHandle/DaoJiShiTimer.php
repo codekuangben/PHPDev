@@ -5,7 +5,7 @@ namespace SDK\Lib;
 /**
  * @brief 倒计时定时器
  */
-public class DaoJiShiTimer : TimerItemBase
+class DaoJiShiTimer extends TimerItemBase
 {
 	override public void setTotalTime(float value)
 	{

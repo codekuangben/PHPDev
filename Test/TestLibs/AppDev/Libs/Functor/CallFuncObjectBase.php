@@ -2,36 +2,36 @@
 
 namespace SDK\Lib;
 
-public class CallFuncObjectBase
+class CallFuncObjectBase
 {
-	protected ICalleeObject mThis;
+	protected $mThis;
 
-	public CallFuncObjectBase()
+	public function __construct()
 	{
 		$this->mThis = null;
 	}
 
-	virtual public void setPThisAndHandle(ICalleeObject pThis, MAction<IDispatchObject> handle, IDispatchObject param)
+	public function setPThisAndHandle($pThis, $handle, $param)
 	{
-		$this->mThis = pThis;
+		$this->mThis = $pThis;
 	}
 
-	virtual public void setThisAndHandleNoParam(ICalleeObject pThis, MAction handle)
+	public function setThisAndHandleNoParam($pThis, $handle)
 	{
 
 	}
 
-	virtual public void clear()
+	public function clear()
 	{
 		$this->mThis = null;
 	}
 
-	virtual public bool isValid()
+	public function isValid()
 	{
 		return false;
 	}
 
-	virtual public void call()
+	public function call()
 	{
 
 	}

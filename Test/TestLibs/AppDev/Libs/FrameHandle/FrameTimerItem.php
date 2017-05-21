@@ -5,19 +5,19 @@ namespace SDK\Lib;
 /**
  * @brief 定时器，这个是不断增长的
  */
-public class FrameTimerItem : IDelayHandleItem
+class FrameTimerItem extends IDelayHandleItem
 {
-	public int mInternal;              // 帧数间隔
-	public int mTotalFrameCount;       // 总共次数
-	public int mCurFrame;              // 当前已经调用的定时器的时间
-	public int mCurLeftFrame;          // 剩余帧数
-	public bool mIsInfineLoop;      // 是否是无限循环
-	public Action<FrameTimerItem> mTimerDisp;       // 定时器分发
-	public bool mDisposed;             // 是否已经被释放
+	public $mInternal;              // 帧数间隔
+	public $mTotalFrameCount;       // 总共次数
+	public $mCurFrame;              // 当前已经调用的定时器的时间
+	public $mCurLeftFrame;          // 剩余帧数
+	public $mIsInfineLoop;      // 是否是无限循环
+	public $mTimerDisp;       // 定时器分发
+	public $mDisposed;             // 是否已经被释放
 
 	//protected int m_preFrame = 0;
 
-	public FrameTimerItem()
+	public function __construct()
 	{
 		$this->mInternal = 1;
 		$this->mTotalFrameCount = 1;
@@ -28,7 +28,7 @@ public class FrameTimerItem : IDelayHandleItem
 		$this->mDisposed = false;
 	}
 
-	public virtual void OnFrameTimer()
+	public function OnFrameTimer()
 	{
 		if ($this->mDisposed)
 		{
@@ -81,19 +81,19 @@ public class FrameTimerItem : IDelayHandleItem
 		}
 	}
 
-	public virtual void reset()
+	public function reset()
 	{
 		$this->mCurFrame = 0;
 		$this->mCurLeftFrame = 0;
 		$this->mDisposed = false;
 	}
 
-	public void setClientDispose(bool isDispose)
+	public function setClientDispose($isDispose)
 	{
 
 	}
 
-	public bool isClientDispose()
+	public function isClientDispose()
 	{
 		return false;
 	}

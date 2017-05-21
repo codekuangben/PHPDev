@@ -2,11 +2,11 @@
 
 namespace SDK\Lib;
 
-public enum TickMode
+class TickMode
 {
-	eTM_Update,
-	eTM_FixedUpdate,
-	eTM_LateUpdate,
+	const eTM_Update = 0;
+	const eTM_FixedUpdate = 1;
+	const eTM_LateUpdate = 2;
 }
 
 ?>

@@ -5,19 +5,19 @@ namespace SDK\Lib;
 /**
  * @brief 定时器，这个是不断增长的
  */
-public class TimerItemBase : IDelayHandleItem, IDispatchObject
+class TimerItemBase implements IDelayHandleItem, IDispatchObject
 {
-	public float mInternal;        // 定时器间隔
-	public float mTotalTime;       // 总共定时器时间
-	public float mCurRunTime;      // 当前定时器运行的时间
-	public float mCurCallTime;     // 当前定时器已经调用的时间
-	public bool mIsInfineLoop;      // 是否是无限循环
-	public float mIntervalLeftTime;     // 定时器调用间隔剩余时间
-	public TimerFunctionObject mTimerDisp;       // 定时器分发
-	public bool mDisposed;             // 是否已经被释放
-	public bool mIsContinuous;          // 是否是连续的定时器
+	public $mInternal;        // 定时器间隔
+	public $mTotalTime;       // 总共定时器时间
+	public $mCurRunTime;      // 当前定时器运行的时间
+	public $mCurCallTime;     // 当前定时器已经调用的时间
+	public $mIsInfineLoop;      // 是否是无限循环
+	public $mIntervalLeftTime;     // 定时器调用间隔剩余时间
+	public $mTimerDisp;       // 定时器分发
+	public $mDisposed;             // 是否已经被释放
+	public $mIsContinuous;          // 是否是连续的定时器
 
-	public TimerItemBase()
+	public function __construct()
 	{
 		$this->mInternal = 1;
 		$this->mTotalTime = 1;
@@ -30,74 +30,74 @@ public class TimerItemBase : IDelayHandleItem, IDispatchObject
 		$this->mIsContinuous = false;
 	}
 
-	public void setFuncObject(Action<TimerItemBase> handle)
+	public function setFuncObject($handle)
 	{
-		$this->mTimerDisp.setFuncObject(handle);
+		$this->mTimerDisp.setFuncObject($handle);
 	}
 
-	virtual public void setTotalTime(float value)
+	public function setTotalTime($value)
 	{
-		$this->mTotalTime = value;
+		$this->mTotalTime = $value;
 	}
 
-	virtual public float getRunTime()
+	public function getRunTime()
 	{
 		return $this->mCurRunTime;
 	}
 
-	virtual public float getCallTime()
+	public function getCallTime()
 	{
 		return $this->mCurCallTime;
 	}
 
-	virtual public float getLeftRunTime()
+	public function getLeftRunTime()
 	{
 		return $this->mTotalTime - $this->mCurRunTime;
 	}
 
-	virtual public float getLeftCallTime()
+	public function getLeftCallTime()
 	{
 		return $this->mTotalTime - $this->mCurCallTime;
 	}
 
 	// 在调用回调函数之前处理
-	protected virtual void onPreCallBack()
+	protected function onPreCallBack()
 	{
 
 	}
 
-	public virtual void OnTimer(float delta)
+	public function OnTimer($delta)
 	{
 		if ($this->mDisposed)
 		{
 			return;
 		}
 
-		$this->mCurRunTime += delta;
+		$this->mCurRunTime += $delta;
 		if ($this->mCurRunTime > $this->mTotalTime)
 		{
 			$this->mCurRunTime = $this->mTotalTime;
 		}
-		$this->mIntervalLeftTime += delta;
+		$this->mIntervalLeftTime += $delta;
 
 		if ($this->mIsInfineLoop)
 		{
-			checkAndDisp();
+			$this->checkAndDisp();
 		}
 		else
 		{
 			if ($this->mCurRunTime >= $this->mTotalTime)
 			{
-				disposeAndDisp();
+				$this->disposeAndDisp();
 			}
 			else
 			{
-				checkAndDisp();
+				$this->checkAndDisp();
 			}
 		}
 	}
 
-	public virtual void disposeAndDisp()
+	public function disposeAndDisp()
 	{
 		if ($this->mIsContinuous)
 		{
@@ -109,7 +109,7 @@ public class TimerItemBase : IDelayHandleItem, IDispatchObject
 		}
 	}
 
-	protected void continueDisposeAndDisp()
+	protected function continueDisposeAndDisp()
 	{
 		$this->mDisposed = true;
 
@@ -121,12 +121,12 @@ public class TimerItemBase : IDelayHandleItem, IDispatchObject
 
 			if ($this->mTimerDisp.isValid())
 			{
-				$this->mTimerDisp.call(this);
+				$this->mTimerDisp.call($this);
 			}
 		}
 	}
 
-	protected void discontinueDisposeAndDisp()
+	protected function discontinueDisposeAndDisp()
 	{
 		$this->mDisposed = true;
 		$this->mCurCallTime = $this->mTotalTime;
@@ -134,24 +134,24 @@ public class TimerItemBase : IDelayHandleItem, IDispatchObject
 
 		if ($this->mTimerDisp.isValid())
 		{
-			$this->mTimerDisp.call(this);
+			$this->mTimerDisp.call($this);
 		}
 	}
 
-	public virtual void checkAndDisp()
+	public function checkAndDisp()
 	{
 		if($this->mIsContinuous)
 		{
-			continueCheckAndDisp();
+			$this->continueCheckAndDisp();
 		}
 		else
 		{
-			discontinueCheckAndDisp();
+			$this->discontinueCheckAndDisp();
 		}
 	}
 
 	// 连续的定时器
-	protected void continueCheckAndDisp()
+	protected function continueCheckAndDisp()
 	{
 		while ($this->mIntervalLeftTime >= $this->mInternal)
 		{
@@ -162,13 +162,13 @@ public class TimerItemBase : IDelayHandleItem, IDispatchObject
 
 			if ($this->mTimerDisp.isValid())
 			{
-				$this->mTimerDisp.call(this);
+				$this->mTimerDisp.call($this);
 			}
 		}
 	}
 
 	// 不连续的定时器
-	protected void discontinueCheckAndDisp()
+	protected function discontinueCheckAndDisp()
 	{
 		if ($this->mIntervalLeftTime >= $this->mInternal)
 		{
@@ -179,12 +179,12 @@ public class TimerItemBase : IDelayHandleItem, IDispatchObject
 
 			if ($this->mTimerDisp.isValid())
 			{
-				$this->mTimerDisp.call(this);
+				$this->mTimerDisp.call($this);
 			}
 		}
 	}
 
-	public virtual void reset()
+	public function reset()
 	{
 		$this->mCurRunTime = 0;
 		$this->mCurCallTime = 0;
@@ -192,29 +192,24 @@ public class TimerItemBase : IDelayHandleItem, IDispatchObject
 		$this->mDisposed = false;
 	}
 
-	public void setClientDispose(bool isDispose)
+	public function setClientDispose($isDispose)
 	{
 
 	}
 
-	public bool isClientDispose()
+	public function isClientDispose()
 	{
 		return false;
 	}
 
-	public void setLuaFunctor(LuaTable luaTable, LuaFunction function)
+	public function startTimer()
 	{
-		$this->mTimerDisp.setLuaFunctor(luaTable, function);
+		Ctx.mInstance.mTimerMgr.addTimer($this);
 	}
 
-	public void startTimer()
+	public function stopTimer()
 	{
-		Ctx.mInstance.mTimerMgr.addTimer(this);
-	}
-
-	public void stopTimer()
-	{
-		Ctx.mInstance.mTimerMgr.removeTimer(this);
+		Ctx.mInstance.mTimerMgr.removeTimer($this);
 	}
 }
 

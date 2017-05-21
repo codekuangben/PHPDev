@@ -2,9 +2,9 @@
 
 namespace SDK\Lib;
 
-public interface ITickedObject
+interface ITickedObject
 {
-	void onTick(float delta, TickMode tickMode);
+	function onTick($delta, $tickMode);
 }
 
 ?>

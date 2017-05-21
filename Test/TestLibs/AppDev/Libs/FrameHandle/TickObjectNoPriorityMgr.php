@@ -3,62 +3,62 @@
 namespace SDK\Lib;
 
 // 每一帧执行的对象管理器
-public class TickObjectNoPriorityMgr : DelayNoPriorityHandleMgr, ITickedObject, IDelayHandleItem, INoOrPriorityObject
+class TickObjectNoPriorityMgr extends DelayNoPriorityHandleMgr implements ITickedObject, IDelayHandleItem, INoOrPriorityObject
 {
-	public TickObjectNoPriorityMgr()
+	public function __construct()
 	{
 
 	}
 
-	override public void init()
+	public function init()
 	{
-		base.init();
+		parent::init();
 	}
 
-	override public void dispose()
+	public function dispose()
 	{
-		base.dispose();
+		parent::dispose();
 	}
 
-	public void setClientDispose(bool isDispose)
+	public function setClientDispose($isDispose)
 	{
 
 	}
 
-	public bool isClientDispose()
+	public function isClientDispose()
 	{
 		return false;
 	}
 
-	public void onTick(float delta, TickMode tickMode)
+	public function onTick($delta, $tickMode)
 	{
 		$this->incDepth();
 
-		$this->onPreAdvance(delta, tickMode);
-		$this->onExecAdvance(delta, tickMode);
-		$this->onPostAdvance(delta, tickMode);
+		$this->onPreAdvance($delta, $tickMode);
+		$this->onExecAdvance($delta, $tickMode);
+		$this->onPostAdvance($delta, $tickMode);
 
 		$this->decDepth();
 	}
 
-	virtual protected void onPreAdvance(float delta, TickMode tickMode)
+	protected function onPreAdvance($delta, $tickMode)
 	{
 
 	}
 
-	virtual protected void onExecAdvance(float delta, TickMode tickMode)
+	protected function onExecAdvance($delta, $tickMode)
 	{
-		int idx = 0;
-		int count = $this->mNoOrPriorityList.Count();
-		ITickedObject tickObject = null;
+		$idx = 0;
+		$count = $this->mNoOrPriorityList.Count();
+		$tickObject = null;
 
 		while (idx < count)
 		{
-			tickObject = $this->mNoOrPriorityList.get(idx) as ITickedObject;
+			$tickObject = $this->mNoOrPriorityList.get(idx);
 
-			if (null != (tickObject as IDelayHandleItem))
+			if (null != $tickObject)
 			{
-				if (!(tickObject as IDelayHandleItem).isClientDispose())
+				if (!$tickObject->isClientDispose())
 				{
 					tickObject.onTick(delta, tickMode);
 				}
@@ -71,11 +71,11 @@ public class TickObjectNoPriorityMgr : DelayNoPriorityHandleMgr, ITickedObject, 
 				}
 			}
 
-			++idx;
+			++$idx;
 		}
 	}
 
-	virtual protected void onPostAdvance(float delta, TickMode tickMode)
+	protected function onPostAdvance($delta, $tickMode)
 	{
 
 	}

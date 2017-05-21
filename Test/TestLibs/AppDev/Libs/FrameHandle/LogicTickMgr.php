@@ -5,20 +5,20 @@ namespace SDK\Lib;
 /**
  * @brief 逻辑心跳管理器
  */
-public class LogicTickMgr : TickMgr
+class LogicTickMgr extends TickMgr
 {
-	protected TimeInterval mTimeInterval;
+	protected $mTimeInterval;
 
-	public LogicTickMgr()
+	public function __construct()
 	{
 		$this->mTimeInterval = new TimeInterval();
 	}
 
-	override protected void onExecAdvance(float delta, TickMode tickMode)
+	protected function onExecAdvance($delta, $tickMode)
 	{
-		if($this->mTimeInterval.canExec(delta))
+		if($this->mTimeInterval.canExec($delta))
 		{
-			base.onExecAdvance(delta, tickMode);
+			base.onExecAdvance($delta, $tickMode);
 		}
 	}
 }

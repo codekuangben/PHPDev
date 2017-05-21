@@ -5,14 +5,14 @@ namespace SDK\Lib;
 /**
  * @brief 时间段
  */
-public class TimeSegment
+class TimeSegment
 {
-	protected float mSegment;
-	protected float mInverseSegment;
-	protected float mTotalTime;
-	protected float mCurTime;
+	protected $mSegment;
+	protected $mInverseSegment;
+	protected $mTotalTime;
+	protected $mCurTime;
 
-	public TimeSegment()
+	public function __construct()
 	{
 		$this->mSegment = 1;
 		$this->mInverseSegment = 1;
@@ -20,49 +20,49 @@ public class TimeSegment
 		$this->mCurTime = 0;
 	}
 
-	public void setSegment(float value)
+	public function setSegment($value)
 	{
-		$this->mSegment = value;
+		$this->mSegment = $value;
 		$this->mInverseSegment = 1 / $this->mSegment;
 	}
 
-	public void setTotalTime(float value)
+	public function setTotalTime($value)
 	{
-		$this->mTotalTime = value;
+		$this->mTotalTime = $value;
 	}
 
-	public void setCurTime(float value)
+	public function setCurTime($value)
 	{
-		$this->mCurTime = value;
+		$this->mCurTime = $value;
 	}
 
 	// 当前是否满足间隔条件
-	public bool canExec(float delta)
+	public function canExec($delta)
 	{
-		bool ret = false;
+		$ret = false;
 
-		$this->mTotalTime += delta;
-		$this->mCurTime += delta;
+		$this->mTotalTime += $delta;
+		$this->mCurTime += $delta;
 
 		if ($this->mCurTime < $this->mSegment)
 		{
-			ret = true;
+			$ret = true;
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	// 获取剩余百分比
-	public float getLeftPercent()
+	public function getLeftPercent()
 	{
-		float percent = 0;
+		$percent = 0;
 
 		if($this->mCurTime < $this->mSegment)
 		{
-			percent = ($this->mSegment - $this->mCurTime) * $this->mInverseSegment;
+			$percent = ($this->mSegment - $this->mCurTime) * $this->mInverseSegment;
 		}
 
-		return percent;
+		return $percent;
 	}
 }
 

@@ -5,29 +5,29 @@
 */
 namespace SDK\Lib;
 
-public class FrameTimerMgr : DelayPriorityHandleMgrBase
+class FrameTimerMgr extends DelayPriorityHandleMgrBase
 {
-	protected MList<FrameTimerItem> mTimerList;     // 当前所有的定时器列表
+	protected $mTimerList;     // 当前所有的定时器列表
 
-	public FrameTimerMgr()
+	public function __construct()
 	{
-		$this->mTimerList = new MList<FrameTimerItem>();
+		$this->mTimerList = new MList();
 	}
 
-	override public void init()
-	{
-
-	}
-
-	override public void dispose()
+	public function init()
 	{
 
 	}
 
-	override protected void addObject(IDelayHandleItem delayObject, float priority = 0.0f)
+	public function dispose()
+	{
+
+	}
+
+	protected function addObject($delayObject, $priority = 0.0)
 	{
 		// 检查当前是否已经在队列中
-		if (!$this->mTimerList.Contains(delayObject as FrameTimerItem))
+		if (!$this->mTimerList.Contains($delayObject))
 		{
 			if ($this->isInDepth())
 			{
@@ -35,17 +35,17 @@ public class FrameTimerMgr : DelayPriorityHandleMgrBase
 			}
 			else
 			{
-				$this->mTimerList.Add(delayObject as FrameTimerItem);
+				$this->mTimerList.Add($delayObject);
 			}
 		}
 	}
 
-	override protected void removeObject(IDelayHandleItem delayObject)
+	protected function removeObject($delayObject)
 	{
 		// 检查当前是否在队列中
-		if ($this->mTimerList.Contains(delayObject as FrameTimerItem))
+		if ($this->mTimerList.Contains($delayObject))
 		{
-			(delayObject as FrameTimerItem).mDisposed = true;
+			$delayObject->mDisposed = true;
 
 			if ($this->isInDepth())
 			{
@@ -53,42 +53,56 @@ public class FrameTimerMgr : DelayPriorityHandleMgrBase
 			}
 			else
 			{
-				foreach (FrameTimerItem item in $this->mTimerList.list())
+				$index = 0;
+				$listLen = $this->mTimerList->Count();
+				$item = null;
+				
+				while($index < $listLen)
 				{
-					if (UtilApi.isAddressEqual(item, delayObject))
+					$item = $this->mTimerList->get($index);
+					
+					if(UtilApi::isAddressEqual($item, $delayObject))
 					{
-						$this->mTimerList.Remove(item);
+						$this->mTimerList.Remove($item);
 						break;
 					}
+					
+					$index += 1;
 				}
 			}
 		}
 	}
 
-	public void addFrameTimer(FrameTimerItem timer, float priority = 0.0f)
+	public function addFrameTimer($timer, $priority = 0.0)
 	{
 		$this->addObject(timer, priority);
 	}
 
-	public void removeFrameTimer(FrameTimerItem timer)
+	public function removeFrameTimer($timer)
 	{
 		$this->removeObject(timer);
 	}
 
-	public void Advance(float delta)
+	public function Advance($delta)
 	{
 		$this->incDepth();
 
-		foreach (FrameTimerItem timerItem in $this->mTimerList.list())
+		$index = 0;
+		$listLen = $this->mTimerList->Count();
+		$timerItem= null;
+		
+		while($index < $listLen)
 		{
-			if (!timerItem.isClientDispose())
+			if (!$timerItem->isClientDispose())
 			{
-				timerItem.OnFrameTimer();
+				$timerItem->OnFrameTimer();
 			}
-			if (timerItem.mDisposed)
+			if ($timerItem->mDisposed)
 			{
-				removeObject(timerItem);
+				$this->removeObject(timerItem);
 			}
+			
+			$index += 1;
 		}
 
 		$this->decDepth();

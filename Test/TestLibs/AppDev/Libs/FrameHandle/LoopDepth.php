@@ -2,14 +2,14 @@
 
 namespace SDK\Lib;
 
-public class LoopDepth
+class LoopDepth
 {
-	private int mLoopDepth;         // 是否在循环中，支持多层嵌套，就是循环中再次调用循环
-	private CallFuncObjectNoParam mIncHandle;     // 增加处理器
-	private CallFuncObjectNoParam mDecHandle;     // 减少处理器
-	private CallFuncObjectNoParam mZeroHandle;    // 减少到 0 处理器
+	private $mLoopDepth;         // 是否在循环中，支持多层嵌套，就是循环中再次调用循环
+	private $mIncHandle;     // 增加处理器
+	private $mDecHandle;     // 减少处理器
+	private $mZeroHandle;    // 减少到 0 处理器
 
-	public LoopDepth()
+	public function __construct()
 	{
 		$this->mLoopDepth = 0;
 		$this->mIncHandle = null;
@@ -17,7 +17,7 @@ public class LoopDepth
 		$this->mZeroHandle = null;
 	}
 
-	public void setIncHandle(ICalleeObject pThis, MAction value)
+	public function setIncHandle($pThis, $value)
 	{
 		if(null == $this->mIncHandle)
 		{
@@ -27,7 +27,7 @@ public class LoopDepth
 		$this->mIncHandle.setThisAndHandleNoParam(pThis, value);
 	}
 
-	public void setDecHandle(ICalleeObject pThis, MAction value)
+	public function setDecHandle($pThis, $value)
 	{
 		if (null == $this->mDecHandle)
 		{
@@ -37,7 +37,7 @@ public class LoopDepth
 		$this->mDecHandle.setThisAndHandleNoParam(pThis, value);
 	}
 
-	public void setZeroHandle(ICalleeObject pThis, MAction value)
+	public function setZeroHandle($pThis, $value)
 	{
 		if (null == $this->mZeroHandle)
 		{
@@ -47,7 +47,7 @@ public class LoopDepth
 		$this->mZeroHandle.setThisAndHandleNoParam(pThis, value);
 	}
 
-	public void incDepth()
+	public function incDepth()
 	{
 		++$this->mLoopDepth;
 
@@ -57,7 +57,7 @@ public class LoopDepth
 		}
 	}
 
-	public void decDepth()
+	public function decDepth()
 	{
 		--$this->mLoopDepth;
 
@@ -82,7 +82,7 @@ public class LoopDepth
 		}
 	}
 
-	public bool isInDepth()
+	public function isInDepth()
 	{
 		return $this->mLoopDepth > 0;
 	}

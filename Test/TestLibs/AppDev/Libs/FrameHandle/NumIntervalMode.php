@@ -2,10 +2,10 @@
 
 namespace SDK\Lib;
 
-public enum NumIntervalMode
+class NumIntervalMode
 {
-	eNIM_Inc,   // 增加
-	eNIM_Dec,   // 减少
+	const eNIM_Inc = 0;   // 增加
+	const eNIM_Dec = 1;   // 减少
 }
 
 ?>

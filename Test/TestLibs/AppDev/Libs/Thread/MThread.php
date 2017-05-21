@@ -106,9 +106,12 @@ public class MThread
 		}
 	}
 
-	static public void Sleep(int millisecondsTimeout)
+	/**
+	 * @ref http://php.net/manual/en/function.microtime.php 
+	 */
+	static public function Sleep($millisecondsTimeout)
 	{
-		Thread.Sleep(millisecondsTimeout);
+		usleep($millisecondsTimeout);
 	}
 }
 

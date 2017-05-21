@@ -2,23 +2,23 @@
 
 namespace SDK\Lib;
 
-public class CallFuncObjectFixParam : CallFuncObjectBase
+class CallFuncObjectFixParam extends CallFuncObjectBase
 {
-	protected MAction<IDispatchObject> mHandle;
-	protected IDispatchObject mParam;
+	protected $mHandle;
+	protected $mParam;
 
-	public CallFuncObjectFixParam()
+	public function __construct()
 	{
 		$this->mHandle = null;
 		$this->mParam = null;
 	}
 
-	override public void clear()
+	public function clear()
 	{
 		$this->mThis = null;
 	}
 
-	override public bool isValid()
+	public function isValid()
 	{
 		if (null != $this->mHandle)
 		{
@@ -30,19 +30,26 @@ public class CallFuncObjectFixParam : CallFuncObjectBase
 		}
 	}
 
-	override public void setPThisAndHandle(ICalleeObject pThis, MAction<IDispatchObject> handle, IDispatchObject param)
+	public function setPThisAndHandle($pThis, $handle, $param)
 	{
-		base.setPThisAndHandle(pThis, handle, param);
+		parent::setPThisAndHandle($pThis, $handle, $param);
 
 		$this->mHandle = handle;
 		$this->mParam = param;
 	}
 
-	override public void call()
+	public function call()
 	{
 		if (null != $this->mHandle)
 		{
-			$this->mHandle($this->mParam);
+			if(null != $this->mThis)
+			{
+				call_user_func(array($this->mThis, $this->mHandle), $this->mParam);
+			}
+			else
+			{
+				call_user_func($this->mHandle, $this->mParam);
+			}
 		}
 	}
 }

@@ -1247,57 +1247,44 @@ public class UtilApi
 		return false;
 	}
 
-	protected static long msCurTime;
-	protected static System.TimeSpan msTimeSpan;
-
-	// 返回 UTC 秒
-	public static long getUTCSec()
+	/**
+	 * @brief 返回 UTC 秒
+	 * @ref http://php.net/manual/en/function.microtime.php
+	 */
+	public static function getUTCSec()
 	{
-		UtilApi.msCurTime = System.DateTime.Now.Ticks;
-		UtilApi.msTimeSpan = new System.TimeSpan(msCurTime);
-
-		if (MacroDef.ENABLE_LOG)
-		{
-			if (null != Ctx.mInstance && null != Ctx.mInstance.mLogSys)
-			{
-				Ctx.mInstance.mLogSys.log(string.Format("UtilApi::msCurTime, msCurTime = {0}, msTimeSpan = {1}, totalSec = {2}", UtilApi.msCurTime, UtilApi.msTimeSpan, UtilApi.msTimeSpan.TotalSeconds), LogTypeId.eLogMergeBug);
-			}
-		}
-
-		return (long)(UtilApi.msTimeSpan.TotalSeconds);
-	}
-
-	// 返回 UTC 秒
-	public static double getFloatUTCSec()
-	{
-		UtilApi.msCurTime = System.DateTime.Now.Ticks;
-		UtilApi.msTimeSpan = new System.TimeSpan(msCurTime);
-
-
-		if (MacroDef.ENABLE_LOG)
-		{
-			if (null != Ctx.mInstance && null != Ctx.mInstance.mLogSys)
-			{
-				Ctx.mInstance.mLogSys.log(string.Format("UtilApi::msCurTime, msCurTime = {0}, msTimeSpan = {1}, totalSec = {2}", UtilApi.msCurTime, UtilApi.msTimeSpan, UtilApi.msTimeSpan.TotalSeconds), LogTypeId.eLogMergeBug);
-			}
-		}
-
-		return UtilApi.msTimeSpan.TotalSeconds;
+		return UtilApi::microtime_float() / 1000;
 	}
 
 	// 返回 UTC 毫秒
-	public static double getFloatUTCMilliseconds()
+	public static function getFloatUTCMilliseconds()
 	{
-		UtilApi.msCurTime = System.DateTime.Now.Ticks;
-		UtilApi.msTimeSpan = new System.TimeSpan(msCurTime);
-
-		return UtilApi.msTimeSpan.TotalMilliseconds;
+		return UtilApi::microtime_float();
 	}
 
 	// 获取当前时间的文本可读形式
-	public static string getUTCFormatText()
+	public static function getUTCFormatText()
 	{
-		return System.DateTime.Now.ToString("yyyy-MM-dd-HH-mm-ss");
+		return date('Y-m-d H:i:s');
+	}
+	
+	/**
+	 * @ref http://php.net/manual/en/function.microtime.php
+	 */
+	function microtime_float()
+	{
+		list($usec, $sec) = explode(" ", microtime());
+		return ((float)$usec + (float)$sec);
+	}
+	
+	/**
+	 * @ref http://blog.csdn.net/qduningning/article/details/11939769
+	 * 1.在php.ini中找到date.timezone，将它的值改成 Asia/Shanghai，即 date.timezone = Asia/Shanghai
+	 * 2.在程序开始时添加 date_default_timezone_set('Asia/Shanghai')即可。 
+	 */
+	public static function setTimeZone($timeZone = 'Asia/Shanghai')
+	{
+		date_default_timezone_set($timeZone)
 	}
 
 	public static int Range(int min, int max)

@@ -6,24 +6,24 @@ namespace SDK\Lib;
  * @brief Tick 的优先级
  * @brief TP TickPriority 缩写
  */
-public class TickPriority
+class TickPriority
 {
-	public static float eTPPlayerMgr = 10;       // PlayerMgr
-	public static float eTPSnowBlockMgr = 10;    // SnowBlockMgr
-	public static float eTPAbandonPlaneMgr = 10;    // AbandonPlaneMgr
-	public static float eTPComputerBallMgr = 10;    // TPComputerBallMgr
-	public static float eTPRobotMgr = 10;        // RobotMgr
-	public static float eTPFlyBulletMgr = 10;        // FlyBulletMgr
-	public static float eTPCamController = 10;   // 相机控制器
-	public static float eTPInputMgr = 10000;   // 相机控制器
-	public static float eTPResizeMgr = 100000;   // 窗口大小改变
-	public static float eTPJoyStick = 1f;   // 摇杆控制器
-	public static float eTPForwardForce = 1f;   // 反重力控制器
-	public static float eTPCameraMgr = 1f;   // 相机位置更新控制器
-	public static float eTPDelayTaskMgr = 1f;   // 延迟任务
-	public static float eTPLoadProgressMgr = 1f;   // 更新加载进度
-	public static float eTPSoundLoadStateCheckMgr = 1f;   // 更新音乐状态检查
-	public static float eTPClipRect = 1f;
+	const eTPPlayerMgr = 10;       // PlayerMgr
+	const eTPSnowBlockMgr = 10;    // SnowBlockMgr
+	const eTPAbandonPlaneMgr = 10;    // AbandonPlaneMgr
+	const eTPComputerBallMgr = 10;    // TPComputerBallMgr
+	const eTPRobotMgr = 10;        // RobotMgr
+	const eTPFlyBulletMgr = 10;        // FlyBulletMgr
+	const eTPCamController = 10;   // 相机控制器
+	const eTPInputMgr = 10000;   // 相机控制器
+	const eTPResizeMgr = 100000;   // 窗口大小改变
+	const eTPJoyStick = 1;   // 摇杆控制器
+	const eTPForwardForce = 1;   // 反重力控制器
+	const eTPCameraMgr = 1;   // 相机位置更新控制器
+	const eTPDelayTaskMgr = 1;   // 延迟任务
+	const eTPLoadProgressMgr = 1;   // 更新加载进度
+	const eTPSoundLoadStateCheckMgr = 1;   // 更新音乐状态检查
+	const eTPClipRect = 1;
 }
 
 ?>

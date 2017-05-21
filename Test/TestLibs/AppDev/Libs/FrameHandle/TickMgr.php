@@ -5,24 +5,24 @@ namespace SDK\Lib;
 /**
  * @brief 心跳管理器
  */
-public class TickMgr : TickObjectPriorityMgr
+class TickMgr extends TickObjectPriorityMgr
 {
-	public TickMgr()
+	public function __construct()
 	{
 		
 	}
 
-	override public void init()
+	public function init()
 	{
 		base.init();
 	}
 
-	override public void dispose()
+	public function dispose()
 	{
 		base.dispose();
 	}
 
-	override public void Advance(float delta, TickMode tickMode)
+	public function Advance($delta, $tickMode)
 	{
 		if (MacroDef.ENABLE_PROFILE)
 		{
@@ -37,14 +37,14 @@ public class TickMgr : TickObjectPriorityMgr
 		}
 	}
 
-	public void addTick(ITickedObject tickObj, float priority = 0.0f)
+	public function addTick($tickObj, $priority = 0.0)
 	{
-		$this->addObject(tickObj as IDelayHandleItem, priority);
+		$this->addObject($tickObj, $priority);
 	}
 
-	public void removeTick(ITickedObject tickObj)
+	public function removeTick($tickObj)
 	{
-		$this->removeObject(tickObj as IDelayHandleItem);
+		$this->removeObject($tickObj);
 	}
 }
 

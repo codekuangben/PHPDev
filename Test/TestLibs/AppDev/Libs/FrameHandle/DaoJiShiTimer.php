@@ -7,55 +7,60 @@ namespace SDK\Lib;
  */
 class DaoJiShiTimer extends TimerItemBase
 {
-	override public void setTotalTime(float value)
+	public function __construct()
 	{
-		base.setTotalTime(value);
-		$this->mCurRunTime = value;
+		
+	}
+	
+	public function setTotalTime($value)
+	{
+		parent::setTotalTime($value);
+		$this->mCurRunTime = $value;
 	}
 
-	override public float getRunTime()
+	public function getRunTime()
 	{
 		return $this->mTotalTime - $this->mCurRunTime;
 	}
 
 	// 如果要获取剩余的倒计时时间，使用 getLeftCallTime
-	override public float getLeftRunTime()
+	public function getLeftRunTime()
 	{
 		return $this->mCurRunTime;
 	}
 
-	public override void OnTimer(float delta)
+	public function OnTimer($delta)
 	{
 		if ($this->mDisposed)
 		{
 			return;
 		}
 
-		$this->mCurRunTime -= delta;
+		$this->mCurRunTime -= $delta;
 		if($this->mCurRunTime < 0)
 		{
 			$this->mCurRunTime = 0;
 		}
-		$this->mIntervalLeftTime += delta;
+		$this->mIntervalLeftTime += $delta;
 
 		if ($this->mIsInfineLoop)
 		{
-			checkAndDisp();
+			$this->checkAndDisp();
 		}
 		else
 		{
 			if ($this->mCurRunTime <= 0)
 			{
-				disposeAndDisp();
+				$this->disposeAndDisp();
 			}
 			else
 			{
-				checkAndDisp();
+				$this->checkAndDisp();
 			}
 		}
 	}
 
-	public override void reset()
+	public function reset()
 	{
 		$this->mCurRunTime = $this->mTotalTime;
 		$this->mCurCallTime = 0;

@@ -2,16 +2,16 @@
 
 namespace SDK\Lib;
 
-public class FixedTickMgr : TickMgr
+class FixedTickMgr extends TickMgr
 {
-	public FixedTickMgr()
+	public function __construct()
 	{
 
 	}
 
-	override protected void onExecAdvance(float delta, TickMode tickMode)
+	protected function onExecAdvance($delta, $tickMode)
 	{
-		base.onExecAdvance(delta, tickMode);
+		parent::onExecAdvance($delta, $tickMode);
 	}
 }
 

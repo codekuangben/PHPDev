@@ -2,29 +2,29 @@
 
 namespace SDK\Lib;
 
-public class CallFuncObjectNoParam : CallFuncObjectBase
+class CallFuncObjectNoParam extends CallFuncObjectBase
 {
-	protected MAction mHandleNoParam;
+	protected $mHandleNoParam;
 
-	public CallFuncObjectNoParam()
+	public function __construct()
 	{
 
 	}
 
-	override public void setThisAndHandleNoParam(ICalleeObject pThis, MAction handle)
+	public function setThisAndHandleNoParam($pThis, $handle)
 	{
-		$this->mThis = pThis;
-		$this->mHandleNoParam = handle;
+		$this->mThis = $pThis;
+		$this->mHandleNoParam = $handle;
 	}
 
-	override public void clear()
+	public function clear()
 	{
 		$this->mHandleNoParam = null;
 
-		base.clear();
+		parent::clear();
 	}
 
-	override public bool isValid()
+	public function isValid()
 	{
 		if (null != $this->mHandleNoParam)
 		{
@@ -36,7 +36,7 @@ public class CallFuncObjectNoParam : CallFuncObjectBase
 		}
 	}
 
-	override public void call()
+	public function call()
 	{
 		if (null != $this->mHandleNoParam)
 		{

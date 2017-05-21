@@ -5,48 +5,48 @@ namespace SDK\Lib;
 /**
  * @brief 帧间隔
  */
-public class FrameInterval
+class FrameInterval
 {
-	protected int mInterval;   // 帧间隔
-	protected int mTotalFrame;      // 总共帧
-	protected int mCurFrame;	    // 当前帧
+	protected $mInterval;   // 帧间隔
+	protected $mTotalFrame;      // 总共帧
+	protected $mCurFrame;	    // 当前帧
 
-	public FrameInterval()
+	public function __construct()
 	{
 		$this->mInterval = 1;
 		$this->mTotalFrame = 0;
 		$this->mCurFrame = 0;
 	}
 
-	public void setInterval(int value)
+	public function setInterval($value)
 	{
-		$this->mInterval = value;
+		$this->mInterval = $value;
 	}
 
-	public void setTotalFrame(int value)
+	public function setTotalFrame($value)
 	{
-		$this->mTotalFrame = value;
+		$this->mTotalFrame = $value;
 	}
 
-	public void setCurFrame(int value)
+	public function setCurFrame($value)
 	{
-		$this->mCurFrame = value;
+		$this->mCurFrame = $value;
 	}
 
-	public bool canExec(int delta)
+	public function canExec($delta)
 	{
-		bool ret = false;
+		$ret = false;
 
-		$this->mTotalFrame += delta;
-		$this->mCurFrame += delta;
+		$this->mTotalFrame += $delta;
+		$this->mCurFrame += $delta;
 
 		if ($this->mCurFrame >= $this->mInterval)
 		{
-			ret = true;
+			$ret = true;
 			$this->mCurFrame -= $this->mInterval;
 		}
 
-		return ret;
+		return $ret;
 	}
 }
 

@@ -5,16 +5,16 @@ namespace SDK\Lib;
 /**
  * @brief 时间间隔
  */
-public class TimeInterval
+class TimeInterval
 {
-	protected float mInterval;
-	protected float mTotalTime;
-	protected float mCurTime;
+	protected $mInterval;
+	protected $mTotalTime;
+	protected $mCurTime;
 
-	protected int mTotalExecNum;    // 总共执行次数
-	protected int mCurExecNum;      // 执行的次数
+	protected $mTotalExecNum;    // 总共执行次数
+	protected $mCurExecNum;      // 执行的次数
 
-	public TimeInterval()
+	public function __construct()
 	{
 		$this->mInterval = 1 / 10;    // 每一秒更新 10 次
 		$this->mTotalTime = 0;
@@ -24,35 +24,35 @@ public class TimeInterval
 		$this->mCurExecNum = 0;
 	}
 
-	public void setInterval(float value)
+	public function setInterval($value)
 	{
 		$this->mInterval = value;
 	}
 
-	public void setTotalTime(float value)
+	public function setTotalTime($value)
 	{
-		$this->mTotalTime = value;
+		$this->mTotalTime = $value;
 	}
 
-	public void setCurTime(float value)
+	public function setCurTime($value)
 	{
-		$this->mCurTime = value;
+		$this->mCurTime = $value;
 	}
 
-	public void setTotalExecNum(int value)
+	public function setTotalExecNum($value)
 	{
-		$this->mTotalExecNum = value;
+		$this->mTotalExecNum = $value;
 	}
 
-	public void setCurExecNum(int value)
+	public function setCurExecNum($value)
 	{
-		$this->mCurExecNum = value;
+		$this->mCurExecNum = $value;
 	}
 
 	// 当前是否满足间隔条件
-	public bool canExec(float delta)
+	public function canExec($delta)
 	{
-		bool ret = false;
+		$ret = false;
 
 		$this->mTotalTime += delta;
 		$this->mCurTime += delta;
@@ -63,28 +63,28 @@ public class TimeInterval
 				$this->mCurExecNum < $this->mTotalExecNum)
 			{
 				$this->mCurTime -= $this->mInterval;
-				ret = true;
+				$ret = true;
 			}
 			else
 			{
-				ret = false;
+				$ret = false;
 			}
 
 			$this->mCurExecNum += 1;
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	// 是否执行结束
-	public bool isExecEnd()
+	public function isExecEnd()
 	{
-		bool ret = false;
+		$ret = false;
 
 		if (0 != $this->mTotalExecNum &&
 			$this->mCurExecNum >= $this->mTotalExecNum)
 		{
-			ret = true;
+			$ret = true;
 		}
 
 		return ret;

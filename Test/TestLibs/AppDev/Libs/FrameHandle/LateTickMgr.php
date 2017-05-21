@@ -5,16 +5,16 @@ namespace SDK\Lib;
 /**
  * @brief 对应事件 LateUpdate
  */
-public class LateTickMgr : TickMgr
+class LateTickMgr extends TickMgr
 {
-	public LateTickMgr()
+	public function __construct()
 	{
 
 	}
 
-	override protected void onExecAdvance(float delta, TickMode tickMode)
+	protected function onExecAdvance($delta, $tickMode)
 	{
-		base.onExecAdvance(delta, tickMode);
+		parent::onExecAdvance($delta, $tickMode);
 	}
 }
 

@@ -2,66 +2,66 @@
 
 namespace SDK\Lib;
 
-public class ResizeMgr : DelayPriorityHandleMgrBase, ITickedObject, IDelayHandleItem, INoOrPriorityObject
+class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDelayHandleItem, INoOrPriorityObject
 {
-	protected int mPreWidth;       // 之前宽度
-	protected int mPreHeight;
-	protected int mCurWidth;       // 现在宽度
-	protected int mCurHeight;
+	protected $mPreWidth;       // 之前宽度
+	protected $mPreHeight;
+	protected $mCurWidth;       // 现在宽度
+	protected $mCurHeight;
 
-	protected int mCurHalfWidth;       // 当前一半宽度
-	protected int mCurHalfHeight;
+	protected $mCurHalfWidth;       // 当前一半宽度
+	protected $mCurHalfHeight;
 
-	protected MList<IResizeObject> mResizeList;
+	protected $mResizeList;
 
-	public ResizeMgr()
+	public function __construct()
 	{
-		$this->mResizeList = new MList<IResizeObject>();
+		$this->mResizeList = new MList();
 	}
 
-	override public void init()
+	public function init()
 	{
 
 	}
 
-	override public void dispose()
+	public function dispose()
 	{
 		$this->mResizeList.Clear();
 	}
 
-	public int getWidth()
+	public function getWidth()
 	{
 		return $this->mCurWidth;
 	}
 
-	public int getHeight()
+	public function getHeight()
 	{
 		return $this->mCurHeight;
 	}
 
-	public int getHalfWidth()
+	public function getHalfWidth()
 	{
 		return $this->mCurHalfWidth;
 	}
 
-	public int getHalfHeight()
+	public function getHalfHeight()
 	{
 		return $this->mCurHalfHeight;
 	}
 
-	override protected void addObject(IDelayHandleItem delayObject, float priority = 0.0f)
+	protected function addObject($delayObject, $priority = 0.0)
 	{
 		if($this->isInDepth())
 		{
-			base.addObject(delayObject, priority);
+			base.addObject($delayObject, $priority);
 		}
 		else
 		{
-			$this->addResizeObject(delayObject as IResizeObject, priority);
+			$this->addResizeObject($delayObject, $priority);
 		}
 	}
 
-	override protected void removeObject(IDelayHandleItem delayObject)
+	protected function removeObject($delayObject)
 	{
 		if($this->isInDepth())
 		{
@@ -69,11 +69,11 @@ public class ResizeMgr : DelayPriorityHandleMgrBase, ITickedObject, IDelayHandle
 		}
 		else
 		{
-			$this->removeResizeObject(delayObject as IResizeObject);
+			$this->removeResizeObject($delayObject);
 		}
 	}
 
-	public void addResizeObject(IResizeObject obj, float priority = 0)
+	public function addResizeObject($obj, $priority = 0)
 	{
 		if (!$this->mResizeList.Contains(obj))
 		{
@@ -81,7 +81,7 @@ public class ResizeMgr : DelayPriorityHandleMgrBase, ITickedObject, IDelayHandle
 		}
 	}
 
-	public void removeResizeObject(IResizeObject obj)
+	public function removeResizeObject($obj)
 	{
 		if ($this->mResizeList.IndexOf(obj) != -1)
 		{
@@ -89,7 +89,7 @@ public class ResizeMgr : DelayPriorityHandleMgrBase, ITickedObject, IDelayHandle
 		}
 	}
 
-	public void onTick(float delta, TickMode tickMode)
+	public function onTick($delta, $tickMode)
 	{
 		$this->mPreWidth = $this->mCurWidth;
 		$this->mCurWidth = UtilApi.getScreenWidth();
@@ -105,20 +105,28 @@ public class ResizeMgr : DelayPriorityHandleMgrBase, ITickedObject, IDelayHandle
 		}
 	}
 
-	public void onResize(int viewWidth, int viewHeight)
+	public function onResize($viewWidth, $viewHeight)
 	{
-		foreach (IResizeObject resizeObj in $this->mResizeList.list())
+		$index = 0;
+		$listLen = 0;
+		
+		$listLen = $this->mResizeList->Count();
+		$resizeObj = null; 
+		
+		while($indexd < $listLen)
 		{
 			resizeObj.onResize(viewWidth, viewHeight);
+			
+			$index += 1;
 		}
 	}
 
-	public void setClientDispose(bool isDispose)
+	public function setClientDispose($isDispose)
 	{
 
 	}
 
-	public bool isClientDispose()
+	public function isClientDispose()
 	{
 		return false;
 	}

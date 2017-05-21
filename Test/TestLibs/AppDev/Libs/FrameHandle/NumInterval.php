@@ -5,14 +5,14 @@ namespace SDK\Lib;
 /**
  * @brief 数字间隔
  */
-public class NumInterval
+class NumInterval
 {
-	protected float mTotalValue;
-	protected float mCurValue;
+	protected $mTotalValue;
+	protected $mCurValue;
 
-	protected NumIntervalMode mNumIntervalMode;
+	protected $mNumIntervalMode;
 
-	public NumInterval()
+	public function __construct()
 	{
 		$this->mTotalValue = 0;
 		$this->mCurValue = 0;
@@ -20,17 +20,17 @@ public class NumInterval
 		$this->mNumIntervalMode = NumIntervalMode.eNIM_Inc;
 	}
 
-	public void setTotalValue(float value)
+	public function setTotalValue($value)
 	{
-		$this->mTotalValue = value;
+		$this->mTotalValue = $value;
 	}
 
-	public void setCurValue(float value)
+	public function setCurValue($value)
 	{
-		$this->mCurValue = value;
+		$this->mCurValue = $value;
 	}
 
-	public void reset()
+	public function reset()
 	{
 		if (NumIntervalMode.eNIM_Inc == $this->mNumIntervalMode)
 		{
@@ -42,9 +42,9 @@ public class NumInterval
 		}
 	}
 
-	public bool canExec(float delta)
+	public function canExec($delta)
 	{
-		bool ret = false;
+		$ret = false;
 
 		if (NumIntervalMode.eNIM_Inc == $this->mNumIntervalMode)
 		{
@@ -52,7 +52,7 @@ public class NumInterval
 
 			if ($this->mCurValue <= $this->mTotalValue)
 			{
-				ret = true;
+				$ret = true;
 			}
 		}
 		else
@@ -61,7 +61,7 @@ public class NumInterval
 
 			if ($this->mCurValue >= 0)
 			{
-				ret = true;
+				$ret = true;
 			}
 		}
 

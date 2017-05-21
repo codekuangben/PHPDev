@@ -2,9 +2,9 @@
 
 namespace SDK\Lib;
 
-public interface IResizeObject
+interface IResizeObject
 {
-	void onResize(int viewWidth, int viewHeight);
+	function onResize($viewWidth, $viewHeight);
 }
 
 ?>

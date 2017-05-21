@@ -5,95 +5,97 @@
 */
 namespace SDK\Lib;
 
-public class TimerMgr : DelayPriorityHandleMgrBase
+class TimerMgr extends DelayPriorityHandleMgrBase
 {
-	protected MList<TimerItemBase> mTimerList;     // 当前所有的定时器列表
+	protected $mTimerList;     // 当前所有的定时器列表
 
-	public TimerMgr()
+	public function __construct()
 	{
-		$this->mTimerList = new MList<TimerItemBase>();
+		$this->mTimerList = new MList();
 	}
 
-	override public void init()
-	{
-
-	}
-
-	override public void dispose()
+	public function init()
 	{
 
 	}
 
-	protected override void addObject(IDelayHandleItem delayObject, float priority = 0.0f)
+	public function dispose()
+	{
+
+	}
+
+	protected function addObject($delayObject, $priority = 0.0)
 	{
 		// 检查当前是否已经在队列中
-		if (!$this->mTimerList.Contains(delayObject as TimerItemBase))
+		if (!$this->mTimerList.Contains($delayObject))
 		{
 			if ($this->isInDepth())
 			{
-				base.addObject(delayObject, priority);
+				base.addObject($delayObject, $priority);
 			}
 			else
 			{
-				$this->mTimerList.Add(delayObject as TimerItemBase);
+				$this->mTimerList.Add($delayObject);
 			}
 		}
 	}
 
-	protected override void removeObject(IDelayHandleItem delayObject)
+	protected function removeObject($delayObject)
 	{
 		// 检查当前是否在队列中
-		if ($this->mTimerList.Contains(delayObject as TimerItemBase))
+		if ($this->mTimerList.Contains($delayObject))
 		{
-			(delayObject as TimerItemBase).mDisposed = true;
+			$delayObject->mDisposed = true;
 
 			if ($this->isInDepth())
 			{
-				base.removeObject(delayObject);
+				parent::removeObject($delayObject);
 			}
 			else
 			{
-				foreach (TimerItemBase item in $this->mTimerList.list())
+				$index = 0;
+				$listLen = $this->mTimerList->Count();
+				$item = null;
+				
+				while($index < $listLen)
 				{
-					if (UtilApi.isAddressEqual(item, delayObject))
+					$item = $this->mTimerList->get($index);
+					
+					if (UtilApi::isAddressEqual($item, $delayObject))
 					{
-						$this->mTimerList.Remove(item);
+						$this->mTimerList->Remove($item);
 						break;
 					}
+					
+					$index += 1;
 				}
 			}
 		}
 	}
 
 	// 从 Lua 中添加定时器，这种定时器尽量整个定时器周期只与 Lua 通信一次
-	public void addTimer(TimerItemBase delayObject, float priority = 0.0f)
+	public function addTimer($delayObject, $priority = 0.0)
 	{
-		$this->addObject(delayObject, priority);
+		$this->addObject($delayObject, $priority);
 	}
 
-	public void addTimer(LuaTable luaTimer)
+	public function removeTimer($timer)
 	{
-		LuaTable table = luaTimer["pthis"] as LuaTable;
-		LuaFunction function = luaTimer["func"] as LuaFunction;
-
-		TimerItemBase timer = new TimerItemBase();
-		timer.mTotalTime = Convert.ToSingle(luaTimer["totaltime"]);
-		timer.setLuaFunctor(table, function);
-
-		$this->addTimer(timer);
+		$this->removeObject($timer);
 	}
 
-	public void removeTimer(TimerItemBase timer)
-	{
-		$this->removeObject(timer);
-	}
-
-	public void Advance(float delta)
+	public function Advance($delta)
 	{
 		$this->incDepth();
 
-		foreach (TimerItemBase timerItem in $this->mTimerList.list())
+		$index = 0;
+		$listLen = $this->mTimerList->Count();
+		$item = null;
+		
+		while($index < $listLen)
 		{
+			$item = $this->mTimerList->get($index);
+			
 			if (!timerItem.isClientDispose())
 			{
 				timerItem.OnTimer(delta);
@@ -103,6 +105,8 @@ public class TimerMgr : DelayPriorityHandleMgrBase
 			{
 				$this->removeObject(timerItem);
 			}
+			
+			$index += 1;
 		}
 
 		$this->decDepth();

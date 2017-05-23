@@ -5,14 +5,14 @@
 */
 namespace SDK\Lib;
 
-public class ProcessSys
+class ProcessSys
 {
-	public ProcessSys()
+	public function __construct()
 	{
 
 	}
 
-	public void ProcessNextFrame()
+	public function ProcessNextFrame()
 	{
 		if (MacroDef.ENABLE_PROFILE)
 		{
@@ -28,7 +28,7 @@ public class ProcessSys
 		}
 	}
 
-	public void Advance(float delta)
+	public function Advance($delta)
 	{
 		Ctx.mInstance.mFrameCollideMgr.clear();
 		Ctx.mInstance.mSystemFrameData.nextFrame(delta);
@@ -38,7 +38,7 @@ public class ProcessSys
 		Ctx.mInstance.mFrameTimerMgr.Advance(delta);      // 帧定时器
 	}
 
-	public void ProcessNextFixedFrame()
+	public function ProcessNextFixedFrame()
 	{
 		if (MacroDef.ENABLE_PROFILE)
 		{
@@ -53,7 +53,7 @@ public class ProcessSys
 		}
 	}
 
-	public void FixedAdvance(float delta)
+	public function FixedAdvance($delta)
 	{
 		if (MacroDef.ENABLE_PROFILE)
 		{
@@ -68,7 +68,7 @@ public class ProcessSys
 		}
 	}
 
-	public void ProcessNextLateFrame()
+	public function ProcessNextLateFrame()
 	{
 		if (MacroDef.ENABLE_PROFILE)
 		{
@@ -83,7 +83,7 @@ public class ProcessSys
 		}
 	}
 
-	public void LateAdvance(float delta)
+	public function LateAdvance($delta)
 	{
 		if (MacroDef.ENABLE_PROFILE)
 		{

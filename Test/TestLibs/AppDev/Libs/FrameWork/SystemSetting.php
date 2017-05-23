@@ -5,33 +5,33 @@ namespace SDK\Lib;
 /**
  * @brief 系统设置
  */
-public class SystemSetting
+class SystemSetting
 {
-	public const string USERNAME = "username";
-	public const string PASSWORD = "password";
-	public const string NICKNAME = "nickname";
+	public const USERNAME = "username";
+	public const PASSWORD = "password";
+	public const NICKNAME = "nickname";
 
-	public void setString(string key, string value)
+	public function setString($key, $value)
 	{
-		PlayerPrefs.SetString(key, value);
+		PlayerPrefs.SetString($key, $value);
 	}
 
-	public string getString(string key)
+	public function getString($key)
 	{
 		if (hasKey(key))
 		{
 			return PlayerPrefs.GetString(key);
 		}
 
-		return default(string);
+		return "";
 	}
 
-	public void setInt(string key, int value)
+	public function setInt($key, $value)
 	{
-		PlayerPrefs.SetInt(key, value);
+		PlayerPrefs.SetInt($key, $value);
 	}
 
-	public int getInt(string key)
+	public function getInt($key)
 	{
 		if(hasKey(key))
 		{
@@ -40,28 +40,23 @@ public class SystemSetting
 		return 0;
 	}
 
-	public void setFloat(string key, float value)
+	public function setFloat($key, $value)
 	{
-		PlayerPrefs.SetFloat(key, value);
+		PlayerPrefs.SetFloat($key, $value);
 	}
 
-	public float getFloat(string key)
+	public function getFloat($key)
 	{
-		if (hasKey(key))
+		if (hasKey($key))
 		{
-			return PlayerPrefs.GetFloat(key);
+			return PlayerPrefs.GetFloat($key);
 		}
-		return 0f;
+		return 0;
 	}
 
-	public bool hasKey(string key)
+	public function hasKey($key)
 	{
-		return PlayerPrefs.HasKey(key);
-	}
-
-	public void SetServerIP()
-	{
-		((Ctx.mInstance.mLoginModule) as Game.Login.LoginModule).mLoginNetNotify.setServerIP();
+		return PlayerPrefs.HasKey($key);
 	}
 }
 

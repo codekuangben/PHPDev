@@ -2,27 +2,26 @@
 
 namespace SDK\Lib;
 
-public class Singleton<T> where T : class, IMyDispose, new()
+class Singleton
 {
-	protected static T msSingleton;
-
-	public static T getSingletonPtr()
+	protected static $msSingleton;
+	
+	public static function setSingletonPtr($value)
 	{
-		if (null == msSingleton)
-		{
-			msSingleton = new T();
-			msSingleton.init();
-		}
-
-		return msSingleton;
+		$msSingleton = $value;
 	}
 
-	public static void deleteSingletonPtr()
+	public static function getSingletonPtr()
 	{
-		if (null != msSingleton)
+		return $msSingleton;
+	}
+
+	public static function deleteSingletonPtr()
+	{
+		if (null != $msSingleton)
 		{
-			msSingleton.dispose();
-			msSingleton = null;
+			$msSingleton.dispose();
+			$msSingleton= null;
 		}
 	}
 }

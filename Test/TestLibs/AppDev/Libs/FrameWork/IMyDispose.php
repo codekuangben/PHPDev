@@ -2,10 +2,10 @@
 
 namespace SDK\Lib;
 
-public interface IMyDispose
+interface IMyDispose
 {
-	void init();
-	void dispose();
+	function init();
+	function dispose();
 }
 
 ?>

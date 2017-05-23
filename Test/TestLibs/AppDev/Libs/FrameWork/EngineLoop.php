@@ -5,9 +5,9 @@ namespace SDK\Lib;
 /**
  * @brief 主循环
  */
-public class EngineLoop
+class EngineLoop
 {
-	public void MainLoop()
+	public function MainLoop()
 	{
 		if(MacroDef.ENABLE_PROFILE)
 		{
@@ -24,9 +24,9 @@ public class EngineLoop
 		// 处理客户端的各类消息
 		// 处理客户端自己的消息机制
 
-		MsgRouteBase routeMsg = null;
+		$routeMsg = null;
 
-		while ((routeMsg = Ctx.mInstance.mSysMsgRoute.popMsg()) != null)
+		while (($routeMsg = Ctx.mInstance.mSysMsgRoute.popMsg()) != null)
 		{
 			Ctx.mInstance.mMsgRouteNotify.handleMsg(routeMsg);
 		}
@@ -75,16 +75,15 @@ public class EngineLoop
 		}
 	}
 
-	public void fixedUpdate()
+	public function fixedUpdate()
 	{
 		Ctx.mInstance.mProcessSys.ProcessNextFixedFrame();
 	}
 
 	// 循环执行完成后，再次
-	public void postUpdate()
+	public function postUpdate()
 	{
 		Ctx.mInstance.mProcessSys.ProcessNextLateFrame();
 	}
-}
 }
 ?>

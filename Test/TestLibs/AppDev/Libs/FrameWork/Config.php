@@ -9,30 +9,30 @@ namespace SDK\Lib;
 /**
  * @brief 基本的配置
  */
-public class Config
+class Config
 {
-	public static string StreamingAssets;
+	public static $StreamingAssets;
 
-	public string mIp;
-	public int mPort;
-	public ushort mZone;
+	public $mIp;
+	public $mPort;
+	public $mZone;
 
-	public string mWebIP;               // web 服务器
-	public int mWebPort;
+	public $mWebIP;               // web 服务器
+	public $mWebPort;
 
-	public string[] mPathLst;
-	public ResLoadType mResLoadType;   // 资源加载类型
-	public string mDataPath;
+	public $mPathLst;
+	public $mResLoadType;   // 资源加载类型
+	public $mDataPath;
 	//public bool m_bNeedNet = false;                       // 是否需要网络
-	public string mNetLogPhp;       // Php 处理文件
-	public List<string> mPakExtNameList;       // 打包的扩展名字列表
+	public $mNetLogPhp;       // Php 处理文件
+	public $mPakExtNameList;       // 打包的扩展名字列表
 
-	public bool mIsActorMoveUseFixUpdate;    // Actor 移动是否使用固定更新，主要是方便参与物理运算
-	public string mDownloadURL;
+	public $mIsActorMoveUseFixUpdate;    // Actor 移动是否使用固定更新，主要是方便参与物理运算
+	public $mDownloadURL;
 
-	public Config()
+	public function __construct()
 	{
-		StreamingAssets = "StreamingAssets/";
+		$StreamingAssets = "StreamingAssets/";
 
 		$this->mIp = "192.168.96.14";
 		$this->mPort = 20013;
@@ -41,10 +41,10 @@ public class Config
 		$this->mWebIP = "http://127.0.0.1/UnityServer/";
 		$this->mWebPort = 80;
 		$this->mNetLogPhp = "/netlog/NetLog.php";
-		$this->mPakExtNameList = new List<string>();
+		$this->mPakExtNameList = new MList();
 
 		$this->mResLoadType = ResLoadType.eLoadResource;
-		$this->mPathLst = new string[(int)ResPathType.eTotal];
+		$this->mPathLst = new MList();
 		$this->mPathLst[(int)ResPathType.ePathScene] = "Scenes/";
 		$this->mPathLst[(int)ResPathType.ePathSceneXml] = "Scenes/Xml/";
 		$this->mPathLst[(int)ResPathType.ePathModule] = "Module/";

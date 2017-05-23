@@ -5,37 +5,31 @@ namespace SDK\Lib;
 /**
  * @brief 不依赖模块的网络事件处理
  */
-public class NetEventHandle
+class NetEventHandle
 {
-	public NetEventHandle()
+	public function __construct()
 	{
 
 	}
 
-	public void init()
+	public function init()
 	{
 
 	}
 
-	public void dispose()
+	public function dispose()
 	{
 
 	}
 
-	public void Disconnect()
+	public function Disconnect()
 	{
-		Ctx.mInstance.mCamSys.getCameraController().refsetOrthographicSize();
-		Ctx.mInstance.mSoundMgr.stop("Sound/Music/StudioEIM-myseabed.mp3");
-
-		Ctx.mInstance.mLightServer_GB.Disconnect();
+		
 	}
 
-	public void OnDisconnect()
+	public function OnDisconnect()
 	{
-		$this->Disconnect();
-		Ctx.mInstance.mLuaSystem.receiveToLua_KBE("notifyNetworkInvalid", null);
-		if(null != Ctx.mInstance.mPlayerMgr.getHero())
-			(Ctx.mInstance.mPlayerMgr.getHero().mMovement as BeingEntityMovement).Stop = true;
+		
 	}
 }
 

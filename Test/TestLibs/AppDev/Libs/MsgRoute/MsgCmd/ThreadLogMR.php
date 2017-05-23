@@ -3,14 +3,13 @@
 namespace SDK\Lib;
 
 // 线程日志
-public class ThreadLogMR : MsgRouteBase
+class ThreadLogMR extends MsgRouteBase
 {
-	public string mLogSys;
+	public $mLogSys;
 
-	public ThreadLogMR()
-		: base(MsgRouteID.eMRIDThreadLog)
+	public function __construct()
 	{
-
+		parent::__construct(MsgRouteID.eMRIDThreadLog);
 	}
 }
 

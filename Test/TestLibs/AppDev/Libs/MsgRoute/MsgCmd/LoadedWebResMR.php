@@ -2,20 +2,19 @@
 
 namespace SDK\Lib;
 
-public class LoadedWebResMR : MsgRouteBase
+class LoadedWebResMR extends MsgRouteBase
 {
-	public ITask mTask;
+	public $mTask;
 
-	public LoadedWebResMR()
-		: base(MsgRouteID.eMRIDLoadedWebRes)
+	public function __construct()
 	{
-
+		parent::__construct(MsgRouteID.eMRIDLoadedWebRes);
 	}
 
-	override public void resetDefault()
+	public function resetDefault()
 	{
-		mTask = null;
+		$this->mTask = null;
 	}
 }
-}
+
 ?>

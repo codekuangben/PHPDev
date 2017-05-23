@@ -2,47 +2,47 @@
 
 namespace SDK\Lib;
 
-public class MsgRouteDispHandle
+class MsgRouteDispHandle
 {
-	protected EventDispatchGroup mEventDispatchGroup;
+	protected $mEventDispatchGroup;
 
-	public MsgRouteDispHandle()
+	public function __construct()
 	{
 		$this->mEventDispatchGroup = new EventDispatchGroup();
 	}
 
-	virtual public void init()
+	public function init()
 	{
 
 	}
 
-	virtual public void dispose()
+	public function dispose()
 	{
 
 	}
 
-	public void addRouteHandle(int evtId, MsgRouteHandleBase pThis, MAction<IDispatchObject> handle)
+	public function addRouteHandle($evtId, $pThis, $handle)
 	{
-		$this->mEventDispatchGroup.addEventHandle(evtId, pThis, handle);
+		$this->mEventDispatchGroup.addEventHandle($evtId, $pThis, $handle);
 	}
 
-	public void removeRouteHandle(int evtId, MsgRouteHandleBase pThis, MAction<IDispatchObject> handle)
+	public function removeRouteHandle($evtId, $pThis, $handle)
 	{
-		$this->mEventDispatchGroup.removeEventHandle(evtId, pThis, handle);
+		$this->mEventDispatchGroup.removeEventHandle($evtId, $pThis, $handle);
 	}
 
-	public virtual void handleMsg(MsgRouteBase msg)
+	public function handleMsg($msg)
 	{
-		string textStr = "";
+		$textStr = "";
 
-		if($this->mEventDispatchGroup.hasEventHandle((int)msg.mMsgType))
+		if($this->mEventDispatchGroup.hasEventHandle($msg.mMsgType))
 		{
-			textStr = Ctx.mInstance.mLangMgr.getText(LangTypeId.eMsgRoute1, LangItemID.eItem2);
+			$textStr = Ctx.mInstance.mLangMgr.getText(LangTypeId.eMsgRoute1, LangItemID.eItem2);
 			$this->mEventDispatchGroup.dispatchEvent((int)msg.mMsgType, msg);
 		}
 		else
 		{
-			textStr = Ctx.mInstance.mLangMgr.getText(LangTypeId.eMsgRoute1, LangItemID.eItem3);
+			$textStr = Ctx.mInstance.mLangMgr.getText(LangTypeId.eMsgRoute1, LangItemID.eItem3);
 		}
 	}
 }

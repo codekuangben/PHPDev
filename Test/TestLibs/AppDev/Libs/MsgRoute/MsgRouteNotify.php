@@ -2,16 +2,16 @@
 
 namespace SDK\Lib;
 
-public class MsgRouteNotify
+class MsgRouteNotify
 {
-	protected MList<MsgRouteDispHandle> mDispList;
+	protected $mDispList;
 
-	public MsgRouteNotify()
+	public function __construct()
 	{
-		$this->mDispList = new MList<MsgRouteDispHandle>();
+		$this->mDispList = new MList();
 	}
 
-	public void addOneNofity(MsgRouteDispHandle disp)
+	public function addOneNofity($disp)
 	{
 		if(!$this->mDispList.Contains(disp))
 		{
@@ -19,7 +19,7 @@ public class MsgRouteNotify
 		}
 	}
 
-	public void removeOneNotify(MsgRouteDispHandle disp)
+	public function removeOneNotify($disp)
 	{
 		if($this->mDispList.Contains(disp))
 		{
@@ -27,16 +27,16 @@ public class MsgRouteNotify
 		}
 	}
 
-	public void handleMsg(MsgRouteBase msg)
+	public function handleMsg($msg)
 	{
-		int index = 0;
-		int liseLen = $this->mDispList.Count();
+		$index = 0;
+		$liseLen = $this->mDispList.Count();
 
 		while(index < liseLen)
 		{
 			$this->mDispList[index].handleMsg(msg);
 
-			++index;
+			++$index;
 		}
 
 		// 暂时不用缓存，非资源数据结构重新申请内存应该不会太耗时

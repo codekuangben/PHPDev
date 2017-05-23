@@ -2,10 +2,10 @@
 
 namespace SDK\Lib;
 
-public enum MsgRouteType
+class MsgRouteType
 {
-	eMRT_BASIC,             // 基本类型
-	eMRT_SCENE_COMMAND,     // 场景命令
+	const eMRT_BASIC = 0;             // 基本类型
+	const eMRT_SCENE_COMMAND = 1;     // 场景命令
 }
 
 ?>

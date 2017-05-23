@@ -2,28 +2,28 @@
 
 namespace SDK\Lib;
 
-public class MsgRouteHandleBase : GObject, ICalleeObject
+class MsgRouteHandleBase extends GObject implements ICalleeObject
 {
-	public MDictionary<int, AddOnceEventDispatch> mId2HandleDic;
+	public $mId2HandleDic;
 
-	public MsgRouteHandleBase()
+	public function __construct()
 	{
 		$this->mTypeId = "MsgRouteHandleBase";
 
-		$this->mId2HandleDic = new MDictionary<int, AddOnceEventDispatch>();
+		$this->mId2HandleDic = new MDictionary();
 	}
 
-	virtual public void init()
+	public function init()
 	{
 
 	}
 
-	virtual public void dispose()
+	public function dispose()
 	{
 
 	}
 
-	public void addMsgRouteHandle(MsgRouteID msgRouteID, MAction<IDispatchObject> handle)
+	public function addMsgRouteHandle($msgRouteID, $handle)
 	{
 		if(!$this->mId2HandleDic.ContainsKey((int)msgRouteID))
 		{
@@ -33,7 +33,7 @@ public class MsgRouteHandleBase : GObject, ICalleeObject
 		$this->mId2HandleDic[(int)msgRouteID].addEventHandle(null, handle);
 	}
 
-	public void removeMsgRouteHandle(MsgRouteID msgRouteID, MAction<IDispatchObject> handle)
+	public function removeMsgRouteHandle($msgRouteID, $handle)
 	{
 		if ($this->mId2HandleDic.ContainsKey((int)msgRouteID))
 		{
@@ -41,13 +41,13 @@ public class MsgRouteHandleBase : GObject, ICalleeObject
 		}
 	}
 
-	public virtual void handleMsg(IDispatchObject dispObj)
+	public function handleMsg($dispObj)
 	{
-		MsgRouteBase msg = dispObj as MsgRouteBase;
+		$msg = dispObj;
 
-		if ($this->mId2HandleDic.ContainsKey((int)msg.mMsgID))
+		if ($this->mId2HandleDic.ContainsKey(msg.mMsgID))
 		{
-			$this->mId2HandleDic[(int)msg.mMsgID].dispatchEvent(msg);
+			$this->mId2HandleDic[msg.mMsgID].dispatchEvent(msg);
 		}
 		else
 		{
@@ -55,7 +55,7 @@ public class MsgRouteHandleBase : GObject, ICalleeObject
 		}
 	}
 
-	public void call(IDispatchObject dispObj)
+	public function call($dispObj)
 	{
 
 	}

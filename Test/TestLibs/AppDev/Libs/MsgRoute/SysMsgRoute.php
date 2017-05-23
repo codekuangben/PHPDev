@@ -5,15 +5,14 @@ namespace SDK\Lib;
 /**
  * @brief 系统消息流程，整个系统的消息分发都走这里，仅限单线程
  */
-public class SysMsgRoute : LockQueue<MsgRouteBase>
+class SysMsgRoute extends LockQueue
 {
-	public SysMsgRoute(string name)
-		: base(name)
+	public function __construct($name)
 	{
-
+		parent::__construct($name);
 	}
 
-	public void pushMsg(MsgRouteBase msg)
+	public function pushMsg($msg)
 	{
 		if (msg.isMainThreadImmeHandle())
 		{
@@ -23,16 +22,16 @@ public class SysMsgRoute : LockQueue<MsgRouteBase>
 			}
 			else
 			{
-				$this->push(msg);
+				$this->push($msg);
 			}
 		}
 		else
 		{
-			$this->push(msg);
+			$this->push($msg);
 		}
 	}
 
-	public MsgRouteBase popMsg()
+	public function popMsg()
 	{
 		return $this->pop();
 	}

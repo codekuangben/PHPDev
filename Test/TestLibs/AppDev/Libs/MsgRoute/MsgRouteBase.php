@@ -2,13 +2,13 @@
 
 namespace SDK\Lib;
 
-public class MsgRouteBase : IRecycle, IDispatchObject
+class MsgRouteBase implements IRecycle, IDispatchObject
 {
-	public MsgRouteType mMsgType;
-	public MsgRouteID mMsgID;          // 只需要一个 ID 就行了
-	public bool mIsMainThreadImmeHandle;    // 是否主线程立即处理消息
+	public $mMsgType;
+	public $mMsgID;          // 只需要一个 ID 就行了
+	public $mIsMainThreadImmeHandle;    // 是否主线程立即处理消息
 
-	public MsgRouteBase(MsgRouteID id, MsgRouteType type = MsgRouteType.eMRT_BASIC)
+	public function __construct($id, $type = MsgRouteType.eMRT_BASIC)
 	{
 		$this->mMsgType = type;
 		$this->mMsgID = id;
@@ -16,17 +16,17 @@ public class MsgRouteBase : IRecycle, IDispatchObject
 		$this->mIsMainThreadImmeHandle = true;
 	}
 
-	virtual public void resetDefault()
+	public function resetDefault()
 	{
 
 	}
 
-	public void setIsMainThreadImmeHandle(bool value)
+	public function setIsMainThreadImmeHandle($value)
 	{
-		$this->mIsMainThreadImmeHandle = value;
+		$this->mIsMainThreadImmeHandle = $value;
 	}
 
-	public bool isMainThreadImmeHandle()
+	public function isMainThreadImmeHandle()
 	{
 		return $this->mIsMainThreadImmeHandle;
 	}

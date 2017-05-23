@@ -2,12 +2,11 @@
 
 namespace SDK\Lib;
 
-public class SocketCloseedMR : MsgRouteBase
+class SocketCloseedMR extends MsgRouteBase
 {
-	public SocketCloseedMR()
-		: base(MsgRouteID.eMRIDSocketClosed)
+	public function __construct()
 	{
-
+		parent::__construct(MsgRouteID.eMRIDSocketClosed);
 	}
 }
 

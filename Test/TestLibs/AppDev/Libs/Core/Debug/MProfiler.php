@@ -5,25 +5,25 @@ namespace SDK\Lib;
 /**
  * @brief Profile，要一段时间配置一次，每一帧配置是没有意义的
  */
-public class MProfiler
+class MProfiler
 {
-	protected bool mEnabled;
-	protected int mNameFieldWidth;
-	protected int mDataWidth;
-	protected int mIndentAmount;
+	protected $mEnabled;
+	protected $mNameFieldWidth;
+	protected $mDataWidth;
+	protected $mIndentAmount;
 
-	protected bool mReallyEnabled;
-	protected bool mWantReport;
-	protected bool mWantWipe;
-	protected int mStackDepth;
+	protected $mReallyEnabled;
+	protected $mWantReport;
+	protected $mWantWipe;
+	protected $mStackDepth;
 
-	protected MProfileInfo mRootNode;
-	protected MProfileInfo mCurrentNode;
-	protected bool mIsStartProfile;
-	protected string mRootNodeName;
-	protected bool mPrintLog;
+	protected $mRootNode;
+	protected $mCurrentNode;
+	protected $mIsStartProfile;
+	protected $mRootNodeName;
+	protected $mPrintLog;
 
-	public MProfiler()
+	public function __construct()
 	{
 		$this->mEnabled = false;
 		$this->mNameFieldWidth = 50;
@@ -43,7 +43,7 @@ public class MProfiler
 		$this->mPrintLog = false;
 	}
 	
-	public void init()
+	public function init()
 	{
 		if (MacroDef.ENABLE_LOG)
 		{
@@ -51,7 +51,7 @@ public class MProfiler
 		}
 	}
 
-	public void dispose()
+	public function dispose()
 	{
 		if (MacroDef.ENABLE_LOG)
 		{
@@ -59,12 +59,12 @@ public class MProfiler
 		}
 	}
 
-	public bool isStartProfile()
+	public function isStartProfile()
 	{
 		return $this->mIsStartProfile;
 	}
 
-	public void setIsStartProfile(bool value)
+	public function setIsStartProfile($value)
 	{
 		$this->mIsStartProfile = value;
 
@@ -74,7 +74,7 @@ public class MProfiler
 		}
 	}
 
-	public void toggleIsStartProfile()
+	public function toggleIsStartProfile()
 	{
 		$this->mIsStartProfile = !$this->mIsStartProfile;
 
@@ -84,7 +84,7 @@ public class MProfiler
 		}
 	}
 
-	protected void checkInternalState()
+	protected function checkInternalState()
 	{
 		// 如果我们在 root ，我们可以更新我们内部开启的状态
 		if ($this->mStackDepth == 0)
@@ -158,7 +158,7 @@ public class MProfiler
 	/**
 	 * @brief 进入一个命名的函数块
 	 */
-	public void enter(string blockName)
+	public function enter($blockName)
 	{
 		if (MacroDef.ENABLE_LOG)
 		{
@@ -182,11 +182,11 @@ public class MProfiler
 		}
 
 		// 查找 Child如果没有就创建
-		MProfileInfo newNode = $this->mCurrentNode.mChildren[blockName];
+		$newNode = $this->mCurrentNode.mChildren[blockName];
 
 		if (null == newNode)
 		{
-			newNode = new MProfileInfo(blockName, $this->mCurrentNode);
+			$newNode = new MProfileInfo(blockName, $this->mCurrentNode);
 			$this->mCurrentNode.mChildren[blockName] = newNode;
 		}
 
@@ -194,7 +194,7 @@ public class MProfiler
 		$this->mCurrentNode = newNode;
 
 		// 开始计时 Child Node
-		$this->mCurrentNode.mStartTime = UtilApi.getFloatUTCMilliseconds();
+		$this->mCurrentNode->mStartTime = UtilApi.getFloatUTCMilliseconds();
 
 		if (MacroDef.ENABLE_LOG)
 		{
@@ -205,7 +205,7 @@ public class MProfiler
 	/**
 	 * @brief 指明我们退出一个命名执行块
 	 */
-	public void exit(string blockName)
+	public function exit($blockName)
 	{
 		if (MacroDef.ENABLE_LOG)
 		{
@@ -226,11 +226,11 @@ public class MProfiler
 		}
 
 		// 更新这个 node 的状态
-		double currentTime = UtilApi.getFloatUTCMilliseconds();
-		double elapsedTime = currentTime - $this->mCurrentNode.mStartTime;
+		$currentTime = UtilApi.getFloatUTCMilliseconds();
+		$elapsedTime = currentTime - $this->mCurrentNode.mStartTime;
 
-		$this->mCurrentNode.mActivations += 1;
-		$this->mCurrentNode.mTotalTime += elapsedTime;
+		$this->mCurrentNode->mActivations += 1;
+		$this->mCurrentNode->mTotalTime += elapsedTime;
 
 		if (MacroDef.ENABLE_LOG)
 		{
@@ -239,12 +239,12 @@ public class MProfiler
 
 		if (elapsedTime > $this->mCurrentNode.mMaxTime)
 		{
-			$this->mCurrentNode.mMaxTime = elapsedTime;
+			$this->mCurrentNode->mMaxTime = elapsedTime;
 		}
 
 		if (elapsedTime < $this->mCurrentNode.mMinTime)
 		{
-			$this->mCurrentNode.mMinTime = elapsedTime;
+			$this->mCurrentNode->mMinTime = elapsedTime;
 		}
 
 		// 弹出堆栈
@@ -254,7 +254,7 @@ public class MProfiler
 	/**
 	 * @brief Dump 统计信息到日志，下一次我们到达堆栈底部
 	 */
-	public void report()
+	public function report()
 	{
 		if ($this->mStackDepth > 0)
 		{
@@ -268,7 +268,7 @@ public class MProfiler
 	/**
 	 * 重置所有的统计信息到零
 	 */
-	public void wipe()
+	public function wipe()
 	{
 		if ($this->mStackDepth > 0)
 		{
@@ -282,7 +282,7 @@ public class MProfiler
 	/**
 	 * @brief 确保配置状态没有不匹配
 	 */
-	public void ensureAtRoot()
+	public function ensureAtRoot()
 	{
 		if ($this->mStackDepth > 0)
 		{
@@ -290,11 +290,11 @@ public class MProfiler
 		}
 	}
 	
-	private void doReport()
+	private function doReport()
 	{
 		$this->mWantReport = false;
 
-		string header = string.Format("[{0}{1}][{2}{3}][{4}{5}][{6}{7}][{8}{9}][{10}{11}][{12}{13}][{14}{15}][{16}{17}]",
+		$header = string.Format("[{0}{1}][{2}{3}][{4}{5}][{6}{7}][{8}{9}][{10}{11}][{12}{13}][{14}{15}][{16}{17}]",
 									  UtilStr.toStringByCount(mNameFieldWidth - "name".Length, " "), "name",
 									  UtilStr.toStringByCount($this->mDataWidth - "Total%".Length, " "), "Total%",
 									  UtilStr.toStringByCount($this->mDataWidth - "Self%".Length, " "), "Self%",
@@ -313,35 +313,35 @@ public class MProfiler
 		$this->reportNode($this->mRootNode, 0);
 	}
 	
-	private void reportNode(MProfileInfo profileInfo, int indent)
+	private function reportNode($profileInfo, $indent)
 	{
-		bool hasChild = false;   // 是否有 Child
-		double totalTime = 0;
+		$hasChild = false;   // 是否有 Child
+		$totalTime = 0;
 
-		foreach (System.Collections.Generic.KeyValuePair<string, MProfileInfo> kv in profileInfo.mChildren)
+		while(list($key, $val) = each($profileInfo->mChildren))
 		{
-			MProfileInfo childProfileInfo = kv.Value;
+			$childProfileInfo = $val;
 
-			hasChild = true;
-			profileInfo.mSelfTime = profileInfo.mTotalTime - childProfileInfo.mTotalTime;
-			totalTime += childProfileInfo.mTotalTime;
+			$hasChild = true;
+			$profileInfo->mSelfTime = profileInfo.mTotalTime - childProfileInfo.mTotalTime;
+			$totalTime += childProfileInfo.mTotalTime;
 		}
 
 		if (profileInfo.mName == $this->mRootNodeName)
 		{
-			profileInfo.mTotalTime = totalTime;
-			profileInfo.mSelfTime = 0;
+			$profileInfo->mTotalTime = totalTime;
+			$profileInfo->mSelfTime = 0;
 		}
 		
-		string entry = "";
+		$entry = "";
 
-		if (indent == 0)
+		if ($indent == 0)
 		{
-			entry = "+Root";
+			$entry = "+Root";
 		}
 		else
 		{
-			entry = $this->formatProfile(indent, hasChild, profileInfo);
+			$entry = $this->formatProfile($indent, $hasChild, $profileInfo);
 		}
 
 		if (MacroDef.ENABLE_LOG)
@@ -349,23 +349,23 @@ public class MProfiler
 			Ctx.mInstance.mLogSys.log(entry, LogTypeId.eLogProfile);
 		}
 
-		MList<MProfileInfo> tmpArray = new MList<MProfileInfo>();
+		$tmpArray = new MList();
 
-		foreach (System.Collections.Generic.KeyValuePair<string, MProfileInfo> kv in profileInfo.mChildren)
+		while(list($key, $val) = each($profileInfo->mChildren))
 		{
-			MProfileInfo childProfileInfo = kv.Value;
+			$childProfileInfo = $val;
 			tmpArray.push(childProfileInfo);
 		}
 
 		tmpArray.Sort($this->sortByTotalTime);
 
-		foreach (MProfileInfo childPi in tmpArray.list())
+		foreach ($childPi as $tmpArray->list())
 		{
-			$this->reportNode(childPi, indent + 1);
+			$this->reportNode($childPi, $indent + 1);
 		}
 	}
 	
-	private void doWipe(MProfileInfo profileInfo = null)
+	private function doWipe($profileInfo = null)
 	{
 		$this->mWantWipe = false;
 		
@@ -377,75 +377,75 @@ public class MProfiler
 
 		profileInfo.wipe();
 
-		foreach (System.Collections.Generic.KeyValuePair<string, MProfileInfo> kv in profileInfo.mChildren)
+		while(list($key, $val) = each($profileInfo->mChildren))
 		{
-			MProfileInfo childProfileInfo = kv.Value;
+			$childProfileInfo = $val;
 			$this->doWipe(childProfileInfo);
 		}
 	}
 
-	protected int sortByTotalTime(MProfileInfo a, MProfileInfo b)
+	protected function sortByTotalTime($a, $b)
 	{
-		int ret = 0;
+		$ret = 0;
 
 		if(a.mTotalTime < b.mTotalTime)
 		{
-			ret = 1;
+			$ret = 1;
 		}
 		else if (a.mTotalTime > b.mTotalTime)
 		{
-			ret = -1;
+			$ret = -1;
 		}
 
 		return ret;
 	}
 
-	protected string formatProfile(int indent, bool hasChild, MProfileInfo profileInfo)
+	protected function formatProfile($indent, $hasChild, $profileInfo)
 	{
-		double totalTimePercent = -1;
+		$totalTimePercent = -1;
 		if (null != profileInfo.mParent)
 		{
-			totalTimePercent = profileInfo.mTotalTime / $this->mRootNode.mTotalTime * 100;
+			$totalTimePercent = profileInfo.mTotalTime / $this->mRootNode.mTotalTime * 100;
 		}
 
-		double selfTimePercent = -1;
+		$selfTimePercent = -1;
 		if (null != profileInfo.mParent)
 		{
-			selfTimePercent = profileInfo.mSelfTime / ($this->mRootNode.mTotalTime) * 100;
+			$selfTimePercent = profileInfo.mSelfTime / ($this->mRootNode.mTotalTime) * 100;
 		}
 
 		// 这个开始字符主要看层次关系
-		string startStr = indent.ToString();
-		string startPrefix = UtilStr.toStringByCount(indent * $this->mIndentAmount - startStr.Length, " ");
+		$startStr = indent.ToString();
+		$startPrefix = UtilStr.toStringByCount(indent * $this->mIndentAmount - startStr.Length, " ");
 
-		string nameStr = (hasChild ? "+" : "-") + profileInfo.mName;
-		string namePrefix = UtilStr.toStringByCount($this->mNameFieldWidth - indent * $this->mIndentAmount - nameStr.Length, " ");
+		$nameStr = (hasChild ? "+" : "-") + profileInfo.mName;
+		$namePrefix = UtilStr.toStringByCount($this->mNameFieldWidth - indent * $this->mIndentAmount - nameStr.Length, " ");
 
-		string totalTimePercentStr = totalTimePercent.ToString("F2");
-		string totalTimePercentPrefix = UtilStr.toStringByCount($this->mDataWidth - totalTimePercentStr.Length, " ");
+		$totalTimePercentStr = totalTimePercent.ToString("F2");
+		$totalTimePercentPrefix = UtilStr.toStringByCount($this->mDataWidth - totalTimePercentStr.Length, " ");
 
-		string selfTimePercentStr = selfTimePercent.ToString("F2");
-		string selfTimePercentPrefix = UtilStr.toStringByCount($this->mDataWidth - selfTimePercentStr.Length, " ");
+		$selfTimePercentStr = selfTimePercent.ToString("F2");
+		$selfTimePercentPrefix = UtilStr.toStringByCount($this->mDataWidth - selfTimePercentStr.Length, " ");
 
-		string activationsStr = profileInfo.mActivations.ToString();
-		string activationsPrefix = UtilStr.toStringByCount($this->mDataWidth - activationsStr.Length, " ");
+		$activationsStr = profileInfo.mActivations.ToString();
+		$activationsPrefix = UtilStr.toStringByCount($this->mDataWidth - activationsStr.Length, " ");
 
-		string totalTimeStr = profileInfo.mTotalTime.ToString("F2");
-		string totalTimePrefix = UtilStr.toStringByCount($this->mDataWidth - totalTimeStr.Length, " ");
+		$totalTimeStr = profileInfo.mTotalTime.ToString("F2");
+		$totalTimePrefix = UtilStr.toStringByCount($this->mDataWidth - totalTimeStr.Length, " ");
 
-		string selfTimeStr = profileInfo.mSelfTime.ToString("F2");
-		string selfTimePrefix = UtilStr.toStringByCount($this->mDataWidth - selfTimeStr.Length, " ");
+		$selfTimeStr = profileInfo.mSelfTime.ToString("F2");
+		$selfTimePrefix = UtilStr.toStringByCount($this->mDataWidth - selfTimeStr.Length, " ");
 
-		string averageTimeStr = (profileInfo.mTotalTime / profileInfo.mActivations).ToString("F2");
-		string averageTimePrefix = UtilStr.toStringByCount(8 - averageTimeStr.Length, " ");
+		$averageTimeStr = (profileInfo.mTotalTime / profileInfo.mActivations).ToString("F2");
+		$averageTimePrefix = UtilStr.toStringByCount(8 - averageTimeStr.Length, " ");
 
-		string minTimeStr = profileInfo.mMinTime.ToString("F2");
-		string minTimePrefix = UtilStr.toStringByCount(8 - minTimeStr.Length, " ");
+		$minTimeStr = profileInfo.mMinTime.ToString("F2");
+		$minTimePrefix = UtilStr.toStringByCount(8 - minTimeStr.Length, " ");
 
-		string maxTimeStr = profileInfo.mMaxTime.ToString("F2");
-		string maxTimePrefix = UtilStr.toStringByCount(8 - maxTimeStr.Length, " ");
+		$maxTimeStr = profileInfo.mMaxTime.ToString("F2");
+		$maxTimePrefix = UtilStr.toStringByCount(8 - maxTimeStr.Length, " ");
 
-		string retStr = string.Format("[{0}{1}][{2}{3}][{4}{5}][{6}{7}][{8}{9}][{10}{11}][{12}{13}][{14}{15}][{16}{17}][{18}{19}]",
+		$retStr = string.Format("[{0}{1}][{2}{3}][{4}{5}][{6}{7}][{8}{9}][{10}{11}][{12}{13}][{14}{15}][{16}{17}][{18}{19}]",
 									startStr, startPrefix,
 									namePrefix, nameStr,
 									totalTimePercentPrefix, totalTimePercentStr,

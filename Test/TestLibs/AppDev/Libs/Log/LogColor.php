@@ -2,12 +2,12 @@
 
 namespace SDK\Lib;
 
-public enum LogColor
+class LogColor
 {
-	eLC_LOG = 0,
-	eLC_WARN = 1,
-	eLC_ERROR = 2,
-	eLC_Count,
+	const eLC_LOG = 0;
+	const eLC_WARN = 1;
+	const eLC_ERROR = 2;
+	const eLC_Count = 3;
 }
 
 ?>

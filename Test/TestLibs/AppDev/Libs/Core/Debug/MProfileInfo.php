@@ -15,14 +15,14 @@ class MProfileInfo
 	public $mMaxTime;         // 最大一次执行时间
 	public $mMinTime;         // 最小一次执行时间
 
-	public MProfileInfo(string name, MProfileInfo parent = null)
+	public function __construct($name, $parent = null)
 	{
-		$this->mChildren = new MDictionary<string, MProfileInfo>();
-		$this->mName = name;
-		$this->mParent = parent;
+		$this->mChildren = new MDictionary();
+		$this->mName = $name;
+		$this->mParent = $parent;
 	}
 
-	public void wipe()
+	public function wipe()
 	{
 		if(MacroDef.ENABLE_LOG)
 		{

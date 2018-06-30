@@ -2,40 +2,32 @@
 
 namespace SDK\Lib;
 
-public class LogSys
+class LogSys
 {
-	protected LockList<string> mAsyncLogList;              // 这个是多线程访问的
-	protected LockList<string> mAsyncWarnList;            // 这个是多线程访问的
-	protected LockList<string> mAsyncErrorList;          // 这个是多线程访问的
+	protected $mAsyncLogList;              // 这个是多线程访问的
+	protected $mAsyncWarnList;            // 这个是多线程访问的
+	protected $mAsyncErrorList;          // 这个是多线程访问的
 
-	protected string mTmpStr;
+	protected $mTmpStr;
 
-	protected MList<LogDeviceBase> mLogDeviceList;
-	protected MList<LogTypeId>[] mEnableLogTypeList;
+	protected $mLogDeviceList;
+	protected $mEnableLogTypeList;
 
-	protected bool[] mEnableLog;    // 全局开关
-	protected bool[] mIsOutStack;     // 是否显示堆栈信息
-	protected bool[] mIsOutTimeStamp;   // 是否有时间戳
+	protected $mEnableLog;    // 全局开关
+	protected $mIsOutStack;     // 是否显示堆栈信息
+	protected $mIsOutTimeStamp;   // 是否有时间戳
 
 	// 构造函数仅仅是初始化变量，不涉及逻辑
-	public LogSys()
+	public function __construct()
 	{
-		$this->mAsyncLogList = new LockList<string>("Logger_asyncLogList");
-		$this->mAsyncWarnList = new LockList<string>("Logger_asyncWarnList");
-		$this->mAsyncErrorList = new LockList<string>("Logger_asyncErrorList");
-		$this->mLogDeviceList = new MList<LogDeviceBase>();
-
-#if UNITY_5
-		Application.logMessageReceived += onDebugLogCallbackHandler;
-		Application.logMessageReceivedThreaded += onDebugLogCallbackThreadHandler;
-#elif UNITY_4_6 || UNITY_4_5
-		Application.RegisterLogCallback(onDebugLogCallbackHandler);
-		Application.RegisterLogCallbackThreaded(onDebugLogCallbackThreadHandler);
-#endif
+		$this->mAsyncLogList = new LockList("Logger_asyncLogList");
+		$this->mAsyncWarnList = new LockList("Logger_asyncWarnList");
+		$this->mAsyncErrorList = new LockList("Logger_asyncErrorList");
+		$this->mLogDeviceList = new MList();
 
 		$this->mEnableLogTypeList = new MList<LogTypeId>[(int)LogColor.eLC_Count];
 
-		$this->mEnableLogTypeList[(int)LogColor.eLC_LOG] = new MList<LogTypeId>();
+		$this->mEnableLogTypeList[(int)LogColor.eLC_LOG] = new MList>();
 		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogCommon);
 		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogResLoader);
 		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogLocalFile);
@@ -67,9 +59,9 @@ public class LogSys
 		// 编辑器日志
 		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogEditorBuildPlayer);
 
-		$this->mEnableLogTypeList[(int)LogColor.eLC_WARN] = new MList<LogTypeId>();
+		$this->mEnableLogTypeList[(int)LogColor.eLC_WARN] = new MList();
 
-		$this->mEnableLogTypeList[(int)LogColor.eLC_ERROR] = new MList<LogTypeId>();
+		$this->mEnableLogTypeList[(int)LogColor.eLC_ERROR] = new MList();
 		//$this->mEnableLogTypeList[(int)LogColor.eLC_ERROR].Add(LogTypeId.eLogLoadBug);
 		$this->mEnableLogTypeList[(int)LogColor.eLC_ERROR].Add(LogTypeId.eErrorDownload);
 
@@ -90,34 +82,34 @@ public class LogSys
 	}
 
 	// 初始化逻辑处理
-	public void init()
+	public function init()
 	{
 		$this->registerDevice();
 		$this->registerFileLogDevice();
 	}
 
 	// 析构
-	public void dispose()
+	public function dispose()
 	{
 		$this->closeDevice();
 	}
 
-	public void setEnableLog(bool value)
+	public function setEnableLog(bool value)
 	{
 		$this->mEnableLog[(int)LogColor.eLC_LOG] = value;
 	}
 
-	public void setEnableWarn(bool value)
+	public function setEnableWarn(bool value)
 	{
 		$this->mEnableLog[(int)LogColor.eLC_WARN] = value;
 	}
 
-	public void setEnableError(bool value)
+	public function setEnableError(bool value)
 	{
 		$this->mEnableLog[(int)LogColor.eLC_ERROR] = value;
 	}
 
-	protected void registerDevice()
+	protected function registerDevice()
 	{
 		LogDeviceBase logDevice = null;
 
@@ -137,7 +129,7 @@ public class LogSys
 	}
 
 	// 注册文件日志，因为需要账号，因此需要等待输入账号后才能注册，可能多次注册
-	public void registerFileLogDevice()
+	public function registerFileLogDevice()
 	{
 		Ctx.mInstance.mDataPlayer.mAccountData.m_account = "A1000";
 
@@ -153,7 +145,7 @@ public class LogSys
 		}
 	}
 
-	protected void unRegisterFileLogDevice()
+	protected function unRegisterFileLogDevice()
 	{
 		foreach(var item in mLogDeviceList.list())
 		{
@@ -167,14 +159,14 @@ public class LogSys
 	}
 
 	// 需要一个参数的
-	public void debugLog_1(LangItemID idx, string str)
+	public function debugLog_1(LangItemID idx, string str)
 	{
 		string textStr = Ctx.mInstance.mLangMgr.getText(LangTypeId.eDebug5, idx);
 		$this->mTmpStr = string.Format(textStr, str);
 		//Ctx.mInstance.mLogSys.log(mTmpStr);
 	}
 
-	public void formatLog(LangTypeId type, LangItemID item, params string[] param)
+	public function formatLog(LangTypeId type, LangItemID item, params string[] param)
 	{
 		if (param.Length == 0)
 		{
@@ -190,13 +182,13 @@ public class LogSys
 	/**
 	 * @brief 所有的异常日志都走这个接口
 	 */
-	public void catchLog(string message)
+	public function catchLog(string message)
 	{
 		log("Out Catch Log");
 		log(message);
 	}
 
-	protected bool isInFilter(LogTypeId logTypeId, LogColor logColor)
+	protected function isInFilter(LogTypeId logTypeId, LogColor logColor)
 	{
 		if ($this->mEnableLog[(int)logColor])
 		{
@@ -212,12 +204,12 @@ public class LogSys
 	}
 
 	// Lua 调用 Log 这个函数的时候， LogTypeId 类型转换会报错，不能使用枚举类型
-	public void lua_log(string message, int logTypeId = 0)
+	public function lua_log(string message, int logTypeId = 0)
 	{
 		$this->log(message, (LogTypeId)logTypeId);
 	}
 
-	public void log(string message, LogTypeId logTypeId = LogTypeId.eLogCommon)
+	public function log(string message, LogTypeId logTypeId = LogTypeId.eLogCommon)
 	{
 		if (isInFilter(logTypeId, LogColor.eLC_LOG))
 		{
@@ -244,12 +236,12 @@ public class LogSys
 		}
 	}
 
-	public void lua_warn(string message, int logTypeId = 0)
+	public function lua_warn(string message, int logTypeId = 0)
 	{
 		$this->warn(message, (LogTypeId)logTypeId);
 	}
 
-	public void warn(string message, LogTypeId logTypeId = LogTypeId.eLogCommon)
+	public function warn(string message, LogTypeId logTypeId = LogTypeId.eLogCommon)
 	{
 		if (isInFilter(logTypeId, LogColor.eLC_WARN))
 		{
@@ -276,12 +268,12 @@ public class LogSys
 		}
 	}
 
-	public void lua_error(string message, int logTypeId = 0)
+	public function lua_error(string message, int logTypeId = 0)
 	{
 		$this->error(message, (LogTypeId)logTypeId);
 	}
 
-	public void error(string message, LogTypeId logTypeId = LogTypeId.eLogCommon)
+	public function error(string message, LogTypeId logTypeId = LogTypeId.eLogCommon)
 	{
 		if (isInFilter(logTypeId, LogColor.eLC_ERROR))
 		{
@@ -309,24 +301,24 @@ public class LogSys
 	}
 
 	// 多线程日志
-	protected void asyncLog(string message)
+	protected function asyncLog(string message)
 	{
 		mAsyncLogList.Add(message);
 	}
 
 	// 多线程日志
-	protected void asyncWarn(string message)
+	protected function asyncWarn(string message)
 	{
 		$this->mAsyncWarnList.Add(message);
 	}
 
 	// 多线程日志
-	protected void asyncError(string message)
+	protected function asyncError(string message)
 	{
 		$this->mAsyncErrorList.Add(message);
 	}
 
-	public void logout(string message, LogColor type = LogColor.eLC_LOG)
+	public function logout(string message, LogColor type = LogColor.eLC_LOG)
 	{
 		if (MacroDef.THREAD_CALLCHECK)
 		{
@@ -346,7 +338,7 @@ public class LogSys
 		}
 	}
 
-	public void updateLog()
+	public function updateLog()
 	{
 		if (MacroDef.THREAD_CALLCHECK)
 		{
@@ -369,7 +361,7 @@ public class LogSys
 		}
 	}
 
-	static private void onDebugLogCallbackHandler(string name, string stack, LogType type) 
+	static private function onDebugLogCallbackHandler(string name, string stack, LogType type) 
 	{ 
 		// LogType.Log 日志直接自己输出
 		if (LogType.Error == type || LogType.Exception == type)
@@ -386,7 +378,7 @@ public class LogSys
 		}
 	}
 
-	static private void onDebugLogCallbackThreadHandler(string name, string stack, LogType type)
+	static private function onDebugLogCallbackThreadHandler(string name, string stack, LogType type)
 	{
 		if (LogType.Error == type || LogType.Exception == type)
 		{
@@ -402,7 +394,7 @@ public class LogSys
 		}
 	}
 
-	protected void closeDevice()
+	protected function closeDevice()
 	{
 		foreach (LogDeviceBase logDevice in mLogDeviceList.list())
 		{
@@ -410,7 +402,7 @@ public class LogSys
 		}
 	}
 
-	public void logLoad(InsResBase res)
+	public function logLoad(InsResBase res)
 	{
 		if (res.refCountResLoadResultNotify.resLoadState.hasSuccessLoaded())
 		{

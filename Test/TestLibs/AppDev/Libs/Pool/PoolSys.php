@@ -5,14 +5,14 @@ namespace SDK\Lib;
 /**
  * @brief 对象池
  */
-public class PoolSys
+class PoolSys
 {
-	protected MList<IRecycle> mPoolList;
+	protected mPoolList;
 	//protected LockList<IRecycle> mPoolList;       // 这个是线程安全队列，但是比较耗时
 
-	public PoolSys()
+	public function __construct()
 	{
-		$this->mPoolList = new MList<IRecycle>();
+		$this->mPoolList = new MList();
 		$this->mPoolList.setIsSpeedUpFind(true);
 		//$this->mPoolList = new LockList<IRecycle>("PoolSys_List");
 	}

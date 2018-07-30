@@ -215,7 +215,7 @@ class LogSys
 		{
 			if($this->mIsOutTimeStamp[(int)LogColor.eLC_LOG])
 			{
-				message = string.Format("{0}: {1}", UtilApi.getFormatTime(), message);
+				message = string.Format("{0}: {1}", UtilSysLibWrap.getFormatTime(), message);
 			}
 
 			if ($this->mIsOutStack[(int)LogColor.eLC_LOG])
@@ -247,7 +247,7 @@ class LogSys
 		{
 			if ($this->mIsOutTimeStamp[(int)LogColor.eLC_WARN])
 			{
-				message = string.Format("{0}: {1}", UtilApi.getFormatTime(), message);
+				message = string.Format("{0}: {1}", UtilSysLibWrap.getFormatTime(), message);
 			}
 
 			if ($this->mIsOutStack[(int)LogColor.eLC_WARN])
@@ -279,7 +279,7 @@ class LogSys
 		{
 			if ($this->mIsOutTimeStamp[(int)LogColor.eLC_ERROR])
 			{
-				message = string.Format("{0}: {1}", UtilApi.getFormatTime(), message);
+				message = string.Format("{0}: {1}", UtilSysLibWrap.getFormatTime(), message);
 			}
 
 			if ($this->mIsOutStack[(int)LogColor.eLC_ERROR])

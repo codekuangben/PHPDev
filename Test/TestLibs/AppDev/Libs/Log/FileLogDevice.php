@@ -61,11 +61,11 @@ public class FileLogDevice : LogDeviceBase
 		string file;
 		if(string.IsNullOrEmpty(mFileSuffix))
 		{
-			file = string.Format("{0}/{1}_{2}{3}", path, mFilePrefix, UtilApi.getUTCFormatText(), ".txt");
+			file = string.Format("{0}/{1}_{2}{3}", path, mFilePrefix, UtilSysLibWrap.getUTCFormatText(), ".txt");
 		}
 		else
 		{
-			file = string.Format("{0}/{1}_{2}{3}{4}{5}", path, mFilePrefix, mFileSuffix, "_", UtilApi.getUTCFormatText(), ".txt");
+			file = string.Format("{0}/{1}_{2}{3}{4}{5}", path, mFilePrefix, mFileSuffix, "_", UtilSysLibWrap.getUTCFormatText(), ".txt");
 		}
 		
 		if (!Directory.Exists(path))                    // 判断是否存在

@@ -35,7 +35,7 @@ class MDictionary
 	{
 		while(list($key, $val)= each($this->mData))
 		{
-			if (UtilApi::isObjectEqual($val, $value))
+			if (UtilSysLibWrap::isObjectEqual($val, $value))
 			{
 				return $key;
 			}
@@ -101,7 +101,7 @@ class MDictionary
 	{
 		while(list($key, $val)= each($this->mData))
 		{
-			if(UtilApi::isObjectEqual($val, $value))
+			if(UtilSysLibWrap::isObjectEqual($val, $value))
 			{
 				return true;
 			}

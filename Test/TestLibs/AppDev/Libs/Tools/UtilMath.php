@@ -288,12 +288,12 @@ public class UtilMath
 	static public long getRandomSeed()
 	{
 		msSeedDelta += 256;
-		return UtilApi.getUTCSec() + msSeedDelta;
+		return UtilSysLibWrap.getUTCSec() + msSeedDelta;
 	}
 
 	static public float UnitRandom()
 	{
-		//UnityEngine.Random.seed = (int)UtilApi.getUTCSec();
+		//UnityEngine.Random.seed = (int)UtilSysLibWrap.getUTCSec();
 		UnityEngine.Random.InitState((int)UtilMath.getRandomSeed());
 		return UnityEngine.Random.Range(0, float.MaxValue) / float.MaxValue;
 	}

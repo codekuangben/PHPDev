@@ -37,7 +37,7 @@ class EventDispatchFunctionObject implements IDelayHandleItem, INoOrPriorityObje
 
 		if($pThis != null)
 		{
-			$ret = UtilApi.isAddressEqual($this->mThis, $pThis);
+			$ret = UtilSysLibWrap.isAddressEqual($this->mThis, $pThis);
 
 			if (!$ret)
 			{
@@ -47,7 +47,7 @@ class EventDispatchFunctionObject implements IDelayHandleItem, INoOrPriorityObje
 
 		if ($handle != null)
 		{
-			$ret = UtilApi.isDelegateEqual($this->mHandle, $handle);
+			$ret = UtilSysLibWrap.isDelegateEqual($this->mHandle, $handle);
 
 			if (!$ret)
 			{

@@ -17,7 +17,7 @@ public class CoordConv
 
 	public CoordConv()
 	{
-		m_layMask = UtilApi.NameToLayer("UGUI");
+		m_layMask = UtilSysLibWrap.NameToLayer("UGUI");
 	}
 
 	// 获取鼠标当前位置
@@ -88,7 +88,7 @@ public class CoordConv
 	{
 		Ray ray = currentCamera.ScreenPointToRay(screenPoint);
 		RaycastHit lastHit;
-		int mask = UtilApi.NameToLayer("Everything");
+		int mask = UtilSysLibWrap.NameToLayer("Everything");
 		float dist = 10000;
 		Vector3 lastWorldPosition = UtilMath.ZeroVec3;
 

@@ -71,7 +71,7 @@ class SystemTimeData
 	public function nextFrame()
 	{
 		$this->mPreTime = $this->mCurTime;
-		$this->mCurTime = UtilApi::getUTCSec();
+		$this->mCurTime = UtilSysLibWrap::getUTCSec();
 
 		if ($this->mIsFixFrameRate)
 		{

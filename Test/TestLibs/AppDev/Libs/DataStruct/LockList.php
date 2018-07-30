@@ -70,7 +70,7 @@ class LockList
 			$idx = 0;
 			foreach($this->mDynamicBuffer->mBuffer as $elem)
 			{
-				if(UtilApi::isObjectEqual($item, $elem))       // 地址比较
+				if(UtilSysLibWrap::isObjectEqual($item, $elem))       // 地址比较
 				{
 					$this->RemoveAt($idx);
 					return true;
@@ -118,7 +118,7 @@ class LockList
 
 			foreach ($this->mDynamicBuffer->mBuffer as $item)
 			{
-				if (UtilApi::isObjectEqual($item, $elem))       // 地址比较
+				if (UtilSysLibWrap::isObjectEqual($item, $elem))       // 地址比较
 				{
 					$this->RemoveAt($idx);
 					return $idx;

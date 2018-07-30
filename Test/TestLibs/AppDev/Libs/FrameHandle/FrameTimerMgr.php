@@ -61,7 +61,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 				{
 					$item = $this->mTimerList->get($index);
 					
-					if(UtilApi::isAddressEqual($item, $delayObject))
+					if(UtilSysLibWrap::isAddressEqual($item, $delayObject))
 					{
 						$this->mTimerList.Remove($item);
 						break;

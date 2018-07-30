@@ -26,7 +26,7 @@ class TimerFunctionObject
 		$ret = false;
 		if($handle != null)
 		{
-			$ret = UtilApi::isAddressEqual($this->mHandle, $handle);
+			$ret = UtilSysLibWrap::isAddressEqual($this->mHandle, $handle);
 			if(!$ret)
 			{
 				return $ret;

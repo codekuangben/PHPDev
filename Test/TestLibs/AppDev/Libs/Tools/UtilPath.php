@@ -709,12 +709,12 @@ public class UtilPath
 	// 打包成 unity3d 后文件名字会变成小写，这里修改一下
 	static public void modifyFileNameToCapital(string path, string fileNameNoExt)
 	{
-		string srcFullPath = string.Format("{0}/{1}.{2}", path, fileNameNoExt.ToLower(), UtilApi.UNITY3D);
-		string destFullPath = string.Format("{0}/{1}.{2}", path, fileNameNoExt, UtilApi.UNITY3D);
+		string srcFullPath = string.Format("{0}/{1}.{2}", path, fileNameNoExt.ToLower(), UtilSysLibWrap.UNITY3D);
+		string destFullPath = string.Format("{0}/{1}.{2}", path, fileNameNoExt, UtilSysLibWrap.UNITY3D);
 		UtilPath.move(srcFullPath, destFullPath);
 
-		srcFullPath = string.Format("{0}/{1}.{2}.manifest", path, fileNameNoExt.ToLower(), UtilApi.UNITY3D);
-		destFullPath = string.Format("{0}/{1}.{2}.manifest", path, fileNameNoExt, UtilApi.UNITY3D);
+		srcFullPath = string.Format("{0}/{1}.{2}.manifest", path, fileNameNoExt.ToLower(), UtilSysLibWrap.UNITY3D);
+		destFullPath = string.Format("{0}/{1}.{2}.manifest", path, fileNameNoExt, UtilSysLibWrap.UNITY3D);
 		UtilPath.move(srcFullPath, destFullPath);
 	}
 

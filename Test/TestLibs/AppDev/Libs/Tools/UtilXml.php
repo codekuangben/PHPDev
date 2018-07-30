@@ -11,11 +11,11 @@ public class UtilXml
 	{
 		if (null != attr && null != attr.Attributes && attr.Attributes.ContainsKey(name))
 		{
-			if (UtilApi.TRUE == attr.Attribute(name))
+			if (UtilSysLibWrap.TRUE == attr.Attribute(name))
 			{
 				ret = true;
 			}
-			else if (UtilApi.FALSE == attr.Attribute(name))
+			else if (UtilSysLibWrap.FALSE == attr.Attribute(name))
 			{
 				ret = false;
 			}

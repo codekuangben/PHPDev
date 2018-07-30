@@ -21,7 +21,7 @@ public class stNullUserCmd
 	{
 		bu.writeUnsignedInt8(byCmd);
 		bu.writeUnsignedInt8(byParam);
-		dwTimestamp = (uint)UtilApi.getUTCSec();
+		dwTimestamp = (uint)UtilSysLibWrap.getUTCSec();
 		bu.writeUnsignedInt32(dwTimestamp);
 	}
 

@@ -224,7 +224,7 @@ class MFileStream extends GObject
 
 	public function writeText($text, $gkEncode = GkEncode.eUTF8)
 	{
-		$encode = UtilApi.convGkEncode2EncodingEncoding(gkEncode);
+		$encode = UtilSysLibWrap.convGkEncode2EncodingEncoding(gkEncode);
 
 		$this->checkAndOpen();
 
@@ -280,7 +280,7 @@ class MFileStream extends GObject
 
 	public function writeLine($text, $gkEncode = GkEncode.eUTF8)
 	{
-		$text = $text + UtilApi.CR_LF;
+		$text = $text + UtilSysLibWrap.CR_LF;
 		writeText($text, gkEncode);
 	}
 }

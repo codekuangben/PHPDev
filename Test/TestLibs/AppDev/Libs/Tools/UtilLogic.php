@@ -511,7 +511,7 @@ public class UtilLogic
 
 	public static bool canMerge(double timeStamp)
 	{
-		if (UtilApi.getFloatUTCSec() - timeStamp >= ExcelManager.param_SnowBallBasic.Merge_CoolTime)//Ctx.mInstance.mSnowBallCfg.mMergeCoolTime)
+		if (UtilSysLibWrap.getFloatUTCSec() - timeStamp >= ExcelManager.param_SnowBallBasic.Merge_CoolTime)//Ctx.mInstance.mSnowBallCfg.mMergeCoolTime)
 		{
 			return true;
 		}
@@ -521,7 +521,7 @@ public class UtilLogic
 
 	public static bool canContactMerge(double timeStamp)
 	{
-		if (UtilApi.getFloatUTCSec() - timeStamp >= ExcelManager.param_SnowBallBasic.Merge_ContactTime)// Ctx.mInstance.mSnowBallCfg.mMergeContactTime)
+		if (UtilSysLibWrap.getFloatUTCSec() - timeStamp >= ExcelManager.param_SnowBallBasic.Merge_ContactTime)// Ctx.mInstance.mSnowBallCfg.mMergeContactTime)
 		{
 			return true;
 		}

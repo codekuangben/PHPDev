@@ -194,7 +194,7 @@ class MProfiler
 		$this->mCurrentNode = newNode;
 
 		// 开始计时 Child Node
-		$this->mCurrentNode->mStartTime = UtilApi.getFloatUTCMilliseconds();
+		$this->mCurrentNode->mStartTime = UtilSysLibWrap.getFloatUTCMilliseconds();
 
 		if (MacroDef.ENABLE_LOG)
 		{
@@ -226,7 +226,7 @@ class MProfiler
 		}
 
 		// 更新这个 node 的状态
-		$currentTime = UtilApi.getFloatUTCMilliseconds();
+		$currentTime = UtilSysLibWrap.getFloatUTCMilliseconds();
 		$elapsedTime = currentTime - $this->mCurrentNode.mStartTime;
 
 		$this->mCurrentNode->mActivations += 1;

@@ -43,7 +43,7 @@ class ResInsEventDispatch extends EventDispatch implements IDispatchObject
 		}
 		else
 		{
-			UtilApi.Destroy($this->mInsGO);
+			UtilSysLibWrap.Destroy($this->mInsGO);
 			$this->mInsGO = null;
 		}
 	}

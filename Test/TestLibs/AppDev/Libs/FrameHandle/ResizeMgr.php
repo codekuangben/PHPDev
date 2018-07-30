@@ -92,11 +92,11 @@ class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDe
 	public function onTick($delta, $tickMode)
 	{
 		$this->mPreWidth = $this->mCurWidth;
-		$this->mCurWidth = UtilApi.getScreenWidth();
+		$this->mCurWidth = UtilSysLibWrap.getScreenWidth();
 		$this->mCurHalfWidth = $this->mCurWidth / 2;
 
 		$this->mPreHeight = $this->mCurHeight;
-		$this->mCurHeight = UtilApi.getScreenHeight();
+		$this->mCurHeight = UtilSysLibWrap.getScreenHeight();
 		$this->mCurHalfHeight = $this->mCurHeight / 2;
 
 		if ($this->mPreWidth != $this->mCurWidth || $this->mPreHeight != $this->mCurHeight)

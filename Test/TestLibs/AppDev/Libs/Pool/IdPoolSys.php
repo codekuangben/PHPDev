@@ -5,7 +5,7 @@ namespace SDK\Lib;
 /**
  * @brief 有 Id 的缓存池
  */
-public class IdPoolSys
+class IdPoolSys
 {
 	protected MDictionary<string, MList<IRecycle>> mId2PoolDic;
 

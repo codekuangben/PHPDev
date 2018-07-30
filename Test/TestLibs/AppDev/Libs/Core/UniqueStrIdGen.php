@@ -7,12 +7,12 @@ namespace SDK\Lib;
  */
 class UniqueStrIdGen extends UniqueNumIdGen
 {
-	const PlayerPrefix = "PL";
-	const PlayerChildPrefix = "PC";
-	const AbandonPlanePrefix = "AP";
-	const RobotPrefix = "RT";
-	const SnowBlockPrefix = "SM";
-	const PlayerTargetPrefix = "PT";
+	public const PlayerPrefix = "PL";
+	public const PlayerChildPrefix = "PC";
+	public const AbandonPlanePrefix = "AP";
+	public const RobotPrefix = "RT";
+	public const SnowBlockPrefix = "SM";
+	public const PlayerTargetPrefix = "PT";
 
 	protected $mPrefix;
 	protected $mRetId;
@@ -41,7 +41,7 @@ class UniqueStrIdGen extends UniqueNumIdGen
 
 	public function genStrIdById($id)
 	{
-		$this->mStringBuilder = new System.Text.StringBuilder();
+		$this->mStringBuilder = new StringBuilder();
 		$this->mStringBuilder.Append($this->mPrefix);
 		$this->mStringBuilder.Append('_');
 		$this->mStringBuilder.Append(id);

@@ -222,7 +222,7 @@ class MProfiler
 
 		if (blockName != $this->mCurrentNode.mName)
 		{
-			throw new System.Exception("MProfiler::exit, Mismatched Profiler.enter/Profiler.exit calls, got '" + $this->mCurrentNode.mName + "' but was expecting '" + blockName + "'");
+		    throw new Exception("MProfiler::exit, Mismatched Profiler.enter/Profiler.exit calls, got '" + $this->mCurrentNode.mName + "' but was expecting '" + blockName + "'");
 		}
 
 		// 更新这个 node 的状态
@@ -286,7 +286,7 @@ class MProfiler
 	{
 		if ($this->mStackDepth > 0)
 		{
-			throw new System.Exception("MProfiler::ensureAtRoot, Not at root!");
+		    throw new Exception("MProfiler::ensureAtRoot, Not at root!");
 		}
 	}
 	

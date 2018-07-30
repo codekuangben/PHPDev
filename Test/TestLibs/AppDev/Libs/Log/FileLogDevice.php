@@ -5,7 +5,7 @@ namespace SDK\Lib;
 /**
  * @brief 文件日志
  */
-public class FileLogDevice : LogDeviceBase
+class FileLogDevice : LogDeviceBase
 {
 	protected string mFileSuffix;      // 文件后缀。例如 log_suffix.txt ，suffix 就是后缀
 	protected string mFilePrefix;      // 文件前缀。例如 prefix_suffix.txt ，prefix 就是前缀

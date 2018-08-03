@@ -2,10 +2,10 @@
 
 namespace SDK\Lib;
 
-public enum PrioritySort
+class PrioritySort
 {
-	ePS_Less,       // 小于
-	ePS_Great,      // 大于
+	public const ePS_Less = 0;       // 小于
+	public const ePS_Great = 1;      // 大于
 }
 
 ?>

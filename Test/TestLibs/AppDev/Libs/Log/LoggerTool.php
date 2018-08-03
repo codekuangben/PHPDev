@@ -5,21 +5,21 @@ namespace SDK\Lib;
 /**
  * @brief 日志系统，只有工具在使用
  */
-public class LoggerTool
+class LoggerTool
 {
-	static public void log(string message)
+	static public function log($message)
 	{
-		Debug.Log(message);
+		
 	}
 
-	static public void warn(string message)
+	static public function warn($message)
 	{
-		Debug.LogWarning(message);
+		
 	}
 
-	static public void error(string message)
+	static public function error($message)
 	{
-		Debug.LogError(message);
+		
 	}
 }
 

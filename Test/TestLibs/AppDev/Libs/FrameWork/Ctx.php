@@ -16,7 +16,6 @@ class Ctx
 	public $mLoginModule;
 	public $mGameModule;                 // 游戏系统
 	public $mAutoUpdateModule;
-	public $mSceneSys;                // 场景系统
 
 	public $mTickMgr;                  // 心跳管理器，正常 Update
 	public $mFixedTickMgr;        // 固定间隔心跳管理器, FixedUpdate
@@ -80,7 +79,6 @@ class Ctx
 		$this->mMsgRouteNotify = new MsgRouteNotify();
 		$this->mGlobalDelegate = new GlobalDelegate();
 		$this->mSystemSetting = new SystemSetting();
-		$this->mTimerMsgHandle = new TimerMsgHandle();
 		$this->mPoolSys = new PoolSys();
 
 		$this->mTaskQueue = new TaskQueue("TaskQueue");
@@ -101,7 +99,6 @@ class Ctx
 		$this->mTimerMgr = new TimerMgr();
 		$this->mFrameTimerMgr = new FrameTimerMgr();
 		$this->mShareData = new ShareData();
-		$this->mSceneSys = new SceneSys();
 		$this->mEngineLoop = new EngineLoop();
 		$this->mSysMsgRoute = new SysMsgRoute("SysMsgRoute");
 		$this->mModuleSys = new ModuleSys();

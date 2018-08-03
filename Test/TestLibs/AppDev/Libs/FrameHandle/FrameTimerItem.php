@@ -5,7 +5,7 @@ namespace SDK\Lib;
 /**
  * @brief 定时器，这个是不断增长的
  */
-class FrameTimerItem extends IDelayHandleItem
+class FrameTimerItem implements IDelayHandleItem
 {
 	public $mInternal;              // 帧数间隔
 	public $mTotalFrameCount;       // 总共次数

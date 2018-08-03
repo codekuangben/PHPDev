@@ -5,50 +5,44 @@ namespace SDK\Lib;
 /**
  * @brief 文件日志
  */
-class FileLogDevice : LogDeviceBase
+class FileLogDevice extends  LogDeviceBase
 {
-	protected string mFileSuffix;      // 文件后缀。例如 log_suffix.txt ，suffix 就是后缀
-	protected string mFilePrefix;      // 文件前缀。例如 prefix_suffix.txt ，prefix 就是前缀
-	protected FileStream mFileStream;
-	protected StreamWriter mStreamWriter;
-	//protected StackTrace m_stackTrace;
-	//protected string m_traceStr;
+	protected $mFileSuffix;      // 文件后缀。例如 log_suffix.txt ，suffix 就是后缀
+	protected $mFilePrefix;      // 文件前缀。例如 prefix_suffix.txt ，prefix 就是前缀
+	protected $mFileStream;
+	protected $mStreamWriter;
 
-	public FileLogDevice()
+	public function __construct()
 	{
 		$this->mFilePrefix = "log";
 	}
 
-	public string fileSuffix
+	public function getFileSuffix()
 	{
-		get
-		{
-			return $this->mFileSuffix;
-		}
-		set
-		{
-			$this->mFileSuffix = value;
-		}
+		return $this->mFileSuffix;
+	}
+	
+	public function setFileSuffix($value)
+	{
+	    $this->mFileSuffix = $value;
 	}
 
-	public string filePrefix
+	public function getFilePrefix()
 	{
-		get
-		{
-			return $this->mFilePrefix; 
-		}
-		set
-		{
-			$this->mFilePrefix = value;
-		}
+		return $this->mFilePrefix; 
+	}
+	
+	public function setFilePrefix($value)
+	{
+	    $this->mFilePrefix = $value;
 	}
 
-	public bool isValid()
+	public function isValid()
 	{
 		return null != $this->mFileStream;
 	}
 
-	public override void initDevice()
+	public function initDevice()
 	{
 #if UNITY_EDITOR
 		//string path = string.Format("{0}{1}", Application.dataPath, "/Debug");

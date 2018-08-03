@@ -5,20 +5,20 @@ namespace SDK\Lib;
 /**
  * @brief 非优先级或者优先级列表
  */
-public interface INoOrPriorityList
+interface INoOrPriorityList
 {
-	void setIsSpeedUpFind(bool value);
-	void setIsOpKeepSort(bool value);
-	void Clear();
-	int Count();
+	function setIsSpeedUpFind($value);
+	function setIsOpKeepSort($value);
+	function Clear();
+	function Count();
 
-	INoOrPriorityObject get(int index);
-	bool Contains(INoOrPriorityObject item);
-	void RemoveAt(int index);
-	int getIndexByNoOrPriorityObject(INoOrPriorityObject priorityObject);
+	function get($index);
+	function Contains($item);
+	function RemoveAt($index);
+	function getIndexByNoOrPriorityObject($priorityObject);
 
-	void addNoOrPriorityObject(INoOrPriorityObject noPriorityObject, float priority = 0.0f);
-	void removeNoOrPriorityObject(INoOrPriorityObject noPriorityObject);
+	function addNoOrPriorityObject($noPriorityObject, $priority = 0.0);
+	function removeNoOrPriorityObject($noPriorityObject);
 }
 
 ?>

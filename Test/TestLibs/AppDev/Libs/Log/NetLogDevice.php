@@ -5,7 +5,7 @@ namespace SDK\Lib;
 /**
  * @brief 文件日志
  */
-public class NetLogDevice : LogDeviceBase
+class NetLogDevice extends LogDeviceBase
 {        
 	public void getTest()
 	{

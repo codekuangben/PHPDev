@@ -2,7 +2,7 @@
 
 namespace SDK\Lib;
 
-public class UtilXml
+class UtilXml
 {
 	public const int XML_OK = 0;
 	public const int XML_FAIL = 1;

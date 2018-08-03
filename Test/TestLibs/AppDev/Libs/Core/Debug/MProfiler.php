@@ -3,7 +3,7 @@
 namespace SDK\Lib;
 
 /**
- * @brief Profile，要一段时间配置一次，每一帧配置是没有意义的
+ * @brief Profile锛岃涓�娈垫椂闂撮厤缃竴娆★紝姣忎竴甯ч厤缃槸娌℃湁鎰忎箟鐨�
  */
 class MProfiler
 {
@@ -86,10 +86,10 @@ class MProfiler
 
 	protected function checkInternalState()
 	{
-		// 如果我们在 root ，我们可以更新我们内部开启的状态
+		// 濡傛灉鎴戜滑鍦� root 锛屾垜浠彲浠ユ洿鏂版垜浠唴閮ㄥ紑鍚殑鐘舵��
 		if ($this->mStackDepth == 0)
 		{
-			// 是否控制
+			// 鏄惁鎺у埗
 			if ($this->mIsStartProfile)
 			{
 				if (!$this->mPrintLog)
@@ -128,10 +128,10 @@ class MProfiler
 			}
 
 			$this->mReallyEnabled = $this->mEnabled;
-			// 必然开启设置这里，测试 enter 和 exit 不匹配       
+			// 蹇呯劧寮�鍚缃繖閲岋紝娴嬭瘯 enter 鍜� exit 涓嶅尮閰�       
 			// $this->mReallyEnabled = true;
 
-			// 清理所有配置数据，开始重新收集数据
+			// 娓呯悊鎵�鏈夐厤缃暟鎹紝寮�濮嬮噸鏂版敹闆嗘暟鎹�
 			if ($this->mWantWipe)
 			{
 				if (MacroDef.ENABLE_LOG)
@@ -142,7 +142,7 @@ class MProfiler
 				$this->doWipe();
 			}
 
-			// 输出配置
+			// 杈撳嚭閰嶇疆
 			if ($this->mWantReport)
 			{
 				if (MacroDef.ENABLE_LOG)
@@ -156,7 +156,7 @@ class MProfiler
 	}
 
 	/**
-	 * @brief 进入一个命名的函数块
+	 * @brief 杩涘叆涓�涓懡鍚嶇殑鍑芥暟鍧�
 	 */
 	public function enter($blockName)
 	{
@@ -165,7 +165,7 @@ class MProfiler
 			Ctx.mInstance.mLogSys.log(string.Format("MProfiler::enter, blockName = {0}, ReallyEnabled = {1}, StackDepth = {2}", blockName, $this->mReallyEnabled, $this->mStackDepth), LogTypeId.eLogProfileDebug);
 		}
 
-		// 第一次进入的时候判断是否有根节点
+		// 绗竴娆¤繘鍏ョ殑鏃跺�欏垽鏂槸鍚︽湁鏍硅妭鐐�
 		if (null == $this->mCurrentNode)
 		{
 			$this->mRootNode = new MProfileInfo($this->mRootNodeName);
@@ -181,7 +181,7 @@ class MProfiler
 			return;
 		}
 
-		// 查找 Child如果没有就创建
+		// 鏌ユ壘 Child濡傛灉娌℃湁灏卞垱寤�
 		$newNode = $this->mCurrentNode.mChildren[blockName];
 
 		if (null == newNode)
@@ -190,10 +190,10 @@ class MProfiler
 			$this->mCurrentNode.mChildren[blockName] = newNode;
 		}
 
-		// 压入堆栈
+		// 鍘嬪叆鍫嗘爤
 		$this->mCurrentNode = newNode;
 
-		// 开始计时 Child Node
+		// 寮�濮嬭鏃� Child Node
 		$this->mCurrentNode->mStartTime = UtilSysLibWrap.getFloatUTCMilliseconds();
 
 		if (MacroDef.ENABLE_LOG)
@@ -203,7 +203,7 @@ class MProfiler
 	}
 	
 	/**
-	 * @brief 指明我们退出一个命名执行块
+	 * @brief 鎸囨槑鎴戜滑閫�鍑轰竴涓懡鍚嶆墽琛屽潡
 	 */
 	public function exit($blockName)
 	{
@@ -212,7 +212,7 @@ class MProfiler
 			Ctx.mInstance.mLogSys.log(string.Format("MProfiler::exit, blockName = {0}, ReallyEnabled = {1}, StackDepth = {2}", blockName, $this->mReallyEnabled, $this->mStackDepth), LogTypeId.eLogProfileDebug);
 		}
 
-		// 更新堆栈深度，及早退出
+		// 鏇存柊鍫嗘爤娣卞害锛屽強鏃╅��鍑�
 		$this->mStackDepth -= 1;
 
 		if (!$this->mReallyEnabled)
@@ -222,10 +222,10 @@ class MProfiler
 
 		if (blockName != $this->mCurrentNode.mName)
 		{
-		    throw new Exception("MProfiler::exit, Mismatched Profiler.enter/Profiler.exit calls, got '" + $this->mCurrentNode.mName + "' but was expecting '" + blockName + "'");
+		    throw new \Exception("MProfiler::exit, Mismatched Profiler.enter/Profiler.exit calls, got '" + $this->mCurrentNode.mName + "' but was expecting '" + blockName + "'");
 		}
 
-		// 更新这个 node 的状态
+		// 鏇存柊杩欎釜 node 鐨勭姸鎬�
 		$currentTime = UtilSysLibWrap.getFloatUTCMilliseconds();
 		$elapsedTime = currentTime - $this->mCurrentNode.mStartTime;
 
@@ -247,12 +247,12 @@ class MProfiler
 			$this->mCurrentNode->mMinTime = elapsedTime;
 		}
 
-		// 弹出堆栈
+		// 寮瑰嚭鍫嗘爤
 		$this->mCurrentNode = $this->mCurrentNode.mParent;
 	}
 	
 	/**
-	 * @brief Dump 统计信息到日志，下一次我们到达堆栈底部
+	 * @brief Dump 缁熻淇℃伅鍒版棩蹇楋紝涓嬩竴娆℃垜浠埌杈惧爢鏍堝簳閮�
 	 */
 	public function report()
 	{
@@ -266,7 +266,7 @@ class MProfiler
 	}
 	
 	/**
-	 * 重置所有的统计信息到零
+	 * 閲嶇疆鎵�鏈夌殑缁熻淇℃伅鍒伴浂
 	 */
 	public function wipe()
 	{
@@ -280,13 +280,13 @@ class MProfiler
 	}
 	
 	/**
-	 * @brief 确保配置状态没有不匹配
+	 * @brief 纭繚閰嶇疆鐘舵�佹病鏈変笉鍖归厤
 	 */
 	public function ensureAtRoot()
 	{
 		if ($this->mStackDepth > 0)
 		{
-		    throw new Exception("MProfiler::ensureAtRoot, Not at root!");
+		    throw new \Exception("MProfiler::ensureAtRoot, Not at root!");
 		}
 	}
 	
@@ -315,7 +315,7 @@ class MProfiler
 	
 	private function reportNode($profileInfo, $indent)
 	{
-		$hasChild = false;   // 是否有 Child
+		$hasChild = false;   // 鏄惁鏈� Child
 		$totalTime = 0;
 
 		while(list($key, $val) = each($profileInfo->mChildren))
@@ -414,7 +414,7 @@ class MProfiler
 			$selfTimePercent = profileInfo.mSelfTime / ($this->mRootNode.mTotalTime) * 100;
 		}
 
-		// 这个开始字符主要看层次关系
+		// 杩欎釜寮�濮嬪瓧绗︿富瑕佺湅灞傛鍏崇郴
 		$startStr = indent.ToString();
 		$startPrefix = UtilStr.toStringByCount(indent * $this->mIndentAmount - startStr.Length, " ");
 

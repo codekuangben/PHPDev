@@ -26,11 +26,7 @@ class UniqueStrIdGen extends UniqueNumIdGen
 
 	public function genNewStrId()
 	{
-		$this->mStringBuilder = new System.Text.StringBuilder();
-		$this->mStringBuilder.Append($this->mPrefix);
-		$this->mStringBuilder.Append('_');
-		$this->mStringBuilder.Append($this->genNewId());
-		$this->mRetId = $this->mStringBuilder.ToString();
+	    $this->mRetId = $this->mPrefix . '_' . $this->genNewId();
 		return $this->mRetId;
 	}
 
@@ -41,11 +37,7 @@ class UniqueStrIdGen extends UniqueNumIdGen
 
 	public function genStrIdById($id)
 	{
-		$this->mStringBuilder = new StringBuilder();
-		$this->mStringBuilder.Append($this->mPrefix);
-		$this->mStringBuilder.Append('_');
-		$this->mStringBuilder.Append(id);
-		$this->mRetId = $this->mStringBuilder.ToString();
+	    $this->mRetId = $this->mPrefix . '_' . id;
 		return $this->mRetId;
 	}
 }

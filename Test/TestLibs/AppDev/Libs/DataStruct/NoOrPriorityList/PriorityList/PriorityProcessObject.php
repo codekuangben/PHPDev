@@ -5,15 +5,15 @@ namespace SDK\Lib;
 /**
  * @brief 优先级队列对象
  */
-public class PriorityProcessObject
+class PriorityProcessObject
 {
-	public INoOrPriorityObject mPriorityObject;
-	public float mPriority;
+	public $mPriorityObject;
+	public $mPriority;
 
-	public PriorityProcessObject()
+	public function __construct()
 	{
 		$this->mPriorityObject = null;
-		$this->mPriority = 0.0f;
+		$this->mPriority = 0.0;
 	}
 }
 

@@ -5,35 +5,35 @@ namespace SDK\Lib;
 /**
  * @brief 优先级队列
  */
-public class NoPriorityList : INoOrPriorityList
+class NoPriorityList implements INoOrPriorityList
 {
-	protected MList<INoOrPriorityObject> mNoPriorityProcessObjectList;  // 优先级对象列表
+	protected $mNoPriorityProcessObjectList;  // 优先级对象列表
 
-	protected MDictionary<INoOrPriorityObject, int> mDic;       // 查找字典
-	protected bool mIsSpeedUpFind;      // 是否开启查找
+	protected $mDic;       // 查找字典
+	protected $mIsSpeedUpFind;      // 是否开启查找
 
-	public NoPriorityList()
+	public function __construct()
 	{
-		$this->mNoPriorityProcessObjectList = new MList<INoOrPriorityObject>();
+		$this->mNoPriorityProcessObjectList = new MList();
 		$this->mIsSpeedUpFind = false;
 	}
 
-	public void setIsSpeedUpFind(bool value)
+	public function setIsSpeedUpFind($value)
 	{
 		$this->mIsSpeedUpFind = value;
 
 		if ($this->mIsSpeedUpFind)
 		{
-			$this->mDic = new MDictionary<INoOrPriorityObject, int>();
+			$this->mDic = new MDictionary();
 		}
 	}
 
-	public void setIsOpKeepSort(bool value)
+	public function setIsOpKeepSort($value)
 	{
 
 	}
 
-	public void Clear()
+	public function Clear()
 	{
 		$this->mNoPriorityProcessObjectList.Clear();
 
@@ -43,47 +43,47 @@ public class NoPriorityList : INoOrPriorityList
 		}
 	}
 
-	public int Count()
+	public function Count()
 	{
 		return $this->mNoPriorityProcessObjectList.Count();
 	}
 
-	public INoOrPriorityObject get(int index)
+	public function get($index)
 	{
-		INoOrPriorityObject ret = null;
+		$ret = null;
 
 		if(index < $this->Count())
 		{
-			ret = $this->mNoPriorityProcessObjectList.get(index);
+			$ret = $this->mNoPriorityProcessObjectList.get(index);
 		}
 
 		return ret;
 	}
 
-	public bool Contains(INoOrPriorityObject item)
+	public function Contains($item)
 	{
-		bool ret = false;
+		$ret = false;
 
-		if (null != item)
+		if (null != $item)
 		{
 			if ($this->mIsSpeedUpFind)
 			{
-				ret = $this->mDic.ContainsKey(item);
+				$ret = $this->mDic.ContainsKey(item);
 			}
 			else
 			{
-				int index = 0;
-				int listLen = $this->mNoPriorityProcessObjectList.Count();
+				$index = 0;
+				$listLen = $this->mNoPriorityProcessObjectList.Count();
 
 				while (index < listLen)
 				{
 					if (item == $this->mNoPriorityProcessObjectList.get(index))
 					{
-						ret = true;
+						$ret = true;
 						break;
 					}
 
-					++index;
+					++$index;
 				}
 			}
 		}
@@ -98,51 +98,51 @@ public class NoPriorityList : INoOrPriorityList
 		return ret;
 	}
 
-	public void RemoveAt(int index)
+	public function RemoveAt($index)
 	{
 		if ($this->mIsSpeedUpFind)
 		{
-			$this->effectiveRemove($this->mNoPriorityProcessObjectList[index]);
+			$this->effectiveRemove($this->mNoPriorityProcessObjectList[$index]);
 		}
 		else
 		{
-			$this->mNoPriorityProcessObjectList.RemoveAt(index);
+			$this->mNoPriorityProcessObjectList.RemoveAt($index);
 		}
 	}
 
-	public int getIndexByNoPriorityObject(INoOrPriorityObject priorityObject)
+	public function getIndexByNoPriorityObject($priorityObject)
 	{
-		int retIndex = -1;
+		$retIndex = -1;
 
-		int index = 0;
-		int listLen = $this->mNoPriorityProcessObjectList.Count();
+		$index = 0;
+		$listLen = $this->mNoPriorityProcessObjectList.Count();
 
-		while (index < listLen)
+		while ($index < $listLen)
 		{
-			if ($this->mNoPriorityProcessObjectList.get(index) == priorityObject)
+			if ($this->mNoPriorityProcessObjectList.get($index) == priorityObject)
 			{
-				retIndex = index;
+				$retIndex = $index;
 				break;
 			}
 
-			++index;
+			++$index;
 		}
 
-		return retIndex;
+		return $retIndex;
 	}
 
-	public int getIndexByNoOrPriorityObject(INoOrPriorityObject priorityObject)
+	public function getIndexByNoOrPriorityObject($priorityObject)
 	{
-		return $this->getIndexByNoPriorityObject(priorityObject);
+		return $this->getIndexByNoPriorityObject($priorityObject);
 	}
 
-	public void addNoPriorityObject(INoOrPriorityObject noPriorityObject)
+	public function addNoPriorityObject($noPriorityObject)
 	{
-		if (null != noPriorityObject)
+		if (null != $noPriorityObject)
 		{
-			if (!$this->Contains(noPriorityObject))
+			if (!$this->Contains($noPriorityObject))
 			{
-				$this->mNoPriorityProcessObjectList.Add(noPriorityObject);
+				$this->mNoPriorityProcessObjectList.Add($noPriorityObject);
 
 				if ($this->mIsSpeedUpFind)
 				{
@@ -159,23 +159,23 @@ public class NoPriorityList : INoOrPriorityList
 		}
 	}
 
-	public void removeNoPriorityObject(INoOrPriorityObject noPriorityObject)
+	public function removeNoPriorityObject($noPriorityObject)
 	{
-		if (null != noPriorityObject)
+		if (null != $noPriorityObject)
 		{
-			if ($this->Contains(noPriorityObject))
+			if ($this->Contains($noPriorityObject))
 			{
 				if ($this->mIsSpeedUpFind)
 				{
-					$this->effectiveRemove(noPriorityObject);
+					$this->effectiveRemove($noPriorityObject);
 				}
 				else
 				{
-					int index = $this->getIndexByNoPriorityObject(noPriorityObject);
+					$index = $this->getIndexByNoPriorityObject($noPriorityObject);
 
-					if (-1 != index)
+					if (-1 != $index)
 					{
-						$this->mNoPriorityProcessObjectList.RemoveAt(index);
+						$this->mNoPriorityProcessObjectList.RemoveAt($index);
 					}
 				}
 			}
@@ -189,52 +189,52 @@ public class NoPriorityList : INoOrPriorityList
 		}
 	}
 
-	public void addNoOrPriorityObject(INoOrPriorityObject noPriorityObject, float priority = 0.0f)
+	public function addNoOrPriorityObject($noPriorityObject, $priority = 0.0)
 	{
-		$this->addNoPriorityObject(noPriorityObject);
+		$this->addNoPriorityObject($noPriorityObject);
 	}
 
-	public void removeNoOrPriorityObject(INoOrPriorityObject noPriorityObject)
+	public function removeNoOrPriorityObject($noPriorityObject)
 	{
-		$this->removeNoPriorityObject(noPriorityObject);
+		$this->removeNoPriorityObject($noPriorityObject);
 	}
 
 	// 快速移除元素
-	protected bool effectiveRemove(INoOrPriorityObject item)
+	protected function effectiveRemove($item)
 	{
-		bool ret = false;
+		$ret = false;
 
-		if ($this->mDic.ContainsKey(item))
+		if ($this->mDic.ContainsKey($item))
 		{
-			ret = true;
+			$ret = true;
 
-			int idx = $this->mDic[item];
-			$this->mDic.Remove(item);
+			$idx = $this->mDic[$item];
+			$this->mDic.Remove($item);
 
-			if (idx == $this->mNoPriorityProcessObjectList.Count() - 1)    // 如果是最后一个元素，直接移除
+			if ($idx == $this->mNoPriorityProcessObjectList.Count() - 1)    // 如果是最后一个元素，直接移除
 			{
-				$this->mNoPriorityProcessObjectList.RemoveAt(idx);
+				$this->mNoPriorityProcessObjectList.RemoveAt($idx);
 			}
 			else
 			{
-				$this->mNoPriorityProcessObjectList.set(idx, $this->mNoPriorityProcessObjectList.get($this->mNoPriorityProcessObjectList.Count() - 1));
+				$this->mNoPriorityProcessObjectList.set($idx, $this->mNoPriorityProcessObjectList.get($this->mNoPriorityProcessObjectList.Count() - 1));
 				$this->mNoPriorityProcessObjectList.RemoveAt($this->mNoPriorityProcessObjectList.Count() - 1);
-				$this->mDic.Add($this->mNoPriorityProcessObjectList.get(idx), idx);
+				$this->mDic.Add($this->mNoPriorityProcessObjectList.get(idx), $idx);
 			}
 		}
 
 		return ret;
 	}
 
-	protected void updateIndex(int idx)
+	protected function updateIndex($idx)
 	{
-		int listLen = $this->mNoPriorityProcessObjectList.Count();
+		$listLen = $this->mNoPriorityProcessObjectList.Count();
 
-		while (idx < listLen)
+		while ($idx < $listLen)
 		{
-			$this->mDic.Add($this->mNoPriorityProcessObjectList.get(idx), idx);
+			$this->mDic.Add($this->mNoPriorityProcessObjectList.get($idx), $idx);
 
-			++idx;
+			++$idx;
 		}
 	}
 }

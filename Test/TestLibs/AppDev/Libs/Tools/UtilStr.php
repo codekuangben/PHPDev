@@ -2,7 +2,7 @@
 
 namespace SDK\Lib;
 
-public class UtilStr
+class UtilStr
 {
 	static public void removeLastCR(ref string srcStr)
 	{

@@ -1,92 +1,98 @@
-﻿using System.Collections.Generic;
+﻿<?php
 
 namespace SDK\Lib;
-{
-public class NetCmdNotify
-{
-	protected int mRevMsgCnt;      // 接收到消息的数量
-	protected int mHandleMsgCnt;   // 处理的消息的数量
 
-	protected List<NetModuleDispHandle> mNetModuleDispList;
-	protected bool mIsStopNetHandle;       // 是否停止网络消息处理
-	protected CmdDispInfo mCmdDispInfo;
+class NetCmdNotify
+{
+	protected $mRevMsgCnt;      // 接收到消息的数量
+	protected $mHandleMsgCnt;   // 处理的消息的数量
 
-	public NetCmdNotify()
+	protected $mNetModuleDispList;
+	protected $mIsStopNetHandle;       // 是否停止网络消息处理
+	protected $mCmdDispInfo;
+
+	public function __construct()
 	{
 		$this->mRevMsgCnt = 0;
 		$this->mHandleMsgCnt = 0;
-		$this->mNetModuleDispList = new List<NetModuleDispHandle>();
+		$this->mNetModuleDispList = new MList();
 		$this->mIsStopNetHandle = false;
 		$this->mCmdDispInfo = new CmdDispInfo();
 	}
 
-	public bool isStopNetHandle
+	public function isStopNetHandle()
 	{
-		get
+		return $this->mIsStopNetHandle;
+	}
+	
+	public function setIsStopNetHandle($value)
+	{
+	    $this->mIsStopNetHandle = $value;
+	}
+
+	public function addOneNofity($disp)
+	{
+		if ($this->mNetModuleDispList.IndexOf($disp) == -1)
 		{
-			return $this->mIsStopNetHandle;
-		}
-		set
-		{
-			$this->mIsStopNetHandle = value;
+			$this->mNetModuleDispList.Add($disp);
 		}
 	}
 
-	public void addOneNofity(NetModuleDispHandle disp)
+	public function removeOneNotify($disp)
 	{
-		if ($this->mNetModuleDispList.IndexOf(disp) == -1)
+		if ($this->mNetModuleDispList.IndexOf($disp) != -1)
 		{
-			$this->mNetModuleDispList.Add(disp);
+			$this->mNetModuleDispList.Remove($disp);
 		}
 	}
 
-	public void removeOneNotify(NetModuleDispHandle disp)
-	{
-		if ($this->mNetModuleDispList.IndexOf(disp) != -1)
-		{
-			$this->mNetModuleDispList.Remove(disp);
-		}
-	}
-
-	public void handleMsg(ByteBuffer msg)
+	public function handleMsg($msg)
 	{
 		//if (false == mIsStopNetHandle)  // 如果没有停止网络处理
 		//{
-		byte byCmd = 0;
-		msg.readUnsignedInt8(ref byCmd);
-		byte byParam = 0;
-		msg.readUnsignedInt8(ref byParam);
-		msg.setPos(0);
+		$byCmd = 0;
+		$msg.readUnsignedInt8($byCmd);
+		$byParam = 0;
+		$msg.readUnsignedInt8($byParam);
+		$msg.setPos(0);
 
-		mCmdDispInfo.bu = msg;
-		mCmdDispInfo.byCmd = byCmd;
-		mCmdDispInfo.byParam = byParam;
+		$mCmdDispInfo->bu = $msg;
+		$mCmdDispInfo->byCmd = $byCmd;
+		$mCmdDispInfo->byParam = $byParam;
 
-		foreach (var item in mNetModuleDispList)
+		$index = 0;
+		$listLen = $this->mNetModuleDispList.Count();
+		$item = null;
+		
+		while ($index < $listLen)
 		{
-			item.handleMsg(mCmdDispInfo);
+		    $item = $this->mNetModuleDispList.get($index);
+			$item.handleMsg($this->mCmdDispInfo);
+			
+			$index += 1;
 		}
 		//}
 	}
 
-	public void addOneRevMsg()
+	public function addOneRevMsg()
 	{
-		++$this->mRevMsgCnt;            
+	    ++$this->$mRevMsgCnt;            
 	}
 
-	public void addOneHandleMsg()
+	public function addOneHandleMsg()
 	{
-		++$this->mHandleMsgCnt;
+		++$this->$mHandleMsgCnt;
 	}
 
-	public void clearOneRevMsg()
+	public function clearOneRevMsg()
 	{
-		$this->mRevMsgCnt = 0;
+		$this->$mRevMsgCnt = 0;
 	}
 
-	public void clearOneHandleMsg()
+	public function clearOneHandleMsg()
 	{
-		$this->mHandleMsgCnt = 0;
+		$this->$mHandleMsgCnt = 0;
 	}
 }
-}
+
+?>

@@ -4,11 +4,11 @@ namespace SDK\Lib;
 
 class eFileOpState
 {
-	const eNoOp = 0;      // 无操作
-	const eOpening = 1;   // 打开中
-	const eOpenSuccess = 2;   // 打开成功
-	const eOpenFail = 3;      // 打开失败
-	const eOpenClose = 4;     // 关闭
+	public const eNoOp = 0;      // 无操作
+	public const eOpening = 1;   // 打开中
+	public const eOpenSuccess = 2;   // 打开成功
+	public const eOpenFail = 3;      // 打开失败
+	public const eOpenClose = 4;     // 关闭
 }
 
 /**
@@ -73,10 +73,10 @@ class MFileStream extends GObject
 
 			try
 			{
-				$this->mFileStream = new FileStream(mFilePath, mMode, mAccess);
+			    $this->mFileStream = fopen($this->mFilePath, $this->mMode, $this->mAccess);
 				$this->mFileOpState = eFileOpState.eOpenSuccess;
 			}
-			catch(Exception $exp)
+			catch(\Exception $exp)
 			{
 				$this->mFileOpState = eFileOpState.eOpenFail;
 			}
@@ -185,7 +185,7 @@ class MFileStream extends GObject
 
 					$retStr = encode.GetString(bytes);
 				}
-				catch (Exception $err)
+				catch (\Exception $err)
 				{
 						
 				}
@@ -213,7 +213,7 @@ class MFileStream extends GObject
 				//$bytes = new byte[count];
 				$this->mFileStream.Read(bytes, 0, count);
 			}
-			catch (Exception $err)
+			catch (\Exception $err)
 			{
 					
 			}
@@ -242,7 +242,7 @@ class MFileStream extends GObject
 				{
 					$this->mFileStream.Write(bytes, 0, bytes.Length);
 				}
-				catch (Exception $err)
+				catch (\Exception $err)
 				{
 						
 				}
@@ -269,7 +269,7 @@ class MFileStream extends GObject
 					{
 						$this->mFileStream.Write(bytes, offset, count);
 					}
-					catch (Exception $err)
+					catch (\Exception $err)
 					{
 							
 					}

@@ -4,7 +4,7 @@ namespace SDK\Lib;
 
 class UtilStr
 {
-	static public void removeLastCR(ref string srcStr)
+	static public function removeLastCR(ref string srcStr)
 	{
 		if(!string.IsNullOrEmpty(srcStr))
 		{
@@ -17,7 +17,7 @@ class UtilStr
 
 	//static public void split(ref string str, params string[] param)
 	// 仅支持一个符号分割
-	static public string[] split(ref string str, char splitSymbol)
+	static public function split(ref string str, char splitSymbol)
 	{
 		char[] split = new char[1];
 		split[0] = splitSymbol;
@@ -32,7 +32,7 @@ class UtilStr
 	}
 
 	// 计算字符最后出现的位置，仅支持一个字符， string::LastIndexOf 比较耗时，好像要进入本地代码执行
-	static public int LastIndexOf(ref string str, char findStr)
+	static public function LastIndexOf(ref string str, char findStr)
 	{
 		int lastIndex = -1;
 		int index = str.Length - 1; 
@@ -51,7 +51,7 @@ class UtilStr
 		return lastIndex;
 	}
 
-	static public int IndexOf(ref string str, char findStr)
+	static public function IndexOf(ref string str, char findStr)
 	{
 		int retIndex = -1;
 		int index = 0;
@@ -71,7 +71,7 @@ class UtilStr
 		return retIndex;
 	}
 
-	static public string toStringByCount(int count, string str)
+	static public function toStringByCount(int count, string str)
 	{
 		if(count < 0)
 		{
@@ -95,7 +95,7 @@ class UtilStr
 		return ret;
 	}
 
-	static public string formatFloat(float a, int b)
+	static public function formatFloat(float a, int b)
 	{
 		string s = a.ToString("F" + b);
 		return s;

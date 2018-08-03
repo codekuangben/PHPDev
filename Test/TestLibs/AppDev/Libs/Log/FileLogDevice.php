@@ -44,16 +44,11 @@ class FileLogDevice extends  LogDeviceBase
 
 	public function initDevice()
 	{
-#if UNITY_EDITOR
-		//string path = string.Format("{0}{1}", Application.dataPath, "/Debug");
-		string path = string.Format("{0}{1}", MFileSys.getWorkPath(), "/Debug");
-#else
-		string path = string.Format("{0}{1}", Application.persistentDataPath,"/Debug");
-#endif
+	    $path = MFileSys.getWorkPath() . "/Debug";
 		$this->checkDirSize(path); // 检查目录大小
 
-		string file;
-		if(string.IsNullOrEmpty(mFileSuffix))
+		$file;
+		if(string.IsNullOrEmpty($this->mFileSuffix))
 		{
 			file = string.Format("{0}/{1}_{2}{3}", path, mFilePrefix, UtilSysLibWrap.getUTCFormatText(), ".txt");
 		}

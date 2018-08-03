@@ -5,7 +5,7 @@ namespace SDK\Lib;
 /**
  * @brief 动态增长的缓冲区，不是环形的，从 0 开始增长的
  */
-public class DynBuffer<T>
+class DynBuffer<T>
 {
 	public uint mCapacity;         // 分配的内存空间大小，单位大小是字节
 	public uint mMaxCapacity;      // 最大允许分配的存储空间大小 

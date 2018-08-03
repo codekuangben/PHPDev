@@ -65,20 +65,20 @@ class LogSys
 		//$this->mEnableLogTypeList[(int)LogColor.eLC_ERROR].Add(LogTypeId.eLogLoadBug);
 		$this->mEnableLogTypeList[(int)LogColor.eLC_ERROR].Add(LogTypeId.eErrorDownload);
 
-		$this->mEnableLog = new bool[(int)LogColor.eLC_Count];
-		$this->mEnableLog[(int)LogColor.eLC_LOG] = MacroDef.ENABLE_LOG;
-		$this->mEnableLog[(int)LogColor.eLC_WARN] = MacroDef.ENABLE_WARN;
-		$this->mEnableLog[(int)LogColor.eLC_ERROR] = MacroDef.ENABLE_ERROR;
+		$this->mEnableLog = new MList();
+		$this->mEnableLog.Add(MacroDef.ENABLE_LOG);
+		$this->mEnableLog.Add(MacroDef.ENABLE_WARN);
+		$this->mEnableLog.Add(MacroDef.ENABLE_ERROR);
 
-		$this->mIsOutStack = new bool[(int)LogColor.eLC_Count];
-		$this->mIsOutStack[(int)LogColor.eLC_LOG] = false;
-		$this->mIsOutStack[(int)LogColor.eLC_WARN] = false;
-		$this->mIsOutStack[(int)LogColor.eLC_ERROR] = false;
+		$this->mIsOutStack = new MList();
+		$this->mIsOutStack.Add(false);
+		$this->mIsOutStack.Add(false);
+		$this->mIsOutStack.Add(false);
 
-		$this->mIsOutTimeStamp = new bool[(int)LogColor.eLC_Count];
-		$this->mIsOutTimeStamp[(int)LogColor.eLC_LOG] = false;
-		$this->mIsOutTimeStamp[(int)LogColor.eLC_WARN] = false;
-		$this->mIsOutTimeStamp[(int)LogColor.eLC_ERROR] = false;
+		$this->mIsOutTimeStamp = new MList();
+		$this->mIsOutTimeStamp.Add(false);
+		$this->mIsOutTimeStamp.Add(false);
+		$this->mIsOutTimeStamp.Add(false);
 	}
 
 	// 初始化逻辑处理
@@ -94,45 +94,43 @@ class LogSys
 		$this->closeDevice();
 	}
 
-	public function setEnableLog(bool value)
+	public function setEnableLog($value)
 	{
-		$this->mEnableLog[(int)LogColor.eLC_LOG] = value;
+		$this->mEnableLog.set(LogColor::eLC_LOG, value);
 	}
 
-	public function setEnableWarn(bool value)
+	public function setEnableWarn($value)
 	{
-		$this->mEnableLog[(int)LogColor.eLC_WARN] = value;
+	    $this->mEnableLog.set(LogColor::eLC_WARN, $value);
 	}
 
-	public function setEnableError(bool value)
+	public function setEnableError($value)
 	{
-		$this->mEnableLog[(int)LogColor.eLC_ERROR] = value;
+	    $this->mEnableLog.set(LogColor::eLC_ERROR, $value);
 	}
 
 	protected function registerDevice()
 	{
-		LogDeviceBase logDevice = null;
+		$logDevice = null;
 
-		if (MacroDef.ENABLE_WINLOG)
+		if (MacroDef::ENABLE_WINLOG)
 		{
-			logDevice = new WinLogDevice();
-			logDevice.initDevice();
-			$this->mLogDeviceList.Add(logDevice);
+		    $logDevice = new WinLogDevice();
+		    $logDevice->initDevice();
+		    $this->mLogDeviceList.Add($logDevice);
 		}
 
-		if (MacroDef.ENABLE_NETLOG)
+		if (MacroDef::ENABLE_NETLOG)
 		{
-			logDevice = new NetLogDevice();
-			logDevice.initDevice();
-			$this->mLogDeviceList.Add(logDevice);
+		    $logDevice = new NetLogDevice();
+		    $logDevice->initDevice();
+		    $this->mLogDeviceList.Add($logDevice);
 		}
 	}
 
 	// 注册文件日志，因为需要账号，因此需要等待输入账号后才能注册，可能多次注册
 	public function registerFileLogDevice()
 	{
-		Ctx.mInstance.mDataPlayer.mAccountData.m_account = "A1000";
-
 		if (MacroDef.ENABLE_FILELOG)
 		{
 			unRegisterFileLogDevice();

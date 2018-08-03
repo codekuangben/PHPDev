@@ -64,18 +64,15 @@ class FileLogDevice extends  LogDeviceBase
 		    Directory.CreateDirectory($path);            // 创建新路径
 		}
 
-		if (File.Exists(@file))                  // 如果文件存在
+		if (UtilFileIO::existFile($file))                  // 如果文件存在
 		{
-			//mFileStream = new FileStream(file, FileMode.Append);
-			File.Delete(@file);
-			$this->mFileStream = new FileStream(file, FileMode.Create);
+		    UtilFileIO::deleteFile($file);
+		    $this->mFileStream = fopen(file, "wb");
 		}
 		else
 		{
-			$this->mFileStream = new FileStream(file, FileMode.Create);
+		    $this->mFileStream = fopen(file, "wb");
 		}
-
-		$this->mStreamWriter = new StreamWriter($this->mFileStream);
 	}
 
 	public function closeDevice()
@@ -87,68 +84,16 @@ class FileLogDevice extends  LogDeviceBase
 	}
 
 	// 写文件
-	public function logout(string message, LogColor type = LogColor.eLC_LOG)
+	public function logout($message, $type = LogColor::eLC_LOG)
 	{
 		if ($this->isValid())
 		{
-			if ($this->mStreamWriter != null)
+		    if ($this->mFileStream != null)
 			{
-				$this->mStreamWriter.Write(message);
-				$this->mStreamWriter.Write("\n");
-				$this->mStreamWriter.Flush();             // 立马输出
+			    fwrite($this->mFileStream, message);
+			    fwrite($this->mFileStream, "\n");
+			    fflush($this->mFileStream);             // 立马输出
 			}
-		}
-	}
-
-	// 检测日志目录大小，如果太大，就删除
-	protected function checkDirSize($path)
-	{
-		if (Directory.Exists(path))
-		{
-			DirectoryInfo dirInfo = new DirectoryInfo(path);
-			long size = 0;
-
-			// 所有文件大小.
-			FileInfo[] files = dirInfo.GetFiles();
-
-			foreach (FileInfo file in files)
-			{
-				size += file.Length;
-			}
-
-			// 如果超过限制就删除
-			if (size > 10 * 1024 * 1024)
-			{
-				foreach (FileInfo file in files)
-				{
-					try
-					{
-						file.Delete();
-					}
-					catch (Exception /*err*/)
-					{
-
-					}
-				}
-			}
-
-			//{
-			//    string[] strFiles = Directory.GetFiles(path);
-
-			//    foreach (string strFile in strFiles)
-			//    {
-			//        FileInfo fileInfo = new FileInfo(strFile);
-			//        Size += fileInfo.Length;
-			//    }
-
-			//    if (Size > 10 * 1024 * 1024)
-			//    {
-			//        foreach (string strFile in strFiles)
-			//        {
-			//            File.Delete(strFile);
-			//        }
-			//    }
-			//}
 		}
 	}
 }

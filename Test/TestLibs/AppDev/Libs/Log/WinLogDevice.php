@@ -7,19 +7,19 @@ namespace SDK\Lib;
  */
 class WinLogDevice extends LogDeviceBase
 {
-	public override void logout(string message, LogColor type = LogColor.eLC_LOG)
+	public function logout($message, $type = LogColor::eLC_LOG)
 	{
-		if (type == LogColor.eLC_LOG)
+	    if (type == LogColor::eLC_LOG)
 		{
-			Debug.Log(message);
+			echo(message);
 		}
-		else if (type == LogColor.eLC_WARN)
+		else if (type == LogColor::eLC_WARN)
 		{
-			Debug.LogWarning(message);
+		    echo(message);
 		}
-		else if (type == LogColor.eLC_ERROR)
+		else if (type == LogColor::eLC_ERROR)
 		{
-			Debug.LogError(message);
+		    error(message);
 		}
 	}
 }

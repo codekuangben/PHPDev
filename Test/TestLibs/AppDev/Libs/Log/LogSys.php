@@ -27,7 +27,7 @@ class LogSys
 
 		$this->mEnableLogTypeList = new MList<LogTypeId>[(int)LogColor.eLC_Count];
 
-		$this->mEnableLogTypeList[(int)LogColor.eLC_LOG] = new MList>();
+		$this->mEnableLogTypeList[(int)LogColor.eLC_LOG] = new MList();
 		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogCommon);
 		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogResLoader);
 		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogLocalFile);
@@ -158,36 +158,6 @@ class LogSys
 		}
 	}
 
-	// 需要一个参数的
-	public function debugLog_1(LangItemID idx, string str)
-	{
-		string textStr = Ctx.mInstance.mLangMgr.getText(LangTypeId.eDebug5, idx);
-		$this->mTmpStr = string.Format(textStr, str);
-		//Ctx.mInstance.mLogSys.log(mTmpStr);
-	}
-
-	public function formatLog(LangTypeId type, LangItemID item, params string[] param)
-	{
-		if (param.Length == 0)
-		{
-			$this->mTmpStr = Ctx.mInstance.mLangMgr.getText(type, item);
-		}
-		else if (param.Length == 1)
-		{
-			$this->mTmpStr = string.Format(Ctx.mInstance.mLangMgr.getText(type, item), param[0], param[1]);
-		}
-		//Ctx.mInstance.mLogSys.log(mTmpStr);
-	}
-
-	/**
-	 * @brief 所有的异常日志都走这个接口
-	 */
-	public function catchLog(string message)
-	{
-		log("Out Catch Log");
-		log(message);
-	}
-
 	protected function isInFilter(LogTypeId logTypeId, LogColor logColor)
 	{
 		if ($this->mEnableLog[(int)logColor])
@@ -202,13 +172,7 @@ class LogSys
 
 		return false;
 	}
-
-	// Lua 调用 Log 这个函数的时候， LogTypeId 类型转换会报错，不能使用枚举类型
-	public function lua_log(string message, int logTypeId = 0)
-	{
-		$this->log(message, (LogTypeId)logTypeId);
-	}
-
+	
 	public function log(string message, LogTypeId logTypeId = LogTypeId.eLogCommon)
 	{
 		if (isInFilter(logTypeId, LogColor.eLC_LOG))
@@ -236,11 +200,6 @@ class LogSys
 		}
 	}
 
-	public function lua_warn(string message, int logTypeId = 0)
-	{
-		$this->warn(message, (LogTypeId)logTypeId);
-	}
-
 	public function warn(string message, LogTypeId logTypeId = LogTypeId.eLogCommon)
 	{
 		if (isInFilter(logTypeId, LogColor.eLC_WARN))
@@ -266,11 +225,6 @@ class LogSys
 				$this->asyncWarn(message);
 			}
 		}
-	}
-
-	public function lua_error(string message, int logTypeId = 0)
-	{
-		$this->error(message, (LogTypeId)logTypeId);
 	}
 
 	public function error(string message, LogTypeId logTypeId = LogTypeId.eLogCommon)
@@ -361,56 +315,11 @@ class LogSys
 		}
 	}
 
-	static private function onDebugLogCallbackHandler(string name, string stack, LogType type) 
-	{ 
-		// LogType.Log 日志直接自己输出
-		if (LogType.Error == type || LogType.Exception == type)
-		{
-			Ctx.mInstance.mLogSys.error("onDebugLogCallbackHandler ---- Error", LogTypeId.eLogUnityCB);
-			Ctx.mInstance.mLogSys.error(name, LogTypeId.eLogUnityCB);
-			Ctx.mInstance.mLogSys.error(stack, LogTypeId.eLogUnityCB);
-		}
-		else if(LogType.Assert == type || LogType.Warning == type)
-		{
-			Ctx.mInstance.mLogSys.warn("onDebugLogCallbackHandler ---- Warning", LogTypeId.eLogUnityCB);
-			Ctx.mInstance.mLogSys.warn(name, LogTypeId.eLogUnityCB);
-			Ctx.mInstance.mLogSys.warn(stack, LogTypeId.eLogUnityCB);
-		}
-	}
-
-	static private function onDebugLogCallbackThreadHandler(string name, string stack, LogType type)
-	{
-		if (LogType.Error == type || LogType.Exception == type)
-		{
-			Ctx.mInstance.mLogSys.error("onDebugLogCallbackThreadHandler ---- Error", LogTypeId.eLogUnityCB);
-			Ctx.mInstance.mLogSys.error(name, LogTypeId.eLogUnityCB);
-			Ctx.mInstance.mLogSys.error(stack, LogTypeId.eLogUnityCB);
-		}
-		else if (LogType.Assert == type || LogType.Warning == type)
-		{
-			Ctx.mInstance.mLogSys.warn("onDebugLogCallbackThreadHandler ---- Warning", LogTypeId.eLogUnityCB);
-			Ctx.mInstance.mLogSys.warn(name, LogTypeId.eLogUnityCB);
-			Ctx.mInstance.mLogSys.warn(stack, LogTypeId.eLogUnityCB);
-		}
-	}
-
 	protected function closeDevice()
 	{
 		foreach (LogDeviceBase logDevice in mLogDeviceList.list())
 		{
 			logDevice.closeDevice();
-		}
-	}
-
-	public function logLoad(InsResBase res)
-	{
-		if (res.refCountResLoadResultNotify.resLoadState.hasSuccessLoaded())
-		{
-			log(string.Format("{0} Loaded", res.getLoadPath()));
-		}
-		else if (res.refCountResLoadResultNotify.resLoadState.hasFailed())
-		{
-			log(string.Format("{0} Failed", res.getLoadPath()));
 		}
 	}
 }

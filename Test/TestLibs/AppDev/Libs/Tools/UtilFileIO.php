@@ -259,103 +259,103 @@ class UtilFileIO
 		}
 	}
 
-	static public function combine(params string[] pathList)
+	static public function combine(...$pathList)
 	{
-		int idx = 0;
-		string ret = "";
-		bool isFirst = true;
-		StringBuilder stringBuilder = new StringBuilder();
+		$idx = 0;
+		$listLen = UtilList::count($pathList);
+		$ret = "";
+		$isFirst = true;
 
-		while (idx < pathList.Length)
+		while ($idx < $listLen)
 		{
-			if (pathList[idx].Length > 0)
+		    if (UtilStr::length($pathList[$idx]) > 0)
 			{
-				if(!isFirst)
+			    if(!$isFirst)
 				{
-					stringBuilder.Append("/");
+				    $ret = $ret . "/";
 				}
 				else
 				{
-					isFirst = false;
+				    $isFirst = false;
 				}
 
-				stringBuilder.Append(pathList[idx]);
+				$ret = $ret . $pathList[$idx];
 			}
 
-			idx += 1;
+			$idx += 1;
 		}
 
-		ret = stringBuilder.ToString();
-		ret = ret.Replace("//", "/");
+		$ret = UtilStr::replace($ret, "//", "/");
 
 		return ret;
 	}
 
 	// 获取扩展名
-	static public function getFileExt(string path)
+	static public function getFileExt($path)
 	{
-		int dotIdx = path.LastIndexOf('.');
+	    $dotIdx = UtilStr::LastIndexOf($path, '.');
 
-		if (-1 != dotIdx)
+	    if (-1 != $dotIdx)
 		{
-			return path.Substring(dotIdx + 1);
+		    return UtilStr::substr($path, dotIdx + 1);
 		}
 
 		return "";
 	}
 
 	// 获取文件名字，没有路径，但是有扩展名字
-	static public string getFileNameWithExt(string fullPath)
+	static public function getFileNameWithExt($fullPath)
 	{
-		int index = fullPath.LastIndexOf('/');
-		string ret = "";
+	    $index = $fullPath.LastIndexOf('/');
+		$ret = "";
 
-		if (index == -1)
+		if ($index == -1)
 		{
-			index = fullPath.LastIndexOf('\\');
+		    $ret = UtilStr::LastIndexOf($fullPath, '\\');
 		}
-		if (index != -1)
+		if ($index != -1)
 		{
-			ret = fullPath.Substring(index + 1);
+		    $ret = UtilStr::substr($fullPath, $index + 1);
 		}
 		else
 		{
-			ret = fullPath;
+		    $ret = $fullPath;
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	// 获取文件名字，没有扩展名字
-	static public string getFileNameNoExt(string fullPath)
+	static public function getFileNameNoExt($fullPath)
 	{
-		int index = fullPath.LastIndexOf('/');
-		string ret = "";
+	    $index = UtilStr::LastIndexOf($fullPath, '/');
+		$ret = "";
 
-		if (index == -1)
+		if ($index == -1)
 		{
-			index = fullPath.LastIndexOf('\\');
+		    $index = UtilStr::LastIndexOf($fullPath, '\\');
 		}
-		if (index != -1)
+		if ($index != -1)
 		{
-			ret = fullPath.Substring(index + 1);
+		    $ret = UtilStr::substr($fullPath, $index + 1);
 		}
 		else
 		{
-			ret = fullPath;
+		    $ret = $fullPath;
 		}
 
-		index = ret.LastIndexOf('.');
-		if (index != -1)
+		$index = UtilStr::LastIndexOf($ret, '.');
+		
+		if ($index != -1)
 		{
-			ret = ret.Substring(0, index);
+		    $ret = UtilStr::substr($ret, 0, $index);
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	// 获取文件路径，没有文件名字
-	static public string getFilePathNoName(string fullPath)
+	static public function getFilePathNoName(string fullPath)
 	{
 		int index = fullPath.LastIndexOf('/');
 		string ret = "";
@@ -377,7 +377,7 @@ class UtilFileIO
 	}
 
 	// 获取文件路径，没有文件名字扩展
-	static public string getFilePathNoExt(string fullPath)
+	static public function getFilePathNoExt(string fullPath)
 	{
 		int index = 0;
 		string ret = fullPath;
@@ -392,7 +392,7 @@ class UtilFileIO
 	}
 
 	// 获取当前文件的父目录名字
-	static public string getFileParentDirName(string fullPath)
+	static public function getFileParentDirName(string fullPath)
 	{
 		string parentDir = "";
 		int lastSlashIndex = -1;
@@ -455,7 +455,7 @@ class UtilFileIO
 	}
 
 	// 搜索文件夹中的文件
-	static public MList<string> getAllFile(string path, MList<string> includeExtList = null, MList<string> excludeExtList = null, bool recursion = false)
+	static public function getAllFile(string path, MList<string> includeExtList = null, MList<string> excludeExtList = null, bool recursion = false)
 	{
 		DirectoryInfo dir = new DirectoryInfo(path);
 		MList<string> fileList = new MList<string>();
@@ -488,58 +488,6 @@ class UtilFileIO
 			}
 		}
 		return fileList;
-	}
-
-	// 添加版本的文件名，例如 E:/aaa/bbb/ccc.txt?v=1024
-	public static string versionPath(string path, string version)
-	{
-		if (!string.IsNullOrEmpty(version))
-		{
-			return string.Format("{0}?v={1}", path, version);
-		}
-		else
-		{
-			return path;
-		}
-	}
-
-	// 删除所有除去版本号外相同的文件，例如 E:/aaa/bbb/ccc.txt?v=1024 ，只要 E:/aaa/bbb/ccc.txt 一样就删除，参数就是 E:/aaa/bbb/ccc.txt ，没有版本号的文件
-	public static void delFileNoVer(string path)
-	{
-		path = normalPath(path);
-		DirectoryInfo TheFolder = new DirectoryInfo(path.Substring(0, path.LastIndexOf('/')));
-		FileInfo[] allFiles = TheFolder.GetFiles(string.Format("{0}*", path));
-		foreach (var item in allFiles)
-		{
-			item.Delete();
-		}
-	}
-
-	public static bool fileExistNoVer(string path)
-	{
-		path = normalPath(path);
-		DirectoryInfo TheFolder = new DirectoryInfo(path.Substring(0, path.LastIndexOf('/')));
-		FileInfo[] allFiles = TheFolder.GetFiles(string.Format("{0}*", path));
-
-		return allFiles.Length > 0;
-	}
-
-	static public void saveTex2File(Texture2D tex, string filePath)
-	{
-		//将图片信息编码为字节信息
-		byte[] bytes = tex.EncodeToPNG();
-		//保存
-		System.IO.File.WriteAllBytes(filePath, bytes);
-	}
-
-	static public void saveStr2File(string str, string filePath, Encoding encoding)
-	{
-		System.IO.File.WriteAllText(filePath, str, encoding);
-	}
-
-	static public void saveByte2File(string path, byte[] bytes)
-	{
-		System.IO.File.WriteAllBytes(path, bytes);
 	}
 
 	// 递归拷贝目录
@@ -795,18 +743,6 @@ class UtilFileIO
 		return ret;
 	}
 
-	// 打包成 unity3d 后文件名字会变成小写，这里修改一下
-	static public void modifyFileNameToCapital(string path, string fileNameNoExt)
-	{
-		string srcFullPath = string.Format("{0}/{1}.{2}", path, fileNameNoExt.ToLower(), UtilSysLibWrap.UNITY3D);
-		string destFullPath = string.Format("{0}/{1}.{2}", path, fileNameNoExt, UtilSysLibWrap.UNITY3D);
-		UtilFileIO.move(srcFullPath, destFullPath);
-
-		srcFullPath = string.Format("{0}/{1}.{2}.manifest", path, fileNameNoExt.ToLower(), UtilSysLibWrap.UNITY3D);
-		destFullPath = string.Format("{0}/{1}.{2}.manifest", path, fileNameNoExt, UtilSysLibWrap.UNITY3D);
-		UtilFileIO.move(srcFullPath, destFullPath);
-	}
-
 	// 大写转换成小写
 	static public string toLower(string src)
 	{
@@ -845,25 +781,6 @@ class UtilFileIO
 		}
 
 		UtilFileIO.createDirectory(UtilFileIO.combine(rootPath, subPath));
-	}
-
-	// Android 运行时
-	static public bool isAndroidRuntime()
-	{
-		return Application.platform == RuntimePlatform.Android;
-	}
-
-	// windows 运行时
-	static public bool isWindowsRuntime()
-	{
-		return Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor;
-	}
-
-	// 是否是 StreamingAssetsPath 目录
-	static public bool isStreamingAssetsPath(string path)
-	{
-		path = UtilFileIO.normalPath(path);
-		return path.IndexOf(MFileSys.msDataStreamStreamingAssetsPath) == 0;
 	}
 
 	static public string getCurrentDirectory()
@@ -938,17 +855,6 @@ class UtilFileIO
 				ret = path.Substring(0, path.Length - suffix.Length);
 			}
 		}
-
-		return ret;
-	}
-
-	// 通过文件名字和版本检查文件是否存在
-	static public bool checkFileFullNameExistByVersion(string fileFullName, string version)
-	{
-		bool ret = false;
-
-		string path = UtilFileIO.versionPath(fileFullName, version);
-		ret = UtilFileIO.existFile(path);
 
 		return ret;
 	}

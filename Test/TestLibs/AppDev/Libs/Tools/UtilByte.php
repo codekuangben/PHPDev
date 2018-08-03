@@ -5,12 +5,12 @@ namespace SDK\Lib;
 /**
  *@brief 字节编码解码，大端小端
  */
-public class UtilByte
+class UtilByte
 {
 	/**
 	 *@brief 检查大端小端
 	 */
-	static public void checkEndian()
+    public static void checkEndian()
 	{
 		// 检测默认编码
 		// 方法一

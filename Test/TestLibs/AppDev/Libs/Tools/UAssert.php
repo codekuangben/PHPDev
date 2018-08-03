@@ -2,13 +2,13 @@
 
 namespace SDK\Lib;
 
-public class UAssert
+class UAssert
 {
-	public static void DebugAssert(bool condation)
+	public static function DebugAssert($condation)
 	{
 		if(!condation)
 		{
-			throw new Exception("DebugAssert Error");
+			throw new \Exception("DebugAssert Error");
 		}
 	}
 }

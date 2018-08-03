@@ -59,7 +59,7 @@ class UtilStr
 
 		while ($index >= 0)
 		{
-		    if($srcStr[$index] == findStr)
+		    if($srcStr[$index] == $findStr)
 			{
 				$lastIndex = $index;
 				break;

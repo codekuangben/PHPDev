@@ -42,9 +42,6 @@ class Ctx
 	public $mSystemFrameData;
 	public $mSystemTimeData;
 	
-	public $mGcAutoCollect;     // 自动垃圾回收
-	public $mMemoryCheck;       // 内存查找
-	
 	public $mGlobalDelegate;
 	public $mIdPoolSys;
 	public $mUniqueStrIdGen;
@@ -87,7 +84,6 @@ class Ctx
 		$this->mSystemTimeData = new SystemTimeData();
 
 		$this->mGcAutoCollect = new GCAutoCollect();
-		$this->mMemoryCheck = new MemoryCheck();
 		$this->mCfg = new Config();
 		$this->mFactoryBuild = new FactoryBuild();
 		$this->mNetMgr = new NetworkMgr();

@@ -126,6 +126,14 @@ class MDictionary
 
 		return $ret;
 	}
+	
+	public function traverse()
+	{
+	    while(list($key, $val)= each($this->mData))
+	    {
+	        echo $key . $val . "<br>";
+	    }
+	}
 }
 
 ?>

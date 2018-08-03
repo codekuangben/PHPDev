@@ -2,7 +2,7 @@
 
 namespace SDK\Lib;
 
-public enum GkEncode
+class MEncode
 {
 	/**
 	static public Encoding UTF8 = Encoding.UTF8;
@@ -11,10 +11,10 @@ public enum GkEncode
 	static public Encoding Unicode = Encoding.Unicode;
 	static public Encoding Default = Encoding.Default;
 	*/
-	eUTF8 = 0,
-	eGB2312 = 1,
-	eUnicode = 2,
-	eDefault = 3,
+	public const eUTF8 = 0;
+	public const eGB2312 = 1;
+	public const eUnicode = 2;
+	public const eDefault = 3;
 }
 
 ?>

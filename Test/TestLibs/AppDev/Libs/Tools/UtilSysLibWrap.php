@@ -127,19 +127,19 @@ class UtilSysLibWrap
 	{
 		$retEncode = System.Text.Encoding.UTF8;
 
-		if (GkEncode.eUTF8 == gkEncode)
+		if (MEncode.eUTF8 == gkEncode)
 		{
 			$retEncode = System.Text.Encoding.UTF8;
 		}
-		else if (GkEncode.eGB2312 == gkEncode)
+		else if (MEncode.eGB2312 == gkEncode)
 		{
 			$retEncode = System.Text.Encoding.UTF8;
 		}
-		else if (GkEncode.eUnicode == gkEncode)
+		else if (MEncode.eUnicode == gkEncode)
 		{
 			$retEncode = System.Text.Encoding.Unicode;
 		}
-		else if (GkEncode.eDefault == gkEncode)
+		else if (MEncode.eDefault == gkEncode)
 		{
 			//$retEncode = System.Text.Encoding.Default;
 		}

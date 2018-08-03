@@ -302,7 +302,7 @@ public class ByteBuffer : IDispatchObject
 	}
 
 	//public ByteBuffer readMultiByte(ref string tmpStr, uint len, Encoding charSet)
-	public ByteBuffer readMultiByte(ref string tmpStr, uint len, GkEncode gkCharSet)
+	public ByteBuffer readMultiByte(ref string tmpStr, uint len, MEncode gkCharSet)
 	{
 		Encoding charSet = UtilSysLibWrap.convGkEncode2EncodingEncoding(gkCharSet);
 
@@ -485,7 +485,7 @@ public class ByteBuffer : IDispatchObject
 
 	// 写入字符串
 	//public void writeMultiByte(string value, Encoding charSet, int len)
-	public void writeMultiByte(string value, GkEncode gkCharSet, int len)
+	public void writeMultiByte(string value, MEncode gkCharSet, int len)
 	{
 		Encoding charSet = UtilSysLibWrap.convGkEncode2EncodingEncoding(gkCharSet);
 		int num = 0;

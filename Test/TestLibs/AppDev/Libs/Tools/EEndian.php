@@ -2,10 +2,10 @@
 
 namespace SDK\Lib;
 
-enum EEndian
+class EEndian
 {
-	eBIG_ENDIAN,         // 大端
-	eLITTLE_ENDIAN,      // 小端
+    public const eBIG_ENDIAN = 0;         // 大端
+    public const eLITTLE_ENDIAN = 1;      // 小端
 }
 
 ?>

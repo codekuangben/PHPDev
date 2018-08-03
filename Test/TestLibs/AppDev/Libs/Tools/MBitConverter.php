@@ -2,7 +2,7 @@
 
 namespace SDK\Lib;
 
-public class MBitConverter
+class MBitConverter
 {
 	public static bool ToBoolean(
 		byte[] bytes, 

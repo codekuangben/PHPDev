@@ -4,8 +4,8 @@ namespace SDK\Lib;
 
 class UtilXml
 {
-	public const int XML_OK = 0;
-	public const int XML_FAIL = 1;
+	public const XML_OK = 0;
+	public const XML_FAIL = 1;
 
 	static public int getXmlAttrBool(SecurityElement attr, string name, ref bool ret)
 	{

@@ -45,31 +45,22 @@ class FileLogDevice extends  LogDeviceBase
 	public function initDevice()
 	{
 	    $path = MFileSys.getWorkPath() . "/Debug";
-		$this->checkDirSize(path); // 检查目录大小
+	    $this->checkDirSize($path); // 检查目录大小
 
-		$file;
-		if(string.IsNullOrEmpty($this->mFileSuffix))
+		$file = "";
+		if(UtilStr::IsNullOrEmpty($this->mFileSuffix))
 		{
-			file = string.Format("{0}/{1}_{2}{3}", path, mFilePrefix, UtilSysLibWrap.getUTCFormatText(), ".txt");
+		    $file = UtilStr::Format("{0}/{1}_{2}{3}", $path, $this->mFilePrefix, UtilSysLibWrap::getUTCFormatText(), ".txt");
 		}
 		else
 		{
-			file = string.Format("{0}/{1}_{2}{3}{4}{5}", path, mFilePrefix, mFileSuffix, "_", UtilSysLibWrap.getUTCFormatText(), ".txt");
+		    $file = UtilStr::Format("{0}/{1}_{2}{3}{4}{5}", $path, $this->mFilePrefix, $this->mFileSuffix, "_", UtilSysLibWrap::getUTCFormatText(), ".txt");
 		}
 		
-		if (!Directory.Exists(path))                    // 判断是否存在
+		if (!Directory.Exists($path))                    // 判断是否存在
 		{
-			Directory.CreateDirectory(path);            // 创建新路径
+		    Directory.CreateDirectory($path);            // 创建新路径
 		}
-
-		//if (File.Exists(@file))                  // 判断文件是否存在
-		//{
-		//    FileInfo fileinfo = new FileInfo(file);
-		//    if (fileinfo.Length > 1 * 1024 * 1024)           // 如果大于 1 M ，就删除
-		//    {
-		//        File.Delete(@file);
-		//    }
-		//}
 
 		if (File.Exists(@file))                  // 如果文件存在
 		{
@@ -85,18 +76,16 @@ class FileLogDevice extends  LogDeviceBase
 		$this->mStreamWriter = new StreamWriter($this->mFileStream);
 	}
 
-	public override void closeDevice()
+	public function closeDevice()
 	{
 		$this->mStreamWriter.Flush();
 		//关闭流
-		$this->mStreamWriter.Close();
-		$this->mStreamWriter = null;
 		$this->mFileStream.Close();
 		$this->mFileStream = null;
 	}
 
 	// 写文件
-	public override void logout(string message, LogColor type = LogColor.eLC_LOG)
+	public function logout(string message, LogColor type = LogColor.eLC_LOG)
 	{
 		if ($this->isValid())
 		{
@@ -104,20 +93,13 @@ class FileLogDevice extends  LogDeviceBase
 			{
 				$this->mStreamWriter.Write(message);
 				$this->mStreamWriter.Write("\n");
-				//if (type == LogColor.WARN || type == LogColor.ERROR)
-				//{
-				//    m_stackTrace = new StackTrace(true);        // 这个在 new 的地方生成当时堆栈数据，需要的时候再 new ，否则是旧的堆栈数据
-				//    m_traceStr = m_stackTrace.ToString();
-				//    mStreamWriter.Write(m_traceStr);
-				//    mStreamWriter.Write("\n");
-				//}
 				$this->mStreamWriter.Flush();             // 立马输出
 			}
 		}
 	}
 
 	// 检测日志目录大小，如果太大，就删除
-	protected void checkDirSize(string path)
+	protected function checkDirSize($path)
 	{
 		if (Directory.Exists(path))
 		{

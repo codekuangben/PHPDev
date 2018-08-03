@@ -2,12 +2,12 @@
 
 namespace SDK\Lib;
 
-public enum CryptAlgorithm
+class CryptAlgorithm
 {
-	DES,        // des 加密算法
-	RC5,        // 加密算法
+    public const DES = 0;        // des 加密算法
+    public const RC5 = 1;        // 加密算法
 
-	eTotal
+    public const eTotal = 2;
 }
 
 ?>

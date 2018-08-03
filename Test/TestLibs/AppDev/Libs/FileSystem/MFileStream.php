@@ -222,7 +222,7 @@ class MFileStream extends GObject
 		return $bytes;
 	}
 
-	public function writeText($text, $gkEncode = GkEncode.eUTF8)
+	public function writeText($text, $gkEncode = MEncode.eUTF8)
 	{
 		$encode = UtilSysLibWrap.convGkEncode2EncodingEncoding(gkEncode);
 
@@ -232,7 +232,7 @@ class MFileStream extends GObject
 		{
 			//if (encode == null)
 			//{
-			//    encode = GkEncode.UTF8;
+			//    encode = MEncode.UTF8;
 			//}
 
 			$bytes = encode.GetBytes(text);
@@ -278,7 +278,7 @@ class MFileStream extends GObject
 		}
 	}
 
-	public function writeLine($text, $gkEncode = GkEncode.eUTF8)
+	public function writeLine($text, $gkEncode = MEncode.eUTF8)
 	{
 		$text = $text + UtilSysLibWrap.CR_LF;
 		writeText($text, gkEncode);

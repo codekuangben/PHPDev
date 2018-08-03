@@ -417,6 +417,14 @@ class MList
 		
 		return $R;
 	}
+	
+	public function traverse()
+	{
+	    foreach($this->mList as $item)
+	    {
+	        echo $item."<br>";
+	    }
+	}
 }
 
 ?>

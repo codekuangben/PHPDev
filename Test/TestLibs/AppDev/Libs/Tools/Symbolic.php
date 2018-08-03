@@ -2,10 +2,10 @@
 
 namespace SDK\Lib;
 
-public class Symbolic
+class Symbolic
 {
-	public const char CR = '\r';  // 13
-	public const char LF = '\n';  // 10
+	public const CR = '\r';  // 13
+	public const LF = '\n';  // 10
 }
 
 ?>

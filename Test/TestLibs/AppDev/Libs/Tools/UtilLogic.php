@@ -531,16 +531,16 @@ public class UtilLogic
 
 	static public void convFullPath2AtlasPathAndName(string fullPath, ref string atlasPath, ref string spriteName, ref int spriteDepth)
 	{
-		string path = UtilPath.getFilePathNoName(fullPath);
+		string path = UtilFileIO.getFilePathNoName(fullPath);
 		atlasPath = string.Format("Atlas/{0}.asset", path);
-		spriteName = UtilPath.getFileNameNoExt(fullPath);
+		spriteName = UtilFileIO.getFileNameNoExt(fullPath);
 		spriteDepth = Ctx.mInstance.mSceneLayerSys.getLayerDepthByAtlas(atlasPath);
 	}
 
 	static public void convShadowFullPath2AtlasPathAndName(string fullPath, ref string atlasPath, ref string spriteName)
 	{
 		atlasPath = "Atlas/Planes/Shadow.asset";
-		spriteName = UtilPath.getFileNameNoExt(fullPath);
+		spriteName = UtilFileIO.getFileNameNoExt(fullPath);
 	}
 
 	//内测总榜排行

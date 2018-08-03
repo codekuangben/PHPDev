@@ -2,24 +2,24 @@
 
 namespace SDK\Lib;
 
-enum MSearchOption
+class MSearchOption
 {
-	eTopDirectoryOnly = 0,
-	eAllDirectories = 1,
+	public const eTopDirectoryOnly = 0;
+	public const eAllDirectories = 1;
 }
 
-public class UtilPath
+class UtilFileIO
 {
-	public const string DOT = ".";
-	public const string SLASH = "/";
+	public const DOT = ".";
+	public const SLASH = "/";
 
-	public static string normalPath(string path)
+	public static function normalPath($path)
 	{
-		return path.Replace('\\', '/');
+	    return UtilStr::replace($path, '\\', '/');
 	}
 
 	// 删除目录的时候，一定要关闭这个文件夹，否则删除文件夹可能出错
-	static public void deleteDirectory(string path, bool recursive = true)
+	public static function deleteDirectory(string path, bool recursive = true)
 	{
 		if (Directory.Exists(path))
 		{
@@ -29,25 +29,25 @@ public class UtilPath
 			}
 			catch (Exception err)
 			{
-				Debug.Log(string.Format("UtilPath::DeleteDirectory, error, Error = {0}, path = {1}", err.Message, path));
+				Debug.Log(string.Format("UtilFileIO::DeleteDirectory, error, Error = {0}, path = {1}", err.Message, path));
 			}
 		}
 	}
 
 	// 目录是否存在
-	static public bool existDirectory(string path)
+	static public function existDirectory(string path)
 	{
 		return Directory.Exists(path);
 	}
 
 	// 文件是否存在
-	static public bool existFile(string path)
+	static public function existFile(string path)
 	{
 		return File.Exists(path);
 	}
 
 	// 移动文件
-	static public void move(string srcPath, string destPath)
+	static public function move(string srcPath, string destPath)
 	{
 		try
 		{
@@ -55,13 +55,13 @@ public class UtilPath
 		}
 		catch (Exception err)
 		{
-			Debug.Log(string.Format("UtilPath::move error, ErrorMsg = {0}, srcPath = {1}, destPath = {2}", err.Message, srcPath, destPath));
+			Debug.Log(string.Format("UtilFileIO::move error, ErrorMsg = {0}, srcPath = {1}, destPath = {2}", err.Message, srcPath, destPath));
 		}
 	}
 
-	public static bool deleteFile(string path)
+	public static function deleteFile(string path)
 	{
-		if (UtilPath.existFile(path))
+		if (UtilFileIO.existFile(path))
 		{
 			try
 			{
@@ -69,7 +69,7 @@ public class UtilPath
 			}
 			catch (Exception err)
 			{
-				Debug.Log(string.Format("UtilPath::deleteFile, error, Path = {0}, ErrorMessage = {1}", path, err.Message));
+				Debug.Log(string.Format("UtilFileIO::deleteFile, error, Path = {0}, ErrorMessage = {1}", path, err.Message));
 			}
 		}
 
@@ -77,7 +77,7 @@ public class UtilPath
 	}
 
 	// destFileName 目标路径和文件名字
-	public static void copyFile(string sourceFileName, string destFileName, bool overwrite = false)
+	public static function copyFile(string sourceFileName, string destFileName, bool overwrite = false)
 	{
 		try
 		{
@@ -85,11 +85,11 @@ public class UtilPath
 		}
 		catch (Exception err)
 		{
-			Debug.Log(string.Format("UtilPath::copyFile, error, ErrorMsg = {0}, sourceFileName = {1}, destFileName = {2}", err.Message, sourceFileName, destFileName));
+			Debug.Log(string.Format("UtilFileIO::copyFile, error, ErrorMsg = {0}, sourceFileName = {1}, destFileName = {2}", err.Message, sourceFileName, destFileName));
 		}
 	}
 
-	static public void createDirectory(string pathAndName, bool isRecurse = false)
+	static public function createDirectory(string pathAndName, bool isRecurse = false)
 	{
 		if (isRecurse)
 		{
@@ -139,7 +139,7 @@ public class UtilPath
 			}
 			catch (Exception err)
 			{
-				Debug.Log(string.Format("UtilPath::CreateDirectory, error, ErrorMsg = {0}, pathAndName = {1}", err.Message, pathAndName));
+				Debug.Log(string.Format("UtilFileIO::CreateDirectory, error, ErrorMsg = {0}, pathAndName = {1}", err.Message, pathAndName));
 			}
 		}
 	}
@@ -148,9 +148,9 @@ public class UtilPath
 	{
 		try
 		{
-			if (UtilPath.existFile(srcPath))
+			if (UtilFileIO.existFile(srcPath))
 			{
-				UtilPath.move(srcPath, destPath);
+				UtilFileIO.move(srcPath, destPath);
 				return true;
 			}
 			else
@@ -160,7 +160,7 @@ public class UtilPath
 		}
 		catch (Exception excep)
 		{
-			Debug.Log(string.Format("UtilPath::renameFile, error, ErrorMsg = {0}, srcPath = {1}, destPath = {2}", excep.Message, srcPath, destPath));
+			Debug.Log(string.Format("UtilFileIO::renameFile, error, ErrorMsg = {0}, srcPath = {1}, destPath = {2}", excep.Message, srcPath, destPath));
 			return false;
 		}
 	}
@@ -309,7 +309,7 @@ public class UtilPath
 		int lastSlashIndex = -1;
 
 		// 如果是文件
-		if (UtilPath.existFile(fullPath))
+		if (UtilFileIO.existFile(fullPath))
 		{
 			lastSlashIndex = fullPath.LastIndexOf("/");
 
@@ -375,7 +375,7 @@ public class UtilPath
 		FileInfo[] allFile = dir.GetFiles();
 		foreach (FileInfo file in allFile)
 		{
-			extName = UtilPath.getFileExt(file.FullName);
+			extName = UtilFileIO.getFileExt(file.FullName);
 			if (includeExtList != null && includeExtList.IndexOf(extName) != -1)
 			{
 				fileList.Add(normalPath(file.FullName));
@@ -461,7 +461,7 @@ public class UtilPath
 
 		if (targetDirInfo.FullName.StartsWith(sourceDirInfo.FullName, StringComparison.CurrentCultureIgnoreCase))
 		{
-			Debug.Log("UtilPath::copyDirectory, error, destPath is srcPath subDir, can not copy");
+			Debug.Log("UtilFileIO::copyDirectory, error, destPath is srcPath subDir, can not copy");
 			return;
 		}
 
@@ -479,7 +479,7 @@ public class UtilPath
 
 		for (int i = 0; i < files.Length; i++)
 		{
-			UtilPath.copyFile(files[i].FullName, targetDirInfo.FullName + "/" + files[i].Name, true);
+			UtilFileIO.copyFile(files[i].FullName, targetDirInfo.FullName + "/" + files[i].Name, true);
 		}
 
 		DirectoryInfo[] dirs = sourceDirInfo.GetDirectories();
@@ -512,7 +512,7 @@ public class UtilPath
 
 			if (targetDirInfo.FullName.StartsWith(sourceDirInfo.FullName, StringComparison.CurrentCultureIgnoreCase))
 			{
-				Debug.Log("UtilPath::traverseDirectory, error, destPath is srcPath subDir, can not copy");
+				Debug.Log("UtilFileIO::traverseDirectory, error, destPath is srcPath subDir, can not copy");
 				return;
 			}
 		}
@@ -524,9 +524,9 @@ public class UtilPath
 
 		if (!string.IsNullOrEmpty(destPath))
 		{
-			if (!UtilPath.existDirectory(destPath) && isCreateDestPath)
+			if (!UtilFileIO.existDirectory(destPath) && isCreateDestPath)
 			{
-				UtilPath.createDirectory(destPath);
+				UtilFileIO.createDirectory(destPath);
 				targetDirInfo = new DirectoryInfo(destPath);
 			}
 		}
@@ -593,15 +593,15 @@ public class UtilPath
 			{
 				if (fileList.IndexOf(fileName) != -1)
 				{
-					UtilPath.deleteFile(file.FullName);
+					UtilFileIO.deleteFile(file.FullName);
 				}
 			}
 			if (extNameList != null)
 			{
-				extName = UtilPath.getFileExt(file.FullName);
+				extName = UtilFileIO.getFileExt(file.FullName);
 				if (extNameList.IndexOf(extName) != -1)
 				{
-					UtilPath.deleteFile(file.FullName);
+					UtilFileIO.deleteFile(file.FullName);
 				}
 			}
 		}
@@ -626,26 +626,26 @@ public class UtilPath
 		foreach (FileInfo file in files)
 		{
 			string fileName = file.Name;
-			normalPath = UtilPath.normalPath(file.FullName);
-			if (!UtilPath.isEqualStrInList(normalPath, excludeFileList))
+			normalPath = UtilFileIO.normalPath(file.FullName);
+			if (!UtilFileIO.isEqualStrInList(normalPath, excludeFileList))
 			{
-				UtilPath.deleteFile(file.FullName);
+				UtilFileIO.deleteFile(file.FullName);
 			}
 		}
 
 		// 递归删除子文件夹内文件
 		foreach (DirectoryInfo childFolder in fatherFolder.GetDirectories())
 		{
-			normalPath = UtilPath.normalPath(childFolder.FullName);
-			if(!UtilPath.isEqualStrInList(normalPath, excludeDirList))
+			normalPath = UtilFileIO.normalPath(childFolder.FullName);
+			if(!UtilFileIO.isEqualStrInList(normalPath, excludeDirList))
 			{
-				if (UtilPath.isSubStrInList(normalPath, excludeDirList) && !UtilPath.isSubStrInList(normalPath, excludeFileList))
+				if (UtilFileIO.isSubStrInList(normalPath, excludeDirList) && !UtilFileIO.isSubStrInList(normalPath, excludeFileList))
 				{
-					UtilPath.deleteDirectory(childFolder.FullName, true);
+					UtilFileIO.deleteDirectory(childFolder.FullName, true);
 				}
 				else
 				{
-					UtilPath.deleteSubDirsAndFiles(childFolder.FullName, excludeDirList, excludeFileList);
+					UtilFileIO.deleteSubDirsAndFiles(childFolder.FullName, excludeDirList, excludeFileList);
 				}
 			}
 		}
@@ -711,11 +711,11 @@ public class UtilPath
 	{
 		string srcFullPath = string.Format("{0}/{1}.{2}", path, fileNameNoExt.ToLower(), UtilSysLibWrap.UNITY3D);
 		string destFullPath = string.Format("{0}/{1}.{2}", path, fileNameNoExt, UtilSysLibWrap.UNITY3D);
-		UtilPath.move(srcFullPath, destFullPath);
+		UtilFileIO.move(srcFullPath, destFullPath);
 
 		srcFullPath = string.Format("{0}/{1}.{2}.manifest", path, fileNameNoExt.ToLower(), UtilSysLibWrap.UNITY3D);
 		destFullPath = string.Format("{0}/{1}.{2}.manifest", path, fileNameNoExt, UtilSysLibWrap.UNITY3D);
-		UtilPath.move(srcFullPath, destFullPath);
+		UtilFileIO.move(srcFullPath, destFullPath);
 	}
 
 	// 大写转换成小写
@@ -737,7 +737,7 @@ public class UtilPath
 			subPath = subPath.Substring(0, subPath.LastIndexOf('/'));
 		}
 
-		if (UtilPath.existDirectory(UtilPath.combine(rootPath, subPath)))
+		if (UtilFileIO.existDirectory(UtilFileIO.combine(rootPath, subPath)))
 		{
 			return;
 		}
@@ -746,16 +746,16 @@ public class UtilPath
 		int splitIdx = 0;
 		while ((splitIdx = subPath.IndexOf('/', startIdx)) != -1)
 		{
-			if (!UtilPath.existDirectory(UtilPath.combine(rootPath, subPath.Substring(0, startIdx + splitIdx))))
+			if (!UtilFileIO.existDirectory(UtilFileIO.combine(rootPath, subPath.Substring(0, startIdx + splitIdx))))
 			{
-				UtilPath.createDirectory(UtilPath.combine(rootPath, subPath.Substring(0, startIdx + splitIdx)));
+				UtilFileIO.createDirectory(UtilFileIO.combine(rootPath, subPath.Substring(0, startIdx + splitIdx)));
 			}
 
 			startIdx += splitIdx;
 			startIdx += 1;
 		}
 
-		UtilPath.createDirectory(UtilPath.combine(rootPath, subPath));
+		UtilFileIO.createDirectory(UtilFileIO.combine(rootPath, subPath));
 	}
 
 	// Android 运行时
@@ -773,14 +773,14 @@ public class UtilPath
 	// 是否是 StreamingAssetsPath 目录
 	static public bool isStreamingAssetsPath(string path)
 	{
-		path = UtilPath.normalPath(path);
+		path = UtilFileIO.normalPath(path);
 		return path.IndexOf(MFileSys.msDataStreamStreamingAssetsPath) == 0;
 	}
 
 	static public string getCurrentDirectory()
 	{
 		string curPath = System.Environment.CurrentDirectory;
-		curPath = UtilPath.normalPath(curPath);
+		curPath = UtilFileIO.normalPath(curPath);
 
 		return curPath;
 	}
@@ -788,12 +788,12 @@ public class UtilPath
 	// 去掉文件扩展名字，文件判断后缀是否是指定后缀
 	static public bool isFileNameSuffixNoExt(string path, string suffix)
 	{
-		path = UtilPath.normalPath(path);
+		path = UtilFileIO.normalPath(path);
 
 		bool ret = false;
 
 		int dotIdx = 0;
-		dotIdx = path.LastIndexOf(UtilPath.DOT);
+		dotIdx = path.LastIndexOf(UtilFileIO.DOT);
 
 		if (-1 != dotIdx)
 		{
@@ -801,7 +801,7 @@ public class UtilPath
 		}
 
 		int slashIdx = 0;
-		slashIdx = path.LastIndexOf(UtilPath.SLASH);
+		slashIdx = path.LastIndexOf(UtilFileIO.SLASH);
 
 		if (-1 != slashIdx)
 		{
@@ -822,12 +822,12 @@ public class UtilPath
 	// 去掉文件扩展名字，然后再去掉文件后缀
 	static public string getFileNameRemoveSuffixNoExt(string path, string suffix)
 	{
-		path = UtilPath.normalPath(path);
+		path = UtilFileIO.normalPath(path);
 
 		string ret = path;
 
 		int dotIdx = 0;
-		dotIdx = path.LastIndexOf(UtilPath.DOT);
+		dotIdx = path.LastIndexOf(UtilFileIO.DOT);
 
 		if (-1 != dotIdx)
 		{
@@ -835,7 +835,7 @@ public class UtilPath
 		}
 
 		int slashIdx = 0;
-		slashIdx = path.LastIndexOf(UtilPath.SLASH);
+		slashIdx = path.LastIndexOf(UtilFileIO.SLASH);
 
 		if (-1 != slashIdx)
 		{
@@ -858,8 +858,8 @@ public class UtilPath
 	{
 		bool ret = false;
 
-		string path = UtilPath.versionPath(fileFullName, version);
-		ret = UtilPath.existFile(path);
+		string path = UtilFileIO.versionPath(fileFullName, version);
+		ret = UtilFileIO.existFile(path);
 
 		return ret;
 	}
@@ -875,7 +875,7 @@ public class UtilPath
 
 		while(index < listLen)
 		{
-			 UtilPath.deleteFile(fileList[index]);
+			 UtilFileIO.deleteFile(fileList[index]);
 
 			index += 1;
 		}

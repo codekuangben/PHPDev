@@ -2,103 +2,267 @@
 
 namespace SDK\Lib;
 
+/**
+ * @url http://www.w3school.com.cn/php/php_ref_string.asp
+ * @url https://zhidao.baidu.com/question/504459056.html
+ */
 class UtilStr
 {
-	static public function removeLastCR(ref string srcStr)
+    public static function IsNullOrEmpty($srcStr)
+    {
+        return (null == $srcStr || "" == $srcStr);
+    }
+    
+    public static function strlen($srcStr)
+    {
+        return strlen($srcStr);
+    }
+    
+    /**
+     *@url http://www.w3school.com.cn/php/func_string_substr.asp
+     */
+    public static function substr($srcStr, $start, $length)
+    {
+        return substr($srcStr, $start, $length);
+    }
+    
+    public static function removeLastCR($srcStr)
 	{
-		if(!string.IsNullOrEmpty(srcStr))
+	    if(!UtilStr::IsNullOrEmpty($srcStr))
 		{
-			if(srcStr[srcStr.Length - 1] == Symbolic.CR)
+		    if(srcStr[strlen($srcStr) - 1] == Symbolic::CR)
 			{
-				srcStr = srcStr.Substring(0, srcStr.Length - 1);
+			    $srcStr = UtilStr::substr($srcStr, 0, strlen($srcStr) - 1);
 			}
 		}
 	}
 
 	//static public void split(ref string str, params string[] param)
 	// 仅支持一个符号分割
-	static public function split(ref string str, char splitSymbol)
+	public static function split($srcStr, $splitSymbol)
 	{
-		char[] split = new char[1];
-		split[0] = splitSymbol;
-		string[] strArr = null;
+		$strArr = null;
 
-		if (!string.IsNullOrEmpty(str))
+		if (!UtilStr::IsNullOrEmpty($srcStr))
 		{
-			strArr = str.Split(split);
+		    $strArr = explode($splitSymbol, $srcStr);
 		}
 
-		return strArr;
+		return $strArr;
 	}
 
 	// 计算字符最后出现的位置，仅支持一个字符， string::LastIndexOf 比较耗时，好像要进入本地代码执行
-	static public function LastIndexOf(ref string str, char findStr)
+	public static function LastIndexOf($srcStr, $findStr)
 	{
-		int lastIndex = -1;
-		int index = str.Length - 1; 
+		$lastIndex = -1;
+		$index = strlen($srcStr) - 1; 
 
-		while (index >= 0)
+		while ($index >= 0)
 		{
-			if(str[index] == findStr)
+		    if($srcStr[$index] == findStr)
 			{
-				lastIndex = index;
+				$lastIndex = $index;
 				break;
 			}
 
-			--index;
+			--$index;
 		}
 
-		return lastIndex;
+		return $lastIndex;
 	}
 
-	static public function IndexOf(ref string str, char findStr)
+	public static function IndexOf($srcStr, $findStr)
 	{
-		int retIndex = -1;
-		int index = 0;
-		int len = str.Length;
+		$retIndex = -1;
+		$index = 0;
+		$len = strlen($srcStr);
 
-		while (index < len)
+		while ($index < $len)
 		{
-			if (str[index] == findStr)
+		    if ($srcStr[$index] == $findStr)
 			{
-				retIndex = index;
+				$retIndex = $index;
 				break;
 			}
 
-			index += 1;
+			$index += 1;
 		}
 
-		return retIndex;
+		return $retIndex;
 	}
 
-	static public function toStringByCount(int count, string str)
+	public static function toStringByCount($count, $srcStr)
 	{
-		if(count < 0)
-		{
-			count = 0;
-		}
+	    if($count < 0)
+	    {
+	        $count = 0;
+	    }
+	    
+	    $ret = "";
+	    $index = 0;
+	    
+	    while($index < $count)
+	    {
+	        $ret = $ret . $srcStr;
 
-		string ret = "";
-		System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+	        $index += 1;
+	    }
 
-		int index = 0;
-
-		while(index < count)
-		{
-			stringBuilder.Append(str);
-
-			index += 1;
-		}
-
-		ret = stringBuilder.ToString();
-
-		return ret;
+	    return $ret;
 	}
 
-	static public function formatFloat(float a, int b)
+	public static function formatFloat($a, $b)
 	{
-		string s = a.ToString("F" + b);
-		return s;
+	    $s = number_format($a, $b);
+		return $s;
+	}
+	
+	public static function replace($srcStr, $findStr, $replaceStr, $count)
+	{
+	    if(null != $count)
+	    {
+    	    return str_replace($findStr, $replaceStr, $srcStr, $count);
+	    }
+	    else
+	    {
+	        return str_replace($findStr, $replaceStr, $srcStr);
+	    }
+	}
+	
+	public static function Format($formatStr, $var0, $var1, $var2, $var3, $var4, $var5, $var6, $var7, $var8, $var9)
+	{
+	    if(null != $var0 && 
+	       null != $var1 && 
+	       null != $var2 && 
+	       null != $var3 &&
+	       null != $var4 &&
+	       null != $var5 && 
+	       null != $var6 && 
+	       null != $var7 &&
+	       null != $var8 &&
+	       null != $var9)
+	    {
+	        $formatStr = UtilStr::replace($formatStr, "{0}", $var0);
+	        $formatStr = UtilStr::replace($formatStr, "{1}", $var1);
+	        $formatStr = UtilStr::replace($formatStr, "{2}", $var2);
+	        $formatStr = UtilStr::replace($formatStr, "{3}", $var3);
+	        $formatStr = UtilStr::replace($formatStr, "{4}", $var4);
+	        $formatStr = UtilStr::replace($formatStr, "{5}", $var5);
+	        $formatStr = UtilStr::replace($formatStr, "{6}", $var6);
+	        $formatStr = UtilStr::replace($formatStr, "{7}", $var7);
+	        $formatStr = UtilStr::replace($formatStr, "{8}", $var8);
+	        $formatStr = UtilStr::replace($formatStr, "{9}", $var9);
+	    }
+	    else if(null != $var0 &&
+	            null != $var1 &&
+	            null != $var2 &&
+	            null != $var3 &&
+	            null != $var4 &&
+	            null != $var5 &&
+	            null != $var6 &&
+	            null != $var7 &&
+	            null != $var8)
+	    {
+	        $formatStr = UtilStr::replace($formatStr, "{0}", $var0);
+	        $formatStr = UtilStr::replace($formatStr, "{1}", $var1);
+	        $formatStr = UtilStr::replace($formatStr, "{2}", $var2);
+	        $formatStr = UtilStr::replace($formatStr, "{3}", $var3);
+	        $formatStr = UtilStr::replace($formatStr, "{4}", $var4);
+	        $formatStr = UtilStr::replace($formatStr, "{5}", $var5);
+	        $formatStr = UtilStr::replace($formatStr, "{6}", $var6);
+	        $formatStr = UtilStr::replace($formatStr, "{7}", $var7);
+	        $formatStr = UtilStr::replace($formatStr, "{8}", $var8);
+	    }
+	    else if(null != $var0 &&
+	            null != $var1 &&
+	            null != $var2 &&
+	            null != $var3 &&
+	            null != $var4 &&
+	            null != $var5 &&
+	            null != $var6 &&
+	            null != $var7)
+	    {
+	        $formatStr = UtilStr::replace($formatStr, "{0}", $var0);
+	        $formatStr = UtilStr::replace($formatStr, "{1}", $var1);
+	        $formatStr = UtilStr::replace($formatStr, "{2}", $var2);
+	        $formatStr = UtilStr::replace($formatStr, "{3}", $var3);
+	        $formatStr = UtilStr::replace($formatStr, "{4}", $var4);
+	        $formatStr = UtilStr::replace($formatStr, "{5}", $var5);
+	        $formatStr = UtilStr::replace($formatStr, "{6}", $var6);
+	        $formatStr = UtilStr::replace($formatStr, "{7}", $var7);
+	    }
+	    else if(null != $var0 &&
+	            null != $var1 &&
+	            null != $var2 &&
+	            null != $var3 &&
+	            null != $var4 &&
+	            null != $var5 &&
+	            null != $var6)
+	    {
+	        $formatStr = UtilStr::replace($formatStr, "{0}", $var0);
+	        $formatStr = UtilStr::replace($formatStr, "{1}", $var1);
+	        $formatStr = UtilStr::replace($formatStr, "{2}", $var2);
+	        $formatStr = UtilStr::replace($formatStr, "{3}", $var3);
+	        $formatStr = UtilStr::replace($formatStr, "{4}", $var4);
+	        $formatStr = UtilStr::replace($formatStr, "{5}", $var5);
+	        $formatStr = UtilStr::replace($formatStr, "{6}", $var6);
+	    }
+	    else if(null != $var0 &&
+	            null != $var1 &&
+	            null != $var2 &&
+	            null != $var3 &&
+	            null != $var4 &&
+	            null != $var5)
+	    {
+	        $formatStr = UtilStr::replace($formatStr, "{0}", $var0);
+	        $formatStr = UtilStr::replace($formatStr, "{1}", $var1);
+	        $formatStr = UtilStr::replace($formatStr, "{2}", $var2);
+	        $formatStr = UtilStr::replace($formatStr, "{3}", $var3);
+	        $formatStr = UtilStr::replace($formatStr, "{4}", $var4);
+	        $formatStr = UtilStr::replace($formatStr, "{5}", $var5);
+	    }
+	    else if(null != $var0 &&
+	            null != $var1 &&
+	            null != $var2 &&
+	            null != $var3 &&
+	             null != $var4)
+	    {
+	        $formatStr = UtilStr::replace($formatStr, "{0}", $var0);
+	        $formatStr = UtilStr::replace($formatStr, "{1}", $var1);
+	        $formatStr = UtilStr::replace($formatStr, "{2}", $var2);
+	        $formatStr = UtilStr::replace($formatStr, "{3}", $var3);
+	        $formatStr = UtilStr::replace($formatStr, "{4}", $var4);
+	    }
+	    else if(null != $var0 &&
+	            null != $var1 &&
+	            null != $var2 &&
+	            null != $var3)
+	    {
+	        $formatStr = UtilStr::replace($formatStr, "{0}", $var0);
+	        $formatStr = UtilStr::replace($formatStr, "{1}", $var1);
+	        $formatStr = UtilStr::replace($formatStr, "{2}", $var2);
+	        $formatStr = UtilStr::replace($formatStr, "{3}", $var3);
+	    }
+	    else if(null != $var0 &&
+	            null != $var1 &&
+	            null != $var2)
+	    {
+	        $formatStr = UtilStr::replace($formatStr, "{0}", $var0);
+	        $formatStr = UtilStr::replace($formatStr, "{1}", $var1);
+	        $formatStr = UtilStr::replace($formatStr, "{2}", $var2);
+	    }
+	    else if(null != $var0 &&
+	            null != $var1)
+	    {
+	        $formatStr = UtilStr::replace($formatStr, "{0}", $var0);
+	        $formatStr = UtilStr::replace($formatStr, "{1}", $var1);
+	    }
+	    else if(null != $var0)
+	    {
+	        $formatStr = UtilStr::replace($formatStr, "{0}", $var0);
+	    }
+	    
+	    return $formatStr;
 	}
 }
 

@@ -4,6 +4,8 @@ namespace SDK\Lib;
 
 /**
  * @brief 文件日志
+ * @url http://www.w3school.com.cn/php/php_ref_filesystem.asp
+ * @url http://www.w3school.com.cn/php/func_filesystem_file.asp
  */
 class FileLogDevice extends  LogDeviceBase
 {

@@ -19,25 +19,70 @@ class UtilFileIO
 	}
 
 	// 删除目录的时候，一定要关闭这个文件夹，否则删除文件夹可能出错
-	public static function deleteDirectory(string path, bool recursive = true)
+	public static function deleteDirectory($path, $recursive = true)
 	{
-		if (Directory.Exists(path))
+	    if (UtilFileIO::existDirectory($path))
 		{
 			try
 			{
-				Directory.Delete(path, recursive);
+			    //先删除目录下的文件：
+			    $handle = opendir($path);
+			    
+			    if(null != $handle)
+			    {
+			        while (false !== ($file = readdir($handle)))
+    			    {
+    			        if($file != "." && $file!="..")
+    			        {
+    			            $fullpath = $path."/".$file;
+    			            
+    			            if(!is_dir($fullpath))
+    			            {
+    			                if(unlink($fullpath))
+    			                {
+    			                    echo "delete file success, path = " . $fullpath . "\n";
+    			                }
+    			                else
+    			                {
+    			                    echo "delete file fail, path = " . $fullpath . "\n";
+    			                }
+    			            }
+    			            else
+    			            {
+    			                if($recursive)
+    			                {
+    			                    UtilFileIO::deleteDirectory($fullpath, $recursive);
+    			                }
+    			            }
+    			        }
+    			    }
+			    }
+			    
+			    closedir($path);
+			    
+			    //删除当前文件夹：
+			    if(rmdir($path))
+			    {
+			        echo "delete file success, path = " . $path . "\n";
+			        return true;
+			    } 
+			    else
+			    {
+			        echo "delete file fail, path = " . $path . "\n";
+			        return false;
+			    }
 			}
-			catch (Exception err)
+			catch (\Exception err)
 			{
-				Debug.Log(string.Format("UtilFileIO::DeleteDirectory, error, Error = {0}, path = {1}", err.Message, path));
+			    echo(string.Format("UtilFileIO::DeleteDirectory, error, Error = {0}, path = {1}", err.Message, path));
 			}
 		}
 	}
 
 	// 目录是否存在
-	static public function existDirectory(string path)
+	public static function existDirectory($path)
 	{
-		return Directory.Exists(path);
+	    return is_dir($path);
 	}
 
 	// 文件是否存在

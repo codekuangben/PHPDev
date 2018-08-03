@@ -13,7 +13,7 @@ class UtilStr
         return (null == $srcStr || "" == $srcStr);
     }
     
-    public static function strlen($srcStr)
+    public static function length($srcStr)
     {
         return strlen($srcStr);
     }

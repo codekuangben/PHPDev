@@ -19,6 +19,7 @@ class UtilFileIO
 	}
 
 	// 删除目录的时候，一定要关闭这个文件夹，否则删除文件夹可能出错
+	// https://www.2cto.com/kf/201707/662517.html
 	public static function deleteDirectory($path, $recursive = true)
 	{
 	    if (UtilFileIO::existDirectory($path))
@@ -72,9 +73,9 @@ class UtilFileIO
 			        return false;
 			    }
 			}
-			catch (\Exception err)
+			catch (\Exception $err)
 			{
-			    echo(string.Format("UtilFileIO::DeleteDirectory, error, Error = {0}, path = {1}", err.Message, path));
+			    echo(string.Format("UtilFileIO::DeleteDirectory, error, Error = {0}, path = {1}", $err->getMessage(), $path));
 			}
 		}
 	}
@@ -86,116 +87,164 @@ class UtilFileIO
 	}
 
 	// 文件是否存在
-	static public function existFile(string path)
+	// http://www.php.net/manual/zh/function.file-exists.php
+	public static function existFile($path)
 	{
-		return File.Exists(path);
+	    return file_exists($path);
 	}
 
 	// 移动文件
-	static public function move(string srcPath, string destPath)
+	// http://www.w3school.com.cn/php/func_filesystem_copy.asp
+	public static function move($srcPath, $destPath)
 	{
 		try
 		{
-			File.Move(srcPath, destPath);
+		    rename($srcPath, $destPath);
 		}
-		catch (Exception err)
+		catch (\Exception $err)
 		{
-			Debug.Log(string.Format("UtilFileIO::move error, ErrorMsg = {0}, srcPath = {1}, destPath = {2}", err.Message, srcPath, destPath));
+		    echo(UtilStr::Format("UtilFileIO::move error, ErrorMsg = {0}, srcPath = {1}, destPath = {2}", $$err->getMessage(), srcPath, destPath));
 		}
 	}
 
-	public static function deleteFile(string path)
+	// http://www.w3school.com.cn/php/func_filesystem_unlink.asp
+	public static function deleteFile($path)
 	{
-		if (UtilFileIO.existFile(path))
+	    $ret = true;
+	    
+	    if (UtilFileIO::existFile($path))
 		{
 			try
 			{
-				File.Delete(path);
+			    if(unlink($path))
+			    {
+			        echo("delete file success");
+			        $ret = true;
+			    }
+			    else
+			    {
+			        echo("delete file fail");
+			        $ret = false;
+			    }
 			}
-			catch (Exception err)
+			catch (\Exception $err)
 			{
-				Debug.Log(string.Format("UtilFileIO::deleteFile, error, Path = {0}, ErrorMessage = {1}", path, err.Message));
+			    Debug.Log(string.Format("UtilFileIO::deleteFile, error, Path = {0}, ErrorMessage = {1}", path, $err->getMessage()));
 			}
 		}
 
-		return true;
+		return $ret;
 	}
 
 	// destFileName 目标路径和文件名字
-	public static function copyFile(string sourceFileName, string destFileName, bool overwrite = false)
+	// http://www.w3school.com.cn/php/func_filesystem_copy.asp
+	public static function copyFile($sourceFileName, $destFileName, $overwrite = false)
 	{
+	    $ret = true;
+	    
 		try
 		{
-			File.Copy(sourceFileName, destFileName, overwrite);
+		    if($overwrite)
+		    {
+		        if(UtilFileIO::existFile($destFileName))
+		        {
+		            UtilFileIO::deleteFile($destFileName);
+		        }
+		        
+		        $ret = copy($sourceFileName, $destFileName, $overwrite);
+		    }
+		    else
+		    {
+		        if(!UtilFileIO::existFile($destFileName))
+		        {
+		            $ret = copy($sourceFileName, $destFileName, $overwrite);
+		        }
+		    }
 		}
-		catch (Exception err)
+		catch (\Exception $err)
 		{
-			Debug.Log(string.Format("UtilFileIO::copyFile, error, ErrorMsg = {0}, sourceFileName = {1}, destFileName = {2}", err.Message, sourceFileName, destFileName));
+			echo(UtilStr::Format("UtilFileIO::copyFile, error, ErrorMsg = {0}, sourceFileName = {1}, destFileName = {2}", $err->getMessage(), sourceFileName, destFileName));
 		}
+		
+		return $ret;
 	}
 
-	static public function createDirectory(string pathAndName, bool isRecurse = false)
+	static public function createDirectory($pathAndName, $isRecurse = false)
 	{
-		if (isRecurse)
+	    $ret = true;
+	    
+	    if ($isRecurse)
 		{
-			string normPath = normalPath(pathAndName);
-			string[] pathArr = normPath.Split(new[] { '/' });
+		    $normPath = UtilFileIO::normalPath($pathAndName);
+		    $pathArr = UtilStr::split($normPath, '/');
 
-			string curCreatePath = "";
-			int idx = 0;
+			$curCreatePath = "";
+			$idx = 0;
+			$listLen = UtilList::count($pathArr);
 
-			for (; idx < pathArr.Length; ++idx)
+			while ($idx < $listLen)
 			{
 				// Mac 下是以 ‘／’ 开头的，如果使用  '/' 分割字符串，就会出现字符长度为 0 的问题
-				if (0 != pathArr[idx].Length)
+			    if (0 != UtilStr::length($pathArr[idx]))
 				{
-					if(curCreatePath.Length == 0)
+				    if(UtilStr::length($curCreatePath) == 0)
 					{
-						curCreatePath = pathArr[idx];
+					    $curCreatePath = $pathArr[$idx];
 					}
 					else
 					{
-						curCreatePath = string.Format("{0}/{1}", curCreatePath, pathArr[idx]);
+					    $curCreatePath = string.Format("{0}/{1}", $curCreatePath, $pathArr[$idx]);
 					}
 
-					if (!Directory.Exists(curCreatePath))
+					if (!is_dir($curCreatePath))
 					{
 						try
 						{
-							Directory.CreateDirectory(curCreatePath);
+						    $ret = mkdir($curCreatePath);
+						    
+						    if($ret)
+						    {
+						        echo("createDirectory success");
+						    }
+						    else
+						    {
+						        echo("createDirectory fail");
+						    }
 						}
-						catch(Exception err)
+						catch(\Exception $err)
 						{
-							Debug.Log (string.Format ("UitlPath::CreateDirectory, error, ErrorMsg = {0}, path = {1}", err.Message, curCreatePath));
+							echo (UtilStr::Format ("UitlPath::CreateDirectory, error, ErrorMsg = {0}, path = {1}", $err->getMessage(), curCreatePath));
 						}
 					}
 				}
+				
+				$idx += 1;
 			}
 		}
 		else
 		{
 			try
 			{
-				if (!Directory.Exists(pathAndName))
+			    if (!is_dir($pathAndName))
 				{
 					// 这个接口默认就支持创建所有没有的目录
-					Directory.CreateDirectory(pathAndName);
+				    mkdir($pathAndName, 0777);
 				}
 			}
-			catch (Exception err)
+			catch (\Exception $err)
 			{
-				Debug.Log(string.Format("UtilFileIO::CreateDirectory, error, ErrorMsg = {0}, pathAndName = {1}", err.Message, pathAndName));
+				echo(string.Format("UtilFileIO::CreateDirectory, error, ErrorMsg = {0}, pathAndName = {1}", $err->getMessage(), pathAndName));
 			}
 		}
 	}
 
-	static public bool renameFile(string srcPath, string destPath)
+	static public function renameFile($srcPath, $destPath)
 	{
 		try
 		{
-			if (UtilFileIO.existFile(srcPath))
+			if (UtilFileIO::existFile(srcPath))
 			{
-				UtilFileIO.move(srcPath, destPath);
+			    UtilFileIO.move($srcPath, $destPath);
 				return true;
 			}
 			else
@@ -203,14 +252,14 @@ class UtilFileIO
 				return false;
 			}
 		}
-		catch (Exception excep)
+		catch (\Exception $err)
 		{
-			Debug.Log(string.Format("UtilFileIO::renameFile, error, ErrorMsg = {0}, srcPath = {1}, destPath = {2}", excep.Message, srcPath, destPath));
+		    Debug.Log(string.Format("UtilFileIO::renameFile, error, ErrorMsg = {0}, srcPath = {1}, destPath = {2}", $err->getMessage(), srcPath, destPath));
 			return false;
 		}
 	}
 
-	static public string combine(params string[] pathList)
+	static public function combine(params string[] pathList)
 	{
 		int idx = 0;
 		string ret = "";
@@ -221,11 +270,6 @@ class UtilFileIO
 		{
 			if (pathList[idx].Length > 0)
 			{
-				//if(stringBuilder.ToString(stringBuilder.Length - 1, 1) != "/" || pathList[idx][pathList[idx].Length - 1] != '/')
-				//{
-				//    stringBuilder.Append("/");
-				//}
-
 				if(!isFirst)
 				{
 					stringBuilder.Append("/");
@@ -248,7 +292,7 @@ class UtilFileIO
 	}
 
 	// 获取扩展名
-	static public string getFileExt(string path)
+	static public function getFileExt(string path)
 	{
 		int dotIdx = path.LastIndexOf('.');
 

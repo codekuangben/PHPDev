@@ -133,7 +133,7 @@ class ClientBuffer
 
 	public void moveDyn2Raw()
 	{
-		UtilMsg.formatBytes2Array($this->mDynBuffer.buffer, $this->mDynBuffer.size);
+		UtilMsg.formatBytes2Array($this->$this->mDynBuffer->getBuffer(), $this->mDynBuffer.size);
 
 		if (MacroDef.MSG_ENCRIPT)
 		{
@@ -144,7 +144,7 @@ class ClientBuffer
 		mTmp1fData.writeUnsignedInt32(mDynBuffer.size);      // 填充长度
 		mRawBuffer.circularBuffer.pushBackBA(mTmp1fData);
 		// 写入包的数据
-		mRawBuffer.circularBuffer.pushBackArr(mDynBuffer.buffer, 0, mDynBuffer.size);
+		mRawBuffer.circularBuffer.pushBackArr($this->mDynBuffer->getBuffer(), 0, mDynBuffer.size);
 	}
 
 	public void moveDyn2Raw_KBE()
@@ -155,7 +155,7 @@ class ClientBuffer
 		}
 
 		// 写入包的数据
-		mRawBuffer.circularBuffer.pushBackArr(mDynBuffer.buffer, 0, mDynBuffer.size);
+		mRawBuffer.circularBuffer.pushBackArr($this->mDynBuffer->getBuffer(), 0, mDynBuffer.size);
 	}
 
 	// 自己的消息逻辑

@@ -4,105 +4,97 @@ namespace SDK\Lib;
 
 /**
  *@brief 基本的线程
+ *@url https://www.cnblogs.com/jkko123/p/6351604.html
  */
-class MThread
+class MThread extends Thread
 {
-	protected static $msMainThreadID;           // 主线程 id
-	protected $mCurThreadID;                    // 当前线程的 id
+	protected static $msMainThreadId;           // 主线程 id
+	protected $mCurThreadId;                    // 当前线程的 id
 
 	// 数据区域
-	protected Thread mThread;
-	protected Action<object> mCb;
-	protected object mParam;           // 参数数据
-	protected bool mIsExitFlag;           // 退出标志
+	protected $mHandle;
+	protected $mParam;           // 参数数据
+	protected $mIsExitFlag;           // 退出标志
 
-	public MThread(Action<object> func, object param)
+	public function __construct($func, $param)
 	{
-		mCb = func;
-		mParam = param;
+	    $this->mHandle = $func;
+	    $this->mParam = $param;
 	}
 
-	public bool ExitFlag
+	public function isExitFlag()
 	{
-		set
-		{
-			mIsExitFlag = value;
-		}
+	    return $this->mIsExitFlag;
+	}
+	
+	public function setIsExitFlag($value)
+	{
+	    $this->mIsExitFlag = value;
 	}
 
-	public Action<object> cb
+	public function setHandle($value)
 	{
-		set
-		{
-			mCb = value;
-		}
+	    $this->mHandle = $value;
 	}
 
-	public object param
+	public function setParam($value)
 	{
-		set
-		{
-			mParam = value;
-		}
+	    $this->mParam = $value;
 	}
 
 	// 函数区域
 	/**
 	 *@brief 开启一个线程
 	 */
-	public void start()
+	public function start()
 	{
-		mThread = new Thread(new ThreadStart(threadHandle));
-		mThread.Priority = ThreadPriority.Lowest;
-		//mThread.IsBackground = true;             // 继续作为前台线程
-		mThread.Start();
+		$this->start();
 	}
 
-	public void join()
+	public function join()
 	{
-		//mThread.Interrupt();           // 直接线程终止
-		mThread.Join();
+	    $this->Join();
 	}
 
 	/**
 	 *@brief 线程回调函数
 	 */
-	virtual public void threadHandle()
+	public function run()
 	{
-		getCurThreadID();
+		$this->getCurThreadId();
 
-		if(mCb != null)
+		if($this->mHandle != null)
 		{
-			mCb(mParam);
+		    $this->mHandle($this->mParam);
 		}
 	}
 
-	protected void getCurThreadID()
+	protected function getCurThreadId()
 	{
-		mCurThreadID = Thread.CurrentThread.ManagedThreadId;       // 当前线程的 ID
+		$this->mCurThreadId = Thread.CurrentThread.ManagedThreadId;       // 当前线程的 ID
 	}
 
-	public bool isCurThread(int threadID)
+	public function isCurThread($threadId)
 	{
-		return (mCurThreadID == threadID);
+		return ($this->mCurThreadId == $threadId);
 	}
 
-	static public void getMainThreadID()
+	static public function getMainThreadId()
 	{
-		msMainThreadID = Thread.CurrentThread.ManagedThreadId;
+	    MThread::msMainThreadId = Thread.CurrentThread.ManagedThreadId;
 	}
 
-	static public bool isMainThread()
+	static public function isMainThread()
 	{
-		return (msMainThreadID == Thread.CurrentThread.ManagedThreadId);
+	    return (MThread::msMainThreadId == Thread.CurrentThread.ManagedThreadId);
 	}
 
-	static public void needMainThread()
+	static public function needMainThread()
 	{
-		if (!isMainThread())
+		if (!$this->isMainThread())
 		{
 			Ctx.mInstance.mLogSys.error("error: log out in other thread");
-			throw new Exception("cannot call function in thread");
+			throw new \Exception("cannot call function in thread");
 		}
 	}
 

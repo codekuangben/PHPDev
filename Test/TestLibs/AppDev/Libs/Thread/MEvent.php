@@ -5,28 +5,28 @@ namespace SDK\Lib;
 /**
  * @同步使用的 Event
  */
-public class MEvent
+class MEvent
 {
-	private ManualResetEvent mEvent;
+	private $mEvent;
 
-	public MEvent(bool initialState)
+	public function __construct($initialState)
 	{
-		mEvent = new ManualResetEvent(initialState);
+		//$this->mEvent = new ManualResetEvent(initialState);
 	}
 
-	public void WaitOne()
+	public function WaitOne()
 	{
-		mEvent.WaitOne();
+	    $this->mEvent.WaitOne();
 	}
 
-	public bool Reset()
+	public function Reset()
 	{
-		return mEvent.Reset();
+	    return $this->mEvent.Reset();
 	}
 
-	public bool Set()
+	public function Set()
 	{
-		return mEvent.Set();
+	    return $this->mEvent.Set();
 	}
 }
 

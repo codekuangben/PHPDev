@@ -5,25 +5,25 @@ namespace SDK\Lib;
 /**
  * @brief 锁操作
  */
-public class MLock : IDisposable
+class MLock
 {
-	protected MMutex mMutex;
+	protected $mMutex;
 
-	public MLock(MMutex mutex)
+	public function __construct($mutex)
 	{
-		if (MacroDef.NET_MULTHREAD)
+		if (MacroDef::NET_MULTHREAD)
 		{
-			mMutex = mutex;
-			mMutex.WaitOne();
+			$this->mMutex = $mutex;
+			$this->mMutex.WaitOne();
 		}
 	}
 
 	// 这个在超出作用域的时候就会被调用，但是只有在使用 using 语句中，例如 using (MLock mlock = new MLock(mReadMutex)) ，这个语句执行完后立马调用，using (MLock mlock = new MLock(mReadMutex)) {} 才行
-	public void Dispose()
+	public function Dispose()
 	{
-		if (MacroDef.NET_MULTHREAD)
+		if (MacroDef::NET_MULTHREAD)
 		{
-			mMutex.ReleaseMutex();
+		    $this->ReleaseMutex();
 		}
 	}
 

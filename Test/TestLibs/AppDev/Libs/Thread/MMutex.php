@@ -5,43 +5,43 @@ namespace SDK\Lib;
 /**
  * @brief 互斥
  */
-public class MMutex
+class MMutex
 {
-	private Mutex mMutex; 	// 读互斥
-	private string mName;	// name
+	private $mMutex; 	// 读互斥
+	private $mName;	// name
 
-	public MMutex(bool initiallyOwned, string name)
+	public function __construct($initiallyOwned, $name)
 	{
-		if (MacroDef.NET_MULTHREAD)
+		if (MacroDef::NET_MULTHREAD)
 		{
 			// IOS 下不支持，错误提示如下： "Named mutexes are not supported"
 			//mMutex = new Mutex(initiallyOwned, name);
-			mMutex = new Mutex(initiallyOwned);
-			mName = name;
+			$this->mMutex = new Mutex($initiallyOwned);
+			$this->mName = $name;
 		}
 	}
 
-	public void WaitOne()
+	public function WaitOne()
 	{
-		if (MacroDef.NET_MULTHREAD)
+		if (MacroDef::NET_MULTHREAD)
 		{
-			mMutex.WaitOne();
+		    $this->mMutex.WaitOne();
 		}
 	}
 
-	public void ReleaseMutex()
+	public function ReleaseMutex()
 	{
-		if (MacroDef.NET_MULTHREAD)
+		if (MacroDef::NET_MULTHREAD)
 		{
-			mMutex.ReleaseMutex();
+		    $this->mMutex.ReleaseMutex();
 		}
 	}
 
-	public void close()
+	public function close()
 	{
-		if (MacroDef.NET_MULTHREAD)
+		if (MacroDef::NET_MULTHREAD)
 		{
-			mMutex.Close();
+		    $this->mMutex.Close();
 		}
 	}
 }

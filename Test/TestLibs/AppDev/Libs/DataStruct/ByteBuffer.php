@@ -205,7 +205,7 @@ class ByteBuffer implements IDispatchObject
 		return this;
 	}
 
-	public ByteBuffer readInt64(&$tmpLong)
+	public function readInt64(&$tmpLong)
 	{
 		if (canRead(sizeof(long)))
 		{
@@ -217,7 +217,7 @@ class ByteBuffer implements IDispatchObject
 		return this;
 	}
 
-	public ByteBuffer readUnsignedInt64(&$tmpUlong)
+	public function readUnsignedInt64(&$tmpUlong)
 	{
 		if (canRead(sizeof(ulong)))
 		{
@@ -229,15 +229,15 @@ class ByteBuffer implements IDispatchObject
 		return this;
 	}
 
-	public ByteBuffer readFloat(&$tmpFloat)
+	public function readFloat(&$tmpFloat)
 	{
 		if (canRead(sizeof(float)))
 		{
-			if (mEndian != SystemEndian.msLocalEndian)
+			if (mEndian != SystemEndian::msLocalEndian)
 			{
 				Array.Copy($this->mDynBuffer->getBuffer(), (int)mPos, mReadFloatBytes, 0, sizeof(float));
 				Array.Reverse(mReadFloatBytes, 0, sizeof(float));
-				tmpFloat = System.BitConverter.ToSingle(mReadFloatBytes, (int)mPos);
+				tmpFloat = unpack("f", mReadFloatBytes);
 			}
 			else
 			{
@@ -250,7 +250,7 @@ class ByteBuffer implements IDispatchObject
 		return this;
 	}
 
-	public ByteBuffer readDouble(&$tmpDouble)
+	public function readDouble(&$tmpDouble)
 	{
 		if (canRead(sizeof(double)))
 		{
@@ -271,8 +271,7 @@ class ByteBuffer implements IDispatchObject
 		return this;
 	}
 
-	//public ByteBuffer readMultiByte(ref string tmpStr, uint len, Encoding charSet)
-	public ByteBuffer readMultiByte(&$tmpStr, uint len, MEncode gkCharSet)
+	public function readMultiByte(&$tmpStr, uint len, MEncode gkCharSet)
 	{
 		Encoding charSet = UtilSysLibWrap.convGkEncode2EncodingEncoding(gkCharSet);
 
@@ -287,7 +286,7 @@ class ByteBuffer implements IDispatchObject
 	}
 
 	// 这个是字节读取，没有大小端的区别
-	public ByteBuffer readBytes(ref byte[] tmpBytes, uint len)
+	public function readBytes(ref byte[] tmpBytes, uint len)
 	{
 		if (canRead(len))
 		{
@@ -299,7 +298,7 @@ class ByteBuffer implements IDispatchObject
 	}
 
 	// 如果要使用 writeInt8 ，直接使用 writeMultiByte 这个函数
-	public void writeInt8(char value)
+	public function writeInt8(char value)
 	{
 		if (!canWrite(sizeof(char)))
 		{
@@ -309,7 +308,7 @@ class ByteBuffer implements IDispatchObject
 		advPosAndLen(sizeof(char));
 	}
 
-	public void writeUnsignedInt8(byte value)
+	public function writeUnsignedInt8(byte value)
 	{
 		if (!canWrite(sizeof(byte)))
 		{
@@ -319,7 +318,7 @@ class ByteBuffer implements IDispatchObject
 		advPosAndLen(sizeof(byte));
 	}
 
-	public void writeInt16 (short value)
+	public function writeInt16 (short value)
 	{
 		if (!canWrite(sizeof(short)))
 		{
@@ -331,7 +330,7 @@ class ByteBuffer implements IDispatchObject
 		advPosAndLen(sizeof(short));
 	}
 
-	public void writeUnsignedInt16(ushort value)
+	public function writeUnsignedInt16(ushort value)
 	{
 		if (!canWrite(sizeof(ushort)))
 		{
@@ -343,7 +342,7 @@ class ByteBuffer implements IDispatchObject
 		advPosAndLen(sizeof(ushort));
 	}
 
-	public void writeInt32(int value)
+	public function writeInt32(int value)
 	{
 		if (!canWrite(sizeof(int)))
 		{
@@ -355,7 +354,7 @@ class ByteBuffer implements IDispatchObject
 		advPosAndLen(sizeof(int));
 	}
 
-	public void writeUnsignedInt32 (uint value, bool bchangeLen = true)
+	public function writeUnsignedInt32 (uint value, bool bchangeLen = true)
 	{
 		if (!canWrite(sizeof(uint)))
 		{
@@ -374,7 +373,7 @@ class ByteBuffer implements IDispatchObject
 		}
 	}
 
-	public void writeInt64(long value)
+	public function writeInt64(long value)
 	{
 		if (!canWrite(sizeof(long)))
 		{
@@ -386,7 +385,7 @@ class ByteBuffer implements IDispatchObject
 		advPosAndLen(sizeof(long));
 	}
 
-	public void writeUnsignedInt64(ulong value)
+	public function writeUnsignedInt64(ulong value)
 	{
 		if (!canWrite(sizeof(ulong)))
 		{
@@ -398,7 +397,7 @@ class ByteBuffer implements IDispatchObject
 		advPosAndLen(sizeof(ulong));
 	}
 
-	public void writeFloat(float value)
+	public function writeFloat(float value)
 	{
 		if (!canWrite(sizeof(float)))
 		{
@@ -415,7 +414,7 @@ class ByteBuffer implements IDispatchObject
 		advPosAndLen(sizeof(float));
 	}
 
-	public void writeDouble(double value)
+	public function writeDouble(double value)
 	{
 		if (!canWrite(sizeof(double)))
 		{
@@ -433,7 +432,7 @@ class ByteBuffer implements IDispatchObject
 	}
 
 	// 写入字节， bchangeLen 是否改变长度
-	public void writeBytes(byte[] value, uint start, uint len, bool bchangeLen = true)
+	public function writeBytes(byte[] value, uint start, uint len, bool bchangeLen = true)
 	{
 		if (len > 0)            // 如果有长度才写入
 		{
@@ -455,7 +454,7 @@ class ByteBuffer implements IDispatchObject
 
 	// 写入字符串
 	//public void writeMultiByte(string value, Encoding charSet, int len)
-	public void writeMultiByte(string value, MEncode gkCharSet, int len)
+	public function writeMultiByte(string value, MEncode gkCharSet, int len)
 	{
 		Encoding charSet = UtilSysLibWrap.convGkEncode2EncodingEncoding(gkCharSet);
 		int num = 0;
@@ -499,7 +498,7 @@ class ByteBuffer implements IDispatchObject
 	}
 
 	// 替换已经有的一段数据
-	protected void replace(byte[] srcBytes, uint srcStartPos = 0, uint srclen_ = 0, uint destStartPos = 0, uint destlen_ = 0)
+	protected function replace(byte[] srcBytes, uint srcStartPos = 0, uint srclen_ = 0, uint destStartPos = 0, uint destlen_ = 0)
 	{
 		uint lastLeft = length - destStartPos - destlen_;        // 最后一段的长度
 		length = destStartPos + srclen_ + lastLeft;      // 设置大小，保证足够大小空间
@@ -514,13 +513,13 @@ class ByteBuffer implements IDispatchObject
 		writeBytes(srcBytes, srcStartPos, srclen_, false);
 	}
 
-	public void insertUnsignedInt32(uint value)
+	public function insertUnsignedInt32(uint value)
 	{
 		length += sizeof(int);       // 扩大长度
 		writeUnsignedInt32(value);     // 写入
 	}
 
-	public ByteBuffer readUnsignedLongByOffset(ref ulong tmpUlong, uint offset)
+	public function readUnsignedLongByOffset(ref ulong tmpUlong, uint offset)
 	{
 		position = offset;
 		readUnsignedInt64(ref tmpUlong);
@@ -528,12 +527,12 @@ class ByteBuffer implements IDispatchObject
 	}
 
 	// 写入 EOF 结束符
-	public void end()
+	public function end()
 	{
 		$this->mDynBuffer->getBuffer()[$this->length] = 0;
 	}
 
-	public function readBoolean(ref bool tmpBool)
+	public function readBoolean(&$tmpBool)
 	{
 		if (canRead(sizeof(bool)))
 		{

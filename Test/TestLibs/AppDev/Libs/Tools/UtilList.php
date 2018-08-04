@@ -53,6 +53,23 @@ class UtilList
             $index += 1;
         }
     }
+    
+    public static function Reverse($srcArray)
+    {
+        $startIndex = 0;
+        $endIndex = UtilList::count($srcArray) - 1;
+        $tmp = null;
+        
+        while($startIndex < $endIndex)
+        {
+            $tmp = $srcArray[$startIndex];
+            $srcArray[$startIndex] = $srcArray[$endIndex];
+            $srcArray[$endIndex] = $tmp;
+            
+            $startIndex += 1;
+            $endIndex -= 1;
+        }
+    }
 }
 
 ?>

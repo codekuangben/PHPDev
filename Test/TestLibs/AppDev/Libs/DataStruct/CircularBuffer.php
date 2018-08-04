@@ -206,7 +206,7 @@ class CircularBuffer
 	{
 	    $byteLength = UtilList::count($byteArray);
 	    
-	    if (!$this->canAddData($byteLength) // 存储空间必须要比实际数据至少多 1
+	    if (!$this->canAddData($byteLength)) // 存储空间必须要比实际数据至少多 1
 		{
 		    $closeSize = DynBufResizePolicy::getCloseSize($byteLength + $this->mDynBuffer->mSize, $this->mDynBuffer->mCapacity, $this->mDynBuffer->mMaxCapacity);
 		    $this->setCapacity($closeSize);
@@ -231,14 +231,14 @@ class CircularBuffer
 
 		if (items.Length <= $this->mFirst)
 		{
-		    $this->mFirst -= (uint)$byteLength;
+		    $this->mFirst -= $byteLength;
 		}
 		else
 		{
-		    $this->mFirst = $this->mDynBuffer.mCapacity - ((uint)$byteLength - $this->mFirst);
+		    $this->mFirst = $this->mDynBuffer.mCapacity - ($byteLength - $this->mFirst);
 		}
 
-		$this->mDynBuffer.mSize += (uint)$byteLength;
+		$this->mDynBuffer->mSize += $byteLength;
 	}
 
 	/**
@@ -293,7 +293,7 @@ class CircularBuffer
 		    $this->mFirst = $len - ($this->mDynBuffer.mCapacity - $this->mFirst);
 		}
 
-		$this->mDynBuffer.mSize -= len;
+		$this->mDynBuffer->mSize -= $len;
 	}
 
 	// 向自己尾部添加一个 CircularBuffer

@@ -22,7 +22,7 @@ class ClientBuffer
 	private $mReadMutex;   // 读互斥
 	private $mWriteMutex;  // 写互斥
 
-	public ClientBuffer()
+	public function __construct()
 	{
 		$this->mRawBuffer = new MsgBuffer();
 		$this->mMsgBuffer = new MsgBuffer();
@@ -39,155 +39,89 @@ class ClientBuffer
 
 		$this->mReadMutex = new MMutex(false, "ReadMutex");
 		$this->mWriteMutex = new MMutex(false, "WriteMutex");
-
-		if (MacroDef.MSG_ENCRIPT)
-		{
-			$this->mCryptContext = new CryptContext();
-		}
 	}
 
-	public DynBuffer<byte> dynBuffer
+	public function getDynBuffer()
 	{
-		get
-		{
-			return $this->mDynBuffer;
-		}
+		return $this->mDynBuffer;
 	}
 
-	//public ByteBuffer sendTmpBA
-	//{
-	//    get
-	//    {
-	//        return mSendTmpBA;
-	//    }
-	//}
-
-	public MsgBuffer sendTmpBuffer
+	public function getSendTmpBuffer()
 	{
-		get
-		{
-			return $this->mSendTmpBuffer;
-		}
+		return $this->mSendTmpBuffer;
 	}
 
-	public ByteBuffer sendBuffer
+	public function getSendBuffer()
 	{
-		get
-		{
-			return $this->mSocketSendBA;
-		}
+		return $this->mSocketSendBA;
 	}
 
-	public ByteBuffer sendData
+	public function getSendData()
 	{
-		get
-		{
-			return $this->mSendData;
-		}
+		return $this->mSendData;
 	}
 
 	// 设置 ClientBuffer 字节序
-	public void setEndian(EEndian end)
+	public function setEndian($endian)
 	{
-		$this->mRawBuffer.setEndian(end);
-		$this->mMsgBuffer.setEndian(end);
+	    $this->mRawBuffer.setEndian($endian);
+	    $this->mMsgBuffer.setEndian($endian);
 
-		$this->mSendTmpBuffer.setEndian(end);
-		$this->mSocketSendBA.setEndian(end);
+	    $this->mSendTmpBuffer.setEndian($endian);
+	    $this->mSocketSendBA.setEndian($endian);
 
-		$this->mUnCompressHeaderBA.setEndian(end);
-		$this->mSendData.setEndian(end);
-		$this->mTmpData.setEndian(end);
-		$this->mTmp1fData.setEndian(end);
+	    $this->mUnCompressHeaderBA.setEndian($endian);
+	    $this->mSendData.setEndian($endian);
+	    $this->mTmpData.setEndian($endian);
+	    $this->mTmp1fData.setEndian($endian);
 	}
 
-	public void setCryptKey(byte[] encrypt)
+	public function getRawBuffer()
 	{
-		//mCryptContext.cryptAlgorithm = CryptAlgorithm.DES;
-		$this->mCryptContext.m_cryptKey = encrypt;
-		Dec.DES_set_key_unchecked($this->mCryptContext.m_cryptKey, $this->mCryptContext.m_cryptKeyArr[(int)CryptAlgorithm.DES] as DES_key_schedule);
+		return $this->mRawBuffer;
 	}
 
-	public void checkDES()
+	public function SetRevBufferSize($size)
 	{
-		if ($this->mCryptContext.m_cryptKey != null && $this->mCryptContext.m_cryptAlgorithm != CryptAlgorithm.DES)
-		{
-			$this->mCryptContext.m_cryptAlgorithm = CryptAlgorithm.DES;
-		}
+	    $this->mDynBuffer = new DynBuffer($size);
 	}
 
-	public MsgBuffer rawBuffer
+	public function moveDyn2Raw()
 	{
-		get
-		{
-			return $this->mRawBuffer;
-		}
-	}
+		UtilMsg::formatBytes2Array($this->$this->mDynBuffer->getBuffer(), $this->mDynBuffer->getSize());
 
-	public void SetRevBufferSize(int size)
-	{
-		$this->mDynBuffer = new DynBuffer<byte>((uint)size);
-	}
-
-	public void moveDyn2Raw()
-	{
-		UtilMsg.formatBytes2Array($this->$this->mDynBuffer->getBuffer(), $this->mDynBuffer.size);
-
-		if (MacroDef.MSG_ENCRIPT)
-		{
-			checkDES();
-		}
 		// 接收到一个socket数据，就被认为是一个数据包，这个地方可能会有问题，服务器是这么发送的，只能这么处理，自己写入包的长度
-		mTmp1fData.clear();
-		mTmp1fData.writeUnsignedInt32(mDynBuffer.size);      // 填充长度
-		mRawBuffer.circularBuffer.pushBackBA(mTmp1fData);
+		$this->mTmp1fData.clear();
+		$this->mTmp1fData.writeUnsignedInt32($this->mDynBuffer->getSize());      // 填充长度
+		$this->mRawBuffer.circularBuffer.pushBackBA($this->mTmp1fData);
 		// 写入包的数据
-		mRawBuffer.circularBuffer.pushBackArr($this->mDynBuffer->getBuffer(), 0, mDynBuffer.size);
-	}
-
-	public void moveDyn2Raw_KBE()
-	{
-		if (MacroDef.MSG_ENCRIPT)
-		{
-			checkDES();
-		}
-
-		// 写入包的数据
-		mRawBuffer.circularBuffer.pushBackArr($this->mDynBuffer->getBuffer(), 0, mDynBuffer.size);
+		$this->mRawBuffer.circularBuffer.pushBackArr($this->mDynBuffer->getBuffer(), 0, $this->mDynBuffer->getSize());
 	}
 
 	// 自己的消息逻辑
-	public void moveRaw2Msg()
+	public function moveRaw2Msg()
 	{
-		while (mRawBuffer.popFront())  // 如果有数据
+	    while ($this->mRawBuffer.popFront())  // 如果有数据
 		{
 			//UnCompressAndDecryptAllInOne();
-			UnCompressAndDecryptEveryOne();
+		    $this->UnCompressAndDecryptEveryOne();
 		}
 	}
 
-	// KBEngine 引擎消息流程
-	public void moveRaw2Msg_KBE()
+	public function send($bnet = true)
 	{
-		$this->mRawBuffer.circularBuffer.linearize();
-		$this->mMsgBuffer.circularBuffer.pushBackCB($this->mRawBuffer.circularBuffer);
-		$this->mRawBuffer.circularBuffer.clear();
-	}
-
-	public void send(bool bnet = true)
-	{
-		mTmpData.clear();
-		mTmpData.writeUnsignedInt32(mSendData.length);      // 填充长度
+	    $this->mTmpData.clear();
+	    $this->mTmpData.writeUnsignedInt32($this->mSendData->getLength());      // 填充长度
 
 		if (bnet)       // 从 socket 发送出去
 		{
-			using (MLock mlock = new MLock(mWriteMutex))
+		    $mlock = new MLock($this->mWriteMutex);
 			{
 				//mSendTmpBA.writeUnsignedInt(mSendData.length);                            // 写入头部长度
 				//mSendTmpBA.writeBytes(mSendData.dynBuff.buff, 0, mSendData.length);      // 写入内容
 
-				mSendTmpBuffer.circularBuffer.pushBackBA(mTmpData);
-				mSendTmpBuffer.circularBuffer.pushBackBA(mSendData);
+			    $this->mSendTmpBuffer.circularBuffer.pushBackBA($this->mTmpData);
+			    $this->mSendTmpBuffer.circularBuffer.pushBackBA($this->mSendData);
 			}
 		}
 		else        // 直接放入接收消息缓冲区
@@ -195,50 +129,18 @@ class ClientBuffer
 			//mTmpData.clear();
 			//mTmpData.writeUnsignedInt(mSendData.length);      // 填充长度
 
-			mMsgBuffer.circularBuffer.pushBackBA(mTmpData);              // 保存消息大小字段
-			mMsgBuffer.circularBuffer.pushBackBA(mSendData);             // 保存消息大小字段
+		    $this->mMsgBuffer.circularBuffer.pushBackBA($this->mTmpData);              // 保存消息大小字段
+		    $this->mMsgBuffer.circularBuffer.pushBackBA($this->mSendData);             // 保存消息大小字段
 		}
 	}
 
-	// TODO: KBEngine 引擎发送
-	public void send_KBE(bool isSendToNet = true)
+	public function getMsg()
 	{
-		mTmpData.clear();
-
-		if (isSendToNet)       // 从 socket 发送出去
+	    $mlock = new MLock($this->mReadMutex);
 		{
-			using (MLock mlock = new MLock(mWriteMutex))
+		    if ($this->mMsgBuffer.popFront())
 			{
-				mSendTmpBuffer.circularBuffer.pushBackBA(mSendData);
-			}
-		}
-		else        // 直接放入接收消息缓冲区
-		{
-			mMsgBuffer.circularBuffer.pushBackBA(mSendData);             // 保存消息大小字段
-		}
-	}
-
-	public ByteBuffer getMsg()
-	{
-		using (MLock mlock = new MLock(mReadMutex))
-		{
-			if (mMsgBuffer.popFront())
-			{
-				return mMsgBuffer.msgBodyBA;
-			}
-		}
-
-		return null;
-	}
-
-	// 弹出 KBEngine 消息
-	public ByteBuffer getMsg_KBE()
-	{
-		using (MLock mlock = new MLock(mReadMutex))
-		{
-			if (mMsgBuffer.popFrontAll())
-			{
-				return mMsgBuffer.msgBodyBA;
+			    return $this->mMsgBuffer.msgBodyBA;
 			}
 		}
 
@@ -246,12 +148,12 @@ class ClientBuffer
 	}
 
 	// 获取数据，然后压缩加密
-	public void getSocketSendData()
+	public function getSocketSendData()
 	{
-		mSocketSendBA.clear();
+	    $this->mSocketSendBA.clear();
 
 		// 获取完数据，就解锁
-		using (MLock mlock = new MLock(mWriteMutex))
+	    $mlock = new MLock($this->mWriteMutex);
 		{
 			//mSocketSendBA.writeBytes(mSendTmpBA.dynBuff.buff, 0, (uint)mSendTmpBA.length);
 			//mSendTmpBA.clear();
@@ -259,66 +161,50 @@ class ClientBuffer
 			//mSocketSendBA.writeBytes(mSendTmpBuffer.circularBuffer.buff, 0, (uint)mSendTmpBuffer.circuleBuffer.size);
 			//mSendTmpBuffer.circularBuffer.clear();
 			// 一次仅仅获取一个消息发送出去，因为每一个消息的长度要填写加密补位后的长度
-			if (mSendTmpBuffer.popFront())     // 弹出一个消息，如果只有一个消息，内部会重置变量
+		    if ($this->mSendTmpBuffer.popFront())     // 弹出一个消息，如果只有一个消息，内部会重置变量
 			{
-				mSocketSendBA.writeBytes(mSendTmpBuffer.headerBA.dynBuffer.buffer, 0, mSendTmpBuffer.headerBA.length);       // 写入头
-				mSocketSendBA.writeBytes(mSendTmpBuffer.msgBodyBA.dynBuffer.buffer, 0, mSendTmpBuffer.msgBodyBA.length);             // 写入消息体
+			    $this->mSocketSendBA.writeBytes($this->mSendTmpBuffer.headerBA.dynBuffer.buffer, 0, mSendTmpBuffer.headerBA.length);       // 写入头
+			    $this->mSocketSendBA.writeBytes($this->mSendTmpBuffer.msgBodyBA.dynBuffer.buffer, 0, $this->mSendTmpBuffer.msgBodyBA.length);             // 写入消息体
 			}
 		}
 
 		if (MacroDef.MSG_COMPRESS || MacroDef.MSG_ENCRIPT)
 		{
-			mSocketSendBA.setPos(0);
-			CompressAndEncryptEveryOne();
+		    $this->mSocketSendBA.setPos(0);
+		    $this->CompressAndEncryptEveryOne();
 			// CompressAndEncryptAllInOne();
 		}
-		mSocketSendBA.position = 0;        // 设置指针 pos
-	}
-
-	// TODO: KBEngine 获取发送数据
-	public void getSocketSendData_KBE()
-	{
-		mSocketSendBA.clear();
-
-		// 获取完数据，就解锁
-		using (MLock mlock = new MLock(mWriteMutex))
-		{
-			if (mSendTmpBuffer.popFrontAll())
-			{
-				mSocketSendBA.writeBytes(mSendTmpBuffer.msgBodyBA.dynBuffer.buffer, 0, mSendTmpBuffer.msgBodyBA.length);             // 写入消息体
-			}
-		}
-
-		mSocketSendBA.setPos(0);        // 设置指针 pos
+		
+		$this->mSocketSendBA->setPos(0);        // 设置指针 pos
 	}
 
 	// 压缩加密每一个包
-	protected void CompressAndEncryptEveryOne()
+	protected function CompressAndEncryptEveryOne()
 	{
-		uint origMsgLen = 0;    // 原始的消息长度，后面判断头部是否添加压缩标志
-		uint compressMsgLen = 0;
-		uint cryptLen = 0;
-		bool bHeaderChange = false; // 消息内容最前面的四个字节中消息的长度是否需要最后修正
+		$origMsgLen = 0;    // 原始的消息长度，后面判断头部是否添加压缩标志
+		$compressMsgLen = 0;
+		$cryptLen = 0;
+		$bHeaderChange = false; // 消息内容最前面的四个字节中消息的长度是否需要最后修正
 
-		while (mSocketSendBA.bytesAvailable > 0)
+		while ($this->mSocketSendBA.bytesAvailable > 0)
 		{
 			if (MacroDef.MSG_COMPRESS && !MacroDef.MSG_ENCRIPT)
 			{
-				bHeaderChange = false;
+				$bHeaderChange = false;
 			}
 
-			mSocketSendBA.readUnsignedInt32(ref origMsgLen);    // 读取一个消息包头
+			$this->mSocketSendBA.readUnsignedInt32($origMsgLen);    // 读取一个消息包头
 
 			if (MacroDef.MSG_COMPRESS)
 			{
 				if (origMsgLen > MsgCV.PACKET_ZIP_MIN)
 				{
-					compressMsgLen = mSocketSendBA.compress(origMsgLen);
+				    $compressMsgLen = $this->mSocketSendBA.compress(origMsgLen);
 				}
 				else
 				{
-					mSocketSendBA.incPosDelta((int)origMsgLen);
-					compressMsgLen = origMsgLen;
+				    $this->mSocketSendBA.incPosDelta((int)$origMsgLen);
+					$compressMsgLen = $origMsgLen;
 				}
 			}
 			// 只加密消息 body
@@ -337,38 +223,38 @@ class ClientBuffer
 			{
 				if (origMsgLen > MsgCV.PACKET_ZIP_MIN)    // 如果原始长度需要压缩
 				{
-					bHeaderChange = true;
-					origMsgLen = compressMsgLen;                // 压缩后的长度
-					origMsgLen |= MsgCV.PACKET_ZIP;            // 添加
+					$bHeaderChange = true;
+					$origMsgLen = $compressMsgLen;                // 压缩后的长度
+					$origMsgLen |= MsgCV.PACKET_ZIP;            // 添加
 				}
 
 				if (bHeaderChange)
 				{
-					mSocketSendBA.decPosDelta((int)compressMsgLen + 4);        // 移动到头部位置
-					mSocketSendBA.writeUnsignedInt32(origMsgLen, false);     // 写入压缩或者加密后的消息长度
-					mSocketSendBA.incPosDelta((int)compressMsgLen);              // 移动到下一个位置
+				    $this->mSocketSendBA.decPosDelta((int)$compressMsgLen + 4);        // 移动到头部位置
+				    $this->mSocketSendBA.writeUnsignedInt32($origMsgLen, false);     // 写入压缩或者加密后的消息长度
+				    $this->mSocketSendBA.incPosDelta((int)$compressMsgLen);              // 移动到下一个位置
 				}
 			}
 
 			// 整个消息压缩后，包括 4 个字节头的长度，然后整个加密
 			if (MacroDef.MSG_ENCRIPT)
 			{
-				cryptLen = ((compressMsgLen + 4 + 7) / 8) * 8 - 4;      // 计算加密后，不包括 4 个头长度的 body 长度
-				if (origMsgLen > MsgCV.PACKET_ZIP_MIN)    // 如果原始长度需要压缩
+				$cryptLen = (($compressMsgLen + 4 + 7) / 8) * 8 - 4;      // 计算加密后，不包括 4 个头长度的 body 长度
+				if ($origMsgLen > MsgCV.PACKET_ZIP_MIN)    // 如果原始长度需要压缩
 				{
-					origMsgLen = cryptLen;                // 压缩后的长度
-					origMsgLen |= MsgCV.PACKET_ZIP;            // 添加
+					$origMsgLen = $cryptLen;                // 压缩后的长度
+					$origMsgLen |= MsgCV.PACKET_ZIP;            // 添加
 				}
 				else
 				{
-					origMsgLen = cryptLen;                // 压缩后的长度
+					$origMsgLen = $cryptLen;                // 压缩后的长度
 				}
 
-				mSocketSendBA.decPosDelta((int)(compressMsgLen + 4));        // 移动到头部位置
-				mSocketSendBA.writeUnsignedInt32(origMsgLen, false);     // 写入压缩或者加密后的消息长度
+				$this->mSocketSendBA.decPosDelta((int)($compressMsgLen + 4));        // 移动到头部位置
+				$this->mSocketSendBA.writeUnsignedInt32($origMsgLen, false);     // 写入压缩或者加密后的消息长度
 
-				mSocketSendBA.decPosDelta(4);      // 移动到头部
-				mSocketSendBA.encrypt(mCryptContext, 0);  // 加密
+				$this->mSocketSendBA.decPosDelta(4);      // 移动到头部
+				$this->mSocketSendBA.encrypt($this->mCryptContext, 0);  // 加密
 			}
 		}
 
@@ -380,41 +266,41 @@ class ClientBuffer
 	}
 
 	// 压缩解密作为一个包
-	protected void CompressAndEncryptAllInOne()
+	protected function CompressAndEncryptAllInOne()
 	{
-		uint origMsgLen = mSocketSendBA.length;       // 原始的消息长度，后面判断头部是否添加压缩标志
-		uint compressMsgLen = 0;
+		$origMsgLen = mSocketSendBA.length;       // 原始的消息长度，后面判断头部是否添加压缩标志
+		$compressMsgLen = 0;
 
 		if (origMsgLen > MsgCV.PACKET_ZIP_MIN && MacroDef.MSG_COMPRESS)
 		{
-			compressMsgLen = mSocketSendBA.compress();
+		    $compressMsgLen = $this->mSocketSendBA.compress();
 		}
 		else if (MacroDef.MSG_ENCRIPT)
 		{
-			compressMsgLen = origMsgLen;
-			mSocketSendBA.incPosDelta((int)origMsgLen);
+			$compressMsgLen = $origMsgLen;
+			$this->mSocketSendBA.incPosDelta((int)origMsgLen);
 		}
 
 		if (MacroDef.MSG_ENCRIPT)
 		{
-			mSocketSendBA.decPosDelta((int)compressMsgLen);
-			compressMsgLen = mSocketSendBA.encrypt(mCryptContext, 0);
+		    $this->mSocketSendBA.decPosDelta((int)compressMsgLen);
+		    $compressMsgLen = $this->mSocketSendBA.encrypt($this->mCryptContext, 0);
 		}
 
 		if (MacroDef.MSG_COMPRESS || MacroDef.MSG_ENCRIPT)             // 如果压缩或者加密，需要再次添加压缩或者加密后的头长度
 		{
 			if (origMsgLen > MsgCV.PACKET_ZIP_MIN)    // 如果原始长度需要压缩
 			{
-				origMsgLen = compressMsgLen;
-				origMsgLen |= MsgCV.PACKET_ZIP;            // 添加
+				$origMsgLen = $compressMsgLen;
+				$origMsgLen |= MsgCV.PACKET_ZIP;            // 添加
 			}
 			else
 			{
-				origMsgLen = compressMsgLen;
+				$origMsgLen = $compressMsgLen;
 			}
 
-			mSocketSendBA.position = 0;
-			mSocketSendBA.insertUnsignedInt32(origMsgLen);            // 写入压缩或者加密后的消息长度
+			$this->mSocketSendBA->setPos(0);
+			$this->mSocketSendBA.insertUnsignedInt32($origMsgLen);            // 写入压缩或者加密后的消息长度
 		}
 	}
 
@@ -422,11 +308,11 @@ class ClientBuffer
 	// |------------- 加密的整个消息  -------------------------------------|
 	// |----4 Header----|-压缩的 body----|----4 Header----|-压缩的 body----|
 	// |                |                |                |                |
-	protected void UnCompressAndDecryptEveryOne()
+	protected function UnCompressAndDecryptEveryOne()
 	{
 		if (MacroDef.MSG_ENCRIPT)
 		{
-			mRawBuffer.msgBodyBA.decrypt(mCryptContext, 0);
+		    $this->mRawBuffer.msgBodyBA.decrypt($this->mCryptContext, 0);
 		}
 //#if MSG_COMPRESS
 		//mRawBuffer.headerBA.setPos(0); // 这个头目前没有用，是客户端自己添加的，服务器发送一个包，就认为是一个完整的包
@@ -438,12 +324,12 @@ class ClientBuffer
 		//}
 //#endif
 
-		mRawBuffer.msgBodyBA.setPos(0);
+		$this->mRawBuffer.msgBodyBA.setPos(0);
 
-		uint msglen = 0;
-		while (mRawBuffer.msgBodyBA.bytesAvailable >= 4)
+		$msglen = 0;
+		while ($this->mRawBuffer.msgBodyBA.bytesAvailable >= 4)
 		{
-			mRawBuffer.msgBodyBA.readUnsignedInt32(ref msglen);    // 读取一个消息包头
+		    $this->mRawBuffer.msgBodyBA.readUnsignedInt32($msglen);    // 读取一个消息包头
 			if (msglen == 0)     // 如果是 0 ，就说明最后是由于加密补齐的数据
 			{
 				break;
@@ -451,22 +337,22 @@ class ClientBuffer
 			
 			if ((msglen & MsgCV.PACKET_ZIP) > 0 && MacroDef.MSG_COMPRESS)
 			{
-				msglen &= (~MsgCV.PACKET_ZIP);         // 去掉压缩标志位
-				msglen = mRawBuffer.msgBodyBA.uncompress(msglen);
+				$msglen &= (~MsgCV.PACKET_ZIP);         // 去掉压缩标志位
+				$msglen = $this->mRawBuffer.msgBodyBA.uncompress($msglen);
 			}
 			else
 			{
-				mRawBuffer.msgBodyBA.position += msglen;
+			    $this->mRawBuffer->msgBodyBA->setPos($this->mRawBuffer->msgBodyBA->getPos() + $msglen);
 			}
 
-			mUnCompressHeaderBA.clear();
-			mUnCompressHeaderBA.writeUnsignedInt32(msglen);        // 写入解压后的消息的长度，不要写入 msglen ，如果压缩，再加密，解密后，再解压后的长度才是真正的长度
-			mUnCompressHeaderBA.position = 0;
+			$this->mUnCompressHeaderBA.clear();
+			$this->mUnCompressHeaderBA.writeUnsignedInt32($msglen);        // 写入解压后的消息的长度，不要写入 msglen ，如果压缩，再加密，解密后，再解压后的长度才是真正的长度
+			$this->mUnCompressHeaderBA->setPos(0);
 
-			using (MLock mlock = new MLock(mReadMutex))
+			$mlock = new MLock(mReadMutex);
 			{
-				mMsgBuffer.circularBuffer.pushBackBA(mUnCompressHeaderBA);             // 保存消息大小字段
-				mMsgBuffer.circularBuffer.pushBackArr(mRawBuffer.msgBodyBA.dynBuffer.buffer, mRawBuffer.msgBodyBA.position - msglen, msglen);      // 保存消息大小字段
+			    $this->mMsgBuffer.circularBuffer.pushBackBA($this->mUnCompressHeaderBA);             // 保存消息大小字段
+			    $this->mMsgBuffer.circularBuffer.pushBackArr($this->mRawBuffer.msgBodyBA.dynBuffer.buffer, mRawBuffer.msgBodyBA.position - msglen, msglen);      // 保存消息大小字段
 			}
 
 			Ctx.mInstance.mNetCmdNotify.addOneRevMsg();
@@ -478,39 +364,39 @@ class ClientBuffer
 		}
 	}
 
-	protected void UnCompressAndDecryptAllInOne()
+	protected function UnCompressAndDecryptAllInOne()
 	{
 		if (MacroDef.MSG_ENCRIPT)
 		{
-			mRawBuffer.msgBodyBA.decrypt(mCryptContext, 0);
+		    $this->mRawBuffer.msgBodyBA.decrypt($this->mCryptContext, 0);
 		}
 
-		uint msglen = 0;
+		$msglen = 0;
 		if (MacroDef.MSG_COMPRESS)
 		{
-			mRawBuffer.headerBA.setPos(0);
+		    $this->mRawBuffer.headerBA.setPos(0);
 
-			mRawBuffer.headerBA.readUnsignedInt32(ref msglen);
+		    $this->mRawBuffer.headerBA.readUnsignedInt32(msglen);
 			if ((msglen & MsgCV.PACKET_ZIP) > 0)
 			{
-				mRawBuffer.msgBodyBA.uncompress();
+			    $this->mRawBuffer.msgBodyBA.uncompress();
 			}
 		}
 
 		if (!MacroDef.MSG_COMPRESS && !MacroDef.MSG_ENCRIPT)
 		{
-			mUnCompressHeaderBA.clear();
-			mUnCompressHeaderBA.writeUnsignedInt32(mRawBuffer.msgBodyBA.length);
-			mUnCompressHeaderBA.position = 0;
+		    $this->mUnCompressHeaderBA.clear();
+		    $this->mUnCompressHeaderBA.writeUnsignedInt32($this->mRawBuffer.msgBodyBA.length);
+		    $this->mUnCompressHeaderBA->setPos(0);
 		}
 
-		using (MLock mlock = new MLock(mReadMutex))
+		$mlock = new MLock($this->mReadMutex);
 		{
 			if (!MacroDef.MSG_COMPRESS && !MacroDef.MSG_ENCRIPT)
 			{
-				mMsgBuffer.circularBuffer.pushBackBA(mUnCompressHeaderBA);             // 保存消息大小字段
+			    $this->mMsgBuffer.circularBuffer.pushBackBA($this->mUnCompressHeaderBA);             // 保存消息大小字段
 			}
-			mMsgBuffer.circularBuffer.pushBackBA(mRawBuffer.msgBodyBA);      // 保存消息大小字段
+			$this->mMsgBuffer.circularBuffer.pushBackBA($this->mRawBuffer.msgBodyBA);      // 保存消息大小字段
 		}
 	}
 }

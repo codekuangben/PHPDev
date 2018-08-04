@@ -22,8 +22,6 @@ class ClientBuffer
 	private $mReadMutex;   // 读互斥
 	private $mWriteMutex;  // 写互斥
 
-	protected CryptContext mCryptContext;
-
 	public ClientBuffer()
 	{
 		$this->mRawBuffer = new MsgBuffer();

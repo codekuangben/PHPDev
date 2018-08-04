@@ -8,7 +8,7 @@ class MQueue
 
 	public function __construct()
 	{
-		$this->mQueue = new Queue();
+		//$this->mQueue = new Queue();
 	}
 
 	public function Count()

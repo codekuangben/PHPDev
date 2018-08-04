@@ -5,7 +5,7 @@ namespace SDK\Lib;
 /**
  * @brief 任务线程
  */
-public class TaskThread : MThread
+class TaskThread extends MThread
 {
 	protected TaskQueue mTaskQueue;
 	protected MCondition mCondition;

@@ -2,10 +2,10 @@
 
 namespace SDK\Lib;
 
-public interface ITask
+interface ITask
 {
-	void runTask();             // 执行任务
-	void handleResult();        // 处理结果
+	public function runTask();             // 执行任务
+	public function handleResult();        // 处理结果
 }
 
 ?>

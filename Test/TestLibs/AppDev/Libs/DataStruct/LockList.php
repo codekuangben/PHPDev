@@ -95,7 +95,7 @@ class LockList
 				{
 					if ($index != $this->mDynamicBuffer->mSize - 1 && 1 != $this->mDynamicBuffer->mSize) // 如果删除不是最后一个元素或者总共就大于一个元素
 					{
-						Array.Copy($this->mDynamicBuffer->mBuffer, $index + 1, $this->mDynamicBuffer->mBuffer, index, $this->mDynamicBuffer->mSize - 1 - $index);
+						UtilList.Copy($this->mDynamicBuffer->mBuffer, $index + 1, $this->mDynamicBuffer->mBuffer, index, $this->mDynamicBuffer->mSize - 1 - $index);
 					}
 
 					--$this->mDynamicBuffer->mSize;

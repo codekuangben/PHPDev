@@ -2,7 +2,7 @@
 
 namespace SDK\Lib;
 
-public class TaskQueue : LockQueue<ITask>
+class TaskQueue extends LockQueue
 {
 	public TaskThreadPool mTaskThreadPool;
 

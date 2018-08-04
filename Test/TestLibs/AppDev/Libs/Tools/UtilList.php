@@ -54,6 +54,27 @@ class UtilList
         }
     }
     
+    public static function CopyToStr($srcArray, $srcIndex, &$destStr, $destIndex, $length)
+    {
+        $index = 0;
+        $srcListLen = UtilList::count($srcArray);
+        $destListLen = UtilStr::length($destStr);
+        
+        while($index < $length && $srcIndex + $index < $srcListLen)
+        {
+            if($destIndex + $index < $destListLen)
+            {
+                $destStr[$destIndex + $index] = (string)($retArray[$srcIndex + $index]);
+            }
+            else
+            {
+                $destStr = $destStr . (string)($retArray[$srcIndex + $index]);
+            }
+            
+            $index += 1;
+        }
+    }
+    
     public static function Reverse($srcArray)
     {
         $startIndex = 0;

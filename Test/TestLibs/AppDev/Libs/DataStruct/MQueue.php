@@ -2,31 +2,31 @@
 
 namespace SDK\Lib;
 
-class MQueue<T>
+class MQueue
 {
-	protected Queue<T> mQueue;
+	protected $mQueue;
 
-	public MQueue()
+	public function __construct()
 	{
-		$this->mQueue = new Queue<T>();
+		$this->mQueue = new Queue();
 	}
 
-	public int Count()
+	public function Count()
 	{
 		return $this->mQueue.Count;
 	}
 
-	public T Dequeue()
+	public function Dequeue()
 	{
 		return $this->mQueue.Dequeue();
 	}
 
-	public void Enqueue(T item)
+	public function Enqueue($item)
 	{
-		$this->mQueue.Enqueue(item);
+		$this->mQueue.Enqueue($item);
 	}
 
-	public T Peek()
+	public function Peek()
 	{
 		return $this->mQueue.Peek();
 	}

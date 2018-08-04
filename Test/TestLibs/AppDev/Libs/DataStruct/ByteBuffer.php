@@ -9,9 +9,11 @@ namespace SDK\Lib;
 class ByteBuffer implements IDispatchObject
 {
     public const msCharMemByteNum = 1;      // char 类型内存占用字节数
+    public const msShortIntMemByteNum = 4;  // int 类型内存占用字节数
     public const msIntMemByteNum = 4;       // int 类型内存占用字节数
     public const msFloatMemByteNum = 4;     // float 类型内存占用字节数
-    public const msLongMemByteNum = 4;      // long 类型内存占用字节数
+    public const msDoubleMemByteNum = 4;    // double 类型内存占用字节数
+    public const msLongIntMemByteNum = 4;   // long 类型内存占用字节数
     
 	// 读写临时缓存，这个如果是单线程其实可以共享的
 	public $mWriteFloatBytes = null;
@@ -120,18 +122,18 @@ class ByteBuffer implements IDispatchObject
 
 	protected function advPosAndLen($num)
 	{
-	    $this->mPos += num;
+	    $this->mPos += $num;
 	    $this->setlength($this->mPos);
 	}
 
 	public function incPosDelta($delta)        // 添加 pos delta 数量
 	{
-	    $this->mPos += delta;
+	    $this->mPos += $delta;
 	}
 
 	public function decPosDelta($delta)     // 减少 pos delta 数量
 	{
-	    $this->mPos -= delta;
+	    $this->mPos -= $delta;
 	}
 
 	public function readInt8(&$tmpByte)
@@ -147,7 +149,7 @@ class ByteBuffer implements IDispatchObject
 
 	public function readUnsignedInt8(&$tmpByte)
 	{
-	    if ($this->canRead(sizeof(byte)))
+	    if ($this->canRead(ByteBuffer::msCharMemByteNum))
 		{
 		    $tmpByte = $this->mDynBuffer->getBuffer()[$this->mPos];
 			$this->advPos(sizeof(byte));
@@ -158,11 +160,11 @@ class ByteBuffer implements IDispatchObject
 
 	public function readInt16(&$tmpShort)
 	{
-	    if ($this->canRead(sizeof(short)))
+	    if ($this->canRead(ByteBuffer::msShortIntMemByteNum))
 		{
-		    tmpShort = MBitConverter.ToInt16($this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
+		    $tmpShort = MBitConverter::ToInt16($this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
 
-			$this->advPos(sizeof(short));
+		    $this->advPos(ByteBuffer::msShortIntMemByteNum);
 		}
 
 		return this;
@@ -170,11 +172,11 @@ class ByteBuffer implements IDispatchObject
 
 	public function readUnsignedInt16(&$tmpUshort)
 	{
-	    if ($this->canRead(sizeof(ushort)))
+	    if ($this->canRead(ByteBuffer::msShortIntMemByteNum))
 		{
-		    tmpUshort = MBitConverter.ToUInt16($this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
+		    $tmpUshort = MBitConverter::ToUInt16($this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
 
-			$this->advPos(sizeof(ushort));
+		    $this->advPos(ByteBuffer::msShortIntMemByteNum);
 		}
 
 		return this;
@@ -182,11 +184,11 @@ class ByteBuffer implements IDispatchObject
 
 	public function readInt32(&$tmpInt)
 	{
-	    if ($this->canRead(sizeof(int)))
+	    if ($this->canRead(ByteBuffer::msIntMemByteNum))
 		{
-		    tmpInt = MBitConverter.ToInt32($this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
+		    $tmpInt = MBitConverter::ToInt32($this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
 
-			$this->advPos(sizeof(int));
+		    $this->advPos(ByteBuffer::msIntMemByteNum);
 		}
 
 		return this;
@@ -194,12 +196,12 @@ class ByteBuffer implements IDispatchObject
 
 	public function readUnsignedInt32(&$tmpUint)
 	{
-	    if ($this->canRead(sizeof(uint)))
+	    if ($this->canRead(ByteBuffer::msIntMemByteNum))
 		{
 			// 如果字节序和本地字节序不同，需要转换
-		    tmpUint = MBitConverter.ToUInt32($this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
+		    $tmpUint = MBitConverter::ToUInt32($this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
 
-		    $this->advPos(sizeof(uint));
+		    $this->advPos(ByteBuffer::msIntMemByteNum);
 		}
 
 		return this;
@@ -207,11 +209,11 @@ class ByteBuffer implements IDispatchObject
 
 	public function readInt64(&$tmpLong)
 	{
-	    if ($this->canRead(sizeof(long)))
+	    if ($this->canRead(ByteBuffer::msLongIntMemByteNum))
 		{
-		    tmpLong = MBitConverter.ToInt64($this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
+		    $tmpLong = MBitConverter::ToInt64($this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
 
-		    $this->advPos(sizeof(long));
+		    $this->advPos(ByteBuffer::msLongIntMemByteNum);
 		}
 
 		return this;
@@ -219,11 +221,11 @@ class ByteBuffer implements IDispatchObject
 
 	public function readUnsignedInt64(&$tmpUlong)
 	{
-	    if ($this->canRead(sizeof(ulong)))
+	    if ($this->canRead(ByteBuffer::msLongIntMemByteNum))
 		{
-		    tmpUlong = MBitConverter.ToUInt64($this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
+		    $tmpUlong = MBitConverter::ToUInt64($this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
 
-		    $this->advPos(sizeof(ulong));
+		    $this->advPos(ByteBuffer::msLongIntMemByteNum);
 		}
 
 		return this;
@@ -231,20 +233,21 @@ class ByteBuffer implements IDispatchObject
 
 	public function readFloat(&$tmpFloat)
 	{
-	    if ($this->canRead(sizeof(float)))
+	    if ($this->canRead(ByteBuffer::msFloatMemByteNum))
 		{
 		    if ($this->mEndian != SystemEndian::msLocalEndian)
 			{
-			    Array.Copy($this->mDynBuffer->getBuffer(), $this->mPos, $this->mReadFloatBytes, 0, sizeof(float));
-			    Array.Reverse($this->mReadFloatBytes, 0, sizeof(float));
-			    tmpFloat = unpack("f", $this->mReadFloatBytes);
+			    UtilList::Copy($this->mDynBuffer->getBuffer(), $this->mPos, $this->mReadFloatBytes, 0, ByteBuffer::msFloatMemByteNum);
+			    UtilList::Reverse($this->mReadFloatBytes, 0, ByteBuffer::msFloatMemByteNum);
+			    $tmpFloat = unpack("f", $this->mReadFloatBytes);
 			}
 			else
 			{
-			    tmpFloat = System.BitConverter.ToSingle($this->mDynBuffer->getBuffer(), $this->mPos);
+			    UtilList::Copy($this->mDynBuffer->getBuffer(), $this->mPos, $this->mReadFloatBytes, 0, ByteBuffer::msFloatMemByteNum);
+			    $tmpFloat = unpack("f", $this->mReadFloatBytes);
 			}
 
-			$this->advPos(sizeof(float));
+			$this->advPos(ByteBuffer::msFloatMemByteNum);
 		}
 
 		return this;
@@ -252,282 +255,286 @@ class ByteBuffer implements IDispatchObject
 
 	public function readDouble(&$tmpDouble)
 	{
-	    if ($this->canRead(sizeof(double)))
+	    if ($this->canRead(ByteBuffer::msDoubleMemByteNum))
 		{
 			if (mEndian != SystemEndian.msLocalEndian)
 			{
-			    Array.Copy($this->mDynBuffer->getBuffer(), $this->mPos, $this->mReadDoubleBytes, 0, sizeof(double));
-			    Array.Reverse($this->mReadDoubleBytes, 0, sizeof(double));
-			    tmpDouble = System.BitConverter.ToDouble($this->mReadDoubleBytes, $this->mPos);
+			    UtilList::Copy($this->mDynBuffer->getBuffer(), $this->mPos, $this->mReadDoubleBytes, 0, ByteBuffer::msDoubleMemByteNum);
+			    UtilList::Reverse($this->mReadDoubleBytes, 0, ByteBuffer::msDoubleMemByteNum);
+			    $tmpDouble = unpack("f", $this->$this->mReadDoubleBytes);
 			}
 			else
 			{
-			    tmpDouble = System.BitConverter.ToDouble($this->mDynBuffer->getBuffer(), $this->mPos);
+			    UtilList::Copy($this->mDynBuffer->getBuffer(), $this->mPos, $this->mReadDoubleBytes, 0, ByteBuffer::msDoubleMemByteNum);
+			    $tmpDouble = unpack("f", $this->$this->mReadDoubleBytes);
 			}
 
-			$this->advPos(sizeof(double));
+			$this->advPos(ByteBuffer::msDoubleMemByteNum);
 		}
 
 		return this;
 	}
 
-	public function readMultiByte(&$tmpStr, uint len, MEncode gkCharSet)
+	public function readMultiByte(&$tmpStr, $len, $encode)
 	{
-		Encoding charSet = UtilSysLibWrap.convGkEncode2EncodingEncoding(gkCharSet);
+	    $charSetStr = UtilSysLibWrap.convEncode2NativeEncodeStr($encode);
+	    $tmpBytes = "";
 
 		// 如果是 unicode ，需要大小端判断
-		if ($this->canRead(len))
+		if ($this->canRead($len))
 		{
-		    tmpStr = charSet.GetString($this->mDynBuffer->getBuffer(), $this->mPos, (int)len);
-			$this->advPos(len);
+		    UtilList::CopyToStr($this->mDynBuffer->getBuffer(), $this->mPos, $tmpBytes, 0, (int)len);
+		    $tmpStr = iconv(MEncodeStr::eUTF8Str, $charSetStr, $tmpBytes);
+			$this->advPos($len);
 		}
 
 		return this;
 	}
 
 	// 这个是字节读取，没有大小端的区别
-	public function readBytes(ref byte[] tmpBytes, uint len)
+	public function readBytes(&$tmpBytes, $len)
 	{
-	    if ($this->canRead(len))
+	    if ($this->canRead($len))
 		{
-		    Array.Copy($this->mDynBuffer->getBuffer(), $this->mPos, tmpBytes, 0, (int)len);
-			$this->advPos(len);
+		    UtilList::CopyToStr($this->mDynBuffer->getBuffer(), $this->mPos, $tmpBytes, 0, (int)len);
+		    $this->advPos($len);
 		}
 
 		return this;
 	}
 
 	// 如果要使用 writeInt8 ，直接使用 writeMultiByte 这个函数
-	public function writeInt8(char value)
+	public function writeInt8($value)
 	{
-	    if (!$this->canWrite(sizeof(char)))
+	    if (!$this->canWrite(ByteBuffer::msCharMemByteNum))
 		{
-		    $this->extendDeltaCapicity(sizeof(char));
+		    $this->extendDeltaCapicity(ByteBuffer::msCharMemByteNum);
 		}
 		
-		$this->mDynBuffer->getBuffer()[$this->mPos] = (byte)value;
-		$this->advPosAndLen(sizeof(char));
+		$this->mDynBuffer->getBuffer()[$this->mPos] = (int)$value;
+		$this->advPosAndLen(ByteBuffer::msCharMemByteNum);
 	}
 
-	public function writeUnsignedInt8(byte value)
+	public function writeUnsignedInt8($value)
 	{
-	    if (!$this->canWrite(sizeof(byte)))
+	    if (!$this->canWrite(ByteBuffer::msCharMemByteNum))
 		{
-		    $this->extendDeltaCapicity(sizeof(byte));
+		    $this->extendDeltaCapicity(ByteBuffer::msCharMemByteNum);
 		}
 		
-		$this->mDynBuffer->getBuffer()[$this->mPos] = value;
+		$this->mDynBuffer->getBuffer()[$this->mPos] = $value;
 		$this->advPosAndLen(sizeof(byte));
 	}
 
-	public function writeInt16 (short value)
+	public function writeInt16 ($value)
 	{
-	    if (!$this->canWrite(sizeof(short)))
+	    if (!$this->canWrite(ByteBuffer::msShortIntMemByteNum))
 		{
-		    $this->extendDeltaCapicity(sizeof(short));
+		    $this->extendDeltaCapicity(ByteBuffer::msShortIntMemByteNum);
 		}
 		
-		MBitConverter.GetBytes(value, $this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
+		MBitConverter.GetBytes($value, $this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
 
-		$this->advPosAndLen(sizeof(short));
+		$this->advPosAndLen(ByteBuffer::msShortIntMemByteNum);
 	}
 
-	public function writeUnsignedInt16(ushort value)
+	public function writeUnsignedInt16($value)
 	{
-	    if (!$this->canWrite(sizeof(ushort)))
+	    if (!$this->canWrite(ByteBuffer::msShortIntMemByteNum))
 		{
-		    $this->extendDeltaCapicity(sizeof(ushort));
+		    $this->extendDeltaCapicity(ByteBuffer::msShortIntMemByteNum);
 		}
 
-		MBitConverter.GetBytes(value, $this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
+		MBitConverter::GetBytes($value, $this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
 
-		$this->advPosAndLen(sizeof(ushort));
+		$this->advPosAndLen(ByteBuffer::msShortIntMemByteNum);
 	}
 
-	public function writeInt32(int value)
+	public function writeInt32($value)
 	{
-	    if (!$this->canWrite(sizeof(int)))
+	    if (!$this->canWrite(ByteBuffer::msIntMemByteNum))
 		{
-		    $this->extendDeltaCapicity(sizeof(int));
+		    $this->extendDeltaCapicity(ByteBuffer::msIntMemByteNum);
 		}
 
-		MBitConverter.GetBytes(value, $this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
+		MBitConverter::GetBytes(value, $this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
 
-		$this->advPosAndLen(sizeof(int));
+		$this->advPosAndLen(ByteBuffer::msIntMemByteNum);
 	}
 
-	public function writeUnsignedInt32 (uint value, bool bchangeLen = true)
+	public function writeUnsignedInt32 ($value, $bchangeLen = true)
 	{
-	    if (!$this->canWrite(sizeof(uint)))
+	    if (!$this->canWrite(ByteBuffer::msIntMemByteNum))
 		{
-		    $this->extendDeltaCapicity(sizeof(uint));
+		    $this->extendDeltaCapicity(ByteBuffer::msIntMemByteNum);
 		}
 
-		MBitConverter.GetBytes(value, $this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
+		MBitConverter::GetBytes($value, $this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
 
 		if (bchangeLen)
 		{
-		    $this->advPosAndLen(sizeof(uint));
+		    $this->advPosAndLen(ByteBuffer::msIntMemByteNum);
 		}
 		else
 		{
-		    $this->advPos(sizeof(uint));
+		    $this->advPos(ByteBuffer::msIntMemByteNum);
 		}
 	}
 
-	public function writeInt64(long value)
+	public function writeInt64($value)
 	{
-	    if (!$this->canWrite(sizeof(long)))
+	    if (!$this->canWrite(ByteBuffer::msLongIntMemByteNum))
 		{
-		    $this->extendDeltaCapicity(sizeof(long));
+		    $this->extendDeltaCapicity(ByteBuffer::msLongIntMemByteNum);
 		}
 
-		MBitConverter.GetBytes(value, $this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
+		MBitConverter::GetBytes($value, $this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
 
-		$this->advPosAndLen(sizeof(long));
+		$this->advPosAndLen(ByteBuffer::msLongIntMemByteNum);
 	}
 
-	public function writeUnsignedInt64(ulong value)
+	public function writeUnsignedInt64($value)
 	{
-	    if (!$this->canWrite(sizeof(ulong)))
+	    if (!$this->canWrite(ByteBuffer::msLongIntMemByteNum))
 		{
-		    $this->extendDeltaCapicity(sizeof(ulong));
+		    $this->extendDeltaCapicity(ByteBuffer::msLongIntMemByteNum);
 		}
 
-		MBitConverter.GetBytes(value, $this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
+		MBitConverter::GetBytes($value, $this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
 
-		$this->advPosAndLen(sizeof(ulong));
+		$this->advPosAndLen(ByteBuffer::msLongIntMemByteNum);
 	}
 
-	public function writeFloat(float value)
+	public function writeFloat($value)
 	{
-	    if (!$this->canWrite(sizeof(float)))
+	    if (!$this->canWrite(ByteBuffer::msFloatMemByteNum))
 		{
-		    $this->extendDeltaCapicity(sizeof(float));
+		    $this->extendDeltaCapicity(ByteBuffer::msFloatMemByteNum);
 		}
 
-		$this->mWriteFloatBytes = System.BitConverter.GetBytes(value);
-		if (mEndian != SystemEndian.msLocalEndian)
+		$this->mWriteFloatBytes = pack("f", value);
+		
+		if ($this->mEndian != SystemEndian::msLocalEndian)
 		{
-		    Array.Reverse($this->mWriteFloatBytes);
+		    UtilList::Reverse($this->mWriteFloatBytes);
 		}
-		Array.Copy(mWriteFloatBytes, 0, $this->mDynBuffer->getBuffer(), $this->mPos, sizeof(float));
+		UtilList.Copy($this->mWriteFloatBytes, 0, $this->mDynBuffer->getBuffer(), $this->mPos, ByteBuffer::msFloatMemByteNum);
 
-		$this->advPosAndLen(sizeof(float));
+		$this->advPosAndLen(ByteBuffer::msFloatMemByteNum);
 	}
 
-	public function writeDouble(double value)
+	public function writeDouble($value)
 	{
-	    if (!$this->canWrite(sizeof(double)))
+	    if (!$this->canWrite(ByteBuffer::msDoubleMemByteNum))
 		{
-		    $this->extendDeltaCapicity(sizeof(double));
+		    $this->extendDeltaCapicity(ByteBuffer::msDoubleMemByteNum);
 		}
 
 		$this->mWriteDoubleBytes = System.BitConverter.GetBytes(value);
-		if (mEndian != SystemEndian.msLocalEndian)
+		
+		if ($this->mEndian != SystemEndian::msLocalEndian)
 		{
-		    Array.Reverse($this->mWriteDoubleBytes);
+		    UtilList::Reverse($this->mWriteDoubleBytes);
 		}
-		Array.Copy($this->mWriteDoubleBytes, 0, $this->mDynBuffer->getBuffer(), $this->mPos, sizeof(double));
+		
+		UtilList::Copy($this->mWriteDoubleBytes, 0, $this->mDynBuffer->getBuffer(), $this->mPos, ByteBuffer::msDoubleMemByteNum);
 
-		$this->advPosAndLen(sizeof(double));
+		$this->advPosAndLen(ByteBuffer::msDoubleMemByteNum);
 	}
 
 	// 写入字节， bchangeLen 是否改变长度
-	public function writeBytes(byte[] value, uint start, uint len, bool bchangeLen = true)
+	public function writeBytes($value, $start, $len, $bchangeLen = true)
 	{
-		if (len > 0)            // 如果有长度才写入
+		if ($len > 0)            // 如果有长度才写入
 		{
-		    if (!$this->canWrite(len))
+		    if (!$this->canWrite($len))
 			{
-			    $this->extendDeltaCapicity(len);
+			    $this->extendDeltaCapicity($len);
 			}
-			Array.Copy(value, start, $this->mDynBuffer->getBuffer(), $this->mPos, len);
+			UtilList::Copy($value, $start, $this->mDynBuffer->getBuffer(), $this->mPos, $len);
 			
 			if (bchangeLen)
 			{
-			    $this->advPosAndLen(len);
+			    $this->advPosAndLen($len);
 			}
 			else
 			{
-			    $this->advPos(len);
+			    $this->advPos($len);
 			}
 		}
 	}
 
 	// 写入字符串
-	//public void writeMultiByte(string value, Encoding charSet, int len)
-	public function writeMultiByte(string value, MEncode gkCharSet, int len)
-	{
-		Encoding charSet = UtilSysLibWrap.convGkEncode2EncodingEncoding(gkCharSet);
-		int num = 0;
+	//public function writeMultiByte($value, $encode, $len)
+	//{
+	//    $charSetStr = UtilSysLibWrap.convEncode2NativeEncodeStr($encode);
+	//	$num = 0;
 
-		if (null != value)
-		{
-			//char[] charPtr = value.ToCharArray();
-			num = charSet.GetByteCount(value);
+	//	if (null != $value)
+	//	{
+	//		num = $charSet.GetByteCount($value);
 
-			if (0 == len)
-			{
-				len = num;
-			}
+	//		if (0 == $len)
+	//		{
+	//			$len = $num;
+	//		}
 
-			if (!canWrite((uint)len))
-			{
-				extendDeltaCapicity((uint)len);
-			}
+	//		if (!$this->canWrite((uint)$len))
+	//		{
+	//			$this->extendDeltaCapicity((uint)$len);
+	//		}
 
-			if (num < len)
-			{
-			    Array.Copy(charSet.GetBytes(value), 0, $this->mDynBuffer->getBuffer(), $this->mPos, num);
+	//		if ($num < $len)
+	//		{
+	//		    UtilList.Copy(charSet.GetBytes(value), 0, $this->mDynBuffer->getBuffer(), $this->mPos, num);
 				// 后面补齐 0 
-				Array.Clear($this->mDynBuffer->getBuffer(), $this->mPos + num, len - num);
-			}
-			else
-			{
-			    Array.Copy(charSet.GetBytes(value), 0, $this->mDynBuffer->getBuffer(), $this->mPos, len);
-			}
+	//			Array.Clear($this->mDynBuffer->getBuffer(), $this->mPos + num, len - num);
+	//		}
+	//		else
+	//		{
+	//		    Array.Copy(charSet.GetBytes(value), 0, $this->mDynBuffer->getBuffer(), $this->mPos, len);
+	//		}
 			
-			$this->advPosAndLen(len);
-		}
-		else
-		{
-		    if (!$this->canWrite(len))
-			{
-			    $this->extendDeltaCapicity(len);
-			}
+	//		$this->advPosAndLen($len);
+	//	}
+	//	else
+	//	{
+	//	    if (!$this->canWrite($len))
+	//		{
+	//		    $this->extendDeltaCapicity($len);
+	//		}
 
-			$this->advPosAndLen(len);
-		}
-	}
+	//		$this->advPosAndLen($len);
+	//	}
+	//}
 
 	// 替换已经有的一段数据
-	protected function replace(byte[] srcBytes, uint srcStartPos = 0, uint srclen_ = 0, uint destStartPos = 0, uint destlen_ = 0)
+	protected function replace($srcBytes, $srcStartPos = 0, $srclen_ = 0, $destStartPos = 0, $destlen_ = 0)
 	{
-		uint lastLeft = length - destStartPos - destlen_;        // 最后一段的长度
-		$this->setLength(destStartPos + srclen_ + lastLeft);      // 设置大小，保证足够大小空间
+		$lastLeft = length - destStartPos - destlen_;        // 最后一段的长度
+		$this->setLength($destStartPos + $srclen_ + $lastLeft);      // 设置大小，保证足够大小空间
 
-		$this->setPos(destStartPos + srclen_);
+		$this->setPos($destStartPos + $srclen_);
 		
-		if (lastLeft > 0)
+		if ($lastLeft > 0)
 		{
-		    $this->writeBytes($this->mDynBuffer->getBuffer(), destStartPos + destlen_, lastLeft, false);          // 这个地方自己区域覆盖自己区域，可以保证自己不覆盖自己区域
+		    $this->writeBytes($this->mDynBuffer->getBuffer(), $destStartPos + $destlen_, $lastLeft, false);          // 这个地方自己区域覆盖自己区域，可以保证自己不覆盖自己区域
 		}
 
-		$this->setPos(destStartPos);
-		$this->writeBytes(srcBytes, srcStartPos, srclen_, false);
+		$this->setPos($destStartPos);
+		$this->writeBytes($srcBytes, $srcStartPos, $srclen_, false);
 	}
 
-	public function insertUnsignedInt32(uint value)
+	public function insertUnsignedInt32($value)
 	{
-	    $this->setLength($this->getLength() + sizeof(int));       // 扩大长度
-	    $this->writeUnsignedInt32(value);     // 写入
+	    $this->setLength($this->getLength() + ByteBuffer::msIntMemByteNum);       // 扩大长度
+	    $this->writeUnsignedInt32($value);     // 写入
 	}
 
-	public function readUnsignedLongByOffset(ref ulong tmpUlong, uint offset)
+	public function readUnsignedLongByOffset(&$tmpUlong, $offset)
 	{
 	    $this->setPos(offset);
-	    $this->readUnsignedInt64(ref tmpUlong);
+	    $this->readUnsignedInt64($tmpUlong);
 		return this;
 	}
 
@@ -539,10 +546,10 @@ class ByteBuffer implements IDispatchObject
 
 	public function readBoolean(&$tmpBool)
 	{
-	    if ($this->canRead(sizeof(bool)))
+	    if ($this->canRead(ByteBuffer::msCharMemByteNum))
 		{
-		    tmpBool = System.BitConverter.ToBoolean($this->mDynBuffer->getBuffer(), $this->mPos);
-			$this->advPos(sizeof(bool));
+		    $tmpBool = System.BitConverter.ToBoolean($this->mDynBuffer->getBuffer(), $this->mPos);
+		    $this->advPos(ByteBuffer::msCharMemByteNum);
 		}
 
 		return this;

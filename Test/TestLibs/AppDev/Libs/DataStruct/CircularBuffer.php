@@ -12,12 +12,12 @@ namespace SDK\Lib;
  */
 class CircularBuffer
 {
-	protected DynBuffer<byte> mDynBuffer;
-	protected uint mFirst;             // 当前缓冲区数据的第一个索引
-	protected uint mLast;              // 当前缓冲区数据的最后一个索引的后面一个索引，浪费一个字节
-	protected ByteBuffer mTmpBA;        // 临时数据
+	protected $mDynBuffer;
+	protected $mFirst;             // 当前缓冲区数据的第一个索引
+	protected $mLast;              // 当前缓冲区数据的最后一个索引的后面一个索引，浪费一个字节
+	protected $mTmpBA;        // 临时数据
 
-	public CircularBuffer(uint initCapacity = BufferCV.INIT_CAPACITY, uint maxCapacity = BufferCV.MAX_CAPACITY)
+	public function __construct()(uint initCapacity = BufferCV.INIT_CAPACITY, uint maxCapacity = BufferCV.MAX_CAPACITY)
 	{
 		$this->mDynBuffer = new DynBuffer<byte>(initCapacity, maxCapacity);
 
@@ -27,43 +27,32 @@ class CircularBuffer
 		$this->mTmpBA = new ByteBuffer();
 	}
 
-	public uint first
+	public function getFirst()
 	{
-		get
-		{
-			return $this->mFirst;
-		}
+		return $this->mFirst;
 	}
 
-	public uint last
+	public function getLast()
 	{
-		get
-		{
-			return $this->mLast;
-		}
+		return $this->mLast;
 	}
 
-	public byte[] buffer
+	public function getBuffer()
 	{
-		get
-		{
-			return $this->mDynBuffer.mBuffer;
-		}
+		return $this->mDynBuffer.mBuffer;
 	}
 
-	public uint size
+	public function getSize()
 	{
-		get
-		{
-			return $this->mDynBuffer.mSize;
-		}
-		set
-		{
-			$this->mDynBuffer.size = value;
-		}
+		return $this->mDynBuffer.mSize;
+	}
+	
+	public function setSize()
+	{
+		$this->mDynBuffer.setSize($value);
 	}
 
-	public bool isLinearized()
+	public function isLinearized()
 	{
 		if ($this->size == 0)
 		{
@@ -73,23 +62,23 @@ class CircularBuffer
 		return $this->mFirst < $this->mLast;
 	}
 
-	public bool empty()
+	public function empty()
 	{
 		return $this->mDynBuffer.mSize == 0;
 	}
 
-	public uint capacity()
+	public function capacity()
 	{
 		return $this->mDynBuffer.mCapacity;
 	}
 
-	public bool full()
+	public function full()
 	{ 
-		return $this->capacity() == $this->size;
+		return $this->capacity() == $this->getSize();
 	}
 
 	// 清空缓冲区
-	public void clear()
+	public function clear()
 	{
 		$this->mDynBuffer.mSize = 0;
 		$this->mFirst = 0;
@@ -99,7 +88,7 @@ class CircularBuffer
 	/**
 	 * @brief 将数据尽量按照存储地址的从小到大排列
 	 */
-	public void linearize()
+	public function linearize()
 	{
 		if ($this->empty())        // 没有数据
 		{
@@ -125,7 +114,7 @@ class CircularBuffer
 	/**
 	 * @brief 更改存储内容空间大小
 	 */
-	protected void setCapacity(uint newCapacity) 
+	protected function setCapacity($newCapacity) 
 	{
 		if (newCapacity == $this->capacity())
 		{

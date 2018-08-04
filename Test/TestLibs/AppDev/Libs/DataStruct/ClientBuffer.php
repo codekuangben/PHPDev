@@ -7,20 +7,20 @@ namespace SDK\Lib;
  */
 class ClientBuffer
 {
-	protected MsgBuffer mRawBuffer;      // 直接从服务器接收到的原始的数据，可能压缩和加密过
-	protected MsgBuffer mMsgBuffer;      // 可以使用的缓冲区
-	//protected ByteBuffer mSendTmpBA;   // 发送临时缓冲区，发送的数据都暂时放在这里
-	protected MsgBuffer mSendTmpBuffer;  // 发送临时缓冲区，发送的数据都暂时放在这里
-	protected ByteBuffer mSocketSendBA;       // 真正发送缓冲区
+	protected $mRawBuffer;      // 直接从服务器接收到的原始的数据，可能压缩和加密过
+	protected $mMsgBuffer;      // 可以使用的缓冲区
+	//protected $mSendTmpBA;   // 发送临时缓冲区，发送的数据都暂时放在这里
+	protected $mSendTmpBuffer;  // 发送临时缓冲区，发送的数据都暂时放在这里
+	protected $mSocketSendBA;       // 真正发送缓冲区
 
-	protected DynBuffer<byte> mDynBuffer;        // 接收到的临时数据，将要放到 mRawBuffer 中去
-	protected ByteBuffer mUnCompressHeaderBA;  // 存放解压后的头的长度
-	protected ByteBuffer mSendData;            // 存放将要发送的数据，将要放到 m_sendBuffer 中去
-	protected ByteBuffer mTmpData;             // 临时需要转换的数据放在这里
-	protected ByteBuffer mTmp1fData;           // 临时需要转换的数据放在这里
+	protected $mDynBuffer;        // 接收到的临时数据，将要放到 mRawBuffer 中去
+	protected $mUnCompressHeaderBA;  // 存放解压后的头的长度
+	protected $mSendData;            // 存放将要发送的数据，将要放到 m_sendBuffer 中去
+	protected $mTmpData;             // 临时需要转换的数据放在这里
+	protected $mTmp1fData;           // 临时需要转换的数据放在这里
 
-	private MMutex mReadMutex;   // 读互斥
-	private MMutex mWriteMutex;  // 写互斥
+	private $mReadMutex;   // 读互斥
+	private $mWriteMutex;  // 写互斥
 
 	protected CryptContext mCryptContext;
 

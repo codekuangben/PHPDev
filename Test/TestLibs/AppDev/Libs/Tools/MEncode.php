@@ -17,4 +17,12 @@ class MEncode
 	public const eDefault = 3;
 }
 
+class MEncodeStr
+{
+    public const eUTF8Str = "UTF-8";
+    public const eGB2312Str = "GBK";
+    public const eUnicodeStr = "UTF-8";
+    public const eDefaultStr = "UTF-8";
+}
+
 ?>

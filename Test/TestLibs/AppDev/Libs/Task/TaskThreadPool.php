@@ -2,7 +2,7 @@
 
 namespace SDK\Lib;
 
-public class TaskThreadPool
+class TaskThreadPool
 {
 	protected List<TaskThread> mList;
 

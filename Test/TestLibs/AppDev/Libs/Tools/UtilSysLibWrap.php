@@ -123,25 +123,25 @@ class UtilSysLibWrap
 		return UnityEngine.Random.Range(min, max);
 	}
 
-	static public function convGkEncode2EncodingEncoding($gkEncode)
+	static public function convEncode2NativeEncodeStr($srcEncode)
 	{
-		$retEncode = System.Text.Encoding.UTF8;
+	    $retEncodeStr = MEncodeStr::eUTF8Str;
 
-		if (MEncode.eUTF8 == gkEncode)
+		if (MEncode::eUTF8 == $srcEncode)
 		{
-			$retEncode = System.Text.Encoding.UTF8;
+		    $retEncodeStr = MEncodeStr::eGB2312Str;
 		}
-		else if (MEncode.eGB2312 == gkEncode)
+		else if (MEncode.eGB2312 == $srcEncode)
 		{
-			$retEncode = System.Text.Encoding.UTF8;
+		    $retEncodeStr = MEncodeStr::eUTF8Str;
 		}
-		else if (MEncode.eUnicode == gkEncode)
+		else if (MEncode.eUnicode == $srcEncode)
 		{
-			$retEncode = System.Text.Encoding.Unicode;
+		    $retEncodeStr = MEncodeStr::eUTF8Str;
 		}
-		else if (MEncode.eDefault == gkEncode)
+		else if (MEncode.eDefault == $srcEncode)
 		{
-			//$retEncode = System.Text.Encoding.Default;
+		    //$retEncodeStr = System.Text.Encoding.Default;
 		}
 
 		return $retEncode;

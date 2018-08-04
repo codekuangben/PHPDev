@@ -10,41 +10,27 @@ class UtilByte
 	/**
 	 *@brief 检查大端小端
 	 */
-    public static void checkEndian()
+    public static function checkEndian()
 	{
-		// 检测默认编码
-		// 方法一
-		//if (ByteBuffer.m_sEndian == Endian.NONE_ENDIAN)
-		//{
-		//    byte[] bt = System.BitConverter.GetBytes(1);
-		//    if (bt[0] == 1)  // 数据的低位保存在内存的低地址中
-		//    {
-		//        ByteBuffer.m_sEndian = Endian.LITTLE_ENDIAN;
-		//    }
-		//    else
-		//   {
-		//        ByteBuffer.m_sEndian = Endian.BIG_ENDIAN;
-		//    }
-		//}
-		// 方法二
-		if(System.BitConverter.IsLittleEndian)
+		if(pack('L', 1) === pack('N', 1))
 		{
-			SystemEndian.msLocalEndian = EEndian.eLITTLE_ENDIAN;
+		    SystemEndian::$msLocalEndian = EEndian::eBIG_ENDIAN;
 		}
 		else
 		{
-			SystemEndian.msLocalEndian = EEndian.eBIG_ENDIAN;
+		    SystemEndian::$msLocalEndian = EEndian::eLITTLE_ENDIAN;
 		}
 	}
 
 	// 两种编码的 string 字符串之间转换
-	static public string convStr2Str(string srcStr, Encoding srcCharSet, Encoding destCharSet)
+	static public function convStr2Str($srcStr, $srcCharSet, $destCharSet)
 	{
-		byte[] srcBytes = srcCharSet.GetBytes(srcStr);
-		byte[] destBytes = Encoding.Convert(srcCharSet, destCharSet, srcBytes);
-		string retStr;
-		retStr = destCharSet.GetString(destBytes, 0, destBytes.Length);
-		return retStr;
+	    $srcEncodeStr = UtilSysLibWrap::convEncode2NativeEncodeStr($srcCharSet);
+	    $destEncodeStr = UtilSysLibWrap::convEncode2NativeEncodeStr($destCharSet);
+		
+	    $retStr = iconv($srcEncodeStr, $destEncodeStr, $srcStr); 
+		
+		return $retStr;
 	}
 }
 

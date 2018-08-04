@@ -16,6 +16,9 @@ class FileLogDevice extends  LogDeviceBase
 
 	public function __construct()
 	{
+	    parent::__construct();
+	    
+	    $this->mLogDeviceId = LogDeviceId::eFileLogDevice;
 		$this->mFilePrefix = "log";
 	}
 

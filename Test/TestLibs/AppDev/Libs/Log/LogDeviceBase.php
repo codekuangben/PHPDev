@@ -7,6 +7,23 @@ namespace SDK\Lib;
  */
 class LogDeviceBase
 {
+    protected $mLogDeviceId;
+    
+    public function __construct()
+    {
+        $this->mLogDeviceId = LogDeviceId::eFileLogDevice;
+    }
+    
+    public function getLogDeviceId()
+    {
+        return $this->mLogDeviceId;
+    }
+    
+    public function setLogDeviceId($value)
+    {
+        $this->mLogDeviceId = $value;
+    }
+    
 	public function initDevice()
 	{
 

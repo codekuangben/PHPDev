@@ -7,6 +7,13 @@ namespace SDK\Lib;
  */
 class WinLogDevice extends LogDeviceBase
 {
+    public function __construct()
+    {
+        parent::__construct();
+        
+        $this->mLogDeviceId = LogDeviceId::eWinLogDevice;
+    }
+    
 	public function logout($message, $type = LogColor::eLC_LOG)
 	{
 	    if (type == LogColor::eLC_LOG)

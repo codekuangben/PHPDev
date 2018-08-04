@@ -1,5 +1,7 @@
 <?php
 
+namespace SDK\Lib;
+
 class LogDeviceId
 {
     public const eFileLogDevice = 0;

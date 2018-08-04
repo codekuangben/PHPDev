@@ -70,6 +70,18 @@ class MList
 		//return count($this->mList);
 		return $this->mEleTotal;
 	}
+	
+	public function setCapacity($capacity)
+	{
+	    $index = 0;
+	    $listLen = $capacity;
+	    
+	    while($index < $listLen)
+	    {
+	        $this->Add(null);
+	        $index += 1;
+	    }
+	}
 
 	public function Add($item)
 	{

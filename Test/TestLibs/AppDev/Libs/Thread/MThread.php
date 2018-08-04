@@ -5,10 +5,10 @@ namespace SDK\Lib;
 /**
  *@brief 基本的线程
  */
-public class MThread
+class MThread
 {
-	protected static int msMainThreadID;           // 主线程 id
-	protected int mCurThreadID;                    // 当前线程的 id
+	protected static $msMainThreadID;           // 主线程 id
+	protected $mCurThreadID;                    // 当前线程的 id
 
 	// 数据区域
 	protected Thread mThread;

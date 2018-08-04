@@ -7,32 +7,32 @@ namespace SDK\Lib;
  */
 class IdPoolSys
 {
-	protected MDictionary<string, MList<IRecycle>> mId2PoolDic;
+	protected $mId2PoolDic;
 
-	public IdPoolSys()
+	public function __construct()
 	{
-		$this->mId2PoolDic = new MDictionary<string, MList<IRecycle>>();
+		$this->mId2PoolDic = new MDictionary();
 	}
 
-	public void init()
-	{
-
-	}
-
-	public void dispose()
+	public function init()
 	{
 
 	}
 
-	public IRecycle getObject(string id)
+	public function dispose()
 	{
-		IRecycle ret = null;
+
+	}
+
+	public function getObject($id)
+	{
+		$ret = null;
 
 		if ($this->mId2PoolDic.ContainsKey(id))
 		{
 			if ($this->mId2PoolDic[id].Count() > 0)
 			{
-				ret = $this->mId2PoolDic[id][0];
+				$ret = $this->mId2PoolDic[id][0];
 				$this->mId2PoolDic[id].RemoveAt(0);
 			}
 		}
@@ -40,17 +40,17 @@ class IdPoolSys
 		return ret;
 	}
 
-	public void deleteObj(string id, IRecycle obj)
+	public function deleteObj($id, $obj)
 	{
-		if(!$this->mId2PoolDic.ContainsKey(id))
+		if(!$this->mId2PoolDic.ContainsKey($id))
 		{
-			$this->mId2PoolDic[id] = new MList<IRecycle>();
-			$this->mId2PoolDic[id].setIsSpeedUpFind(true);
+			$this->mId2PoolDic[$id] = new MList();
+			$this->mId2PoolDic[$id].setIsSpeedUpFind(true);
 		}
 
-		if(!$this->mId2PoolDic[id].Contains(obj))
+		if(!$this->mId2PoolDic[$id].Contains($obj))
 		{
-			$this->mId2PoolDic[id].Add(obj);
+			$this->mId2PoolDic[$id].Add($obj);
 		}
 	}
 }

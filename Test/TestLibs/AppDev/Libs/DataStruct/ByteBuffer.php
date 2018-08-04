@@ -5,7 +5,7 @@ namespace SDK\Lib;
 /**
  *@brief ByteBuffer 功能
  */
-public class ByteBuffer : IDispatchObject
+class ByteBuffer implements IDispatchObject
 {
 	// 读写临时缓存，这个如果是单线程其实可以共享的
 	public byte[] mWriteFloatBytes = null;

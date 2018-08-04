@@ -7,7 +7,7 @@ namespace SDK\Lib;
  */
 class PoolSys
 {
-	protected mPoolList;
+	protected $mPoolList;
 	//protected LockList<IRecycle> mPoolList;       // 这个是线程安全队列，但是比较耗时
 
 	public function __construct()
@@ -17,52 +17,43 @@ class PoolSys
 		//$this->mPoolList = new LockList<IRecycle>("PoolSys_List");
 	}
 
-	public T newObject<T>() where T : IRecycle, new()
+	public function newObject($T)
 	{
-		T retObj = default(T);
-		object tmpObj = null;
-		bool finded = false;
+		$retObj = null;
+		$tmpObj = null;
+		$finded = false;
 
 		// 查找
-		int idx = 0;
+		$index = 0;
+		$listLen = $this->mPoolList.Count();
 
-		for(idx = 0; idx < $this->mPoolList.Count(); ++idx)
+		if($listLen > 0)
 		{
-			tmpObj = $this->mPoolList[idx];
+		    $tmpObj = $this->mPoolList[$index];
 
-			if (typeof(T) == tmpObj.GetType())
-			{
-				finded = true;
+			$finded = true;
 
-				retObj = (T)tmpObj;
-				$this->mPoolList.RemoveAt(idx);
+			$retObj = $tmpObj;
+			$this->mPoolList.RemoveAt($index);
 
-				retObj.resetDefault();
+			$retObj.resetDefault();
 
-				//MethodInfo myMethodInfo = retObj.GetType().GetMethod("resetDefault");
-
-				//if (myMethodInfo != null)
-				//{
-				//    myMethodInfo.Invoke(retObj, null);
-				//}
-
-				break;
-			}
+			break;
 		}
 
-		if (!finded)
+		if (!$finded)
 		{
-			retObj = new T();
+		    $retObj = new $T();
 		}
 
-		return retObj;
+		return $retObj;
 	}
 
-	public void deleteObj(IRecycle obj)
+	public function deleteObj($obj)
 	{
-		if (!$this->mPoolList.Contains(obj))
+		if (!$this->mPoolList.Contains($obj))
 		{
-			$this->mPoolList.Add(obj);
+			$this->mPoolList.Add($obj);
 		}
 	}
 }

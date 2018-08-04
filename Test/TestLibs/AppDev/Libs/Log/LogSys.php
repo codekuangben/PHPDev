@@ -135,158 +135,187 @@ class LogSys
 		{
 			unRegisterFileLogDevice();
 
-			LogDeviceBase logDevice = null;
-			logDevice = new FileLogDevice();
-			(logDevice as FileLogDevice).fileSuffix = Ctx.mInstance.mDataPlayer.mAccountData.m_account;
-			logDevice.initDevice();
+			$logDevice = null;
+			$logDevice = new FileLogDevice();
+			$logDevice->setFileSuffix("AcountTest");
+			$logDevice.initDevice();
 			$this->mLogDeviceList.Add(logDevice);
 		}
 	}
 
 	protected function unRegisterFileLogDevice()
 	{
-		foreach(var item in mLogDeviceList.list())
+	    $index = 0;
+	    $listLen = $this->mLogDeviceList->Count();
+	    $item = null;
+	    
+	    while($index < $listLen)
 		{
-			if(typeof(FileLogDevice) == item.GetType())
+		    $item = $this->mLogDeviceList->get($index);
+		    
+		    if(LogDeviceId::eFileLogDevice == $item->getLogDeviceId())
 			{
-				item.closeDevice();
-				$this->mLogDeviceList.Remove(item);
+				$item->closeDevice();
+				$this->mLogDeviceList.Remove($item);
 				break;
 			}
+			
+			$index += 1;
 		}
 	}
 
-	protected function isInFilter(LogTypeId logTypeId, LogColor logColor)
+	protected function isInFilter($logTypeId, $logColor)
 	{
-		if ($this->mEnableLog[(int)logColor])
+	    $ret = false;
+	    
+		if ($this->mEnableLog[$logColor])
 		{
-			if ($this->mEnableLogTypeList[(int)logColor].Contains(logTypeId))
+			if ($this->mEnableLogTypeList[$logColor].Contains($logTypeId))
 			{
-				return true;
+			    $ret = true;
 			}
-
-			return false;
 		}
 
-		return false;
+		return $ret;
 	}
 	
-	public function log(string message, LogTypeId logTypeId = LogTypeId.eLogCommon)
+	public function log($message, $logTypeId = LogTypeId::eLogCommon)
 	{
-		if (isInFilter(logTypeId, LogColor.eLC_LOG))
+		if ($this->isInFilter($logTypeId, LogColor::eLC_LOG))
 		{
-			if($this->mIsOutTimeStamp[(int)LogColor.eLC_LOG])
+			if($this->mIsOutTimeStamp[LogColor::eLC_LOG])
 			{
-				message = string.Format("{0}: {1}", UtilSysLibWrap.getFormatTime(), message);
+				$message = UtilStr::Format("{0}: {1}", UtilSysLibWrap.getFormatTime(), $message);
 			}
 
-			if ($this->mIsOutStack[(int)LogColor.eLC_LOG])
+			if ($this->mIsOutStack[LogColor::eLC_LOG])
 			{
-				System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace(true);
-				string traceStr = stackTrace.ToString();
-				message = string.Format("{0}\n{1}", message, traceStr);
+			    $stackTraceArray =debug_backtrace();
+			    unset($stackTraceArray[0]);
+			    $traceStr = "";
+			    
+			    foreach($stackTraceArray as $row)
+			    {
+			        $traceStr .= $row['file']. ':' . $row['line'] . $row['function'] . "\r\n";
+			    }
+			    
+				$message = UtilStr::Format("{0}\n{1}", $message, $traceStr);
 			}
 
 			if (MThread.isMainThread())
 			{
-				$this->logout(message, LogColor.eLC_LOG);
+				$this->logout($message, LogColor::eLC_LOG);
 			}
 			else
 			{
-				$this->asyncLog(message);
+				$this->asyncLog($message);
 			}
 		}
 	}
 
-	public function warn(string message, LogTypeId logTypeId = LogTypeId.eLogCommon)
+	public function warn($message, $logTypeId = LogTypeId::eLogCommon)
 	{
-		if (isInFilter(logTypeId, LogColor.eLC_WARN))
+		if ($this->isInFilter($logTypeId, LogColor::eLC_WARN))
 		{
-			if ($this->mIsOutTimeStamp[(int)LogColor.eLC_WARN])
+			if ($this->mIsOutTimeStamp[LogColor::eLC_WARN])
 			{
-				message = string.Format("{0}: {1}", UtilSysLibWrap.getFormatTime(), message);
+				$message = UtilStr::Format("{0}: {1}", UtilSysLibWrap.getFormatTime(), $message);
 			}
 
-			if ($this->mIsOutStack[(int)LogColor.eLC_WARN])
+			if ($this->mIsOutStack[LogColor::eLC_WARN])
 			{
-				System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace(true);
-				string traceStr = stackTrace.ToString();
-				message = string.Format("{0}\n{1}", message, traceStr);
+			    $stackTraceArray =debug_backtrace();
+			    unset($stackTraceArray[0]);
+			    $traceStr = "";
+			    
+			    foreach($stackTraceArray as $row)
+			    {
+			        $traceStr .= $row['file']. ':' . $row['line'] . $row['function'] . "\r\n";
+			    }
+			    
+				$message = string.Format("{0}\n{1}", $message, $traceStr);
 			}
 
 			if (MThread.isMainThread())
 			{
-				$this->logout(message, LogColor.eLC_WARN);
+				$this->logout($message, LogColor::eLC_WARN);
 			}
 			else
 			{
-				$this->asyncWarn(message);
+				$this->asyncWarn($message);
 			}
 		}
 	}
 
-	public function error(string message, LogTypeId logTypeId = LogTypeId.eLogCommon)
+	public function error($message, $logTypeId = LogTypeId::eLogCommon)
 	{
-		if (isInFilter(logTypeId, LogColor.eLC_ERROR))
+		if ($this->isInFilter($logTypeId, LogColor::eLC_ERROR))
 		{
-			if ($this->mIsOutTimeStamp[(int)LogColor.eLC_ERROR])
+			if ($this->mIsOutTimeStamp[LogColor::eLC_ERROR])
 			{
-				message = string.Format("{0}: {1}", UtilSysLibWrap.getFormatTime(), message);
+				$message = UtilStr::Format("{0}: {1}", UtilSysLibWrap::getFormatTime(), $message);
 			}
 
-			if ($this->mIsOutStack[(int)LogColor.eLC_ERROR])
+			if ($this->mIsOutStack[LogColor::eLC_ERROR])
 			{
-				System.Diagnostics.StackTrace stackTrace = new System.Diagnostics.StackTrace(true);
-				string traceStr = stackTrace.ToString();
-				message = string.Format("{0}\n{1}", message, traceStr);
+			    $stackTraceArray =debug_backtrace();
+			    unset($stackTraceArray[0]);
+			    $traceStr = "";
+			    
+			    foreach($stackTraceArray as $row)
+			    {
+			        $traceStr .= $row['file']. ':' . $row['line'] . $row['function'] . "\r\n";
+			    }
+			    
+				$message = string.Format("{0}\n{1}", $message, $traceStr);
 			}
 
-			if (MThread.isMainThread())
+			if (MThread::isMainThread())
 			{
-				$this->logout(message, LogColor.eLC_ERROR);
+				$this->logout($message, LogColor::eLC_ERROR);
 			}
 			else
 			{
-				$this->asyncError(message);
+				$this->asyncError($message);
 			}
 		}
 	}
 
 	// 多线程日志
-	protected function asyncLog(string message)
+	protected function asyncLog($message)
 	{
-		mAsyncLogList.Add(message);
+		$this->mAsyncLogList.Add($message);
 	}
 
 	// 多线程日志
-	protected function asyncWarn(string message)
+	protected function asyncWarn($message)
 	{
-		$this->mAsyncWarnList.Add(message);
+		$this->mAsyncWarnList.Add($message);
 	}
 
 	// 多线程日志
-	protected function asyncError(string message)
+	protected function asyncError($message)
 	{
-		$this->mAsyncErrorList.Add(message);
+		$this->mAsyncErrorList.Add($message);
 	}
 
-	public function logout(string message, LogColor type = LogColor.eLC_LOG)
+	public function logout($message, $type = LogColor::eLC_LOG)
 	{
 		if (MacroDef.THREAD_CALLCHECK)
 		{
 			MThread.needMainThread();
 		}
 
-		int idx = 0;
-		int len = $this->mLogDeviceList.Count();
-		LogDeviceBase logDevice = null;
+		$index = 0;
+		$listLen = $this->mLogDeviceList.Count();
+		$logDevice = null;
 
-		while (idx < len)
+		while ($index < $listLen)
 		{
-			logDevice = $this->mLogDeviceList[idx];
-			logDevice.logout(message, type);
+			$logDevice = $this->mLogDeviceList[$index];
+			$logDevice->logout($message, $type);
 
-			++idx;
+		    $index += 1;
 		}
 	}
 
@@ -297,27 +326,34 @@ class LogSys
 			MThread.needMainThread();
 		}
 
-		while (($this->mTmpStr = mAsyncLogList.RemoveAt(0)) != default(string))
+		while (($this->mTmpStr = $this->mAsyncLogList.RemoveAt(0)) != UtilStr::msDefaultStr)
 		{
-			$this->logout(mTmpStr, LogColor.eLC_LOG);
+		    $this->logout($this->mTmpStr, LogColor::eLC_LOG);
 		}
 
-		while (($this->mTmpStr = mAsyncWarnList.RemoveAt(0)) != default(string))
+		while (($this->mTmpStr = mAsyncWarnList.RemoveAt(0)) != UtilStr::msDefaultStr)
 		{
-			$this->logout(mTmpStr, LogColor.eLC_WARN);
+		    $this->logout($this->mTmpStr, LogColor::eLC_WARN);
 		}
 
-		while (($this->mTmpStr = mAsyncErrorList.RemoveAt(0)) != default(string))
+		while (($this->mTmpStr = mAsyncErrorList.RemoveAt(0)) != UtilStr::msDefaultStr)
 		{
-			$this->logout(mTmpStr, LogColor.eLC_ERROR);
+		    $this->logout($this->mTmpStr, LogColor::eLC_ERROR);
 		}
 	}
 
 	protected function closeDevice()
 	{
-		foreach (LogDeviceBase logDevice in mLogDeviceList.list())
+	    $index = 0;
+	    $listLen = $this->mLogDeviceList.Count();
+	    $logDevice = null;
+	    
+	    while($index < $listLen)
 		{
-			logDevice.closeDevice();
+		    $logDevice = $this->mLogDeviceList->get($index);
+			$logDevice->closeDevice();
+			
+			$index += 1;
 		}
 	}
 }

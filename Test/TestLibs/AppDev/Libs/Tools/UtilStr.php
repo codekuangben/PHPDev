@@ -8,6 +8,8 @@ namespace SDK\Lib;
  */
 class UtilStr
 {
+    public const msDefaultStr = "";
+    
     public static function IsNullOrEmpty($srcStr)
     {
         return (null == $srcStr || "" == $srcStr);

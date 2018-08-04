@@ -17,7 +17,8 @@ class DynBuffer
 		$this->mMaxCapacity = maxCapacity;
 		$this->mCapacity = initCapacity;
 		$this->mSize = 0;
-		$this->mBuffer = new T[mCapacity];
+		$this->mBuffer = array();
+		UtilList::setCapacity($this->mBuffer, $this->mCapacity);
 	}
 
 	public function getBuffer()
@@ -57,8 +58,10 @@ class DynBuffer
 			return;
 		}
 		
-		$tmpbuff = new T[value];   // 分配新的空间
-		Array.Copy($this->mBuffer, 0, $tmpbuff, 0, $this->mSize);  // 这个地方是 mSize 还是应该是 mCapacity，如果是 CircleBuffer 好像应该是 mCapacity，如果是 ByteBuffer ，好像应该是 mCapacity。但是 DynBuffer 只有 ByteBuffer 才会使用这个函数，因此使用 mSize 就行了，但是如果使用 mCapacity 也没有问题
+		$tmpbuff = array();   // 分配新的空间
+		UtilList::setCapacity($tmpbuff, $value);
+		UtilList::Copy($this->mBuffer, 0, $tmpbuff, 0, $this->mSize);  // 这个地方是 mSize 还是应该是 mCapacity，如果是 CircleBuffer 好像应该是 mCapacity，如果是 ByteBuffer ，好像应该是 mCapacity。但是 DynBuffer 只有 ByteBuffer 才会使用这个函数，因此使用 mSize 就行了，但是如果使用 mCapacity 也没有问题
+		
 		$this->mBuffer = $tmpbuff;
 		$this->mCapacity = $value;
 	}

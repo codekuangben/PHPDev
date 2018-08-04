@@ -4,6 +4,7 @@ namespace SDK\Lib;
 
 /**
  *@brief ByteBuffer 功能
+ *@url http://www.codeweblog.com/php-bytebuffer/
  */
 class ByteBuffer implements IDispatchObject
 {
@@ -29,12 +30,9 @@ class ByteBuffer implements IDispatchObject
 		$this->mReadDoubleBytes = new byte[sizeof(double)];
     }
 
-	public DynBuffer<byte> dynBuffer
+	public function getDynBuffer()
 	{
-		get
-		{
-			return mDynBuffer;
-		}
+		return $this->mDynBuffer;
 	}
 
 	public uint bytesAvailable

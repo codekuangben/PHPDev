@@ -25,6 +25,34 @@ class UtilList
             $index += 1;
         }
     }
+    
+    public static function expandArray($srcArray, $expandNum)
+    {
+        $retArray = array();
+        UtilList::setCapacity($retArray, $expandNum);
+        
+        $index = 0;
+        $listLen = UtilList::count($srcArray);
+        
+        while($index < $listLen && $index < $expandNum)
+        {
+            $retArray[$index] = $retArray[$index];
+            $index += 1;
+        }
+    }
+    
+    public static function Copy($srcArray, $srcIndex, $destArray, $destIndex, $length)
+    {
+        $index = 0;
+        $srcListLen = UtilList::count($srcArray);
+        $destListLen = UtilList::count($destArray);
+        
+        while($index < $length && $srcIndex + $index < $srcListLen && $destIndex + $index < $destListLen)
+        {
+            $destArray[$destIndex + $index] = $retArray[$srcIndex + $index];
+            $index += 1;
+        }
+    }
 }
 
 ?>

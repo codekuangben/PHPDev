@@ -10,7 +10,7 @@ namespace SDK\Lib;
  * @brief 判空: mFirst == mLast
  * @brief 判满: mFirst == (mLast + 1) % len
  */
-public class CircularBuffer
+class CircularBuffer
 {
 	protected DynBuffer<byte> mDynBuffer;
 	protected uint mFirst;             // 当前缓冲区数据的第一个索引

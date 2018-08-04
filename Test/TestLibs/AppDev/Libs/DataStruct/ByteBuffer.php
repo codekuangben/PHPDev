@@ -8,28 +8,26 @@ namespace SDK\Lib;
 class ByteBuffer implements IDispatchObject
 {
 	// 读写临时缓存，这个如果是单线程其实可以共享的
-	public byte[] mWriteFloatBytes = null;
-	public byte[] mWriteDoubleBytes = null;
+	public $mWriteFloatBytes = null;
+	public $mWriteDoubleBytes = null;
 	
-	public byte[] mReadFloatBytes = null;
-	public byte[] mReadDoubleBytes = null;
+	public $mReadFloatBytes = null;
+	public $mReadDoubleBytes = null;
 
-	protected DynBuffer<byte> mDynBuffer;
-	protected uint mPos;          // 当前可以读取的位置索引
-	protected EEndian mEndian;          // 大端小端
+	protected $mDynBuffer;
+	protected $mPos;          // 当前可以读取的位置索引
+	protected $mEndian;          // 大端小端
 
-	protected byte[] mPadBytes;
+	protected $mPadBytes;
 
-	protected LuaCSBridgeByteBuffer mLuaCSBridgeByteBuffer;        // Lua 中的缓冲区
-
-	public ByteBuffer(uint initCapacity = BufferCV.INIT_CAPACITY, uint maxCapacity = BufferCV.MAX_CAPACITY, EEndian endian = EEndian.eLITTLE_ENDIAN)
+	public function __construct($initCapacity = BufferCV::INIT_CAPACITY, $maxCapacity = BufferCV.MAX_CAPACITY, $endian = EEndian::eLITTLE_ENDIAN)
 	{
-		mEndian = endian;        // 缓冲区默认是小端的数据，因为服务器是 linux 的
-		mDynBuffer = new DynBuffer<byte>(initCapacity, maxCapacity);
+		$this->mEndian = $endian;        // 缓冲区默认是小端的数据，因为服务器是 linux 的
+		$this->mDynBuffer = new DynBuffer($initCapacity, $maxCapacity);
 		
-		mReadFloatBytes = new byte[sizeof(float)];
-		mReadDoubleBytes = new byte[sizeof(double)];
-}
+		$this->mReadFloatBytes = new byte[sizeof(float)];
+		$this->mReadDoubleBytes = new byte[sizeof(double)];
+    }
 
 	public DynBuffer<byte> dynBuffer
 	{
@@ -563,167 +561,7 @@ class ByteBuffer implements IDispatchObject
 		mDynBuffer.buffer[$this->length] = 0;
 	}
 
-	public void writeVector2(Vector2 vec)
-	{
-		$this->writeFloat(vec.x);
-		$this->writeFloat(vec.y);
-	}
-
-	public void writeVector3(Vector3 vec)
-	{
-		$this->writeFloat(vec.x);
-		$this->writeFloat(vec.y);
-		$this->writeFloat(vec.z);
-	}
-
-	public void writeVector4(Vector4 vec)
-	{
-		$this->writeFloat(vec.x);
-		$this->writeFloat(vec.y);
-		$this->writeFloat(vec.z);
-		$this->writeFloat(vec.w);
-	}
-
-	public void readVector2(ref Vector2 vec)
-	{
-		$this->readFloat(ref vec.x);
-		$this->readFloat(ref vec.y);
-	}
-
-	public void readVector3(ref Vector3 vec)
-	{
-		$this->readFloat(ref vec.x);
-		$this->readFloat(ref vec.y);
-		$this->readFloat(ref vec.z);
-	}
-
-	public void readVector4(ref Vector4 vec)
-	{
-		$this->readFloat(ref vec.x);
-		$this->readFloat(ref vec.y);
-		$this->readFloat(ref vec.z);
-		$this->readFloat(ref vec.w);
-	}
-
-	public void writeAABB(MAxisAlignedBox aabb)
-	{
-		writeVector3(aabb.getMinimum().toNative());
-		writeVector3(aabb.getMaximum().toNative());
-	}
-
-	public void readAABB(ref MAxisAlignedBox aabb)
-	{
-		Vector3 tmp = new Vector3();
-		readVector3(ref tmp);
-		aabb.setMinimum(MVector3.fromNative(tmp));
-		readVector3(ref tmp);
-		aabb.setMaximum(MVector3.fromNative(tmp));
-	}
-
-	// 压缩
-	public uint compress(uint len_ = 0, CompressionAlgorithm algorithm = CompressionAlgorithm.ZLIB)
-	{
-		len_ = (len_ == 0 ? length : len_);
-
-		byte[] retByte = null;
-		uint retSize = 0;
-		Compress.CompressData(mDynBuffer.buffer, position, len_, ref retByte, ref retSize, algorithm);
-
-		replace(retByte, 0, retSize, position, len_);
-
-		return retSize;
-	}
-
-	// 解压
-	public uint uncompress(uint len_ = 0, CompressionAlgorithm algorithm = CompressionAlgorithm.ZLIB)
-	{
-		len_ = (len_ == 0 ? length : len_);
-
-		byte[] retByte = null;
-		uint retSize = 0;
-		Compress.DecompressData(mDynBuffer.buffer, position, len_, ref retByte, ref retSize, algorithm);
-
-		replace(retByte, 0, retSize, position, len_);
-
-		return retSize;
-	}
-
-	// 加密，使用 des 对称数字加密算法，加密8字节补齐，可能会导致变长
-	public uint encrypt(CryptContext cryptContext, uint len_ = 0)
-	{
-#if OBSOLETE
-		len_ = (len_ == 0 ? length : len_);
-
-		byte[] retByte = null;
-		// 只有 8 个字节的时候才加密
-		uint leftCnt = len_ % 8;  // 剩余的数量
-		uint cryptCnt = leftCnt;
-
-		if (len_ >= 8)
-		{
-			Crypt.encryptData(mDynBuffer.buff, position, len_ - leftCnt, ref retByte, cryptKey);
-			writeBytes(retByte, 0, (uint)retByte.Length, false);
-			cryptCnt += (uint)retByte.Length;
-		}
-
-		if (leftCnt > 0) // 如果还有剩余的字节没有加密，还需要增加长度
-		{
-			position += leftCnt;
-		}
-
-		return cryptCnt;
-#endif
-		len_ = (len_ == 0 ? length : len_);
-		uint alignLen_ = ((len_ + 7) / 8) * 8; // 补齐 8 个字节，因为加密是 8 个字节一次加密，只要是 8 个字节的整数倍，无论多少个都可以任意解压
-		uint leftLen_ = alignLen_ - len_;
-		if (leftLen_ > 0)
-		{
-			if (mPadBytes == null)
-			{
-				mPadBytes = new byte[8];
-			}
-
-			// 保存数据，然后补 0
-			Array.Copy(mDynBuffer.buffer, position + len_, mPadBytes, 0, leftLen_);
-			Array.Clear(mDynBuffer.buffer, (int)(position + len_), (int)leftLen_);
-		}
-
-		if (len_ == 0)      // 修正之后还等于 0 
-		{
-			return 0;
-		}
-
-		if (alignLen_ > mDynBuffer.capacity)   // 如果最后加密(由于补齐)的长度大于原始长度
-		{
-			length = alignLen_;
-		}
-
-		byte[] retByte = null;
-
-		Crypt.encryptData(mDynBuffer.buffer, position, alignLen_, ref retByte, cryptContext);  // 注意补齐不一定是 0 
-		Array.Copy(mPadBytes, 0, mDynBuffer.buffer, position + len_, leftLen_);       // 拷贝回去
-		replace(retByte, 0, alignLen_, position, len_);
-
-		return alignLen_;
-	}
-
-	// 解密，现在必须 8 字节对齐解密
-	public void decrypt(CryptContext cryptContext, uint len_ = 0)
-	{
-		len_ = (len_ == 0 ? length : len_);
-
-		byte[] retByte = null;
-
-		if (0 == len_)
-		{
-			return;
-		}
-
-		Crypt.decryptData(mDynBuffer.buffer, position, len_, ref retByte, cryptContext);
-		writeBytes(retByte, 0, (uint)retByte.Length, false);
-	}
-
-	public ByteBuffer readBoolean(ref bool tmpBool)
+	public function readBoolean(ref bool tmpBool)
 	{
 		if (canRead(sizeof(bool)))
 		{

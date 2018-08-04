@@ -5,7 +5,7 @@ namespace SDK\Lib;
 /**
  *@brief 网络数据缓冲区
  */
-public class ClientBuffer
+class ClientBuffer
 {
 	protected MsgBuffer mRawBuffer;      // 直接从服务器接收到的原始的数据，可能压缩和加密过
 	protected MsgBuffer mMsgBuffer;      // 可以使用的缓冲区

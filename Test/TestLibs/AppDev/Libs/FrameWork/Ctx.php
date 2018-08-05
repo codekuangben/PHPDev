@@ -9,7 +9,6 @@ class Ctx
 {
 	public static $mInstance;
 
-	public $mNetMgr;                // 网络通信
 	public $mCfg;                       // 整体配置文件
 	public $mLogSys;                    // 日志系统
 
@@ -30,9 +29,6 @@ class Ctx
 	public $mSysMsgRoute;          // 消息分发
 	public $mNetCmdNotify;        // 网络处理器
 	public $mMsgRouteNotify;    // RouteMsg 客户端自己消息流程
-	public $mModuleSys;             // 模块
-	public $mTableSys;                // 表格
-	public $mFileSys;                 // 文件系统
 	public $mFactoryBuild;        // 生成各种内容，上层只用接口
 
 	public $mSystemSetting;
@@ -86,7 +82,6 @@ class Ctx
 		$this->mGcAutoCollect = new GCAutoCollect();
 		$this->mCfg = new Config();
 		$this->mFactoryBuild = new FactoryBuild();
-		$this->mNetMgr = new NetworkMgr();
 		$this->mProcessSys = new ProcessSys();
 		$this->mTickMgr = new TickMgr();
 		$this->mFixedTickMgr = new FixedTickMgr();
@@ -97,13 +92,8 @@ class Ctx
 		$this->mShareData = new ShareData();
 		$this->mEngineLoop = new EngineLoop();
 		$this->mSysMsgRoute = new SysMsgRoute("SysMsgRoute");
-		$this->mModuleSys = new ModuleSys();
-		$this->mTableSys = new TableSys();
-		$this->mFileSys = new MFileSys();
 		$this->mLogSys = new LogSys();
 
-		$this->mCommonData = new CommonData();
-		$this->mDelayTaskMgr = new DelayTaskMgr();
 		$this->mIdPoolSys = new IdPoolSys();
 		$this->mLogicTickMgr = new LogicTickMgr();
 		$this->mNetEventHandle = new NetEventHandle();

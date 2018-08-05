@@ -7,41 +7,43 @@ namespace SDK\Lib;
  */
 class TaskThread extends MThread
 {
-	protected TaskQueue mTaskQueue;
-	protected MCondition mCondition;
-	protected ITask mCurTask;
+	protected $mTaskQueue;
+	protected $mCondition;
+	protected $mCurTask;
 
-	public TaskThread(string name, TaskQueue taskQueue)
-		: base(null, null)
+	public function __construct($name, $taskQueue)
 	{
-		mTaskQueue = taskQueue;
-		mCondition = new MCondition(name);
+	    parent::__construct(null, null);
+	    
+		$this->mTaskQueue = $taskQueue;
+		$this->mCondition = new MCondition($name);
 	}
 
 	/**
 	 *brief 线程回调函数
 	 */
-	override public void threadHandle()
+	public function threadHandle()
 	{
-		while (!mIsExitFlag)
+	    while (!$this->mIsExitFlag)
 		{
-			mCurTask = mTaskQueue.pop();
-			if(mCurTask != default(ITask))
+		    $this->mCurTask = $this->mTaskQueue.pop();
+		    
+		    if($this->mCurTask != null)
 			{
-				mCurTask.runTask();
+			    $this->mCurTask.runTask();
 			}
 			else
 			{
-				mCondition.wait();
+			    $this->mCondition.wait();
 			}
 		}
 	}
 
-	public bool notifySelf()
+	public function notifySelf()
 	{
-		if(mCondition.canEnterWait)
+	    if($this->mCondition.canEnterWait)
 		{
-			mCondition.notifyAll();
+		    $this->mCondition.notifyAll();
 			return true;
 		}
 

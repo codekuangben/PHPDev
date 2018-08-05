@@ -266,6 +266,17 @@ class UtilStr
 	    
 	    return $formatStr;
 	}
+	
+	// 大写转换成小写
+	static public function toLower($src)
+	{
+	    return strtolower($src);
+	}
+	
+	static public function toUpper($src)
+	{
+	    return strtoupper($src);
+	}
 }
 
 ?>

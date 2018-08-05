@@ -92,6 +92,26 @@ class UtilFileIO
 	{
 	    return file_exists($path);
 	}
+	
+	public static function isFile($path)
+	{
+	    return is_file($path);
+	}
+	
+	public static function isDir($path)
+	{
+	    return is_dir($path);
+	}
+	
+	public static function openDir($path)
+	{
+	    return opendir($path);
+	}
+	
+	public static function closeDir($path)
+	{
+	    return closedir($path);
+	}
 
 	// 移动文件
 	// http://www.w3school.com.cn/php/func_filesystem_copy.asp
@@ -355,525 +375,597 @@ class UtilFileIO
 	}
 
 	// 获取文件路径，没有文件名字
-	static public function getFilePathNoName(string fullPath)
+	static public function getFilePathNoName($fullPath)
 	{
-		int index = fullPath.LastIndexOf('/');
-		string ret = "";
+	    $index = UtilStr::LastIndexOf($fullPath, '/');
+		$ret = "";
 
-		if (index == -1)
+		if ($index == -1)
 		{
-			index = fullPath.LastIndexOf('\\');
+		    $index = UtilStr::LastIndexOf($fullPath, '\\');
 		}
-		if (index != -1)
+		if ($index != -1)
 		{
-			ret = fullPath.Substring(0, index);
+		    $ret = UtilStr::substr($fullPath, 0, $index);
 		}
 		else
 		{
-			ret = fullPath;
+		    $ret = $fullPath;
 		}
 
 		return ret;
 	}
 
 	// 获取文件路径，没有文件名字扩展
-	static public function getFilePathNoExt(string fullPath)
+	static public function getFilePathNoExt($fullPath)
 	{
-		int index = 0;
-		string ret = fullPath;
-		index = fullPath.LastIndexOf('.');
+		$index = 0;
+		$ret = $fullPath;
+		$index = UtilStr::LastIndexOf($fullPath, '.');
 
-		if (index != -1)
+		if ($index != -1)
 		{
-			ret = fullPath.Substring(0, index);
+		    $ret = UtilStr::substr($fullPath, 0, $index);
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	// 获取当前文件的父目录名字
-	static public function getFileParentDirName(string fullPath)
+	static public function getFileParentDirName($fullPath)
 	{
-		string parentDir = "";
-		int lastSlashIndex = -1;
+		$parentDir = "";
+		$lastSlashIndex = -1;
 
 		// 如果是文件
-		if (UtilFileIO.existFile(fullPath))
+		if (UtilFileIO.existFile($fullPath))
 		{
-			lastSlashIndex = fullPath.LastIndexOf("/");
+		    $lastSlashIndex = UtilStr::LastIndexOf($fullPath, "/");
 
-			if(-1 == lastSlashIndex)
+			if(-1 == $lastSlashIndex)
 			{
-				lastSlashIndex = fullPath.LastIndexOf("\\");
+			    $lastSlashIndex = UtilStr::LastIndexOf($fullPath, "\\");
 			}
 
-			if (-1 == lastSlashIndex)
+			if (-1 == $lastSlashIndex)
 			{
-				parentDir = "";
+				$parentDir = "";
 			}
 			else
 			{
-				fullPath = fullPath.Substring(0, lastSlashIndex);
+			    $fullPath = UtilStr::substr($fullPath, 0, $lastSlashIndex);
 
-				lastSlashIndex = fullPath.LastIndexOf("/");
+				$lastSlashIndex = UtilStr::LastIndexOf($fullPath, "/");
 
-				if (-1 == lastSlashIndex)
+				if (-1 == $lastSlashIndex)
 				{
-					lastSlashIndex = fullPath.LastIndexOf("\\");
+				    $lastSlashIndex = UtilStr::LastIndexOf($fullPath, "\\");
 				}
 
-				if (-1 == lastSlashIndex)
+				if (-1 == $lastSlashIndex)
 				{
-					parentDir = fullPath;
+					$parentDir = $fullPath;
 				}
 				else
 				{
-					parentDir = fullPath.Substring(lastSlashIndex + 1, fullPath.Length - (lastSlashIndex + 1));
+				    $parentDir = UtilStr::substr($fullPath, lastSlashIndex + 1, UtilStr::length($fullPath) - (lastSlashIndex + 1));
 				}
 			}
 		}
 		else
 		{
-			lastSlashIndex = fullPath.LastIndexOf("/");
+		    $lastSlashIndex = UtilStr::LastIndexOf($fullPath, "/");
 
-			if (-1 == lastSlashIndex)
+			if (-1 == $lastSlashIndex)
 			{
-				lastSlashIndex = fullPath.LastIndexOf("\\");
+			    $lastSlashIndex = UtilStr::LastIndexOf($fullPath, "\\");
 			}
 
-			if (-1 == lastSlashIndex)
+			if (-1 == $lastSlashIndex)
 			{
-				parentDir = "";
+				$parentDir = "";
 			}
 			else
 			{
-				parentDir = fullPath.Substring(lastSlashIndex + 1, fullPath.Length - (lastSlashIndex + 1));
+			    $parentDir = UtilStr::substr($fullPath, $lastSlashIndex + 1, UtilStr::length($fullPath) - ($lastSlashIndex + 1));
 			}
 		}
 
-		return parentDir;
+		return $parentDir;
 	}
 
 	// 搜索文件夹中的文件
-	static public function getAllFile(string path, MList<string> includeExtList = null, MList<string> excludeExtList = null, bool recursion = false)
+	// php获取目录下所有文件及目录（多种方法）
+	// https://blog.csdn.net/FutureLilian/article/details/77937872
+	static public function getAllFile($path, $includeExtList = null, $excludeExtList = null, $recursion = false)
 	{
-		DirectoryInfo dir = new DirectoryInfo(path);
-		MList<string> fileList = new MList<string>();
+	    $handler = opendir($path);
+	    $fileList = new MList();
+	    
+	    if(false !== $handler)
+	    {
+	        while( ($fileFullName = readdir($handler)) !== false ) 
+	        {
+	            if($fileFullName != "." && $fileFullName != ".." && UtilFileIO::isFile($fileFullName))
+	            {
+            		$extName = "";
 
-		string extName = "";
-		FileInfo[] allFile = dir.GetFiles();
-		foreach (FileInfo file in allFile)
-		{
-			extName = UtilFileIO.getFileExt(file.FullName);
-			if (includeExtList != null && includeExtList.IndexOf(extName) != -1)
-			{
-				fileList.Add(normalPath(file.FullName));
-			}
-			else if(excludeExtList != null && excludeExtList.IndexOf(extName) == -1)
-			{
-				fileList.Add(normalPath(file.FullName));
-			}
-			else if(includeExtList == null && excludeExtList == null)
-			{
-				fileList.Add(normalPath(file.FullName));
-			}
-		}
-
-		if (recursion)
-		{
-			DirectoryInfo[] allDir = dir.GetDirectories();
-			foreach (DirectoryInfo dirItem in allDir)
-			{
-				fileList.merge(getAllFile(dirItem.FullName, includeExtList, excludeExtList, recursion));
-			}
-		}
+        		    $extName = UtilFileIO.getFileExt($fileFullName);
+        			
+        		    if ($includeExtList != null && $includeExtList.IndexOf($extName) != -1)
+        			{
+        			    $fileList.Add(normalPath($fileFullName));
+        			}
+        			else if($excludeExtList != null && $excludeExtList.IndexOf($extName) == -1)
+        			{
+        			    $fileList.Add(normalPath($fileFullName));
+        			}
+        			else if($includeExtList == null && $excludeExtList == null)
+        			{
+        			    $fileList.Add(normalPath($fileFullName));
+        			}
+	            }
+	        }
+    
+    		if ($recursion)
+    		{
+    		    $subDirArray = scandir($path);
+    		    
+    		    foreach ($subDirArray as $dirItem)
+    			{
+    			    if($dirItem != '.' && $dirItem != '..')
+    			    {
+    			        fileList.merge(getAllFile($dirItem, $includeExtList, $excludeExtList, $recursion));
+    			    }
+    			}
+    		}
+	    }
+	    
 		return fileList;
+	}
+	
+	static public function getAllDirectory($path, $includeSubDirList = null, $excludeSubDirList = null, $recursion = false)
+	{
+	    $handler = opendir($path);
+	    $fileList = new MList();
+	    
+	    if(false !== $handler)
+	    {
+	        while( ($fileFullName = readdir($handler)) !== false )
+	        {
+	            if($fileFullName != "." && $fileFullName != ".." && UtilFileIO::isDir($fileFullName))
+	            {
+	                $extName = "";
+	                
+	                $extName = UtilFileIO::getFileNameNoExt($fileFullName);
+	                
+	                if ($includeSubDirList != null && $includeSubDirList.IndexOf($extName) != -1)
+	                {
+	                    $fileList.Add(normalPath($fileFullName));
+	                }
+	                else if($excludeSubDirList != null && $excludeSubDirList.IndexOf($extName) == -1)
+	                {
+	                    $fileList.Add(normalPath($fileFullName));
+	                }
+	                else if($includeSubDirList == null && $includeSubDirList == null)
+	                {
+	                    $fileList.Add(normalPath($fileFullName));
+	                }
+	            }
+	        }
+	        
+	        if ($recursion)
+	        {
+	            $subDirArray = scandir($path);
+	            
+	            foreach ($subDirArray as $dirItem)
+	            {
+	                if($dirItem != '.' && $dirItem != '..')
+	                {
+	                    fileList.merge(getAllFile($dirItem, $includeSubDirList, $excludeSubDirList, $recursion));
+	                }
+	            }
+	        }
+	    }
+	    
+	    return fileList;
 	}
 
 	// 递归拷贝目录
-	static public void copyDirectory(string srcPath, string destPath, bool isRecurse = false)
+	static public function copyDirectory($srcPath, $destPath, $isRecurse = false)
 	{
-		DirectoryInfo sourceDirInfo = new DirectoryInfo(srcPath);
-		DirectoryInfo targetDirInfo = new DirectoryInfo(destPath);
-
-		if (targetDirInfo.FullName.StartsWith(sourceDirInfo.FullName, StringComparison.CurrentCultureIgnoreCase))
+		if ($srcPath == $destPath)
 		{
-			Debug.Log("UtilFileIO::copyDirectory, error, destPath is srcPath subDir, can not copy");
+			echo("UtilFileIO::copyDirectory, error, destPath is srcPath subDir, can not copy");
 			return;
 		}
 
-		if (!sourceDirInfo.Exists)
+		if (!UtilFileIO::existDirectory($srcPath))
 		{
 			return;
 		}
 
-		if (!targetDirInfo.Exists)
+		if (!UtilFileIO::existDirectory($destPath))
 		{
-			targetDirInfo.Create();
+		    UtilFileIO::createDirectory($destPath);
 		}
 
-		FileInfo[] files = sourceDirInfo.GetFiles();
+		$fileList = UtilFileIO::getAllFile($srcPath, null, null, false);
 
-		for (int i = 0; i < files.Length; i++)
+		for ($i = 0; $i < $fileList.Count(); $i++)
 		{
-			UtilFileIO.copyFile(files[i].FullName, targetDirInfo.FullName + "/" + files[i].Name, true);
+		    UtilFileIO.copyFile($fileList.get($i), $destPath . "/" . UtilFileIO::getFileNameNoExt($fileList.get($i)), true);
 		}
-
-		DirectoryInfo[] dirs = sourceDirInfo.GetDirectories();
 
 		if (isRecurse)
 		{
-			for (int j = 0; j < dirs.Length; j++)
+		    $dirList = UtilFileIO::getAllFile($srcPath, null, null, false);
+		    
+		    for ($j = 0; $j < $dirList.Count(); $j++)
 			{
-				copyDirectory(dirs[j].FullName, targetDirInfo.FullName + "/" + dirs[j].Name, isRecurse);
+			    copyDirectory($dirList.get(j), $destPath . "/" . UtilFileIO::getFileNameNoExt($dirList.get(j)), isRecurse);
 			}
 		}
 	}
 
-	static public void traverseDirectory(
-		string srcPath,
-		string destPath,
-		MAction3<string, string, string> dirHandle = null,
-		MAction3<string, string, string> fileHandle = null,
-		bool isRecurse = false,
-		bool isCreateDestPath = false
+	static public function traverseDirectory(
+		$srcPath,
+		$destPath,
+		$dirHandle = null,
+		$fileHandle = null,
+		$isRecurse = false,
+		$isCreateDestPath = false
 		)
 	{
-		DirectoryInfo sourceDirInfo = new DirectoryInfo(srcPath);
-		DirectoryInfo targetDirInfo = null;
-
 		// 如果不是目录规则的字符串，执行 new DirectoryInfo(destPath); 会报错
-		if (!string.IsNullOrEmpty(destPath))
+		if (!UtilStr::IsNullOrEmpty($destPath))
 		{
-			targetDirInfo = new DirectoryInfo(destPath);
-
-			if (targetDirInfo.FullName.StartsWith(sourceDirInfo.FullName, StringComparison.CurrentCultureIgnoreCase))
+			if ($srcPath == $destPath)
 			{
 				Debug.Log("UtilFileIO::traverseDirectory, error, destPath is srcPath subDir, can not copy");
 				return;
 			}
 		}
 
-		if (!sourceDirInfo.Exists)
+		if (!UtilFileIO::existDirectory($srcPath))
 		{
 			return;
 		}
 
-		if (!string.IsNullOrEmpty(destPath))
+		if (!UtilStr::IsNullOrEmpty($destPath))
 		{
-			if (!UtilFileIO.existDirectory(destPath) && isCreateDestPath)
+		    if (!UtilFileIO::existDirectory($destPath) && $isCreateDestPath)
 			{
-				UtilFileIO.createDirectory(destPath);
-				targetDirInfo = new DirectoryInfo(destPath);
+			    UtilFileIO::createDirectory($destPath);
 			}
 		}
 
 		if (dirHandle != null)
 		{
-			if (string.IsNullOrEmpty(destPath))
+		    if (UtilStr::IsNullOrEmpty($destPath))
 			{
-				dirHandle(sourceDirInfo.FullName, sourceDirInfo.Name, "");
+			    dirHandle.call($srcPath, UtilFileIO::getFileNameNoExt($srcPath), "");
 			}
 			else
 			{
-				dirHandle(sourceDirInfo.FullName, sourceDirInfo.Name, targetDirInfo.FullName);
+			    dirHandle.call($srcPath, UtilFileIO::getFileNameNoExt($srcPath), $destPath);
 			}
 		}
 
-		FileInfo[] files = sourceDirInfo.GetFiles();
+		$fileList = UtilFileIO::getAllFile($srcPath);
 
-		for (int i = 0; i < files.Length; i++)
+		for ($i = 0; $i < $fileList.Count(); $i++)
 		{
 			if (fileHandle != null)
 			{
-				if (string.IsNullOrEmpty(destPath))
+				if (UtilStr::IsNullOrEmpty($destPath))
 				{
-					fileHandle(files[i].FullName, files[i].Name, "");
+				    fileHandle.call($fileList.get(i), UtilFileIO::getFileNameWithExt($fileList.get(i)), "");
 				}
 				else
 				{
-					fileHandle(files[i].FullName, files[i].Name, targetDirInfo.FullName);
+				    fileHandle.call($fileList.get(i), UtilFileIO::getFileNameWithExt($fileList.get(i)), $destPath);
 				}
 			}
 		}
 
-		DirectoryInfo[] dirs = sourceDirInfo.GetDirectories();
-
-		if (isRecurse)
+		if ($isRecurse)
 		{
-			for (int j = 0; j < dirs.Length; j++)
+		    $dirList = UtilFileIO::getAllDirectory($srcPath);
+		    
+		    for ($j = 0; $j < $dirList.Count(); $j++)
 			{
-				if (string.IsNullOrEmpty(destPath))
+				if (UtilStr::IsNullOrEmpty($destPath))
 				{
-					traverseDirectory(dirs[j].FullName, "", dirHandle, fileHandle, isRecurse, isCreateDestPath);
+				    traverseDirectory($dirList.get($j), "", $dirHandle, $fileHandle, $isRecurse, $isCreateDestPath);
 				}
 				else
 				{
-					traverseDirectory(dirs[j].FullName, targetDirInfo.FullName + "/" + dirs[j].Name, dirHandle, fileHandle, isRecurse, isCreateDestPath);
+				    traverseDirectory($dirList.get($j), $dirList.get($j) . "/" . UtilFileIO::getFileNameNoExt($dirList.get($j)), $dirHandle, $fileHandle, $isRecurse, $isCreateDestPath);
 				}
 			}
 		}
 	}
 
-	static public void deleteFiles(string srcPath, MList<string> fileList, MList<string> extNameList, bool isRecurse = false)
+	static public function deleteFiles($srcPath, $fileList, $extNameList, $isRecurse = false)
 	{
-		DirectoryInfo fatherFolder = new DirectoryInfo(srcPath);
-		//删除当前文件夹内文件
-		FileInfo[] files = fatherFolder.GetFiles();
-		string extName = "";
-
-		foreach (FileInfo file in files)
-		{
-			string fileName = file.Name;
-
-			if (fileList != null)
-			{
-				if (fileList.IndexOf(fileName) != -1)
-				{
-					UtilFileIO.deleteFile(file.FullName);
-				}
-			}
-			if (extNameList != null)
-			{
-				extName = UtilFileIO.getFileExt(file.FullName);
-				if (extNameList.IndexOf(extName) != -1)
-				{
-					UtilFileIO.deleteFile(file.FullName);
-				}
-			}
-		}
-		if (isRecurse)
-		{
-			//递归删除子文件夹内文件
-			foreach (DirectoryInfo childFolder in fatherFolder.GetDirectories())
-			{
-				deleteFiles(childFolder.FullName, fileList, extNameList, isRecurse);
-			}
-		}
+	    //删除当前文件夹内文件
+	    $fileList = UtilFileIO::getAllFile($srcPath);
+	    $extName = "";
+	    $index = 0;
+	    $listLen = $fileList.Count();
+	    
+	    while ($index < $listLen)
+	    {
+	        $fileName = UtilFileIO::getFileNameWithExt($fileList.get($index));
+	        
+	        if ($fileList != null)
+	        {
+	            if ($fileList.IndexOf($fileName) != -1)
+	            {
+	                UtilFileIO.deleteFile($fileList.get($index));
+	            }
+	        }
+	        if ($extNameList != null)
+	        {
+	            $extName = UtilFileIO::getFileExt($fileList.get($index));
+	            
+	            if ($extNameList.IndexOf($extName) != -1)
+	            {
+	                UtilFileIO::deleteFile($fileList.get($index));
+	            }
+	        }
+	        
+	        $index += 1;
+	    }
+	    
+	    if ($isRecurse)
+	    {
+	        $dirList = UtilFileIO::getAllDirectory($srcPath);
+	        $index = 0;
+	        $listLen = $dirList.Count();
+	        
+	        //递归删除子文件夹内文件
+	        while ($index < $listLen)
+	        {
+	            deleteFiles($dirList.get($index), $fileList, $extNameList, $isRecurse);
+	            $index += 1;
+	        }
+	    }
 	}
 
 	// 递归删除所有的文件和目录
-	static public void deleteSubDirsAndFiles(string curDir, MList<string> excludeDirList, MList<string> excludeFileList)
+	static public function deleteSubDirsAndFiles($curDir, $excludeDirList, $excludeFileList)
 	{
-		DirectoryInfo fatherFolder = new DirectoryInfo(curDir);
 		//删除当前文件夹内文件
-		FileInfo[] files = fatherFolder.GetFiles();
-		string normalPath = "";
+	    $fileList = UtilFileIO::getAllFile($curDir);
+		$normalPath = "";
 
-		foreach (FileInfo file in files)
+		$index = 0;
+		$listLen = $fileList.Count();
+		
+		while($index < $listLen)
 		{
-			string fileName = file.Name;
-			normalPath = UtilFileIO.normalPath(file.FullName);
-			if (!UtilFileIO.isEqualStrInList(normalPath, excludeFileList))
+		    $fileName = UtilFileIO::getFileNameWithExt($fileList.get($index));
+		    $normalPath = UtilFileIO::normalPath($fileList.get($index));
+		    
+		    if (!UtilFileIO::isEqualStrInList($normalPath, $excludeFileList))
 			{
-				UtilFileIO.deleteFile(file.FullName);
+			    UtilFileIO::deleteFile($fileList.get($index));
 			}
+			
+			$index += 1;
 		}
+		
+		$dirList = UtilFileIO::getAllDirectory($srcPath);
+		$index = 0;
+		$listLen = $dirList.Count();
 
 		// 递归删除子文件夹内文件
-		foreach (DirectoryInfo childFolder in fatherFolder.GetDirectories())
+		while ($index < $listLen)
 		{
-			normalPath = UtilFileIO.normalPath(childFolder.FullName);
-			if(!UtilFileIO.isEqualStrInList(normalPath, excludeDirList))
+		    $normalPath = UtilFileIO::normalPath($dirList.get($index));
+			
+			if(!UtilFileIO::isEqualStrInList($normalPath, $excludeDirList))
 			{
-				if (UtilFileIO.isSubStrInList(normalPath, excludeDirList) && !UtilFileIO.isSubStrInList(normalPath, excludeFileList))
+				if (UtilFileIO::isSubStrInList($normalPath, $excludeDirList) && !UtilFileIO::isSubStrInList($normalPath, $excludeFileList))
 				{
-					UtilFileIO.deleteDirectory(childFolder.FullName, true);
+				    UtilFileIO::deleteDirectory($dirList.get($index), true);
 				}
 				else
 				{
-					UtilFileIO.deleteSubDirsAndFiles(childFolder.FullName, excludeDirList, excludeFileList);
+				    UtilFileIO::deleteSubDirsAndFiles($dirList.get($index), $excludeDirList, $excludeFileList);
 				}
 			}
+			
+			$index += 1;
 		}
 	}
 
 	// 字符串是否是子串
-	static public bool isSubStrInList(string str, MList<string> list)
+	static public function isSubStrInList($str, $list)
 	{
-		bool ret = false;
+		$ret = false;
 
-		int idx = 0;
-		int len = 0;
+		$idx = 0;
+		$len = 0;
 
-		if(list != null)
+		if($list != null)
 		{
-			idx = 0;
-			len = list.length();
+			$idx = 0;
+			$len = $list.Count();
 
-			while(idx < len)
+			while($idx < $len)
 			{
-				if(list[idx].IndexOf(str) != -1)
+				if($list[$idx].IndexOf($str) != -1)
 				{
-					ret = true;
+					$ret = true;
 					break;
 				}
 
-				++idx;
+				++$idx;
 			}
 		}
 
-		return ret;
+		return $ret;
 	}
 
-	static public bool isEqualStrInList(string str, MList<string> list)
+	static public function isEqualStrInList($str, $list)
 	{
-		bool ret = false;
+		$ret = false;
 
-		int idx = 0;
-		int len = 0;
+		$idx = 0;
+		$len = 0;
 
-		if (list != null)
+		if ($list != null)
 		{
-			idx = 0;
-			len = list.length();
+			$idx = 0;
+			$len = $list.length();
 
-			while (idx < len)
+			while ($idx < $len)
 			{
-				if (list[idx] == str)
+				if ($list[$idx] == $str)
 				{
-					ret = true;
+					$ret = true;
 					break;
 				}
 
-				++idx;
+				++$idx;
 			}
 		}
 
-		return ret;
-	}
-
-	// 大写转换成小写
-	static public string toLower(string src)
-	{
-		return src.ToLower();
+		return $ret;
 	}
 
 	// 递归创建子目录
-	public static void recureCreateSubDir(string rootPath, string subPath, bool includeLast = false)
+	public static function recureCreateSubDir($rootPath, $subPath, $includeLast = false)
 	{
-		subPath = normalPath(subPath);
-		if (!includeLast)
+	    $subPath = UtilFileIO::normalPath($subPath);
+		
+		if (!$includeLast)
 		{
-			if (subPath.IndexOf('/') == -1)
+		    if (UtilStr::IndexOf($subPath, '/') == -1)
 			{
 				return;
 			}
-			subPath = subPath.Substring(0, subPath.LastIndexOf('/'));
+			
+			$subPath = UtilStr::substr($subPath, 0, UtilStr::IndexOf($subPath, '/'));
 		}
 
-		if (UtilFileIO.existDirectory(UtilFileIO.combine(rootPath, subPath)))
+		if (UtilFileIO::existDirectory(UtilFileIO::combine($rootPath, $subPath)))
 		{
 			return;
 		}
 
-		int startIdx = 0;
-		int splitIdx = 0;
-		while ((splitIdx = subPath.IndexOf('/', startIdx)) != -1)
+		$startIdx = 0;
+		$splitIdx = 0;
+		
+		while (($splitIdx = UtilStr::IndexOf($subPath, '/', startIdx)) != -1)
 		{
-			if (!UtilFileIO.existDirectory(UtilFileIO.combine(rootPath, subPath.Substring(0, startIdx + splitIdx))))
+		    if (!UtilFileIO.existDirectory(UtilFileIO.combine($rootPath, UtilStr::substr($subPath, 0, $startIdx + $splitIdx))))
 			{
-				UtilFileIO.createDirectory(UtilFileIO.combine(rootPath, subPath.Substring(0, startIdx + splitIdx)));
+			    UtilFileIO.createDirectory(UtilFileIO.combine($rootPath, UtilStr::substr($subPath, 0, $startIdx + $splitIdx)));
 			}
 
-			startIdx += splitIdx;
-			startIdx += 1;
+			$startIdx += $splitIdx;
+			$startIdx += 1;
 		}
 
-		UtilFileIO.createDirectory(UtilFileIO.combine(rootPath, subPath));
+		UtilFileIO.createDirectory(UtilFileIO.combine($rootPath, $subPath));
 	}
 
-	static public string getCurrentDirectory()
+	static public function getCurrentDirectory()
 	{
-		string curPath = System.Environment.CurrentDirectory;
-		curPath = UtilFileIO.normalPath(curPath);
+	    //$curPath = getcwd();
+	    $curPath = $_SERVER['SCRIPT_FILENAME'];
+		$curPath = UtilFileIO.normalPath($curPath);
 
-		return curPath;
+		return $curPath;
 	}
 
 	// 去掉文件扩展名字，文件判断后缀是否是指定后缀
-	static public bool isFileNameSuffixNoExt(string path, string suffix)
+	static public function isFileNameSuffixNoExt($path, $suffix)
 	{
-		path = UtilFileIO.normalPath(path);
+		$path = UtilFileIO.normalPath($path);
 
-		bool ret = false;
+		$ret = false;
 
-		int dotIdx = 0;
-		dotIdx = path.LastIndexOf(UtilFileIO.DOT);
+		$dotIdx = 0;
+		$dotIdx = $path.LastIndexOf(UtilFileIO::DOT);
 
-		if (-1 != dotIdx)
+		if (-1 != $dotIdx)
 		{
-			path = path.Substring(0, dotIdx);
+		    $path = UtilStr::substr($path, 0, dotIdx);
 		}
 
-		int slashIdx = 0;
-		slashIdx = path.LastIndexOf(UtilFileIO.SLASH);
+		$slashIdx = 0;
+		$slashIdx = $path.LastIndexOf(UtilFileIO::SLASH);
 
-		if (-1 != slashIdx)
+		if (-1 != $slashIdx)
 		{
-			path = path.Substring(slashIdx + 1);
+		    $path = UtilStr::substr($path, $slashIdx + 1);
 		}
 
-		if (path.Length > suffix.Length)
+		if (UtilStr::length($path) > UtilStr::length($suffix))
 		{
-			if (path.Substring(path.Length - suffix.Length, suffix.Length) == suffix)
+		    if (UtilStr::substr($path, UtilStr::length($path) - UtilStr::length($suffix), UtilStr::length($suffix)) == $suffix)
 			{
-				ret = true;
+				$ret = true;
 			}
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	// 去掉文件扩展名字，然后再去掉文件后缀
-	static public string getFileNameRemoveSuffixNoExt(string path, string suffix)
+	static public function getFileNameRemoveSuffixNoExt($path, $suffix)
 	{
-		path = UtilFileIO.normalPath(path);
+		$path = UtilFileIO.normalPath($path);
 
-		string ret = path;
+		$ret = $path;
 
-		int dotIdx = 0;
-		dotIdx = path.LastIndexOf(UtilFileIO.DOT);
+		$dotIdx = 0;
+		$dotIdx = $path::LastIndexOf(UtilFileIO::DOT);
 
-		if (-1 != dotIdx)
+		if (-1 != $dotIdx)
 		{
-			path = path.Substring(0, dotIdx);
+		    $path = UtilStr::substr($path, 0, dotIdx);
 		}
 
-		int slashIdx = 0;
-		slashIdx = path.LastIndexOf(UtilFileIO.SLASH);
+		$slashIdx = 0;
+		$slashIdx = UtilStr::LastIndexOf($path, UtilFileIO::SLASH);
 
-		if (-1 != slashIdx)
+		if (-1 != $slashIdx)
 		{
-			path = path.Substring(slashIdx + 1);
+		    $path = UtilStr::substr($path, $slashIdx + 1);
 		}
 
-		if (path.Length > suffix.Length)
+		if (UtilStr::length($path) > UtilStr::length(suffix))
 		{
-			if (path.Substring(path.Length - suffix.Length, suffix.Length) == suffix)
+		    if (UtilStr::substr($path, UtilStr::length($path) - UtilStr::length(suffix), UtilStr::length(suffix)) == suffix)
 			{
-				ret = path.Substring(0, path.Length - suffix.Length);
+			    $ret = UtilStr::substr($path, 0, UtilStr::length($path) - UtilStr::length(suffix));
 			}
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	// 删除指定目录下所有类似的文件
-	static public void deleteAllSearchPatternFile(string fileFullName, MSearchOption searchOption = MSearchOption.eTopDirectoryOnly)
+	static public function deleteAllSearchPatternFile($fileFullName, $searchOption = MSearchOption::eTopDirectoryOnly)
 	{
 		// ref https://msdn.microsoft.com/zh-cn/library/wz42302f.aspx
-		string[] fileList = Directory.GetFiles(fileFullName, "*", (SearchOption)searchOption);
+		//string[] fileList = Directory.GetFiles(fileFullName, "*", (SearchOption)searchOption);
 
-		int index = 0;
-		int listLen = fileList.Length;
+		//int index = 0;
+		//int listLen = fileList.Length;
 
-		while(index < listLen)
-		{
-			 UtilFileIO.deleteFile(fileList[index]);
+		//while(index < listLen)
+		//{
+		//	 UtilFileIO.deleteFile(fileList[index]);
 
-			index += 1;
-		}
+		//	index += 1;
+		//}
 	}
 }
 

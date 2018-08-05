@@ -83,7 +83,7 @@ class UtilMsg
 	}
 
 	// 格式化消息数据到数组形式
-	public static void formatBytes2Array(byte[] bytes, uint len)
+	public static void formatBytes2Array($bytes, $len)
 	{
 		string str = "{ ";
 		bool isFirst = true;

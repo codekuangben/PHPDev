@@ -4,20 +4,19 @@ namespace SDK\Lib;
 
 class TaskQueue extends LockQueue
 {
-	public TaskThreadPool mTaskThreadPool;
+	public $mTaskThreadPool;
 
-	public TaskQueue(string name)
-		: base(name)
+	public function __construct($name)
 	{
-
+	    parent::__construct($name);
 	}
 
-	public new void push(ITask item)
+	public function push($item)
 	{
-		base.push(item);
+	    parent::push($item);
 
 		// 检查是否有线程空闲，如果有就唤醒
-		mTaskThreadPool.notifyIdleThread();
+		$this->mTaskThreadPool.notifyIdleThread();
 	}
 }
 

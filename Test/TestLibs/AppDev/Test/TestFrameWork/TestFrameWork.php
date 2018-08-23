@@ -2,7 +2,7 @@
 
 namespace SDK\Test;
 
-class TestMain
+class TestFrameWork extends TestBase
 {
     public function __construct()
     {
@@ -15,11 +15,6 @@ class TestMain
     }
     
     public function dispose()
-    {
-        
-    }
-    
-    public function run()
     {
         
     }

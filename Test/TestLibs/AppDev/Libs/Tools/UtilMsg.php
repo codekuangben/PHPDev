@@ -10,7 +10,7 @@ class UtilMsg
 	// 发送消息， bnet 如果 true 就直接发送到 socket ，否则直接进入输出消息队列
 	public static function sendMsg($msg, $isSendToNet = true)
 	{
-		Ctx.mInstance.mShareData.mTmpBA = Ctx.mInstance.mNetMgr.getSendBA();
+	    Ctx::$mInstance->mShareData->mTmpBA = Ctx::$mInstance->mNetMgr->getSendBA();
 		
 		if (Ctx.mInstance.mShareData.mTmpBA != null)
 		{
@@ -22,41 +22,31 @@ class UtilMsg
 		if (isSendToNet)
 		{
 			// 打印日志
-			Ctx.mInstance.mShareData.mTmpStr = string.Format("Send msg: byCmd = {0}, byParam = {1}", msg.byCmd, msg.byParam);
+		    Ctx::$mInstance->mShareData->mTmpStr = string.Format("Send msg: byCmd = {0}, byParam = {1}", msg.byCmd, msg.byParam);
 		}
 		Ctx.mInstance.mNetMgr.send(isSendToNet);
 	}
 
-	public static function sendMsg(byte[] byteArr, int startIndex, uint length, bool isSendToNet = true)
+	public static function sendMsg($byteArr, $startIndex, $length, $isSendToNet = true)
 	{
-		Ctx.mInstance.mShareData.mTmpBA = Ctx.mInstance.mNetMgr.getSendBA();
+	    Ctx::$mInstance->mShareData->mTmpBA = Ctx::$mInstance->mNetMgr->getSendBA();
+		
 		if (Ctx.mInstance.mShareData.mTmpBA != null)
 		{
-			Ctx.mInstance.mShareData.mTmpBA.writeBytes(byteArr, (uint)startIndex, length);
+		    Ctx.mInstance.mShareData.mTmpBA.writeBytes($byteArr, $startIndex, $length);
 		}
 		else
 		{
 		}
-		if (isSendToNet)
+		if ($isSendToNet)
 		{
 			// 打印日志
-			Ctx.mInstance.mShareData.mTmpStr = string.Format("Send msg");
+		    Ctx::$mInstance->mShareData->mTmpStr = string.Format("Send msg");
 		}
 		Ctx.mInstance.mNetMgr.send_KBE(isSendToNet);
 	}
 
-	//static public void sendMsg(ushort commandID, LuaStringBuffer buffer, bool bnet = true)
-	static public function sendMsg(ushort commandID, LuaInterface.LuaByteBuffer buffer, bool bnet = true)
-	{
-		Ctx.mInstance.mShareData.mTmpBA = Ctx.mInstance.mNetMgr.getSendBA();
-		if (Ctx.mInstance.mShareData.mTmpBA != null)
-		{
-			Ctx.mInstance.mShareData.mTmpBA.writeBytes(buffer.buffer, 0, (uint)buffer.buffer.Length);
-			Ctx.mInstance.mNetMgr.send(bnet);
-		}
-	}
-
-	public static function checkStr(string str)
+	public static function checkStr($str)
 	{
 		if (string.IsNullOrEmpty(str))
 		{
@@ -66,22 +56,24 @@ class UtilMsg
 	// 格式化消息数据到数组形式
 	public static function formatBytes2Array($bytes, $len)
 	{
-		string str = "{ ";
-		bool isFirst = true;
-		for (int idx = 0; idx < len; ++idx)
+		$str = "{ ";
+		$isFirst = true;
+		
+		for ($idx = 0; $idx < $len; ++$idx)
 		{
-			if (isFirst)
+			if ($isFirst)
 			{
-				isFirst = false;
+				$isFirst = false;
 			}
 			else
 			{
-				str += ", ";
+				$str += ", ";
 			}
-			str += bytes[idx];
+			
+			$str += bytes[idx];
 		}
 
-		str += " }";            
+		$str += " }";            
 	}
 }
 

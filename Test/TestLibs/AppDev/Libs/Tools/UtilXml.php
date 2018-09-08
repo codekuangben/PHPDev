@@ -7,248 +7,248 @@ class UtilXml
 	public const XML_OK = 0;
 	public const XML_FAIL = 1;
 
-	public static function getXmlAttrBool(SecurityElement attr, string name, ref bool ret)
+	public static function getXmlAttrBool($xmlElement, $attrName, $ret)
 	{
-		if (null != attr && null != attr.Attributes && attr.Attributes.ContainsKey(name))
+		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.ContainsKey($attrName))
 		{
-			if (UtilSysLibWrap.TRUE == attr.Attribute(name))
+			if (UtilSysLibWrap.TRUE == $xmlElement.Attribute($attrName))
 			{
-				ret = true;
+			    $ret = true;
 			}
-			else if (UtilSysLibWrap.FALSE == attr.Attribute(name))
+			else if (UtilSysLibWrap.FALSE == $xmlElement.Attribute($attrName))
 			{
-				ret = false;
+			    $ret = false;
 			}
 			else
 			{
-				ret = false;
+			    $ret = false;
 			}
 
 			return XML_OK;
 		}
 
-		ret = false;
+		$ret = false;
 		return XML_FAIL;
 	}
 
-	public static function getXmlAttrStr(SecurityElement attr, string name, ref string ret)
+	public static function getXmlAttrStr($xmlElement, $attrName, $ret)
 	{
-		if (null != attr && null != attr.Attributes && attr.Attributes.ContainsKey(name))
+		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.ContainsKey($attrName))
 		{
-			ret =  attr.Attribute(name);
+		    $ret =  $xmlElement.Attribute($attrName);
 			return XML_OK;
 		}
 
-		ret = "";
+		$ret = "";
 		return XML_FAIL;
 	}
 
-	public static function getXmlAttrUShort(SecurityElement attr, string name, ref ushort ret)
+	public static function getXmlAttrUShort($xmlElement, $attrName, $ret)
 	{
-		if (null != attr && null != attr.Attributes && attr.Attributes.ContainsKey(name))
+		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.ContainsKey($attrName))
 		{
-			ushort.TryParse(attr.Attribute(name), out ret);
+		    ushort.TryParse($xmlElement.Attribute($attrName), $ret);
 			return XML_OK;
 		}
 
-		ret = 0;
+		$ret = 0;
 		return XML_FAIL;
 	}
 
-	public static function getXmlAttrInt(SecurityElement attr, string name, ref short ret)
+	public static function getXmlAttrInt($xmlElement, $attrName, $ret)
 	{
-		if (null != attr && null != attr.Attributes && attr.Attributes.ContainsKey(name))
+		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.ContainsKey($attrName))
 		{
-			short.TryParse(attr.Attribute(name), out ret);
+		    short.TryParse($xmlElement.Attribute($attrName), $ret);
 			return XML_OK;
 		}
 
-		ret = 0;
+		$ret = 0;
 		return XML_FAIL;
 	}
 
-	public static function getXmlAttrUInt(SecurityElement attr, string name, ref uint ret)
+	public static function getXmlAttrUInt($xmlElement, $attrName, $ret)
 	{
-		if (null != attr && null != attr.Attributes && attr.Attributes.ContainsKey(name))
+		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.ContainsKey($attrName))
 		{
-			uint.TryParse(attr.Attribute(name), out ret);
+		    uint.TryParse($xmlElement.Attribute($attrName), $ret);
 			return XML_OK;
 		}
 
-		ret = 0;
+		$ret = 0;
 		return XML_FAIL;
 	}
 
-	public static function getXmlAttrInt(SecurityElement attr, string name, ref int ret)
+	public static function getXmlAttrInt($xmlElement, $attrName, $ret)
 	{
-		if (null != attr && null != attr.Attributes && attr.Attributes.ContainsKey(name))
+		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.ContainsKey($attrName))
 		{
-			int.TryParse(attr.Attribute(name), out ret);
+		    int.TryParse($xmlElement.Attribute($attrName), $ret);
 			return XML_OK;
 		}
 
-		ret = 0;
+		$ret = 0;
 		return XML_FAIL;
 	}
 
-	public static function getXmlAttrFloat(SecurityElement attr, string name, ref float ret)
+	public static function getXmlAttrFloat($xmlElement, $attrName, $ret)
 	{
-		if (null != attr && null != attr.Attributes && attr.Attributes.ContainsKey(name))
+		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.ContainsKey($attrName))
 		{
-			float.TryParse(attr.Attribute(name), out ret);
+		    float.TryParse($xmlElement.Attribute($attrName), $ret);
 			return XML_OK;
 		}
 
-		ret = 0;
+		$ret = 0;
 		return XML_FAIL;
 	}
 
-	// 获取一个 Element 中对应名字是 name 的孩子节点列表
-	public static function getXmlChildList(SecurityElement elem, string name, ref ArrayList list)
+	// 获取一个 Element 中对应名字是 $attrName 的孩子节点列表
+	public static function getXmlChildList($xmlElement, $attrName, $list)
 	{
-		if (null != elem)
+		if (null != $xmlElement)
 		{
-			int idx = 0;
-			int len = elem.Children.Count;
-			SecurityElement child = null;
+			$idx = 0;
+			$len = $xmlElement.Children.Count;
+			$child = null;
 
-			//foreach (SecurityElement child in elem.Children)
-			while(idx < len)
+			//foreach (SecurityElement child in $xmlElement.Children)
+			while($idx < $len)
 			{
-				child = elem.Children[idx] as SecurityElement;
+				$child = $xmlElement.Children[idx];
 
 				//比对下是否使自己所需要得节点
-				if (child.Tag == name)
+				if (child.Tag == $attrName)
 				{
-					list.Add(child);
+					$list.Add(child);
 				}
 
-				++idx;
+				++$idx;
 			}
 		}
 
-		if (list.Count > 0)
+		if ($list.Count > 0)
 		{
 			return XML_OK;
 		}
 		else
 		{
-			list.Clear();
+			$list.Clear();
 			return XML_FAIL;
 		}
 	}
 
 	// 获取一个孩子节点
-	public static function getXmlChild(SecurityElement elem, string name, ref SecurityElement childNode)
+	public static function getXmlChild($xmlElement, $attrName, $childNode)
 	{
-		if (null != elem)
+		if (null != $xmlElement)
 		{
-			int idx = 0;
-			int len = elem.Children.Count;
-			SecurityElement child = null;
+			$idx = 0;
+			$len = $xmlElement.Children.Count;
+			$child = null;
 
-			//foreach (SecurityElement child in elem.Children)
-			while(idx < len)
+			//foreach (SecurityElement child in $xmlElement.Children)
+			while($idx < $len)
 			{
-				child = elem.Children[idx] as SecurityElement;
+				$child = $xmlElement.Children[idx];
 
 				//比对下是否使自己所需要得节点
-				if (child.Tag == name)
+				if ($child.Tag == $attrName)
 				{
-					childNode = child;
+					$childNode = $child;
 					return XML_OK;
 				}
 
-				++idx;
+				++$idx;
 			}
 		}
 
-		childNode = null;
+		$childNode = null;
 		return XML_FAIL;
 	}
 
 	// 获取某一个元素的所有 Child 列表
-	public static function getXmlElementAllChildList(SecurityElement elem, string itemNode, ref ArrayList list)
+	public static function getXmlElementAllChildList($xmlElement, $itemNode, $list)
 	{
-		SecurityElement objElem = null;
+		$objElem = null;
 
-		if (string.IsNullOrEmpty(itemNode))
+		if (string.IsNullOrEmpty($itemNode))
 		{
-			objElem = elem;
+			$objElem = $xmlElement;
 		}
 		else
 		{
-			UtilXml.getXmlChild(elem, itemNode, ref objElem);
+			UtilXml::getXmlChild($xmlElement, $itemNode, $objElem);
 		}
 
-		list = objElem.Children;
+		$list = $objElem.Children;
 
 		return XML_OK;
 	}
 
 	// 获取一个 Element 中对应目录是 pathListStr 的列表，目录个是为 "aaa.bbb.ccc"
-	public static function getXmlChildListByPath(SecurityElement elem, string pathListStr, ref ArrayList list)
+	public static function getXmlChildListByPath($xmlElement, $pathListStr, $list)
 	{
-		string[] pathList = UtilStr.split(ref pathListStr, '.');
-		string curName = "";
-		SecurityElement curElement = elem;  // 当前元素
+		$pathList = UtilStr.split($pathListStr, '.');
+		$curName = "";
+		$curElement = $xmlElement;  // 当前元素
 
-		int elemIdx = 0;
-		int elemLen = 0;
+		$elemIdx = 0;
+		$elemLen = 0;
 
-		int childIdx = 0;
-		int childLen = 0;
+		$childIdx = 0;
+		$childLen = 0;
 
-		SecurityElement child = null;
-		bool isLastOne = false;
+		$child = null;
+		$isLastOne = false;
 
-		while (elemIdx < elemLen)
+		while ($elemIdx < $elemLen)
 		{
 			// 如果是最后一级
-			if(elemIdx == elemLen - 1)
+			if($elemIdx == $elemLen - 1)
 			{
-				isLastOne = true;
+				$isLastOne = true;
 			}
 
-			curName = pathList[elemIdx];
+			$curName = $pathList[elemIdx];
 
-			if (null != curElement)
+			if (null != $curElement)
 			{
-				childIdx = 0;
-				childLen = curElement.Children.Count;
+				$childIdx = 0;
+				$childLen = $curElement.Children.Count;
 
-				while (childIdx < childLen)
+				while ($childIdx < $childLen)
 				{
-					child = curElement.Children[childIdx] as SecurityElement;
+					$child = $curElement.Children[childIdx];
 
 					//比对下是否使自己所需要得节点
-					if (child.Tag == curName)
+					if ($child.Tag == $curName)
 					{
-						if (!isLastOne)
+						if (!$isLastOne)
 						{
-							curElement = child;
+							$curElement = $child;
 							break;
 						}
 						else
 						{
-							list.Add(child);
+							$list.Add($child);
 						}
 					}
 
-					++childIdx;
+					++$childIdx;
 				}
 			}
 
-			++elemIdx;
+			++$elemIdx;
 		}
 
-		if (list.Count > 0)
+		if ($list.Count > 0)
 		{
 			return XML_OK;
 		}
 		else
 		{
-			list.Clear();
+			$list.Clear();
 			return XML_FAIL;
 		}
 	}

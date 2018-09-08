@@ -2,7 +2,8 @@
 
 namespace SDK\Test;
 
-require_once (dirname(__FILE__) . "/../TestClass.php");
+require_once (dirname(__FILE__) . "/../Base/TestBase.php");
+require_once (dirname(__FILE__) . "/../TestClass/TestClass.php");
 
 class TestMain
 {

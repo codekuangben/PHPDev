@@ -5,120 +5,134 @@ namespace SDK\Lib;
 class UtilLogic
 {
 	// 判断一个 unicode 字符是不是汉字
-	public static bool IsChineseLetter(string input, int index)
+	public static function IsChineseLetter($input, $index)
 	{
-		int code = 0;
-		int chfrom = System.Convert.ToInt32("4e00", 16); //范围（0x4e00～0x9fff）转换成int（chfrom～chend）
-		int chend = System.Convert.ToInt32("9fff", 16);
+	    $ret = false;
+		$code = 0;
+		$chfrom = System.Convert.ToInt32("4e00", 16); //范围（0x4e00～0x9fff）转换成int（chfrom～chend）
+		$chend = System.Convert.ToInt32("9fff", 16);
+		
 		if (input != "")
 		{
-			code = System.Char.ConvertToUtf32(input, index); //获得字符串input中指定索引index处字符unicode编码
+			$code = System.Char.ConvertToUtf32(input, index); //获得字符串input中指定索引index处字符unicode编码
 
-			if (code >= chfrom && code <= chend)
+			if ($code >= $chfrom && $code <= $chend)
 			{
-				return true; //当code在中文范围内返回true
+			    $ret = true; //当code在中文范围内返回true
 			}
 			else
 			{
-				return false; //当code不在中文范围内返回false
+			    $ret = false; //当code不在中文范围内返回false
 			}
 		}
-		return false;
+		
+		return $ret;
 	}
 
-	public static bool IsIncludeChinese(string input)
+	public static function IsIncludeChinese($input)
 	{
-		int idx = 0;
-		for (idx = 0; idx < input.Length; ++idx)
+	    $ret = 0;
+		$index = 0;
+		$listLen = UtilStr::length($input);
+		
+		while($index < $listLen)
 		{
 			if (IsChineseLetter(input, idx))
 			{
-				return true;
+				$ret = true;
+				break;
 			}
+			
+			$index += 1;
 		}
 
-		return false;
+		return $ret;
 	}
 
 	// 判断 unicode 字符个数，只判断字母和中文吗，中文算 2 个字节
-	public static int CalcCharCount(string str)
+	public static function CalcCharCount($str)
 	{
-		int charCount = 0;
-		int idx = 0;
-		for (idx = 0; idx < str.Length; ++idx)
+		$charCount = 0;
+		$index = 0;
+		$listLen = UtilStr::length($str); 
+		
+		while($index < $listLen)
 		{
 			if (IsChineseLetter(str, idx))
 			{
-				charCount += 2;
+				$charCount += 2;
 			}
 			else
 			{
-				charCount += 1;
+				$charCount += 1;
 			}
+			
+			$index += 1;
 		}
 
-		return charCount;
+		return $charCount;
 	}
 
 	// 从数字获取 5 位字符串
-	public static string get5StrFromDigit(int digit)
+	public static function get5StrFromDigit($digit)
 	{
-		string ret = "";
-		if (digit < 10)
+		$ret = "";
+		
+		if ($digit < 10)
 		{
-			ret = string.Format("{0}{1}", "0000", digit.ToString());
+			$ret = string.Format("{0}{1}", "0000", $digit.ToString());
 		}
 		else if (digit < 100)
 		{
-			ret = string.Format("{0}{1}", "000", digit.ToString());
+			$ret = string.Format("{0}{1}", "000", $digit.ToString());
 		}
 
 		return ret;
 	}
 
 	// 格式化时间，显示格式为 00年00天00时00分00秒
-	static public string formatTime(int second)
+	static public function formatTime($second)
 	{
-		string ret = "";
+		$ret = "";
 
-		int left = 0;
-		int year = second / (356 * 24 * 60 * 60);
-		left = second % (356 * 24 * 60 * 60);
-		int day = left / (24 * 60 * 60);
-		left = left % (24 * 60 * 60);
-		int hour = left / (60 * 60);
-		left = left % (60 * 60);
-		int min = left / 60;
-		left = left % 60;
-		int sec = left;
+		$left = 0;
+		$year = second / (356 * 24 * 60 * 60);
+		$left = second % (356 * 24 * 60 * 60);
+		$day = left / (24 * 60 * 60);
+		$left = left % (24 * 60 * 60);
+		$hour = left / (60 * 60);
+		$left = left % (60 * 60);
+		$min = left / 60;
+		$left = left % 60;
+		$sec = left;
 
-		if(year != 0)
+		if($year != 0)
 		{
-			ret = string.Format("{0}{1}年", ret, year);
+			$ret = string.Format("{0}{1}年", $ret, $year);
 		}
-		if (day != 0)
+		if ($day != 0)
 		{
-			ret = string.Format("{0}{1}天", ret, day);
+			$ret = string.Format("{0}{1}天", $ret, $day);
 		}
-		if (hour != 0)
+		if ($hour != 0)
 		{
-			ret = string.Format("{0}{1}时", ret, hour);
+			$ret = string.Format("{0}{1}时", $ret, $hour);
 		}
 		if (min != 0)
 		{
-			ret = string.Format("{0}{1}分", ret, min);
+			$ret = string.Format("{0}{1}分", $ret, $min);
 		}
 		if (sec != 0)
 		{
-			ret = string.Format("{0}{1}秒", ret, sec);
+			$ret = string.Format("{0}{1}秒", $ret, $sec);
 		}
 
-		return ret;
+		return $ret;
 	}
 
-	public static float getSquare(float num)
+	public static function getSquare($num)
 	{
-		return num * num;
+		return $num * $num;
 	}
 }
 

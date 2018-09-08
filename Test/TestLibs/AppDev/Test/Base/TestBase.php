@@ -9,6 +9,16 @@ class TestBase
         
     }
     
+    public function init()
+    {
+        
+    }
+    
+    public function dispose()
+    {
+        
+    }
+    
     public function run()
     {
         

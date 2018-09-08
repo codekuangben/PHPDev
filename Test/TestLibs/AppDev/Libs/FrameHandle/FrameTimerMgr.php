@@ -31,7 +31,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 		{
 			if ($this->isInDepth())
 			{
-				base.addObject(delayObject, priority);
+				parent::addObject(delayObject, priority);
 			}
 			else
 			{
@@ -49,7 +49,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 
 			if ($this->isInDepth())
 			{
-				base.addObject(delayObject);
+				parent::addObject(delayObject);
 			}
 			else
 			{

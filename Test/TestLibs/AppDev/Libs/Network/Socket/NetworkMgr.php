@@ -15,7 +15,7 @@ public class NetworkMgr
 	{
 		mVisitMutex = new MMutex(false, "NetMutex");
 		mId2ClientDic = new MDictionary<string, NetTCPClient>();
-		if (MacroDef.NET_MULTHREAD)
+		if (MacroDef::NET_MULTHREAD)
 		{
 			startThread();
 		}
@@ -72,7 +72,7 @@ public class NetworkMgr
 		if (mId2ClientDic.ContainsKey(key))
 		{
 			// 关闭 socket 之前要等待所有的数据都发送完成，如果发送一直超时，可能就卡在这很长时间
-			if (MacroDef.NET_MULTHREAD)
+			if (MacroDef::NET_MULTHREAD)
 			{
 				mId2ClientDic[key].msgSendEndEvent.Reset();        // 重置信号
 				mId2ClientDic[key].msgSendEndEvent.WaitOne();      // 阻塞等待数据全部发送完成
@@ -158,7 +158,7 @@ public class NetworkMgr
 		if (mCurClient != null)
 		{
 			mCurClient.clientBuffer.send(isSendToNet);
-			if (!MacroDef.NET_MULTHREAD)
+			if (!MacroDef::NET_MULTHREAD)
 			{
 				mCurClient.Send();
 			}
@@ -174,7 +174,7 @@ public class NetworkMgr
 		if (mCurClient != null)
 		{
 			mCurClient.clientBuffer.send_KBE(isSendToNet);
-			if (!MacroDef.NET_MULTHREAD)
+			if (!MacroDef::NET_MULTHREAD)
 			{
 				mCurClient.Send();
 			}
@@ -187,7 +187,7 @@ public class NetworkMgr
 	// 关闭网络 ，需要等待子线程结束
 	public void closeNet()
 	{
-		if (MacroDef.NET_MULTHREAD)
+		if (MacroDef::NET_MULTHREAD)
 		{
 			mNetThread.ExitFlag = true;        // 设置退出标志
 			mNetThread.join();                 // 等待线程结束
@@ -227,7 +227,7 @@ public class NetworkMgr
 
 	public bool isNetThread(int threadID)
 	{
-		if (MacroDef.NET_MULTHREAD)
+		if (MacroDef::NET_MULTHREAD)
 		{
 			return mNetThread.isCurThread(threadID);
 		}

@@ -70,7 +70,7 @@ class TickObjectPriorityMgr extends DelayPriorityHandleMgr implements ITickedObj
 			}
 			else
 			{
-				if (MacroDef.ENABLE_LOG)
+				if (MacroDef::ENABLE_LOG)
 				{
 					Ctx.mInstance.mLogSys.log("TickObjectPriorityMgr::onExecAdvance, failed", LogTypeId.eLogCommon);
 				}

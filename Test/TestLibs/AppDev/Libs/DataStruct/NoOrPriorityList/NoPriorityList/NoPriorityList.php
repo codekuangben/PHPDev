@@ -89,7 +89,7 @@ class NoPriorityList implements INoOrPriorityList
 		}
 		else
 		{
-			if (MacroDef.ENABLE_LOG)
+			if (MacroDef::ENABLE_LOG)
 			{
 				Ctx.mInstance.mLogSys.log("NoPriorityList::Contains, failed", LogTypeId.eLogNoPriorityListCheck);
 			}
@@ -152,7 +152,7 @@ class NoPriorityList implements INoOrPriorityList
 		}
 		else
 		{
-			if (MacroDef.ENABLE_LOG)
+			if (MacroDef::ENABLE_LOG)
 			{
 				Ctx.mInstance.mLogSys.log("NoPriorityList::addNoPriorityObject, failed", LogTypeId.eLogNoPriorityListCheck);
 			}
@@ -182,7 +182,7 @@ class NoPriorityList implements INoOrPriorityList
 		}
 		else
 		{
-			if (MacroDef.ENABLE_LOG)
+			if (MacroDef::ENABLE_LOG)
 			{
 				Ctx.mInstance.mLogSys.log("NoPriorityList::addNoPriorityObject, failed", LogTypeId.eLogNoPriorityListCheck);
 			}

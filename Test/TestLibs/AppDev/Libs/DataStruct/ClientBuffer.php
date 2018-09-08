@@ -168,7 +168,7 @@ class ClientBuffer
 			}
 		}
 
-		if (MacroDef.MSG_COMPRESS || MacroDef.MSG_ENCRIPT)
+		if (MacroDef::MSG_COMPRESS || MacroDef::MSG_ENCRIPT)
 		{
 		    $this->mSocketSendBA.setPos(0);
 		    $this->CompressAndEncryptEveryOne();
@@ -188,14 +188,14 @@ class ClientBuffer
 
 		while ($this->mSocketSendBA.bytesAvailable > 0)
 		{
-			if (MacroDef.MSG_COMPRESS && !MacroDef.MSG_ENCRIPT)
+			if (MacroDef::MSG_COMPRESS && !MacroDef::MSG_ENCRIPT)
 			{
 				$bHeaderChange = false;
 			}
 
 			$this->mSocketSendBA.readUnsignedInt32($origMsgLen);    // 读取一个消息包头
 
-			if (MacroDef.MSG_COMPRESS)
+			if (MacroDef::MSG_COMPRESS)
 			{
 				if (origMsgLen > MsgCV.PACKET_ZIP_MIN)
 				{
@@ -219,7 +219,7 @@ class ClientBuffer
 			//#endif
 
 			// 加密如果系统补齐字节，长度可能会变成 8 字节的证书倍，因此需要等加密完成后再写入长度
-			if (MacroDef.MSG_COMPRESS && !MacroDef.MSG_ENCRIPT)
+			if (MacroDef::MSG_COMPRESS && !MacroDef::MSG_ENCRIPT)
 			{
 				if (origMsgLen > MsgCV.PACKET_ZIP_MIN)    // 如果原始长度需要压缩
 				{
@@ -237,7 +237,7 @@ class ClientBuffer
 			}
 
 			// 整个消息压缩后，包括 4 个字节头的长度，然后整个加密
-			if (MacroDef.MSG_ENCRIPT)
+			if (MacroDef::MSG_ENCRIPT)
 			{
 				$cryptLen = (($compressMsgLen + 4 + 7) / 8) * 8 - 4;      // 计算加密后，不包括 4 个头长度的 body 长度
 				if ($origMsgLen > MsgCV.PACKET_ZIP_MIN)    // 如果原始长度需要压缩
@@ -271,23 +271,23 @@ class ClientBuffer
 		$origMsgLen = mSocketSendBA.length;       // 原始的消息长度，后面判断头部是否添加压缩标志
 		$compressMsgLen = 0;
 
-		if (origMsgLen > MsgCV.PACKET_ZIP_MIN && MacroDef.MSG_COMPRESS)
+		if (origMsgLen > MsgCV.PACKET_ZIP_MIN && MacroDef::MSG_COMPRESS)
 		{
 		    $compressMsgLen = $this->mSocketSendBA.compress();
 		}
-		else if (MacroDef.MSG_ENCRIPT)
+		else if (MacroDef::MSG_ENCRIPT)
 		{
 			$compressMsgLen = $origMsgLen;
 			$this->mSocketSendBA.incPosDelta((int)origMsgLen);
 		}
 
-		if (MacroDef.MSG_ENCRIPT)
+		if (MacroDef::MSG_ENCRIPT)
 		{
 		    $this->mSocketSendBA.decPosDelta((int)compressMsgLen);
 		    $compressMsgLen = $this->mSocketSendBA.encrypt($this->mCryptContext, 0);
 		}
 
-		if (MacroDef.MSG_COMPRESS || MacroDef.MSG_ENCRIPT)             // 如果压缩或者加密，需要再次添加压缩或者加密后的头长度
+		if (MacroDef::MSG_COMPRESS || MacroDef::MSG_ENCRIPT)             // 如果压缩或者加密，需要再次添加压缩或者加密后的头长度
 		{
 			if (origMsgLen > MsgCV.PACKET_ZIP_MIN)    // 如果原始长度需要压缩
 			{
@@ -310,7 +310,7 @@ class ClientBuffer
 	// |                |                |                |                |
 	protected function UnCompressAndDecryptEveryOne()
 	{
-		if (MacroDef.MSG_ENCRIPT)
+		if (MacroDef::MSG_ENCRIPT)
 		{
 		    $this->mRawBuffer.msgBodyBA.decrypt($this->mCryptContext, 0);
 		}
@@ -335,7 +335,7 @@ class ClientBuffer
 				break;
 			}
 			
-			if ((msglen & MsgCV.PACKET_ZIP) > 0 && MacroDef.MSG_COMPRESS)
+			if ((msglen & MsgCV.PACKET_ZIP) > 0 && MacroDef::MSG_COMPRESS)
 			{
 				$msglen &= (~MsgCV.PACKET_ZIP);         // 去掉压缩标志位
 				$msglen = $this->mRawBuffer.msgBodyBA.uncompress($msglen);
@@ -366,13 +366,13 @@ class ClientBuffer
 
 	protected function UnCompressAndDecryptAllInOne()
 	{
-		if (MacroDef.MSG_ENCRIPT)
+		if (MacroDef::MSG_ENCRIPT)
 		{
 		    $this->mRawBuffer.msgBodyBA.decrypt($this->mCryptContext, 0);
 		}
 
 		$msglen = 0;
-		if (MacroDef.MSG_COMPRESS)
+		if (MacroDef::MSG_COMPRESS)
 		{
 		    $this->mRawBuffer.headerBA.setPos(0);
 
@@ -383,7 +383,7 @@ class ClientBuffer
 			}
 		}
 
-		if (!MacroDef.MSG_COMPRESS && !MacroDef.MSG_ENCRIPT)
+		if (!MacroDef::MSG_COMPRESS && !MacroDef::MSG_ENCRIPT)
 		{
 		    $this->mUnCompressHeaderBA.clear();
 		    $this->mUnCompressHeaderBA.writeUnsignedInt32($this->mRawBuffer.msgBodyBA.length);
@@ -392,7 +392,7 @@ class ClientBuffer
 
 		$mlock = new MLock($this->mReadMutex);
 		{
-			if (!MacroDef.MSG_COMPRESS && !MacroDef.MSG_ENCRIPT)
+			if (!MacroDef::MSG_COMPRESS && !MacroDef::MSG_ENCRIPT)
 			{
 			    $this->mMsgBuffer.circularBuffer.pushBackBA($this->mUnCompressHeaderBA);             // 保存消息大小字段
 			}

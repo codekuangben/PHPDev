@@ -24,7 +24,7 @@ class MProfileInfo
 
 	public function wipe()
 	{
-		if(MacroDef.ENABLE_LOG)
+		if(MacroDef::ENABLE_LOG)
 		{
 			Ctx.mInstance.mLogSys.log(string.Format("MProfileInfo::wipe, name = {0}", mName), LogTypeId.eLogProfileDebug);
 		}

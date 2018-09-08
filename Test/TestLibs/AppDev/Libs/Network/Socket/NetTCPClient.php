@@ -156,7 +156,7 @@ public class NetTCPClient
 			//mSocket.SendTimeout = m_sendTimeout;
 			//mSocket.ReceiveTimeout = m_revTimeout;
 
-			if (!MacroDef.NET_MULTHREAD)
+			if (!MacroDef::NET_MULTHREAD)
 			{
 				$this->Receive();
 			}
@@ -173,7 +173,7 @@ public class NetTCPClient
 				if (((SocketException)e).SocketErrorCode == SocketError.ConnectionRefused)
 				{
 					// 输出日志
-					if (MacroDef.ENABLE_LOG)
+					if (MacroDef::ENABLE_LOG)
 					{
 						Ctx.mInstance.mLogSys.log(e.Message);
 					}
@@ -181,7 +181,7 @@ public class NetTCPClient
 				else
 				{
 					// 输出日志
-					if (MacroDef.ENABLE_LOG)
+					if (MacroDef::ENABLE_LOG)
 					{
 						Ctx.mInstance.mLogSys.log(e.Message);
 					}
@@ -239,7 +239,7 @@ public class NetTCPClient
 
 			if (read > 0)
 			{
-				if (MacroDef.ENABLE_LOG)
+				if (MacroDef::ENABLE_LOG)
 				{
 					Ctx.mInstance.mLogSys.log("Receive data " + read.ToString());
 				}
@@ -294,7 +294,7 @@ public class NetTCPClient
 
 				if ($this->mClientBuffer.sendBuffer.bytesAvailable == 0)        // 如果发送缓冲区中确实没有数据
 				{
-					if (MacroDef.NET_MULTHREAD)
+					if (MacroDef::NET_MULTHREAD)
 					{
 						$this->mMsgSendEndEvent.Set();        // 通知等待线程，所有数据都发送完成
 					}
@@ -304,7 +304,7 @@ public class NetTCPClient
 
 			try
 			{
-				if (MacroDef.ENABLE_LOG)
+				if (MacroDef::ENABLE_LOG)
 				{
 					Ctx.mInstance.mLogSys.log(string.Format("Start send byte num {0} ", mClientBuffer.sendBuffer.bytesAvailable));
 				}
@@ -318,7 +318,7 @@ public class NetTCPClient
 			}
 			catch (System.Exception e)
 			{
-				if (MacroDef.NET_MULTHREAD)
+				if (MacroDef::NET_MULTHREAD)
 				{
 					$this->mMsgSendEndEvent.Set();        // 发生异常，通知等待线程，所有数据都发送完成，防止等待线程不能解锁
 				}
@@ -346,14 +346,14 @@ public class NetTCPClient
 			{
 				int bytesSent = $this->mSocket.EndSend(ar);
 
-				if (MacroDef.ENABLE_LOG)
+				if (MacroDef::ENABLE_LOG)
 				{
 					Ctx.mInstance.mLogSys.log(string.Format("End send bytes num {0} ", bytesSent));
 				}
 
 				if (mClientBuffer.sendBuffer.length < mClientBuffer.sendBuffer.position + (uint)bytesSent)
 				{
-					if (MacroDef.ENABLE_LOG)
+					if (MacroDef::ENABLE_LOG)
 					{
 						Ctx.mInstance.mLogSys.log(string.Format("End send bytes error {0}", bytesSent));
 					}

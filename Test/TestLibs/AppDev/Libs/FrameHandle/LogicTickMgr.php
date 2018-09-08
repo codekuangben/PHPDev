@@ -18,7 +18,7 @@ class LogicTickMgr extends TickMgr
 	{
 		if($this->mTimeInterval.canExec($delta))
 		{
-			base.onExecAdvance($delta, $tickMode);
+			parent::onExecAdvance($delta, $tickMode);
 		}
 	}
 }

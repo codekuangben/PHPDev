@@ -14,7 +14,7 @@ class ProcessSys
 
 	public function ProcessNextFrame()
 	{
-		if (MacroDef.ENABLE_PROFILE)
+		if (MacroDef::ENABLE_PROFILE)
 		{
 			Ctx.mInstance.mProfiler.enter("ProcessSys::ProcessNextFrame");
 		}
@@ -22,7 +22,7 @@ class ProcessSys
 		//Ctx.mInstance.mSystemTimeData.nextFrame();
 		$this->Advance(Ctx.mInstance.mSystemTimeData.deltaSec);
 
-		if (MacroDef.ENABLE_PROFILE)
+		if (MacroDef::ENABLE_PROFILE)
 		{
 			Ctx.mInstance.mProfiler.exit("ProcessSys::ProcessNextFrame");
 		}
@@ -40,14 +40,14 @@ class ProcessSys
 
 	public function ProcessNextFixedFrame()
 	{
-		if (MacroDef.ENABLE_PROFILE)
+		if (MacroDef::ENABLE_PROFILE)
 		{
 			Ctx.mInstance.mProfiler.enter("ProcessSys::ProcessNextFixedFrame");
 		}
 
 		$this->FixedAdvance(Ctx.mInstance.mSystemTimeData.getFixedTimestep());
 
-		if (MacroDef.ENABLE_PROFILE)
+		if (MacroDef::ENABLE_PROFILE)
 		{
 			Ctx.mInstance.mProfiler.exit("ProcessSys::ProcessNextFixedFrame");
 		}
@@ -55,14 +55,14 @@ class ProcessSys
 
 	public function FixedAdvance($delta)
 	{
-		if (MacroDef.ENABLE_PROFILE)
+		if (MacroDef::ENABLE_PROFILE)
 		{
 			Ctx.mInstance.mProfiler.enter("ProcessSys::FixedAdvance");
 		}
 
 		Ctx.mInstance.mFixedTickMgr.Advance(delta, TickMode.eTM_FixedUpdate);
 
-		if (MacroDef.ENABLE_PROFILE)
+		if (MacroDef::ENABLE_PROFILE)
 		{
 			Ctx.mInstance.mProfiler.exit("ProcessSys::FixedAdvance");
 		}
@@ -70,14 +70,14 @@ class ProcessSys
 
 	public function ProcessNextLateFrame()
 	{
-		if (MacroDef.ENABLE_PROFILE)
+		if (MacroDef::ENABLE_PROFILE)
 		{
 			Ctx.mInstance.mProfiler.enter("ProcessSys::ProcessNextLateFrame");
 		}
 
 		$this->LateAdvance(Ctx.mInstance.mSystemTimeData.deltaSec);
 
-		if (MacroDef.ENABLE_PROFILE)
+		if (MacroDef::ENABLE_PROFILE)
 		{
 			Ctx.mInstance.mProfiler.exit("ProcessSys::ProcessNextLateFrame");
 		}
@@ -85,14 +85,14 @@ class ProcessSys
 
 	public function LateAdvance($delta)
 	{
-		if (MacroDef.ENABLE_PROFILE)
+		if (MacroDef::ENABLE_PROFILE)
 		{
 			Ctx.mInstance.mProfiler.enter("ProcessSys::LateAdvance");
 		}
 
 		Ctx.mInstance.mLateTickMgr.Advance(delta, TickMode.eTM_LateUpdate);
 
-		if (MacroDef.ENABLE_PROFILE)
+		if (MacroDef::ENABLE_PROFILE)
 		{
 			Ctx.mInstance.mProfiler.exit("ProcessSys::LateAdvance");
 		}

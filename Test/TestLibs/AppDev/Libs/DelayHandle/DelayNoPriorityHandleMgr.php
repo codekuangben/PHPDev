@@ -20,12 +20,12 @@ class DelayNoPriorityHandleMgr extends DelayNoOrPriorityHandleMgr
 
 	public function init()
 	{
-		base.init();
+		parent::init();
 	}
 
 	public function dispose()
 	{
-		base.dispose();
+		parent::dispose();
 	}
 
 	public function addNoPriorityObject($priorityObject)

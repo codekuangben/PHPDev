@@ -45,7 +45,7 @@ class MProfiler
 	
 	public function init()
 	{
-		if (MacroDef.ENABLE_LOG)
+		if (MacroDef::ENABLE_LOG)
 		{
 			Ctx.mInstance.mLogSys.log("MProfiler::init", LogTypeId.eLogProfileDebug);
 		}
@@ -53,7 +53,7 @@ class MProfiler
 
 	public function dispose()
 	{
-		if (MacroDef.ENABLE_LOG)
+		if (MacroDef::ENABLE_LOG)
 		{
 			Ctx.mInstance.mLogSys.log("MProfiler::dispose", LogTypeId.eLogProfileDebug);
 		}
@@ -68,7 +68,7 @@ class MProfiler
 	{
 		$this->mIsStartProfile = value;
 
-		if (MacroDef.ENABLE_LOG)
+		if (MacroDef::ENABLE_LOG)
 		{
 			Ctx.mInstance.mLogSys.log(string.Format("MProfiler::setIsStartProfile, IsStartProfile = {0}", $this->mIsStartProfile), LogTypeId.eLogProfileDebug);
 		}
@@ -78,7 +78,7 @@ class MProfiler
 	{
 		$this->mIsStartProfile = !$this->mIsStartProfile;
 
-		if (MacroDef.ENABLE_LOG)
+		if (MacroDef::ENABLE_LOG)
 		{
 			Ctx.mInstance.mLogSys.log(string.Format("MProfiler::toggleIsStartProfile, IsStartProfile = {0}", $this->mIsStartProfile), LogTypeId.eLogProfileDebug);
 		}
@@ -96,7 +96,7 @@ class MProfiler
 				{
 					$this->mPrintLog = true;
 
-					if (MacroDef.ENABLE_LOG)
+					if (MacroDef::ENABLE_LOG)
 					{
 						Ctx.mInstance.mLogSys.log(string.Format("MProfiler::checkInternalState, StackDepth = {0}, IsStartProfile = {1}, Enabled = {2}", $this->mStackDepth, $this->mIsStartProfile, $this->mEnabled), LogTypeId.eLogProfileDebug);
 					}
@@ -104,7 +104,7 @@ class MProfiler
 
 				if (!$this->mEnabled)
 				{
-					if (MacroDef.ENABLE_LOG)
+					if (MacroDef::ENABLE_LOG)
 					{
 						Ctx.mInstance.mLogSys.log("MProfiler::checkInternalState, StartWantWipe", LogTypeId.eLogProfileDebug);
 					}
@@ -117,7 +117,7 @@ class MProfiler
 			{
 				if ($this->mEnabled)
 				{
-					if (MacroDef.ENABLE_LOG)
+					if (MacroDef::ENABLE_LOG)
 					{
 						Ctx.mInstance.mLogSys.log("MProfiler::checkInternalState, StartWantReport", LogTypeId.eLogProfileDebug);
 					}
@@ -134,7 +134,7 @@ class MProfiler
 			// 娓呯悊鎵�鏈夐厤缃暟鎹紝寮�濮嬮噸鏂版敹闆嗘暟鎹�
 			if ($this->mWantWipe)
 			{
-				if (MacroDef.ENABLE_LOG)
+				if (MacroDef::ENABLE_LOG)
 				{
 					Ctx.mInstance.mLogSys.log("MProfiler::checkInternalState, doWipe", LogTypeId.eLogProfileDebug);
 				}
@@ -145,7 +145,7 @@ class MProfiler
 			// 杈撳嚭閰嶇疆
 			if ($this->mWantReport)
 			{
-				if (MacroDef.ENABLE_LOG)
+				if (MacroDef::ENABLE_LOG)
 				{
 					Ctx.mInstance.mLogSys.log("MProfiler::checkInternalState, doReport", LogTypeId.eLogProfileDebug);
 				}
@@ -160,7 +160,7 @@ class MProfiler
 	 */
 	public function enter($blockName)
 	{
-		if (MacroDef.ENABLE_LOG)
+		if (MacroDef::ENABLE_LOG)
 		{
 			Ctx.mInstance.mLogSys.log(string.Format("MProfiler::enter, blockName = {0}, ReallyEnabled = {1}, StackDepth = {2}", blockName, $this->mReallyEnabled, $this->mStackDepth), LogTypeId.eLogProfileDebug);
 		}
@@ -196,7 +196,7 @@ class MProfiler
 		// 寮�濮嬭鏃� Child Node
 		$this->mCurrentNode->mStartTime = UtilSysLibWrap.getFloatUTCMilliseconds();
 
-		if (MacroDef.ENABLE_LOG)
+		if (MacroDef::ENABLE_LOG)
 		{
 			Ctx.mInstance.mLogSys.log(string.Format("MProfiler::enter, blockName = {0}, StartTime = {1}", blockName, $this->mCurrentNode.mStartTime), LogTypeId.eLogProfileDebug);
 		}
@@ -207,7 +207,7 @@ class MProfiler
 	 */
 	public function exit($blockName)
 	{
-		if (MacroDef.ENABLE_LOG)
+		if (MacroDef::ENABLE_LOG)
 		{
 			Ctx.mInstance.mLogSys.log(string.Format("MProfiler::exit, blockName = {0}, ReallyEnabled = {1}, StackDepth = {2}", blockName, $this->mReallyEnabled, $this->mStackDepth), LogTypeId.eLogProfileDebug);
 		}
@@ -232,7 +232,7 @@ class MProfiler
 		$this->mCurrentNode->mActivations += 1;
 		$this->mCurrentNode->mTotalTime += elapsedTime;
 
-		if (MacroDef.ENABLE_LOG)
+		if (MacroDef::ENABLE_LOG)
 		{
 			Ctx.mInstance.mLogSys.log(string.Format("MProfiler::exit, blockName = {0}, TotalTime = {1}, currentTime = {2}", blockName, $this->mCurrentNode.mTotalTime, currentTime), LogTypeId.eLogProfileDebug);
 		}
@@ -305,7 +305,7 @@ class MProfiler
 									  UtilStr.toStringByCount($this->mDataWidth - "MinMs".Length, " "), "MinMs",
 									  UtilStr.toStringByCount($this->mDataWidth - "MaxMs".Length, " "), "MaxMs");
 
-		if (MacroDef.ENABLE_LOG)
+		if (MacroDef::ENABLE_LOG)
 		{
 			Ctx.mInstance.mLogSys.log(header, LogTypeId.eLogProfile);
 		}
@@ -344,7 +344,7 @@ class MProfiler
 			$entry = $this->formatProfile($indent, $hasChild, $profileInfo);
 		}
 
-		if (MacroDef.ENABLE_LOG)
+		if (MacroDef::ENABLE_LOG)
 		{
 			Ctx.mInstance.mLogSys.log(entry, LogTypeId.eLogProfile);
 		}

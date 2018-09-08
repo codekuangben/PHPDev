@@ -1,59 +1,57 @@
+<?php
+
 namespace SDK\Lib;
+
+class NetModuleDispatchHandle
 {
-public class NetModuleDispHandle
-{
-	protected MDictionary<int, AddOnceEventDispatch> mId2DispDic;
-	protected LuaCSBridgeNetDispHandle m_luaCSBridgeNetDispHandle;     // Lua 网络事件处理器
-
-	public NetModuleDispHandle()
+	protected $mId2DispDic;
+	
+	public function __construct()
 	{
-		mId2DispDic = new MDictionary<int, AddOnceEventDispatch>();
+		$this->mId2DispDic = new MDictionary();
 	}
 
-	virtual public void init()
+	public function init()
 	{
 
 	}
 
-	virtual public void dispose()
+	public function dispose()
 	{
 
 	}
 
-	public void addCmdHandle(int cmdId, NetCmdDispHandle callee, MAction<IDispatchObject> handle)
+	public function addCmdHandle($cmdId, $callee, $handle)
 	{
-		if (!mId2DispDic.ContainsKey(cmdId))
+	    if (!$this->mId2DispDic.ContainsKey($cmdId))
 		{
-			mId2DispDic[cmdId] = new AddOnceEventDispatch();
+		    $this->mId2DispDic[cmdId] = new AddOnceEventDispatch();
 		}
 
-		mId2DispDic[cmdId].addEventHandle(callee, handle);
+		$this->mId2DispDic[cmdId].addEventHandle($callee, $handle);
 	}
 
-	public void removeCmdHandle(int cmdId, NetCmdDispHandle calleeObj = null)
+	public function removeCmdHandle($cmdId, $calleeObj = null)
 	{
-		if(!mId2DispDic.ContainsKey(cmdId))
+	    if(!$this->mId2DispDic.ContainsKey($cmdId))
 		{
+		    
 		}
 
-		mId2DispDic[cmdId].removeEventHandle(calleeObj, null);
+		$this->mId2DispDic[$cmdId].removeEventHandle($calleeObj, null);
 	}
 
-	public virtual void handleMsg(CmdDispInfo cmdDispInfo)
+	public function handleMsg($cmdDispInfo)
 	{
-		if(mId2DispDic.ContainsKey(cmdDispInfo.byCmd))
+	    if($this->mId2DispDic.ContainsKey($cmdDispInfo.byCmd))
 		{                
-			mId2DispDic[cmdDispInfo.byCmd].dispatchEvent(cmdDispInfo);
+		    $this->mId2DispDic[$cmdDispInfo.byCmd].dispatchEvent($cmdDispInfo);
 		}
 		else
 		{
 			
 		}
-
-		if(m_luaCSBridgeNetDispHandle != null)
-		{
-			m_luaCSBridgeNetDispHandle.handleMsg(cmdDispInfo.bu, cmdDispInfo.byCmd, cmdDispInfo.byParam);
-		}
 	}
 }
-}
+
+?>

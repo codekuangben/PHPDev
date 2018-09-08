@@ -96,23 +96,23 @@ class Ctx
 		$this->mGlobalDelegate->init();
 		$this->mLogSys->init();
 		$this->mTickMgr->init();
-		$this->mFixedTickMgr->init();
-		$this->mLateTickMgr->init();
-		$this->mTaskQueue->mTaskThreadPool = $this->mTaskThreadPool;
-		$this->mTaskThreadPool->initThreadPool(2, $this->mTaskQueue);
-		$this->mSceneSys->init();
+		//$this->mTaskQueue->mTaskThreadPool = $this->mTaskThreadPool;
+		//$this->mTaskThreadPool->initThreadPool(2, $this->mTaskQueue);
 
-		$this->mCommonData->init();
-		$this->mDelayTaskMgr->init();
-		$this->mIdPoolSys->init();
+		//$this->mDelayTaskMgr->init();
+		//$this->mIdPoolSys->init();
 		$this->mLogicTickMgr->init();
-		$this->mNetEventHandle->init();
-		$this->mProfiler->init();
+		//$this->mProfiler->init();
 
-		//if(MacroDef.ENABLE_PROFILE)
+		//if(MacroDef::ENABLE_PROFILE)
 		//{
 		//    $this->mProfiler.setIsStartProfile(true);
 		//}
+	}
+	
+	public function _postInit()
+	{
+	    
 	}
 
 	public function init()
@@ -124,12 +124,6 @@ class Ctx
 
 	public function dispose()
 	{
-		// 场景卸载
-		if (null != $this->mSceneSys)
-		{
-			$this->mSceneSys.dispose();
-			$this->mSceneSys = null;
-		}
 		// 等待网络关闭
 		if (null != $this->mNetMgr)
 		{
@@ -141,22 +135,12 @@ class Ctx
 			$this->mGlobalDelegate.dispose();
 			$this->mGlobalDelegate = null;
 		}
-		if (null != $this->mCommonData)
-		{
-			$this->mCommonData.dispose();
-			$this->mCommonData = null;
-		}
 		if(null != $this->mLogicTickMgr)
 		{
 			$this->mLogicTickMgr.dispose();
 			$this->mLogicTickMgr = null;
 		}
 
-		if(null != $this->mNetEventHandle)
-		{
-			$this->mNetEventHandle.dispose();
-			$this->mNetEventHandle = null;
-		}
 		if (null != $this->mDelayTaskMgr)
 		{
 			$this->mDelayTaskMgr.dispose();
@@ -171,16 +155,6 @@ class Ctx
 		{
 			$this->mTickMgr.dispose();
 			$this->mTickMgr = null;
-		}
-		if (null != $this->mFixedTickMgr)
-		{
-			$this->mFixedTickMgr.dispose();
-			$this->mFixedTickMgr = null;
-		}
-		if (null != $this->mLateTickMgr)
-		{
-			$this->mLateTickMgr.dispose();
-			$this->mLateTickMgr = null;
 		}
 		if(null != $this->mProfiler)
 		{

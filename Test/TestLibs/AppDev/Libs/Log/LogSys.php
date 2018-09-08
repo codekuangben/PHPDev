@@ -140,9 +140,9 @@ class LogSys
 	// 注册文件日志，因为需要账号，因此需要等待输入账号后才能注册，可能多次注册
 	public function registerFileLogDevice()
 	{
-		if (MacroDef.ENABLE_FILELOG)
+		if (MacroDef::ENABLE_FILELOG)
 		{
-			unRegisterFileLogDevice();
+			$this->unRegisterFileLogDevice();
 
 			$logDevice = null;
 			$logDevice = new FileLogDevice();
@@ -310,7 +310,7 @@ class LogSys
 
 	public function logout($message, $type = LogColor::eLC_LOG)
 	{
-		if (MacroDef.THREAD_CALLCHECK)
+		if (MacroDef::THREAD_CALLCHECK)
 		{
 			MThread.needMainThread();
 		}
@@ -330,7 +330,7 @@ class LogSys
 
 	public function updateLog()
 	{
-		if (MacroDef.THREAD_CALLCHECK)
+		if (MacroDef::THREAD_CALLCHECK)
 		{
 			MThread.needMainThread();
 		}

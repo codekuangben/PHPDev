@@ -9,7 +9,7 @@ class EngineLoop
 {
 	public function MainLoop()
 	{
-		if(MacroDef.ENABLE_PROFILE)
+		if(MacroDef::ENABLE_PROFILE)
 		{
 			Ctx.mInstance.mProfiler.enter("EngineLoop::MainLoop");
 		}
@@ -69,7 +69,7 @@ class EngineLoop
 		// 日志处理
 		Ctx.mInstance.mLogSys.updateLog();
 
-		if (MacroDef.ENABLE_PROFILE)
+		if (MacroDef::ENABLE_PROFILE)
 		{
 			Ctx.mInstance.mProfiler.exit("EngineLoop::MainLoop");
 		}

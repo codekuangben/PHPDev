@@ -31,7 +31,7 @@ class TimerMgr extends DelayPriorityHandleMgrBase
 		{
 			if ($this->isInDepth())
 			{
-				base.addObject($delayObject, $priority);
+				parent::addObject($delayObject, $priority);
 			}
 			else
 			{

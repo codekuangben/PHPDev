@@ -14,24 +14,24 @@ class TickMgr extends TickObjectPriorityMgr
 
 	public function init()
 	{
-		base.init();
+	    parent::init();
 	}
 
 	public function dispose()
 	{
-		base.dispose();
+		parent::dispose();
 	}
 
 	public function Advance($delta, $tickMode)
 	{
-		if (MacroDef.ENABLE_PROFILE)
+		if (MacroDef::ENABLE_PROFILE)
 		{
 			Ctx.mInstance.mProfiler.enter("TickMgr::Advance");
 		}
 
-		base.Advance(delta, tickMode);
+		parent::Advance(delta, tickMode);
 
-		if (MacroDef.ENABLE_PROFILE)
+		if (MacroDef::ENABLE_PROFILE)
 		{
 			Ctx.mInstance.mProfiler.exit("TickMgr::Advance");
 		}

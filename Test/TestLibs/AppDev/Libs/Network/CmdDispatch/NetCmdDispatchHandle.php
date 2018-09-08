@@ -1,61 +1,60 @@
-using System;
-using System.Collections.Generic;
+<?php
 
 namespace SDK\Lib;
+
+class NetCmdDispatchHandle implements ICalleeObject
 {
-public class NetCmdDispHandle : ICalleeObject
-{
-	protected MDictionary<int, AddOnceEventDispatch> mId2HandleDic;
+	protected $mId2HandleDic;
 
-	public NetCmdDispHandle()
+	public function __construct()
 	{
-		mId2HandleDic = new MDictionary<int, AddOnceEventDispatch>();
+		$this->mId2HandleDic = new MDictionary();
 	}
 
-	virtual public void init()
-	{
-
-	}
-
-	virtual public void dispose()
+	public function init()
 	{
 
 	}
 
-	public void addParamHandle(int paramId, MAction<IDispatchObject> handle)
+	public function dispose()
 	{
-		if(!mId2HandleDic.ContainsKey(paramId))
+
+	}
+
+	public function addParamHandle($paramId, $handle)
+	{
+	    if(!$this->mId2HandleDic.ContainsKey($paramId))
 		{
-			mId2HandleDic[paramId] = new AddOnceEventDispatch();   
+		    $this->mId2HandleDic[paramId] = new AddOnceEventDispatch();   
 		}
 		else
 		{
 		}
 
-		mId2HandleDic[paramId].addEventHandle(null, handle);
+		$this->mId2HandleDic[paramId].addEventHandle(null, $handle);
 	}
 
-	public void removeParamHandle(int paramId, MAction<IDispatchObject> handle)
+	public function removeParamHandle($paramId, $handle)
 	{
-		if(mId2HandleDic.ContainsKey(paramId))
+	    if($this->mId2HandleDic.ContainsKey($paramId))
 		{
-			mId2HandleDic[paramId].removeEventHandle(null, handle);
+		    $this->mId2HandleDic[$paramId].removeEventHandle(null, $handle);
 		}
 		else
 		{
 		}
 	}
 
-	public void call(IDispatchObject dispObj)
+	public function call($dispObj)
 	{
 
 	}
 
-	public virtual void handleMsg(CmdDispInfo cmd)
+	public function handleMsg($cmd)
 	{
-		if(mId2HandleDic.ContainsKey(cmd.byParam))
+	    if($this->mId2HandleDic.ContainsKey($cmd.byParam))
 		{
-			mId2HandleDic[cmd.byParam].dispatchEvent(cmd.bu);
+		    $this->mId2HandleDic[$cmd.byParam].dispatchEvent($cmd.bu);
 		}
 		else
 		{
@@ -63,4 +62,5 @@ public class NetCmdDispHandle : ICalleeObject
 		}
 	}
 }
-}
+
+?>

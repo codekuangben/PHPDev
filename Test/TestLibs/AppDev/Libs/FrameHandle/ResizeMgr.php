@@ -53,7 +53,7 @@ class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDe
 	{
 		if($this->isInDepth())
 		{
-			base.addObject($delayObject, $priority);
+			parent::addObject($delayObject, $priority);
 		}
 		else
 		{
@@ -65,7 +65,7 @@ class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDe
 	{
 		if($this->isInDepth())
 		{
-			base.removeObject(delayObject);
+			parent::removeObject(delayObject);
 		}
 		else
 		{

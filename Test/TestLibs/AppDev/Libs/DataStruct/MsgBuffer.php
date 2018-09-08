@@ -77,7 +77,7 @@ class MsgBuffer
 			$msglen = 0;
 			$this->mHeaderBA.readUnsignedInt32($this->msglen);
 			
-			if (MacroDef.MSG_COMPRESS)
+			if (MacroDef::MSG_COMPRESS)
 			{
 				if (($msglen & MsgCV.PACKET_ZIP) > 0)         // 如果有压缩标志
 				{

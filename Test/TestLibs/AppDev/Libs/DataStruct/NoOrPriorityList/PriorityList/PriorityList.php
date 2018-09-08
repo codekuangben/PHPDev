@@ -105,7 +105,7 @@ class PriorityList implements INoOrPriorityList
 		}
 		else
 		{
-			if (MacroDef.ENABLE_LOG)
+			if (MacroDef::ENABLE_LOG)
 			{
 				Ctx.mInstance.mLogSys.log("PriorityList::Contains, failed", LogTypeId.eLogPriorityListCheck);
 			}
@@ -233,7 +233,7 @@ class PriorityList implements INoOrPriorityList
 		}
 		else
 		{
-			if (MacroDef.ENABLE_LOG)
+			if (MacroDef::ENABLE_LOG)
 			{
 				Ctx.mInstance.mLogSys.log("PriorityList::addPriorityObject, failed", LogTypeId.eLogPriorityListCheck);
 			}

@@ -20,7 +20,7 @@ public class NetThread : MThread
 	 */
 	override public void threadHandle()
 	{
-		base.threadHandle();
+		parent::threadHandle();
 
 		while (!mIsExitFlag)
 		{

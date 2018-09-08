@@ -7,7 +7,7 @@ class MBitConverter
 	public static function ToBoolean(
 		$bytes, 
 		$startIndex, 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
 		return $bytes[$startIndex] != 0;
@@ -16,7 +16,7 @@ class MBitConverter
 	public static function ToChar(
 		$bytes, 
 		$startIndex, 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
 		return $bytes[$startIndex];
@@ -25,11 +25,11 @@ class MBitConverter
 	public static function ToInt16(
 		$bytes, 
 		$startIndex, 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
 		$retValue = 0;
-		if ($endian == EEndian::eLITTLE_ENDIAN)
+		if ($endian == MEndian::eLITTLE_ENDIAN)
 		{
 			$retValue = (short)(
 				($bytes[startIndex + 1] << 8) + 
@@ -49,11 +49,11 @@ class MBitConverter
 	public static function ToUInt16(
 		$bytes, 
 		$startIndex, 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
 		$retValue = 0;
-		if ($endian == EEndian::eLITTLE_ENDIAN)
+		if ($endian == MEndian::eLITTLE_ENDIAN)
 		{
 			$retValue = (ushort)(
 				($bytes[$startIndex + 1] << 8) + 
@@ -72,12 +72,12 @@ class MBitConverter
 
 	public static function ToInt32(
 		$bytes, 
-		$startIndex, EEndian 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$startIndex, MEndian 
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
 		$retValue = 0;
-		if ($endian == EEndian::eLITTLE_ENDIAN)
+		if ($endian == MEndian::eLITTLE_ENDIAN)
 		{
 			$retValue = (int)(
 				($bytes[$startIndex + 3] << 24) +
@@ -101,11 +101,11 @@ class MBitConverter
 	public static function ToUInt32(
 		$bytes, 
 		$startIndex, 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
 		$retValue = 0;
-		if ($endian == EEndian::eLITTLE_ENDIAN)
+		if ($endian == MEndian::eLITTLE_ENDIAN)
 		{
 			$retValue = (uint)(
 				($bytes[$startIndex + 3] << 24) +
@@ -129,11 +129,11 @@ class MBitConverter
 	public static function ToInt64(
 		$bytes, 
 		$startIndex, 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
 		$retValue = 0;
-		if ($endian == EEndian::eLITTLE_ENDIAN)
+		if ($endian == MEndian::eLITTLE_ENDIAN)
 		{
 			$retValue = (long)(
 				($bytes[$startIndex + 7] << 56) + 
@@ -165,11 +165,11 @@ class MBitConverter
 	public static function ToUInt64(
 		$bytes, 
 		$startIndex, 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
 		$retValue = 0;
-		if ($endian == EEndian::eLITTLE_ENDIAN)
+		if ($endian == MEndian::eLITTLE_ENDIAN)
 		{
 			$retValue = (ulong)(
 				($bytes[$startIndex + 7] << 56) +
@@ -202,7 +202,7 @@ class MBitConverter
 		$data, 
 		$bytes, 
 		$startIndex, 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
 		$bytes[$startIndex] = (byte)($data ? 1 : 0);
@@ -212,7 +212,7 @@ class MBitConverter
 		$data, 
 		$bytes, 
 		$startIndex, 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
 		$bytes[$startIndex] = /*(byte)*/$data;
@@ -222,10 +222,10 @@ class MBitConverter
 		$data, 
 		$bytes, 
 		$startIndex, 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
-		if ($endian == EEndian::eLITTLE_ENDIAN)
+		if ($endian == MEndian::eLITTLE_ENDIAN)
 		{
 			//bytes[index] = (byte)(data & 0x00FF);
 			//bytes[index + 1] = (byte)((data & 0xFF00) >> 8);
@@ -245,10 +245,10 @@ class MBitConverter
 		$data, 
 		$bytes, 
 		$startIndex, 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
-		if ($endian == EEndian::eLITTLE_ENDIAN)
+		if ($endian == MEndian::eLITTLE_ENDIAN)
 		{
 			$bytes[$startIndex] = (byte)($data << 8 >> 8);
 			$bytes[$startIndex + 1] = (byte)($data >> 8);
@@ -264,10 +264,10 @@ class MBitConverter
 		$data, 
 		$bytes, 
 		$startIndex, 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
-		if ($endian == EEndian::eLITTLE_ENDIAN)
+		if ($endian == MEndian::eLITTLE_ENDIAN)
 		{
 			$bytes[$startIndex] = (byte)($data << 24 >> 24);
 			$bytes[$startIndex + 1] = (byte)($data << 16 >> 24);
@@ -287,10 +287,10 @@ class MBitConverter
 		$data, 
 		$bytes, 
 		$startIndex, 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
-		if ($endian == EEndian::eLITTLE_ENDIAN)
+		if ($endian == MEndian::eLITTLE_ENDIAN)
 		{
 			$bytes[$startIndex] = (byte)($data << 24 >> 24);
 			$bytes[$startIndex + 1] = (byte)($data << 16 >> 24);
@@ -310,10 +310,10 @@ class MBitConverter
 		$data, 
 		$bytes, 
 		$startIndex, 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
-		if ($endian == EEndian::eLITTLE_ENDIAN)
+		if ($endian == MEndian::eLITTLE_ENDIAN)
 		{
 			$bytes[$startIndex] = (byte)($data << 56 >> 56);
 			$bytes[$startIndex + 1] = (byte)($data << 48 >> 56);
@@ -343,10 +343,10 @@ class MBitConverter
 		$data, 
 		$bytes, 
 		$startIndex, 
-		$endian = EEndian::eLITTLE_ENDIAN
+		$endian = MEndian::eLITTLE_ENDIAN
 		)
 	{
-		if ($endian == EEndian::eLITTLE_ENDIAN)
+		if ($endian == MEndian::eLITTLE_ENDIAN)
 		{
 			bytes[startIndex] = (byte)($data << 56 >> 56);
 			bytes[startIndex + 1] = (byte)($data << 48 >> 56);

@@ -28,7 +28,7 @@ class ByteBuffer implements IDispatchObject
 
 	protected $mPadBytes;
 
-	public function __construct($initCapacity = BufferCV::INIT_CAPACITY, $maxCapacity = BufferCV.MAX_CAPACITY, $endian = EEndian::eLITTLE_ENDIAN)
+	public function __construct($initCapacity = BufferCV::INIT_CAPACITY, $maxCapacity = BufferCV.MAX_CAPACITY, $endian = MEndian::eLITTLE_ENDIAN)
 	{
 		$this->mEndian = $endian;        // 缓冲区默认是小端的数据，因为服务器是 linux 的
 		$this->mDynBuffer = new DynBuffer($initCapacity, $maxCapacity);

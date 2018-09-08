@@ -246,7 +246,9 @@ class MList
 	{
 		if($appendList != null)
 		{
-			foreach ($item as $appendList->list())
+		    $nativeList = $appendList->list();
+		    
+		    foreach ($nativeList as $item)
 			{
 				array_push($this->mList, $item);
 				$this->mEleTotal += 1;

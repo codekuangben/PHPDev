@@ -14,11 +14,11 @@ class UtilByte
 	{
 		if(pack('L', 1) === pack('N', 1))
 		{
-		    SystemEndian::$msLocalEndian = EEndian::eBIG_ENDIAN;
+		    SystemEndian::$msLocalEndian = MEndian::eBIG_ENDIAN;
 		}
 		else
 		{
-		    SystemEndian::$msLocalEndian = EEndian::eLITTLE_ENDIAN;
+		    SystemEndian::$msLocalEndian = MEndian::eLITTLE_ENDIAN;
 		}
 	}
 

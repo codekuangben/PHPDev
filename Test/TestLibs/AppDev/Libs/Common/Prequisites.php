@@ -19,11 +19,8 @@ require_once (dirname(__FILE__) . "/../DataStruct/NoOrPriorityList/NoPriorityLis
 
 // Functor
 require_once (dirname(__FILE__) . "/../Functor/CallFuncObjectBase.php");
-require_once (dirname(__FILE__) . "/../Functor/CmpFuncObject.php");
 require_once (dirname(__FILE__) . "/../Functor/CallFuncObjectFixParam.php");
-require_once (dirname(__FILE__) . "/../Functor/CallFuncObjectVarParam.php");
-require_once (dirname(__FILE__) . "/../Functor/PCallFuncObjectFixParam.php");
-require_once (dirname(__FILE__) . "/../Functor/PCallFuncObjectVarParam.php");
+require_once (dirname(__FILE__) . "/../Functor/CallFuncObjectNoParam.php");
 
 
 // 延迟处理器
@@ -52,7 +49,7 @@ require_once (dirname(__FILE__) . "/../EventHandle/PromiseEventDispatch.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/TickMode.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/ITickedObject.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/TimerItemBase.php");
-require_once (dirname(__FILE__) . "/../FrameHandle/TickItemBase.php");
+//require_once (dirname(__FILE__) . "/../FrameHandle/TickItemBase.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/FrameTimerItem.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/DaoJiShiTimer.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/SystemTimeData.php");
@@ -63,7 +60,6 @@ require_once (dirname(__FILE__) . "/../FrameHandle/TimerMgr.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/FrameTimerMgr.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/TickMgr.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/TimerFunctionObject.php");
-require_once (dirname(__FILE__) . "/../FrameHandle/FrameUpdateStatistics.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/LoopDepth.php");
 
 
@@ -79,7 +75,7 @@ require_once (dirname(__FILE__) . "/../Tools/MEndian.php");
 require_once (dirname(__FILE__) . "/../Tools/MEncode.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilStr.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilEngineWrap.php");
-require_once (dirname(__FILE__) . "/../Tools/UtilPath.php");
+require_once (dirname(__FILE__) . "/../Tools/UtilFileIO.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilMath.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilSysLibWrap.php");
 

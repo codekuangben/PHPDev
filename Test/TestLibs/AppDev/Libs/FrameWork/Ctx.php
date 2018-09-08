@@ -2,6 +2,8 @@
 
 namespace SDK\Lib;
 
+require_once (dirname(__FILE__) / "/../Common/Prequisites.php");
+
 /**
  * @brief 全局数据区
  */

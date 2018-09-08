@@ -9,7 +9,7 @@ class ThreadLogMR extends MsgRouteBase
 
 	public function __construct()
 	{
-		parent::__construct(MsgRouteID.eMRIDThreadLog);
+		parent::__construct(MsgRouteId.eMRIDThreadLog);
 	}
 }
 

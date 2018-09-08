@@ -2,7 +2,7 @@
 
 namespace SDK\Lib;
 
-class MsgRouteID
+class MsgRouteId
 {
 	const eMRIDSocketOpened = 0;      // socket Opened
 	const eMRIDSocketClosed = 1;// socket Closed

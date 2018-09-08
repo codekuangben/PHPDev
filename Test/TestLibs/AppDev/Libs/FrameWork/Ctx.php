@@ -51,22 +51,21 @@ class Ctx
 
 	public static function instance()
 	{
-		if ($mInstance == null)
+		if (Ctx::$mInstance == null)
 		{
-			$mInstance = new Ctx();
+		    Ctx::$mInstance = new Ctx();
 		}
 		
-		return $mInstance;
+		return Ctx::$mInstance;
 	}
 
-	protected function constructInit()
+	protected function _preInit()
 	{
 		$this->mUniqueStrIdGen = new UniqueStrIdGen("FindEvt", 0);
 
-		MFileSys.init();            // 初始化本地文件系统的一些数据
-		PlatformDefine.init();      // 初始化平台相关的定义
-		UtilByte.checkEndian();     // 检查系统大端小端
-		MThread.getMainThreadID();  // 获取主线程 ID
+		PlatformDefine::init();      // 初始化平台相关的定义
+		UtilByte::checkEndian();     // 检查系统大端小端
+		MThread::getMainThreadID();  // 获取主线程 ID
 
 		$this->mNetCmdNotify = new NetCmdNotify();
 		$this->mMsgRouteNotify = new MsgRouteNotify();
@@ -100,7 +99,7 @@ class Ctx
 		$this->mProfiler = new MProfiler();
 	}
 
-	public function logicInit()
+	public function _execInit()
 	{
 		$this->mGlobalDelegate.init();
 		$this->mLogSys.init();
@@ -122,23 +121,13 @@ class Ctx
 		//{
 		//    $this->mProfiler.setIsStartProfile(true);
 		//}
-
-		// 添加事件处理
-		if (null != Ctx.mInstance.mLayerMgr.mPath2Go[NotDestroyPath.ND_CV_App])
-		{
-			//Ctx.mInstance.mCamSys.setUiCamera(Ctx.mInstance.mLayerMgr.mPath2Go[NotDestroyPath.ND_CV_App].AddComponent<UICamera>());
-			Ctx.mInstance.mCamSys.setSceneCamera2UICamera();
-		}
-
-		$this->addEventHandle();
 	}
 
 	public function init()
 	{
-		// 构造初始化
-		constructInit();
-		// 逻辑初始化，交叉引用的对象初始化
-		logicInit();
+	    $this->_preInit();
+	    $this->_execInit();
+	    $this->_postInit();
 	}
 
 	public function dispose()

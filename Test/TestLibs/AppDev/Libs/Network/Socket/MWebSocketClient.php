@@ -1,4 +1,4 @@
-﻿//using WebSocket4Net;
+//using WebSocket4Net;
 
 namespace SDK\Lib;
 {

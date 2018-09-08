@@ -3,7 +3,7 @@
 namespace SDK\Lib;
 
 /**
- * @brief 各种类型转换
+ * @brief 鍚勭绫诲瀷杞崲
  */
 class UtilConvert
 {

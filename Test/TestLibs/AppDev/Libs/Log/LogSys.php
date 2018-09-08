@@ -25,9 +25,18 @@ class LogSys
 		$this->mAsyncErrorList = new LockList("Logger_asyncErrorList");
 		$this->mLogDeviceList = new MList();
 
-		$this->mEnableLogTypeList = new MList<LogTypeId>[(int)LogColor.eLC_Count];
+		$this->mEnableLogTypeList = Array();
+		
+		$index = 0;
+		$listLen = LogColor.eLC_Count;
+		
+		while($index < $listLen)
+		{
+		    UtilList.add($this->mEnableLogTypeList, NULL);
+		    $index += 1;
+		}
 
-		$this->mEnableLogTypeList[(int)LogColor.eLC_LOG] = new MList();
+		$this->mEnableLogTypeList[LogColor.eLC_LOG] = new MList();
 		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogCommon);
 		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogResLoader);
 		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogLocalFile);

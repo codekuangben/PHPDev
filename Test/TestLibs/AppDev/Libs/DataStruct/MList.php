@@ -79,7 +79,7 @@ class MList
 
 	public function Add($item)
 	{
-		$this->mList.Add($item);
+	    array_push($this->mList, $item);
 		$this->mEleTotal += 1;
 
 		if ($this->mIsSpeedUpFind)

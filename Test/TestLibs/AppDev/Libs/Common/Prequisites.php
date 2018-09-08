@@ -74,10 +74,9 @@ require_once (dirname(__FILE__) . "/../FrameWork/Singleton.php");
 require_once (dirname(__FILE__) . "/../Tools/MEndian.php");
 require_once (dirname(__FILE__) . "/../Tools/MEncode.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilStr.php");
-require_once (dirname(__FILE__) . "/../Tools/UtilEngineWrap.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilFileIO.php");
-require_once (dirname(__FILE__) . "/../Tools/UtilMath.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilSysLibWrap.php");
+require_once (dirname(__FILE__) . "/../Tools/UtilEngineWrap.php");
 
 
 // 日志
@@ -91,9 +90,9 @@ require_once (dirname(__FILE__) . "/../Network/CmdDispatch/NetModuleDispatchHand
 require_once (dirname(__FILE__) . "/../Network/CmdDispatch/NetCmdNotify.php");
 require_once (dirname(__FILE__) . "/../Network/CmdDispatch/CmdDispatchInfo.php");
 
-require_once (dirname(__FILE__) . "/../Network/NetCommand.php");
-require_once (dirname(__FILE__) . "/../Network/NetMgr.php");
-require_once (dirname(__FILE__) . "/../Tools/UtilMsg.php");
+//require_once (dirname(__FILE__) . "/../Network/NetCommand.php");
+//require_once (dirname(__FILE__) . "/../Network/NetMgr.php");
+//require_once (dirname(__FILE__) . "/../Tools/UtilMsg.php");
 
 
 // Profiler

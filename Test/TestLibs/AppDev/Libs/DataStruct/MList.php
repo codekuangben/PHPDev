@@ -30,7 +30,7 @@ class MList
 
 	public function setIsSpeedUpFind($value)
 	{
-		$this->mIsSpeedUpFind = value;
+	    $this->mIsSpeedUpFind = $value;
 
 		if($this->mIsSpeedUpFind)
 		{

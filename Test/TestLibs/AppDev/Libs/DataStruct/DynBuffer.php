@@ -14,8 +14,8 @@ class DynBuffer
 
 	public function __construct($initCapacity = 1 * 1024/*DataCV.INIT_CAPACITY*/, $maxCapacity = 8 * 1024 * 1024/*DataCV.MAX_CAPACITY*/)      // mono 模板类中使用常亮报错， vs 可以
 	{
-		$this->mMaxCapacity = maxCapacity;
-		$this->mCapacity = initCapacity;
+		$this->mMaxCapacity = $maxCapacity;
+		$this->mCapacity = $initCapacity;
 		$this->mSize = 0;
 		$this->mBuffer = array();
 		UtilList::setCapacity($this->mBuffer, $this->mCapacity);

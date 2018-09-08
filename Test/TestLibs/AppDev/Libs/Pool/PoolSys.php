@@ -13,7 +13,7 @@ class PoolSys
 	public function __construct()
 	{
 		$this->mPoolList = new MList();
-		$this->mPoolList.setIsSpeedUpFind(true);
+		$this->mPoolList->setIsSpeedUpFind(true);
 		//$this->mPoolList = new LockList<IRecycle>("PoolSys_List");
 	}
 
@@ -37,8 +37,6 @@ class PoolSys
 			$this->mPoolList.RemoveAt($index);
 
 			$retObj.resetDefault();
-
-			break;
 		}
 
 		if (!$finded)

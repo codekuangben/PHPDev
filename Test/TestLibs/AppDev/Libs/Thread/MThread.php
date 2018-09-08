@@ -6,7 +6,7 @@ namespace SDK\Lib;
  *@brief 基本的线程
  *@url https://www.cnblogs.com/jkko123/p/6351604.html
  */
-class MThread extends Thread
+class MThread /*extends Thread*/
 {
 	protected static $msMainThreadId;           // 主线程 id
 	protected $mCurThreadId;                    // 当前线程的 id
@@ -81,7 +81,7 @@ class MThread extends Thread
 
 	static public function getMainThreadId()
 	{
-	    MThread::msMainThreadId = Thread.CurrentThread.ManagedThreadId;
+	    MThread::$msMainThreadId = Thread.CurrentThread.ManagedThreadId;
 	}
 
 	static public function isMainThread()

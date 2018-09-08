@@ -2,7 +2,7 @@
 
 namespace SDK\Lib;
 
-class MsgRouteDispHandle
+class MsgRouteDispatchHandle
 {
 	protected $mEventDispatchGroup;
 

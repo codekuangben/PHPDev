@@ -28,66 +28,66 @@ class LogSys
 		$this->mEnableLogTypeList = Array();
 		
 		$index = 0;
-		$listLen = LogColor.eLC_Count;
+		$listLen = LogColor::eLC_Count;
 		
 		while($index < $listLen)
 		{
-		    UtilList.add($this->mEnableLogTypeList, NULL);
+		    UtilList::add($this->mEnableLogTypeList, NULL);
 		    $index += 1;
 		}
 
-		$this->mEnableLogTypeList[LogColor.eLC_LOG] = new MList();
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogCommon);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogResLoader);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogLocalFile);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogTestRL);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogAcceleration);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogUnityCB);
+		$this->mEnableLogTypeList[LogColor::eLC_LOG] = new MList();
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogCommon);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogResLoader);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogLocalFile);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogTestRL);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogAcceleration);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogUnityCB);
 
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogSplitMergeEmit);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogSceneInterActive);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogKBE);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogScene);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogBeingMove);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogEventRemove);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogMusicBug);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogLoadBug);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogMergeBug);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogEatBug);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogSimHitBullet);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogTwoDTerrain);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogPriorityListCheck);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogNoPriorityListCheck);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogPosSyn);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogPlaneError);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogDownload);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogAutoUpdate);
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogProfileDebug);
-		$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogProfile);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogSplitMergeEmit);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogSceneInterActive);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogKBE);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogScene);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogBeingMove);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogEventRemove);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogMusicBug);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogLoadBug);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogMergeBug);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogEatBug);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogSimHitBullet);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogTwoDTerrain);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogPriorityListCheck);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogNoPriorityListCheck);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogPosSyn);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogPlaneError);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogDownload);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogAutoUpdate);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogProfileDebug);
+		$this->mEnableLogTypeList[LogColor::eLC_LOG]->Add(LogTypeId::eLogProfile);
 
 		// 编辑器日志
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_LOG].Add(LogTypeId.eLogEditorBuildPlayer);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].Add(LogTypeId.eLogEditorBuildPlayer);
 
-		$this->mEnableLogTypeList[(int)LogColor.eLC_WARN] = new MList();
+		$this->mEnableLogTypeList[LogColor::eLC_WARN] = new MList();
 
-		$this->mEnableLogTypeList[(int)LogColor.eLC_ERROR] = new MList();
-		//$this->mEnableLogTypeList[(int)LogColor.eLC_ERROR].Add(LogTypeId.eLogLoadBug);
-		$this->mEnableLogTypeList[(int)LogColor.eLC_ERROR].Add(LogTypeId.eErrorDownload);
+		$this->mEnableLogTypeList[LogColor::eLC_ERROR] = new MList();
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_ERROR].Add(LogTypeId.eLogLoadBug);
+		$this->mEnableLogTypeList[LogColor::eLC_ERROR]->Add(LogTypeId::eErrorDownload);
 
 		$this->mEnableLog = new MList();
-		$this->mEnableLog.Add(MacroDef.ENABLE_LOG);
-		$this->mEnableLog.Add(MacroDef.ENABLE_WARN);
-		$this->mEnableLog.Add(MacroDef.ENABLE_ERROR);
+		$this->mEnableLog->Add(MacroDef::ENABLE_LOG);
+		$this->mEnableLog->Add(MacroDef::ENABLE_WARN);
+		$this->mEnableLog->Add(MacroDef::ENABLE_ERROR);
 
 		$this->mIsOutStack = new MList();
-		$this->mIsOutStack.Add(false);
-		$this->mIsOutStack.Add(false);
-		$this->mIsOutStack.Add(false);
+		$this->mIsOutStack->Add(false);
+		$this->mIsOutStack->Add(false);
+		$this->mIsOutStack->Add(false);
 
 		$this->mIsOutTimeStamp = new MList();
-		$this->mIsOutTimeStamp.Add(false);
-		$this->mIsOutTimeStamp.Add(false);
-		$this->mIsOutTimeStamp.Add(false);
+		$this->mIsOutTimeStamp->Add(false);
+		$this->mIsOutTimeStamp->Add(false);
+		$this->mIsOutTimeStamp->Add(false);
 	}
 
 	// 初始化逻辑处理
@@ -126,14 +126,14 @@ class LogSys
 		{
 		    $logDevice = new WinLogDevice();
 		    $logDevice->initDevice();
-		    $this->mLogDeviceList.Add($logDevice);
+		    $this->mLogDeviceList->Add($logDevice);
 		}
 
 		if (MacroDef::ENABLE_NETLOG)
 		{
 		    $logDevice = new NetLogDevice();
 		    $logDevice->initDevice();
-		    $this->mLogDeviceList.Add($logDevice);
+		    $this->mLogDeviceList->Add($logDevice);
 		}
 	}
 

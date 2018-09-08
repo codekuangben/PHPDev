@@ -34,7 +34,7 @@ class LogDeviceBase
 
 	}
 
-	public function logout($message, $type = LogColor.eLC_LOG)
+	public function logout($message, $type = LogColor::eLC_LOG)
 	{
 	    
 	}

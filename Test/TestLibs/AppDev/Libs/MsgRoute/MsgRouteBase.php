@@ -2,7 +2,7 @@
 
 namespace SDK\Lib;
 
-class MsgRouteBase implements IRecycle, IDispatchObject
+class MsgRouteBase implements IDispatchObject
 {
 	public $mMsgType;
 	public $mMsgID;          // 只需要一个 ID 就行了

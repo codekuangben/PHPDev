@@ -27,7 +27,6 @@ class Ctx
 	public $mSysMsgRoute;          // 消息分发
 	public $mNetCmdNotify;        // 网络处理器
 	public $mMsgRouteNotify;    // RouteMsg 客户端自己消息流程
-	public $mFactoryBuild;        // 生成各种内容，上层只用接口
 
 	public $mSystemSetting;
 	public $mPoolSys;
@@ -39,7 +38,6 @@ class Ctx
 	public $mGlobalDelegate;
 	public $mIdPoolSys;
 	public $mUniqueStrIdGen;
-	public $mNetEventHandle;
 	public $mProfiler;
 
 	public function __construct()
@@ -63,7 +61,8 @@ class Ctx
 
 		PlatformDefine::init();      // 初始化平台相关的定义
 		UtilByte::checkEndian();     // 检查系统大端小端
-		MThread::getMainThreadID();  // 获取主线程 ID
+		SystemEndian::init();
+		//MThread::getMainThreadId();  // 获取主线程 Id
 
 		$this->mNetCmdNotify = new NetCmdNotify();
 		$this->mMsgRouteNotify = new MsgRouteNotify();
@@ -76,13 +75,9 @@ class Ctx
 		$this->mSystemFrameData = new SystemFrameData();
 		$this->mSystemTimeData = new SystemTimeData();
 
-		$this->mGcAutoCollect = new GCAutoCollect();
 		$this->mCfg = new Config();
-		$this->mFactoryBuild = new FactoryBuild();
 		$this->mProcessSys = new ProcessSys();
 		$this->mTickMgr = new TickMgr();
-		$this->mFixedTickMgr = new FixedTickMgr();
-		$this->mLateTickMgr = new LateTickMgr();
 
 		$this->mTimerMgr = new TimerMgr();
 		$this->mFrameTimerMgr = new FrameTimerMgr();
@@ -93,27 +88,26 @@ class Ctx
 
 		$this->mIdPoolSys = new IdPoolSys();
 		$this->mLogicTickMgr = new LogicTickMgr();
-		$this->mNetEventHandle = new NetEventHandle();
 		$this->mProfiler = new MProfiler();
 	}
 
 	public function _execInit()
 	{
-		$this->mGlobalDelegate.init();
-		$this->mLogSys.init();
-		$this->mTickMgr.init();
-		$this->mFixedTickMgr.init();
-		$this->mLateTickMgr.init();
+		$this->mGlobalDelegate->init();
+		$this->mLogSys->init();
+		$this->mTickMgr->init();
+		$this->mFixedTickMgr->init();
+		$this->mLateTickMgr->init();
 		$this->mTaskQueue->mTaskThreadPool = $this->mTaskThreadPool;
-		$this->mTaskThreadPool.initThreadPool(2, $this->mTaskQueue);
-		$this->mSceneSys.init();
+		$this->mTaskThreadPool->initThreadPool(2, $this->mTaskQueue);
+		$this->mSceneSys->init();
 
-		$this->mCommonData.init();
-		$this->mDelayTaskMgr.init();
-		$this->mIdPoolSys.init();
-		$this->mLogicTickMgr.init();
-		$this->mNetEventHandle.init();
-		$this->mProfiler.init();
+		$this->mCommonData->init();
+		$this->mDelayTaskMgr->init();
+		$this->mIdPoolSys->init();
+		$this->mLogicTickMgr->init();
+		$this->mNetEventHandle->init();
+		$this->mProfiler->init();
 
 		//if(MacroDef.ENABLE_PROFILE)
 		//{

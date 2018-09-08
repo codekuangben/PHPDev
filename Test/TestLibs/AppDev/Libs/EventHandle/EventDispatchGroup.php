@@ -16,7 +16,7 @@ class EventDispatchGroup
 	// 添加分发器
 	public function addEventDispatch($groupID, $disp)
 	{
-		if (!$this->mGroupID2DispatchDic->ContainsKey(groupID))
+		if (!$this->mGroupID2DispatchDic->containsKey(groupID))
 		{
 			$this->mGroupID2DispatchDic[groupID] = disp;
 		}
@@ -25,7 +25,7 @@ class EventDispatchGroup
 	public function addEventHandle($groupID, $pThis, $handle)
 	{
 		// 如果没有就创建一个
-		if (!$this->mGroupID2DispatchDic->ContainsKey(groupID))
+		if (!$this->mGroupID2DispatchDic->containsKey(groupID))
 		{
 			$this->addEventDispatch(groupID, new EventDispatch());
 		}
@@ -35,14 +35,14 @@ class EventDispatchGroup
 
 	public function removeEventHandle($groupID, $pThis, $handle)
 	{
-		if ($this->mGroupID2DispatchDic->ContainsKey($groupID))
+		if ($this->mGroupID2DispatchDic->containsKey($groupID))
 		{
 			$this->mGroupID2DispatchDic[$groupID]->removeEventHandle($pThis, $handle);
 
 			// 如果已经没有了
 			if (!$this->mGroupID2DispatchDic[$groupID]->hasEventHandle())
 			{
-				$this->mGroupID2DispatchDic->Remove($groupID);
+				$this->mGroupID2DispatchDic->remove($groupID);
 			}
 		}
 		else
@@ -55,7 +55,7 @@ class EventDispatchGroup
 	{
 		$this->mLoopDepth->incDepth();
 
-		if ($this->mGroupID2DispatchDic->ContainsKey($groupID))
+		if ($this->mGroupID2DispatchDic->containsKey($groupID))
 		{
 			$this->mGroupID2DispatchDic[$groupID]->dispatchEvent($dispatchObject);
 		}
@@ -77,7 +77,7 @@ class EventDispatchGroup
 				$dispatch->clearEventHandle();
 			}
 
-			$this->mGroupID2DispatchDic->Clear();
+			$this->mGroupID2DispatchDic->clear();
 		}
 		else
 		{
@@ -89,10 +89,10 @@ class EventDispatchGroup
 	{
 		if (!$this->mLoopDepth->isInDepth())
 		{
-			if ($this->mGroupID2DispatchDic->ContainsKey($groupID))
+			if ($this->mGroupID2DispatchDic->containsKey($groupID))
 			{
 				$this->mGroupID2DispatchDic[$groupID]->clearEventHandle();
-				$this->mGroupID2DispatchDic->Remove($groupID);
+				$this->mGroupID2DispatchDic->remove($groupID);
 			}
 			else
 			{
@@ -107,7 +107,7 @@ class EventDispatchGroup
 
 	public function hasEventHandle($groupID)
 	{
-		if($this->mGroupID2DispatchDic->ContainsKey($groupID))
+		if($this->mGroupID2DispatchDic->containsKey($groupID))
 		{
 			return $this->mGroupID2DispatchDic[$groupID]->hasEventHandle();
 		}

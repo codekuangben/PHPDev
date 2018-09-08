@@ -18,7 +18,7 @@ class TaskThreadPool
 		
 		for($idx = 0; $idx < $numThread; ++$idx)
 		{
-		    $this->mList.Add(new TaskThread(UtilStr::Format("TaskThread{0}", idx), $taskQueue));
+		    $this->mList.add(new TaskThread(UtilStr::Format("TaskThread{0}", idx), $taskQueue));
 		    $this->mList[$idx].start();
 		}
 	}
@@ -26,7 +26,7 @@ class TaskThreadPool
 	public function notifyIdleThread()
 	{
 	    $index = 0;
-	    $listLen = $this->mList->Count();
+	    $listLen = $this->mList->count();
 	    $item = null;
 	    
 	    while($index < $listLen)

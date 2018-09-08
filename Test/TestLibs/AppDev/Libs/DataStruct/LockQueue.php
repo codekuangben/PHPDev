@@ -13,12 +13,12 @@ class LockQueue
 
 	public function push($item)
 	{
-		$this->mList->Add($item);
+		$this->mList->add($item);
 	}
 
 	public function pop()
 	{
-		return $this->mList->RemoveAt(0);
+		return $this->mList->removeAt(0);
 	}
 }
 

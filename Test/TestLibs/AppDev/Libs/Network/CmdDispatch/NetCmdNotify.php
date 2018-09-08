@@ -32,17 +32,17 @@ class NetCmdNotify
 
 	public function addOneNofity($disp)
 	{
-		if ($this->mNetModuleDispList.IndexOf($disp) == -1)
+		if ($this->mNetModuleDispList.indexOf($disp) == -1)
 		{
-			$this->mNetModuleDispList.Add($disp);
+			$this->mNetModuleDispList.add($disp);
 		}
 	}
 
 	public function removeOneNotify($disp)
 	{
-		if ($this->mNetModuleDispList.IndexOf($disp) != -1)
+		if ($this->mNetModuleDispList.indexOf($disp) != -1)
 		{
-			$this->mNetModuleDispList.Remove($disp);
+			$this->mNetModuleDispList.remove($disp);
 		}
 	}
 
@@ -61,7 +61,7 @@ class NetCmdNotify
 		$mCmdDispInfo->byParam = $byParam;
 
 		$index = 0;
-		$listLen = $this->mNetModuleDispList.Count();
+		$listLen = $this->mNetModuleDispList.count();
 		$item = null;
 		
 		while ($index < $listLen)

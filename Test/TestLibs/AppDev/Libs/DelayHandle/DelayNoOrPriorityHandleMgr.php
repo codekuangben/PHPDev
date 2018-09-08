@@ -21,7 +21,7 @@ class DelayNoOrPriorityHandleMgr extends DelayNoOrPriorityHandleMgrBase
 
 	public function dispose()
 	{
-		$this->mNoOrPriorityList->Clear();
+		$this->mNoOrPriorityList->clear();
 	}
 
 	protected function addObject($delayObject, $priority = 0.0)

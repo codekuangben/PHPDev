@@ -9,7 +9,7 @@ class UtilXml
 
 	public static function getXmlAttrBool($xmlElement, $attrName, $ret)
 	{
-		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.ContainsKey($attrName))
+		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.containsKey($attrName))
 		{
 			if (UtilSysLibWrap.TRUE == $xmlElement.Attribute($attrName))
 			{
@@ -33,7 +33,7 @@ class UtilXml
 
 	public static function getXmlAttrStr($xmlElement, $attrName, $ret)
 	{
-		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.ContainsKey($attrName))
+		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.containsKey($attrName))
 		{
 		    $ret =  $xmlElement.Attribute($attrName);
 			return XML_OK;
@@ -45,7 +45,7 @@ class UtilXml
 
 	public static function getXmlAttrUShort($xmlElement, $attrName, $ret)
 	{
-		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.ContainsKey($attrName))
+		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.containsKey($attrName))
 		{
 		    ushort.TryParse($xmlElement.Attribute($attrName), $ret);
 			return XML_OK;
@@ -57,7 +57,7 @@ class UtilXml
 
 	public static function getXmlAttrInt($xmlElement, $attrName, $ret)
 	{
-		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.ContainsKey($attrName))
+		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.containsKey($attrName))
 		{
 		    short.TryParse($xmlElement.Attribute($attrName), $ret);
 			return XML_OK;
@@ -69,7 +69,7 @@ class UtilXml
 
 	public static function getXmlAttrUInt($xmlElement, $attrName, $ret)
 	{
-		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.ContainsKey($attrName))
+		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.containsKey($attrName))
 		{
 		    uint.TryParse($xmlElement.Attribute($attrName), $ret);
 			return XML_OK;
@@ -81,7 +81,7 @@ class UtilXml
 
 	public static function getXmlAttrInt($xmlElement, $attrName, $ret)
 	{
-		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.ContainsKey($attrName))
+		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.containsKey($attrName))
 		{
 		    int.TryParse($xmlElement.Attribute($attrName), $ret);
 			return XML_OK;
@@ -93,7 +93,7 @@ class UtilXml
 
 	public static function getXmlAttrFloat($xmlElement, $attrName, $ret)
 	{
-		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.ContainsKey($attrName))
+		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.containsKey($attrName))
 		{
 		    float.TryParse($xmlElement.Attribute($attrName), $ret);
 			return XML_OK;
@@ -109,7 +109,7 @@ class UtilXml
 		if (null != $xmlElement)
 		{
 			$idx = 0;
-			$len = $xmlElement.Children.Count;
+			$len = $xmlElement.Children.count;
 			$child = null;
 
 			//foreach (SecurityElement child in $xmlElement.Children)
@@ -120,20 +120,20 @@ class UtilXml
 				//比对下是否使自己所需要得节点
 				if (child.Tag == $attrName)
 				{
-					$list.Add(child);
+					$list.add(child);
 				}
 
 				++$idx;
 			}
 		}
 
-		if ($list.Count > 0)
+		if ($list.count > 0)
 		{
 			return XML_OK;
 		}
 		else
 		{
-			$list.Clear();
+			$list.clear();
 			return XML_FAIL;
 		}
 	}
@@ -144,7 +144,7 @@ class UtilXml
 		if (null != $xmlElement)
 		{
 			$idx = 0;
-			$len = $xmlElement.Children.Count;
+			$len = $xmlElement.Children.count;
 			$child = null;
 
 			//foreach (SecurityElement child in $xmlElement.Children)
@@ -215,7 +215,7 @@ class UtilXml
 			if (null != $curElement)
 			{
 				$childIdx = 0;
-				$childLen = $curElement.Children.Count;
+				$childLen = $curElement.Children.count;
 
 				while ($childIdx < $childLen)
 				{
@@ -231,7 +231,7 @@ class UtilXml
 						}
 						else
 						{
-							$list.Add($child);
+							$list.add($child);
 						}
 					}
 
@@ -242,13 +242,13 @@ class UtilXml
 			++$elemIdx;
 		}
 
-		if ($list.Count > 0)
+		if ($list.count > 0)
 		{
 			return XML_OK;
 		}
 		else
 		{
-			$list.Clear();
+			$list.clear();
 			return XML_FAIL;
 		}
 	}

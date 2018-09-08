@@ -54,17 +54,17 @@ class MDictionary
 		return array_values($this->mData);
 	}
 
-	public function Count()
+	public function count()
 	{
 		return count($this->mData);
 	}
 
-	public function Add($key, $value)
+	public function add($key, $value)
 	{
 		$this->mData[$key] = $value;
 	}
 
-	public function Remove($key)
+	public function remove($key)
 	{
 		if(array_key_exists($key, $this->mData))
 		{
@@ -73,7 +73,7 @@ class MDictionary
 		}
 	}
 
-	public function Clear()
+	public function clear()
 	{
 		unset($this->mData);
 		$this->mData = array();
@@ -92,12 +92,12 @@ class MDictionary
 		return $ret;
 	}
 
-	public function ContainsKey($key)
+	public function containsKey($key)
 	{
 		return array_key_exists($key, $this->mData);
 	}
 
-	public function ContainsValue($value)
+	public function containsValue($value)
 	{
 		while(list($key, $val)= each($this->mData))
 		{

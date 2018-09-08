@@ -54,7 +54,7 @@ class TickObjectPriorityMgr extends DelayPriorityHandleMgr implements ITickedObj
 	protected function onExecAdvance($delta, $tickMode)
 	{
 		$idx = 0;
-		$count = $this->mNoOrPriorityList.Count();
+		$count = $this->mNoOrPriorityList.count();
 		$tickObject = null;
 
 		while (idx < count)

@@ -488,7 +488,7 @@ class ByteBuffer implements IDispatchObject
 	//		{
 	//		    UtilList.Copy(charSet.GetBytes(value), 0, $this->mDynBuffer->getBuffer(), $this->mPos, num);
 				// 后面补齐 0 
-	//			Array.Clear($this->mDynBuffer->getBuffer(), $this->mPos + num, len - num);
+	//			Array.clear($this->mDynBuffer->getBuffer(), $this->mPos + num, len - num);
 	//		}
 	//		else
 	//		{

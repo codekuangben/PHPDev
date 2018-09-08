@@ -4,6 +4,11 @@ namespace SDK\Lib;
 
 class UtilList
 {
+    public static function isArray($list)
+    {
+        return is_array($list);
+    }
+    
     public static function count($list)
     {
         return count($list);

@@ -13,24 +13,24 @@ class MsgRouteNotify
 
 	public function addOneNofity($disp)
 	{
-		if(!$this->mDispList.Contains(disp))
+		if(!$this->mDispList.contains(disp))
 		{
-			$this->mDispList.Add(disp);
+			$this->mDispList.add(disp);
 		}
 	}
 
 	public function removeOneNotify($disp)
 	{
-		if($this->mDispList.Contains(disp))
+		if($this->mDispList.contains(disp))
 		{
-			$this->mDispList.Remove(disp);
+			$this->mDispList.remove(disp);
 		}
 	}
 
 	public function handleMsg($msg)
 	{
 		$index = 0;
-		$liseLen = $this->mDispList.Count();
+		$liseLen = $this->mDispList.count();
 
 		while(index < liseLen)
 		{

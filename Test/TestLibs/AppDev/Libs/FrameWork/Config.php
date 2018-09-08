@@ -46,10 +46,10 @@ class Config
 		$this->mPathList = new MList();
 		$this->mPathList->add("Scenes/");
 		
-		$this->mPakExtNameList->Add("prefab");
-		$this->mPakExtNameList->Add("png");
-		$this->mPakExtNameList->Add("shader");
-		$this->mPakExtNameList->Add("unity");
+		$this->mPakExtNameList->add("prefab");
+		$this->mPakExtNameList->add("png");
+		$this->mPakExtNameList->add("shader");
+		$this->mPakExtNameList->add("unity");
 
 		$this->mIsActorMoveUseFixUpdate = false;
 		$this->mDownloadURL = "git5.club";

@@ -26,7 +26,7 @@ class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDe
 
 	public function dispose()
 	{
-		$this->mResizeList.Clear();
+		$this->mResizeList.clear();
 	}
 
 	public function getWidth()
@@ -75,17 +75,17 @@ class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDe
 
 	public function addResizeObject($obj, $priority = 0)
 	{
-		if (!$this->mResizeList.Contains(obj))
+		if (!$this->mResizeList.contains(obj))
 		{
-			$this->mResizeList.Add(obj);
+			$this->mResizeList.add(obj);
 		}
 	}
 
 	public function removeResizeObject($obj)
 	{
-		if ($this->mResizeList.IndexOf(obj) != -1)
+		if ($this->mResizeList.indexOf(obj) != -1)
 		{
-			$this->mResizeList.Remove(obj);
+			$this->mResizeList.remove(obj);
 		}
 	}
 
@@ -110,7 +110,7 @@ class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDe
 		$index = 0;
 		$listLen = 0;
 		
-		$listLen = $this->mResizeList->Count();
+		$listLen = $this->mResizeList->count();
 		$resizeObj = null; 
 		
 		while($indexd < $listLen)

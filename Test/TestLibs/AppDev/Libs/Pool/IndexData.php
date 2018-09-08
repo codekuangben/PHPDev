@@ -3,7 +3,7 @@
 namespace SDK\Lib;
 
 /**
- * @brief 缓存需要的数据，更容易控制需要缓存多少个，以及各种统计信息，但是申请一个 Item 需要一次 RemoveAt 和 Add，而比仅仅使用一个列表多了一次 Add
+ * @brief 缓存需要的数据，更容易控制需要缓存多少个，以及各种统计信息，但是申请一个 Item 需要一次 removeAt 和 add，而比仅仅使用一个列表多了一次 add
  */
 class IndexData
 {
@@ -34,7 +34,7 @@ class IndexData
 
 		while($index < $listLen)
 		{
-			$this->mFreeIndexList.Add($index);
+			$this->mFreeIndexList.add($index);
 
 			$index += 1;
 		}
@@ -56,7 +56,7 @@ class IndexData
 		$freeIndex = -1;
 
 		// 如果没有 free 数据
-		if($this->mFreeIndexList.Count() == 0)
+		if($this->mFreeIndexList.count() == 0)
 		{
 			$expandNum = 0;
 
@@ -106,7 +106,7 @@ class IndexData
 
 			while ($index < $listLen)
 			{
-				$this->mFreeIndexList.Add($index);
+				$this->mFreeIndexList.add($index);
 				$index += 1;
 			}
 
@@ -115,8 +115,8 @@ class IndexData
 
 		// 获取 free 元素索引
 		$freeIndex = $this->mFreeIndexList.get(0);
-		$this->mFreeIndexList.RemoveAt(0);        // 申请需要一次 RemoveAt
-		$this->mActiveIndexList.Add(freeIndex);   // 申请需要一次 Add
+		$this->mFreeIndexList.removeAt(0);        // 申请需要一次 removeAt
+		$this->mActiveIndexList.add(freeIndex);   // 申请需要一次 add
 
 		// 创建 free 元素
 		if (null == $this->mItemArray[$freeIndex])
@@ -132,7 +132,7 @@ class IndexData
 	{
 		if(-1 != $item.getIndex())
 		{
-			$this->mFreeIndexList.Add($item.getIndex());
+			$this->mFreeIndexList.add($item.getIndex());
 		}
 	}
 }

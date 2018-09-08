@@ -492,17 +492,17 @@ class UtilFileIO
 
         		    $extName = UtilFileIO.getFileExt($fileFullName);
         			
-        		    if ($includeExtList != null && $includeExtList.IndexOf($extName) != -1)
+        		    if ($includeExtList != null && $includeExtList.indexOf($extName) != -1)
         			{
-        			    $fileList.Add(normalPath($fileFullName));
+        			    $fileList.add(normalPath($fileFullName));
         			}
-        			else if($excludeExtList != null && $excludeExtList.IndexOf($extName) == -1)
+        			else if($excludeExtList != null && $excludeExtList.indexOf($extName) == -1)
         			{
-        			    $fileList.Add(normalPath($fileFullName));
+        			    $fileList.add(normalPath($fileFullName));
         			}
         			else if($includeExtList == null && $excludeExtList == null)
         			{
-        			    $fileList.Add(normalPath($fileFullName));
+        			    $fileList.add(normalPath($fileFullName));
         			}
 	            }
 	        }
@@ -539,17 +539,17 @@ class UtilFileIO
 	                
 	                $extName = UtilFileIO::getFileNameNoExt($fileFullName);
 	                
-	                if ($includeSubDirList != null && $includeSubDirList.IndexOf($extName) != -1)
+	                if ($includeSubDirList != null && $includeSubDirList.indexOf($extName) != -1)
 	                {
-	                    $fileList.Add(normalPath($fileFullName));
+	                    $fileList.add(normalPath($fileFullName));
 	                }
-	                else if($excludeSubDirList != null && $excludeSubDirList.IndexOf($extName) == -1)
+	                else if($excludeSubDirList != null && $excludeSubDirList.indexOf($extName) == -1)
 	                {
-	                    $fileList.Add(normalPath($fileFullName));
+	                    $fileList.add(normalPath($fileFullName));
 	                }
 	                else if($includeSubDirList == null && $includeSubDirList == null)
 	                {
-	                    $fileList.Add(normalPath($fileFullName));
+	                    $fileList.add(normalPath($fileFullName));
 	                }
 	            }
 	        }
@@ -592,7 +592,7 @@ class UtilFileIO
 
 		$fileList = UtilFileIO::getAllFile($srcPath, null, null, false);
 
-		for ($i = 0; $i < $fileList.Count(); $i++)
+		for ($i = 0; $i < $fileList.count(); $i++)
 		{
 		    UtilFileIO.copyFile($fileList.get($i), $destPath . "/" . UtilFileIO::getFileNameNoExt($fileList.get($i)), true);
 		}
@@ -601,7 +601,7 @@ class UtilFileIO
 		{
 		    $dirList = UtilFileIO::getAllFile($srcPath, null, null, false);
 		    
-		    for ($j = 0; $j < $dirList.Count(); $j++)
+		    for ($j = 0; $j < $dirList.count(); $j++)
 			{
 			    copyDirectory($dirList.get(j), $destPath . "/" . UtilFileIO::getFileNameNoExt($dirList.get(j)), isRecurse);
 			}
@@ -654,7 +654,7 @@ class UtilFileIO
 
 		$fileList = UtilFileIO::getAllFile($srcPath);
 
-		for ($i = 0; $i < $fileList.Count(); $i++)
+		for ($i = 0; $i < $fileList.count(); $i++)
 		{
 			if (fileHandle != null)
 			{
@@ -673,7 +673,7 @@ class UtilFileIO
 		{
 		    $dirList = UtilFileIO::getAllDirectory($srcPath);
 		    
-		    for ($j = 0; $j < $dirList.Count(); $j++)
+		    for ($j = 0; $j < $dirList.count(); $j++)
 			{
 				if (UtilStr::IsNullOrEmpty($destPath))
 				{
@@ -693,7 +693,7 @@ class UtilFileIO
 	    $fileList = UtilFileIO::getAllFile($srcPath);
 	    $extName = "";
 	    $index = 0;
-	    $listLen = $fileList.Count();
+	    $listLen = $fileList.count();
 	    
 	    while ($index < $listLen)
 	    {
@@ -701,7 +701,7 @@ class UtilFileIO
 	        
 	        if ($fileList != null)
 	        {
-	            if ($fileList.IndexOf($fileName) != -1)
+	            if ($fileList.indexOf($fileName) != -1)
 	            {
 	                UtilFileIO.deleteFile($fileList.get($index));
 	            }
@@ -710,7 +710,7 @@ class UtilFileIO
 	        {
 	            $extName = UtilFileIO::getFileExt($fileList.get($index));
 	            
-	            if ($extNameList.IndexOf($extName) != -1)
+	            if ($extNameList.indexOf($extName) != -1)
 	            {
 	                UtilFileIO::deleteFile($fileList.get($index));
 	            }
@@ -723,7 +723,7 @@ class UtilFileIO
 	    {
 	        $dirList = UtilFileIO::getAllDirectory($srcPath);
 	        $index = 0;
-	        $listLen = $dirList.Count();
+	        $listLen = $dirList.count();
 	        
 	        //递归删除子文件夹内文件
 	        while ($index < $listLen)
@@ -742,7 +742,7 @@ class UtilFileIO
 		$normalPath = "";
 
 		$index = 0;
-		$listLen = $fileList.Count();
+		$listLen = $fileList.count();
 		
 		while($index < $listLen)
 		{
@@ -759,7 +759,7 @@ class UtilFileIO
 		
 		$dirList = UtilFileIO::getAllDirectory($srcPath);
 		$index = 0;
-		$listLen = $dirList.Count();
+		$listLen = $dirList.count();
 
 		// 递归删除子文件夹内文件
 		while ($index < $listLen)
@@ -793,11 +793,11 @@ class UtilFileIO
 		if($list != null)
 		{
 			$idx = 0;
-			$len = $list.Count();
+			$len = $list.count();
 
 			while($idx < $len)
 			{
-				if($list[$idx].IndexOf($str) != -1)
+				if($list[$idx].indexOf($str) != -1)
 				{
 					$ret = true;
 					break;
@@ -844,12 +844,12 @@ class UtilFileIO
 		
 		if (!$includeLast)
 		{
-		    if (UtilStr::IndexOf($subPath, '/') == -1)
+		    if (UtilStr::indexOf($subPath, '/') == -1)
 			{
 				return;
 			}
 			
-			$subPath = UtilStr::substr($subPath, 0, UtilStr::IndexOf($subPath, '/'));
+			$subPath = UtilStr::substr($subPath, 0, UtilStr::indexOf($subPath, '/'));
 		}
 
 		if (UtilFileIO::existDirectory(UtilFileIO::combine($rootPath, $subPath)))
@@ -860,7 +860,7 @@ class UtilFileIO
 		$startIdx = 0;
 		$splitIdx = 0;
 		
-		while (($splitIdx = UtilStr::IndexOf($subPath, '/', startIdx)) != -1)
+		while (($splitIdx = UtilStr::indexOf($subPath, '/', startIdx)) != -1)
 		{
 		    if (!UtilFileIO.existDirectory(UtilFileIO.combine($rootPath, UtilStr::substr($subPath, 0, $startIdx + $splitIdx))))
 			{

@@ -25,7 +25,7 @@ class PoolSys
 
 		// 查找
 		$index = 0;
-		$listLen = $this->mPoolList.Count();
+		$listLen = $this->mPoolList.count();
 
 		if($listLen > 0)
 		{
@@ -34,7 +34,7 @@ class PoolSys
 			$finded = true;
 
 			$retObj = $tmpObj;
-			$this->mPoolList.RemoveAt($index);
+			$this->mPoolList.removeAt($index);
 
 			$retObj.resetDefault();
 		}
@@ -49,9 +49,9 @@ class PoolSys
 
 	public function deleteObj($obj)
 	{
-		if (!$this->mPoolList.Contains($obj))
+		if (!$this->mPoolList.contains($obj))
 		{
-			$this->mPoolList.Add($obj);
+			$this->mPoolList.add($obj);
 		}
 	}
 }

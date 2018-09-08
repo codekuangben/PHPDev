@@ -32,9 +32,9 @@ class DelayNoOrPriorityHandleMgrBase extends GObject
 	{
 		if($this->mLoopDepth->isInDepth())
 		{
-			if (!$this->mDeferredAddQueue->Contains($delayObject))        // 如果添加列表中没有
+			if (!$this->mDeferredAddQueue->contains($delayObject))        // 如果添加列表中没有
 			{
-				if ($this->mDeferredDelQueue->Contains($delayObject))     // 如果已经添加到删除列表中
+				if ($this->mDeferredDelQueue->contains($delayObject))     // 如果已经添加到删除列表中
 				{
 					$this->mDeferredDelQueue->removeNoOrPriorityObject($delayObject);
 				}
@@ -48,9 +48,9 @@ class DelayNoOrPriorityHandleMgrBase extends GObject
 	{
 		if ($this->mLoopDepth->isInDepth())
 		{
-			if (!$this->mDeferredDelQueue->Contains($delayObject))
+			if (!$this->mDeferredDelQueue->contains($delayObject))
 			{
-				if ($this->mDeferredAddQueue->Contains($delayObject))    // 如果已经添加到删除列表中
+				if ($this->mDeferredAddQueue->contains($delayObject))    // 如果已经添加到删除列表中
 				{
 					$this->mDeferredAddQueue->removeNoOrPriorityObject($delayObject);
 				}
@@ -70,10 +70,10 @@ class DelayNoOrPriorityHandleMgrBase extends GObject
 
 		if (!$this->mLoopDepth->isInDepth())       // 只有全部退出循环后，才能处理添加删除
 		{
-			if ($this->mDeferredAddQueue->Count() > 0)
+			if ($this->mDeferredAddQueue->count() > 0)
 			{
 				$idx = 0;
-				$elemLen = $this->mDeferredAddQueue->Count();
+				$elemLen = $this->mDeferredAddQueue->count();
 
 				while($idx < $elemLen)
 				{
@@ -82,13 +82,13 @@ class DelayNoOrPriorityHandleMgrBase extends GObject
 					$idx += 1;
 				}
 
-				$this->mDeferredAddQueue->Clear();
+				$this->mDeferredAddQueue->clear();
 			}
 
-			if ($this->mDeferredDelQueue->Count() > 0)
+			if ($this->mDeferredDelQueue->count() > 0)
 			{
 				$idx = 0;
-				$elemLen = $this->mDeferredDelQueue->Count();
+				$elemLen = $this->mDeferredDelQueue->count();
 
 				while($idx < $elemLen)
 				{
@@ -97,7 +97,7 @@ class DelayNoOrPriorityHandleMgrBase extends GObject
 					$idx += 1;
 				}
 
-				$this->mDeferredDelQueue->Clear();
+				$this->mDeferredDelQueue->clear();
 			}
 		}
 	}

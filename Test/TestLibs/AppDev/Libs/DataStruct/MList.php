@@ -14,11 +14,6 @@ class MList
 	protected $mDic;    // 为了加快查找速度，当前 Element 到索引映射
 	protected $mIsSpeedUpFind;  // 是否加快查询，这个只适用于元素在列表中是唯一的，例如引用之类的，如果有相同的，就会有问题，注意了
 	protected $mIsOpKeepSort;           // 操作的时候是否保持排序
-	
-	public static function isArray($list)
-	{
-		return is_array($list);
-	}
 
 	public function __construct($capacity = 0)
 	{
@@ -72,19 +67,19 @@ class MList
 	    
 	    while($index < $listLen)
 	    {
-	        $this->Add(null);
+	        $this->add(null);
 	        $index += 1;
 	    }
 	}
 
-	public function Add($item)
+	public function add($item)
 	{
 	    array_push($this->mList, $item);
 		$this->mEleTotal += 1;
 
 		if ($this->mIsSpeedUpFind)
 		{
-			$this->mDic[$item] = $this->Count() - 1;
+			$this->mDic[$item] = $this->count() - 1;
 		}
 	}
 
@@ -95,11 +90,11 @@ class MList
 
 		if ($this->mIsSpeedUpFind)
 		{
-			$this->mDic[item] = $this->Count() - 1;
+			$this->mDic[item] = $this->count() - 1;
 		}
 	}
 
-	public function Remove($item)
+	public function remove($item)
 	{
 		if ($this->mIsSpeedUpFind)
 		{
@@ -132,7 +127,7 @@ class MList
 		$this->mList[$index] = $value;
 	}
 
-	public function Clear()
+	public function clear()
 	{
 		// 真正的释放资源
 		unset($this->mList);
@@ -142,19 +137,19 @@ class MList
 
 		if ($this->mIsSpeedUpFind)
 		{
-			$this->mDic->Clear();
+			$this->mDic->clear();
 		}
 	}
 
-	public function Count()
+	public function count()
 	{
-		//return $this->mList.Count;
+		//return $this->mList.count;
 		return $this->mEleTotal;
 	}
 
 	public function length()
 	{
-		//return $this->mList.Count;
+		//return $this->mList.count;
 		return $this->mEleTotal;
 	}
 
@@ -163,7 +158,7 @@ class MList
 		$this->mList->Capacity = $value;
 	}
 
-	public function RemoveAt($index)
+	public function removeAt($index)
 	{
 		if ($this->mIsSpeedUpFind)
 		{
@@ -171,7 +166,7 @@ class MList
 		}
 		else
 		{
-			if ($index < $this->Count())
+			if ($index < $this->count())
 			{
 				// http://www.jb51.net/article/30689.htm
 				// unset 这种方法的最大缺点是没有重建数组索引，就是说，数组的第三个元素没了。
@@ -183,11 +178,11 @@ class MList
 		}
 	}
 
-	public function IndexOf($item)
+	public function indexOf($item)
 	{
 		if ($this->mIsSpeedUpFind)
 		{
-			if ($this->mDic->ContainsKey($item))
+			if ($this->mDic->containsKey($item))
 			{
 				return $this->mDic[$item];
 			}
@@ -205,9 +200,9 @@ class MList
 		}
 	}
 
-	public function Insert($index, $item)
+	public function insert($index, $item)
 	{
-		if (index <= $this->Count())
+		if (index <= $this->count())
 		{
 			$this->arrayPushBefore($this->mList, array($item), $index);
 			$this->mEleTotal += 1;
@@ -225,11 +220,11 @@ class MList
 		}
 	}
 
-	public function Contains($item)
+	public function contains($item)
 	{
 		if ($this->mIsSpeedUpFind)
 		{
-			return $this->mDic->ContainsKey($item);
+			return $this->mDic->containsKey($item);
 		}
 		else
 		{
@@ -255,7 +250,7 @@ class MList
 
 				if ($this->mIsSpeedUpFind)
 				{
-					$this->mDic[$item] = $this->Count() - 1;
+					$this->mDic[$item] = $this->count() - 1;
 				}
 			}
 		}
@@ -266,14 +261,14 @@ class MList
 	{
 		$ret = false;
 
-		if ($this->mDic.ContainsKey($item))
+		if ($this->mDic.containsKey($item))
 		{
 			$ret = true;
 
 			$idx = $this->mDic[$item];
-			$this->mDic->Remove($item);
+			$this->mDic->remove($item);
 
-			if (idx == $this->Count() - 1)    // 如果是最后一个元素，直接移除
+			if (idx == $this->count() - 1)    // 如果是最后一个元素，直接移除
 			{
 				array_splice($this->mList, $idx, 1);
 				$this->mEleTotal -= 1;
@@ -282,8 +277,8 @@ class MList
 			{
 				if (!$this->mIsOpKeepSort)
 				{
-					$this->mList[$idx] = $this->mList[$this->Count() - 1];
-					array_splice($this->mList, $this->Count() - 1, 1);
+					$this->mList[$idx] = $this->mList[$this->count() - 1];
+					array_splice($this->mList, $this->count() - 1, 1);
 					$this->mDic[$this->mList[$idx]] = $idx;
 					$this->mEleTotal -= 1;
 				}
@@ -301,7 +296,7 @@ class MList
 
 	protected function updateIndex($idx)
 	{
-		$len = $this->Count();
+		$len = $this->count();
 
 		while($idx < $len)
 		{

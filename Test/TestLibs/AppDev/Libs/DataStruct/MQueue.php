@@ -11,9 +11,9 @@ class MQueue
 		//$this->mQueue = new Queue();
 	}
 
-	public function Count()
+	public function count()
 	{
-		return $this->mQueue.Count;
+		return $this->mQueue.count;
 	}
 
 	public function Dequeue()

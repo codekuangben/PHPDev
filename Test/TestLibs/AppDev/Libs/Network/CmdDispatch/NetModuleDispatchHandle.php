@@ -23,7 +23,7 @@ class NetModuleDispatchHandle
 
 	public function addCmdHandle($cmdId, $callee, $handle)
 	{
-	    if (!$this->mId2DispDic.ContainsKey($cmdId))
+	    if (!$this->mId2DispDic.containsKey($cmdId))
 		{
 		    $this->mId2DispDic[cmdId] = new AddOnceEventDispatch();
 		}
@@ -33,7 +33,7 @@ class NetModuleDispatchHandle
 
 	public function removeCmdHandle($cmdId, $calleeObj = null)
 	{
-	    if(!$this->mId2DispDic.ContainsKey($cmdId))
+	    if(!$this->mId2DispDic.containsKey($cmdId))
 		{
 		    
 		}
@@ -43,7 +43,7 @@ class NetModuleDispatchHandle
 
 	public function handleMsg($cmdDispInfo)
 	{
-	    if($this->mId2DispDic.ContainsKey($cmdDispInfo.byCmd))
+	    if($this->mId2DispDic.containsKey($cmdDispInfo.byCmd))
 		{                
 		    $this->mId2DispDic[$cmdDispInfo.byCmd].dispatchEvent($cmdDispInfo);
 		}

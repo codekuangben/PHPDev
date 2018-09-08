@@ -27,7 +27,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 	protected function addObject($delayObject, $priority = 0.0)
 	{
 		// 检查当前是否已经在队列中
-		if (!$this->mTimerList.Contains($delayObject))
+		if (!$this->mTimerList.contains($delayObject))
 		{
 			if ($this->isInDepth())
 			{
@@ -35,7 +35,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 			}
 			else
 			{
-				$this->mTimerList.Add($delayObject);
+				$this->mTimerList.add($delayObject);
 			}
 		}
 	}
@@ -43,7 +43,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 	protected function removeObject($delayObject)
 	{
 		// 检查当前是否在队列中
-		if ($this->mTimerList.Contains($delayObject))
+		if ($this->mTimerList.contains($delayObject))
 		{
 			$delayObject->mDisposed = true;
 
@@ -54,7 +54,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 			else
 			{
 				$index = 0;
-				$listLen = $this->mTimerList->Count();
+				$listLen = $this->mTimerList->count();
 				$item = null;
 				
 				while($index < $listLen)
@@ -63,7 +63,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 					
 					if(UtilSysLibWrap::isAddressEqual($item, $delayObject))
 					{
-						$this->mTimerList.Remove($item);
+						$this->mTimerList.remove($item);
 						break;
 					}
 					
@@ -88,7 +88,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 		$this->incDepth();
 
 		$index = 0;
-		$listLen = $this->mTimerList->Count();
+		$listLen = $this->mTimerList->count();
 		$timerItem= null;
 		
 		while($index < $listLen)

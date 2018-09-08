@@ -79,7 +79,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 	{
 		$idx = 0;
 		$elemLen = 0;
-		$elemLen = $this->mHandleList->Count();
+		$elemLen = $this->mHandleList->count();
 
 		while ($idx < $elemLen)
 		{
@@ -91,7 +91,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 			$idx += 1;
 		}
 
-		if ($idx < $this->mHandleList->Count())
+		if ($idx < $this->mHandleList->count())
 		{
 			$this->removeDispatch($this->mHandleList[$idx]);
 		}
@@ -110,7 +110,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		else
 		{
 			// 这个判断说明相同的函数只能加一次，但是如果不同资源使用相同的回调函数就会有问题，但是这个判断可以保证只添加一次函数，值得，因此不同资源需要不同回调函数
-			$this->mHandleList->Add($delayObject);
+			$this->mHandleList->add($delayObject);
 		}
 	}
 
@@ -122,7 +122,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		}
 		else
 		{
-			if (!$this->mHandleList.Remove($delayObject))
+			if (!$this->mHandleList.remove($delayObject))
 			{
 			
 			}
@@ -136,7 +136,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		$this->incDepth();
 
 		$idx = 0;
-		$len = $this->mHandleList->Count();
+		$len = $this->mHandleList->count();
 		$handle = null;
 
 		while ($idx < $len)
@@ -164,7 +164,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		if ($this->isInDepth())
 		{
 			$idx = 0;
-			$len = $this->mHandleList->Count();
+			$len = $this->mHandleList->count();
 			$item = null;
 
 			while($idx < $len)
@@ -178,7 +178,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		}
 		else
 		{
-			$this->mHandleList->Clear();
+			$this->mHandleList->clear();
 		}
 	}
 
@@ -187,7 +187,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 	{
 		$bFinded = false;
 		$idx = 0;
-		$len = $this->mHandleList->Count();
+		$len = $this->mHandleList->count();
 		$item = null;
 
 		while ($idx < $len)
@@ -209,14 +209,14 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 	public function copyFrom($rhv)
 	{
 		$idx = 0;
-		$len = $this->mHandleList->Count();
+		$len = $this->mHandleList->count();
 		$handle = null;
 
 		while ($idx < $len)
 		{
 			$handle = $this->mHandleList[idx];
 
-			$this->mHandleList.Add($handle);
+			$this->mHandleList.add($handle);
 
 			++$idx;
 		}
@@ -224,12 +224,12 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 
 	public function hasEventHandle()
 	{
-		return $this->mHandleList.Count() > 0;
+		return $this->mHandleList.count() > 0;
 	}
 
 	public function getEventHandleCount()
 	{
-		return $this->mHandleList->Count();
+		return $this->mHandleList->count();
 	}
 }
 

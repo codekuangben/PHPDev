@@ -46,13 +46,13 @@ public class NetworkMgr
 	public bool openSocket(string ip, int port)
 	{
 		string key = ip + "&" + port;
-		if (!mId2ClientDic.ContainsKey(key))
+		if (!mId2ClientDic.containsKey(key))
 		{
 			mCurClient = new NetTCPClient(ip, port);
 			mCurClient.Connect(ip, port);
 			using (MLock mlock = new MLock(mVisitMutex))
 			{
-				mId2ClientDic.Add(key, mCurClient);
+				mId2ClientDic.add(key, mCurClient);
 			}
 		}
 		else
@@ -69,7 +69,7 @@ public class NetworkMgr
 	public void closeSocket(string ip, int port)
 	{
 		string key = ip + "&" + port;
-		if (mId2ClientDic.ContainsKey(key))
+		if (mId2ClientDic.containsKey(key))
 		{
 			// 关闭 socket 之前要等待所有的数据都发送完成，如果发送一直超时，可能就卡在这很长时间
 			if (MacroDef::NET_MULTHREAD)
@@ -81,7 +81,7 @@ public class NetworkMgr
 			using (MLock mlock = new MLock(mVisitMutex))
 			{
 				mId2ClientDic[key].Disconnect(0);
-				mId2ClientDic.Remove(key);
+				mId2ClientDic.remove(key);
 			}
 			mCurClient = null;
 		}
@@ -106,12 +106,12 @@ public class NetworkMgr
 			//mId2SocketDic[key].msgSendEndEvent.Reset();        // 重置信号
 			//mId2SocketDic[key].msgSendEndEvent.WaitOne();      // 阻塞等待数据全部发送完成
 
-			if (mId2ClientDic.ContainsKey(key))
+			if (mId2ClientDic.containsKey(key))
 			{
 				using (MLock mlock = new MLock(mVisitMutex))
 				{
 					mId2ClientDic[key].Disconnect(0);
-					mId2ClientDic.Remove(key);
+					mId2ClientDic.remove(key);
 				}
 				mCurClient = null;
 			}

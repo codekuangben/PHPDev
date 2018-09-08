@@ -73,7 +73,7 @@ class UtilStr
 		return $lastIndex;
 	}
 
-	public static function IndexOf($srcStr, $findStr)
+	public static function indexOf($srcStr, $findStr)
 	{
 		$retIndex = -1;
 		$index = 0;

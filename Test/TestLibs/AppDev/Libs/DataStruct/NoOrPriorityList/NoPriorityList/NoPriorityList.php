@@ -33,26 +33,26 @@ class NoPriorityList implements INoOrPriorityList
 
 	}
 
-	public function Clear()
+	public function clear()
 	{
-		$this->mNoPriorityProcessObjectList.Clear();
+		$this->mNoPriorityProcessObjectList.clear();
 
 		if($this->mIsSpeedUpFind)
 		{
-			$this->mDic.Clear();
+			$this->mDic.clear();
 		}
 	}
 
-	public function Count()
+	public function count()
 	{
-		return $this->mNoPriorityProcessObjectList.Count();
+		return $this->mNoPriorityProcessObjectList.count();
 	}
 
 	public function get($index)
 	{
 		$ret = null;
 
-		if(index < $this->Count())
+		if(index < $this->count())
 		{
 			$ret = $this->mNoPriorityProcessObjectList.get(index);
 		}
@@ -60,7 +60,7 @@ class NoPriorityList implements INoOrPriorityList
 		return ret;
 	}
 
-	public function Contains($item)
+	public function contains($item)
 	{
 		$ret = false;
 
@@ -68,12 +68,12 @@ class NoPriorityList implements INoOrPriorityList
 		{
 			if ($this->mIsSpeedUpFind)
 			{
-				$ret = $this->mDic.ContainsKey(item);
+				$ret = $this->mDic.containsKey(item);
 			}
 			else
 			{
 				$index = 0;
-				$listLen = $this->mNoPriorityProcessObjectList.Count();
+				$listLen = $this->mNoPriorityProcessObjectList.count();
 
 				while (index < listLen)
 				{
@@ -91,14 +91,14 @@ class NoPriorityList implements INoOrPriorityList
 		{
 			if (MacroDef::ENABLE_LOG)
 			{
-				Ctx.mInstance.mLogSys.log("NoPriorityList::Contains, failed", LogTypeId.eLogNoPriorityListCheck);
+				Ctx.mInstance.mLogSys.log("NoPriorityList::contains, failed", LogTypeId.eLogNoPriorityListCheck);
 			}
 		}
 
 		return ret;
 	}
 
-	public function RemoveAt($index)
+	public function removeAt($index)
 	{
 		if ($this->mIsSpeedUpFind)
 		{
@@ -106,7 +106,7 @@ class NoPriorityList implements INoOrPriorityList
 		}
 		else
 		{
-			$this->mNoPriorityProcessObjectList.RemoveAt($index);
+			$this->mNoPriorityProcessObjectList.removeAt($index);
 		}
 	}
 
@@ -115,7 +115,7 @@ class NoPriorityList implements INoOrPriorityList
 		$retIndex = -1;
 
 		$index = 0;
-		$listLen = $this->mNoPriorityProcessObjectList.Count();
+		$listLen = $this->mNoPriorityProcessObjectList.count();
 
 		while ($index < $listLen)
 		{
@@ -140,13 +140,13 @@ class NoPriorityList implements INoOrPriorityList
 	{
 		if (null != $noPriorityObject)
 		{
-			if (!$this->Contains($noPriorityObject))
+			if (!$this->contains($noPriorityObject))
 			{
-				$this->mNoPriorityProcessObjectList.Add($noPriorityObject);
+				$this->mNoPriorityProcessObjectList.add($noPriorityObject);
 
 				if ($this->mIsSpeedUpFind)
 				{
-					$this->mDic.Add(noPriorityObject, $this->mNoPriorityProcessObjectList.Count() - 1);
+					$this->mDic.add(noPriorityObject, $this->mNoPriorityProcessObjectList.count() - 1);
 				}
 			}
 		}
@@ -163,7 +163,7 @@ class NoPriorityList implements INoOrPriorityList
 	{
 		if (null != $noPriorityObject)
 		{
-			if ($this->Contains($noPriorityObject))
+			if ($this->contains($noPriorityObject))
 			{
 				if ($this->mIsSpeedUpFind)
 				{
@@ -175,7 +175,7 @@ class NoPriorityList implements INoOrPriorityList
 
 					if (-1 != $index)
 					{
-						$this->mNoPriorityProcessObjectList.RemoveAt($index);
+						$this->mNoPriorityProcessObjectList.removeAt($index);
 					}
 				}
 			}
@@ -204,22 +204,22 @@ class NoPriorityList implements INoOrPriorityList
 	{
 		$ret = false;
 
-		if ($this->mDic.ContainsKey($item))
+		if ($this->mDic.containsKey($item))
 		{
 			$ret = true;
 
 			$idx = $this->mDic[$item];
-			$this->mDic.Remove($item);
+			$this->mDic.remove($item);
 
-			if ($idx == $this->mNoPriorityProcessObjectList.Count() - 1)    // 如果是最后一个元素，直接移除
+			if ($idx == $this->mNoPriorityProcessObjectList.count() - 1)    // 如果是最后一个元素，直接移除
 			{
-				$this->mNoPriorityProcessObjectList.RemoveAt($idx);
+				$this->mNoPriorityProcessObjectList.removeAt($idx);
 			}
 			else
 			{
-				$this->mNoPriorityProcessObjectList.set($idx, $this->mNoPriorityProcessObjectList.get($this->mNoPriorityProcessObjectList.Count() - 1));
-				$this->mNoPriorityProcessObjectList.RemoveAt($this->mNoPriorityProcessObjectList.Count() - 1);
-				$this->mDic.Add($this->mNoPriorityProcessObjectList.get(idx), $idx);
+				$this->mNoPriorityProcessObjectList.set($idx, $this->mNoPriorityProcessObjectList.get($this->mNoPriorityProcessObjectList.count() - 1));
+				$this->mNoPriorityProcessObjectList.removeAt($this->mNoPriorityProcessObjectList.count() - 1);
+				$this->mDic.add($this->mNoPriorityProcessObjectList.get(idx), $idx);
 			}
 		}
 
@@ -228,11 +228,11 @@ class NoPriorityList implements INoOrPriorityList
 
 	protected function updateIndex($idx)
 	{
-		$listLen = $this->mNoPriorityProcessObjectList.Count();
+		$listLen = $this->mNoPriorityProcessObjectList.count();
 
 		while ($idx < $listLen)
 		{
-			$this->mDic.Add($this->mNoPriorityProcessObjectList.get($idx), $idx);
+			$this->mDic.add($this->mNoPriorityProcessObjectList.get($idx), $idx);
 
 			++$idx;
 		}

@@ -75,7 +75,7 @@ class MString
 		$this->mStrLen = rhv.getStrLen();
 	}
 
-	public function IndexOf($findChar)
+	public function indexOf($findChar)
 	{
 		$retIndex = -1;
 		$index = $this->mStartIndex;

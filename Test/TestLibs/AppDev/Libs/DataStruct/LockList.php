@@ -17,7 +17,7 @@ class LockList
 		$this->mVisitMutex = new MMutex(false, $name);
 	}
 
-	public function Count()
+	public function count()
 	{
 		$mlock = new MLock($this->mVisitMutex);
 		{
@@ -49,7 +49,7 @@ class LockList
 	}
 
 
-	public function Add($item)
+	public function add($item)
 	{
 		$mlock = new MLock($this->mVisitMutex);
 		{
@@ -63,7 +63,7 @@ class LockList
 		}
 	}
 
-	public function Remove($item)
+	public function remove($item)
 	{
 		$mlock = new MLock($this->mVisitMutex);
 		{
@@ -72,7 +72,7 @@ class LockList
 			{
 				if(UtilSysLibWrap::isObjectEqual($item, $elem))       // 地址比较
 				{
-					$this->RemoveAt($idx);
+					$this->removeAt($idx);
 					return true;
 				}
 
@@ -83,7 +83,7 @@ class LockList
 		}
 	}
 
-	public function RemoveAt($index)
+	public function removeAt($index)
 	{
 		$mlock = new MLock($this->mVisitMutex);
 		{
@@ -110,7 +110,7 @@ class LockList
 		}
 	}
 
-	public function IndexOf($item)
+	public function indexOf($item)
 	{
 		$mlock = new MLock($this->mVisitMutex);
 		{
@@ -120,7 +120,7 @@ class LockList
 			{
 				if (UtilSysLibWrap::isObjectEqual($item, $elem))       // 地址比较
 				{
-					$this->RemoveAt($idx);
+					$this->removeAt($idx);
 					return $idx;
 				}
 

@@ -9,12 +9,12 @@ interface INoOrPriorityList
 {
 	function setIsSpeedUpFind($value);
 	function setIsOpKeepSort($value);
-	function Clear();
-	function Count();
+	function clear();
+	function count();
 
 	function get($index);
-	function Contains($item);
-	function RemoveAt($index);
+	function contains($item);
+	function removeAt($index);
 	function getIndexByNoOrPriorityObject($priorityObject);
 
 	function addNoOrPriorityObject($noPriorityObject, $priority = 0.0);

@@ -57,7 +57,7 @@ const ENABLE_PROTOBUF = false;
 const ENABLE_SHARP_ZIP_LIB = false;
 
 // 单元测试，这个需要宏定义
-const UNIT_TEST = false;
+const UNIT_TEST = true;
 
 // 不使用的代码
 const DEPRECATE_CODE = false;

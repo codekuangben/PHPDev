@@ -7,7 +7,7 @@ class UtilXml
 	public const XML_OK = 0;
 	public const XML_FAIL = 1;
 
-	static public int getXmlAttrBool(SecurityElement attr, string name, ref bool ret)
+	public static function getXmlAttrBool(SecurityElement attr, string name, ref bool ret)
 	{
 		if (null != attr && null != attr.Attributes && attr.Attributes.ContainsKey(name))
 		{
@@ -31,7 +31,7 @@ class UtilXml
 		return XML_FAIL;
 	}
 
-	static public int getXmlAttrStr(SecurityElement attr, string name, ref string ret)
+	public static function getXmlAttrStr(SecurityElement attr, string name, ref string ret)
 	{
 		if (null != attr && null != attr.Attributes && attr.Attributes.ContainsKey(name))
 		{
@@ -43,7 +43,7 @@ class UtilXml
 		return XML_FAIL;
 	}
 
-	static public int getXmlAttrUShort(SecurityElement attr, string name, ref ushort ret)
+	public static function getXmlAttrUShort(SecurityElement attr, string name, ref ushort ret)
 	{
 		if (null != attr && null != attr.Attributes && attr.Attributes.ContainsKey(name))
 		{
@@ -55,7 +55,7 @@ class UtilXml
 		return XML_FAIL;
 	}
 
-	static public int getXmlAttrInt(SecurityElement attr, string name, ref short ret)
+	public static function getXmlAttrInt(SecurityElement attr, string name, ref short ret)
 	{
 		if (null != attr && null != attr.Attributes && attr.Attributes.ContainsKey(name))
 		{
@@ -67,7 +67,7 @@ class UtilXml
 		return XML_FAIL;
 	}
 
-	static public int getXmlAttrUInt(SecurityElement attr, string name, ref uint ret)
+	public static function getXmlAttrUInt(SecurityElement attr, string name, ref uint ret)
 	{
 		if (null != attr && null != attr.Attributes && attr.Attributes.ContainsKey(name))
 		{
@@ -79,7 +79,7 @@ class UtilXml
 		return XML_FAIL;
 	}
 
-	static public int getXmlAttrInt(SecurityElement attr, string name, ref int ret)
+	public static function getXmlAttrInt(SecurityElement attr, string name, ref int ret)
 	{
 		if (null != attr && null != attr.Attributes && attr.Attributes.ContainsKey(name))
 		{
@@ -91,7 +91,7 @@ class UtilXml
 		return XML_FAIL;
 	}
 
-	static public int getXmlAttrFloat(SecurityElement attr, string name, ref float ret)
+	public static function getXmlAttrFloat(SecurityElement attr, string name, ref float ret)
 	{
 		if (null != attr && null != attr.Attributes && attr.Attributes.ContainsKey(name))
 		{
@@ -104,7 +104,7 @@ class UtilXml
 	}
 
 	// 获取一个 Element 中对应名字是 name 的孩子节点列表
-	static public int getXmlChildList(SecurityElement elem, string name, ref ArrayList list)
+	public static function getXmlChildList(SecurityElement elem, string name, ref ArrayList list)
 	{
 		if (null != elem)
 		{
@@ -139,7 +139,7 @@ class UtilXml
 	}
 
 	// 获取一个孩子节点
-	static public int getXmlChild(SecurityElement elem, string name, ref SecurityElement childNode)
+	public static function getXmlChild(SecurityElement elem, string name, ref SecurityElement childNode)
 	{
 		if (null != elem)
 		{
@@ -168,7 +168,7 @@ class UtilXml
 	}
 
 	// 获取某一个元素的所有 Child 列表
-	public static int getXmlElementAllChildList(SecurityElement elem, string itemNode, ref ArrayList list)
+	public static function getXmlElementAllChildList(SecurityElement elem, string itemNode, ref ArrayList list)
 	{
 		SecurityElement objElem = null;
 
@@ -187,7 +187,7 @@ class UtilXml
 	}
 
 	// 获取一个 Element 中对应目录是 pathListStr 的列表，目录个是为 "aaa.bbb.ccc"
-	static public int getXmlChildListByPath(SecurityElement elem, string pathListStr, ref ArrayList list)
+	public static function getXmlChildListByPath(SecurityElement elem, string pathListStr, ref ArrayList list)
 	{
 		string[] pathList = UtilStr.split(ref pathListStr, '.');
 		string curName = "";

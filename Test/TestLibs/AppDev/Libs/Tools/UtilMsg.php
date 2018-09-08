@@ -8,7 +8,7 @@ namespace SDK\Lib;
 class UtilMsg
 {
 	// 发送消息， bnet 如果 true 就直接发送到 socket ，否则直接进入输出消息队列
-	public static function  sendMsg(stNullUserCmd msg, bool isSendToNet = true)
+	public static function sendMsg(stNullUserCmd msg, bool isSendToNet = true)
 	{
 		Ctx.mInstance.mShareData.mTmpBA = Ctx.mInstance.mNetMgr.getSendBA();
 		if (Ctx.mInstance.mShareData.mTmpBA != null)
@@ -26,7 +26,7 @@ class UtilMsg
 		Ctx.mInstance.mNetMgr.send(isSendToNet);
 	}
 
-	public static void sendMsg(byte[] byteArr, int startIndex, uint length, bool isSendToNet = true)
+	public static function sendMsg(byte[] byteArr, int startIndex, uint length, bool isSendToNet = true)
 	{
 		Ctx.mInstance.mShareData.mTmpBA = Ctx.mInstance.mNetMgr.getSendBA();
 		if (Ctx.mInstance.mShareData.mTmpBA != null)
@@ -45,7 +45,7 @@ class UtilMsg
 	}
 
 	//static public void sendMsg(ushort commandID, LuaStringBuffer buffer, bool bnet = true)
-	static public void sendMsg(ushort commandID, LuaInterface.LuaByteBuffer buffer, bool bnet = true)
+	static public function sendMsg(ushort commandID, LuaInterface.LuaByteBuffer buffer, bool bnet = true)
 	{
 		Ctx.mInstance.mShareData.mTmpBA = Ctx.mInstance.mNetMgr.getSendBA();
 		if (Ctx.mInstance.mShareData.mTmpBA != null)
@@ -55,27 +55,7 @@ class UtilMsg
 		}
 	}
 
-	//static public void sendMsgParam(LuaTable luaTable, LuaStringBuffer buffer, bool bnet = true)
-	//static public void sendMsgRpc(LuaStringBuffer buffer, bool bnet = true)
-	static public void sendMsgRpc(LuaInterface.LuaByteBuffer buffer, bool bnet = true)
-	{
-		//uint id = UtilLua2CS.getTableAttrUInt(luaTable, "id");
-		//string service = UtilLua2CS.getTableAttrStr(luaTable, "service");
-		//string method = UtilLua2CS.getTableAttrStr(luaTable, "method");
-
-		Ctx.mInstance.mShareData.mTmpBA = Ctx.mInstance.mNetMgr.getSendBA();
-		if (Ctx.mInstance.mShareData.mTmpBA != null)
-		{
-			//Ctx.mInstance.mShareData.mTmpBA.writeUnsignedInt32(id);
-			//Ctx.mInstance.mShareData.mTmpBA.writeMultiByte(service, Encoding.UTF8, 0);
-			//Ctx.mInstance.mShareData.mTmpBA.writeMultiByte(method, Encoding.UTF8, 0);
-
-			Ctx.mInstance.mShareData.mTmpBA.writeBytes(buffer.buffer, 0, (uint)buffer.buffer.Length);
-			Ctx.mInstance.mNetMgr.send(bnet);
-		}
-	}
-
-	public static void checkStr(string str)
+	public static function checkStr(string str)
 	{
 		if (string.IsNullOrEmpty(str))
 		{
@@ -83,7 +63,7 @@ class UtilMsg
 	}
 
 	// 格式化消息数据到数组形式
-	public static void formatBytes2Array($bytes, $len)
+	public static function formatBytes2Array($bytes, $len)
 	{
 		string str = "{ ";
 		bool isFirst = true;

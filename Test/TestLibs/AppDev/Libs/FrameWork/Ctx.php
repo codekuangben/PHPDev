@@ -3,6 +3,9 @@
 namespace SDK\Lib;
 
 require_once (dirname(__FILE__) . "/../Common/Prequisites.php");
+require_once (dirname(__FILE__) . "/../../Test/Base/TestMain.php");
+
+use SDK\Test\TestMain;
 
 /**
  * @brief 全局数据区
@@ -39,6 +42,7 @@ class Ctx
 	public $mIdPoolSys;
 	public $mUniqueStrIdGen;
 	public $mProfiler;
+	public $mTestMain;
 
 	public function __construct()
 	{
@@ -167,6 +171,16 @@ class Ctx
 			$this->mLogSys.dispose();
 			$this->mLogSys = null;
 		}
+	}
+	
+	public function run()
+	{
+	    if(MacroDef::UNIT_TEST)
+	    {
+	        $this->mTestMain = new TestMain();
+	        $this->mTestMain->init();
+	        $this->mTestMain->run();
+	    }
 	}
 
 	public function quitApp()

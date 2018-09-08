@@ -20,18 +20,12 @@ class MList
 		return is_array($list);
 	}
 
-	public function __construct()
+	public function __construct($capacity = 0)
 	{
-		$this->mEleTotal = 0;
 		$this->mList = array();
+		$this->mEleTotal = $capacity;
 		$this->mIsSpeedUpFind = false;
 		$this->mIsOpKeepSort = false;
-	}
-
-	public function __construct($capacity)
-	{
-		$this->mList = array();
-		$this->mEleTotal = capacity;
 	}
 
 	public function setIsSpeedUpFind($value)
@@ -91,60 +85,6 @@ class MList
 		if ($this->mIsSpeedUpFind)
 		{
 			$this->mDic[$item] = $this->Count() - 1;
-		}
-	}
-
-	// 主要是 Add 一个 float 类型的 Vector3
-	public function Add($item_1, $item_2, $item_3)
-	{
-		$this->mList.Add($item_1);
-		$this->mEleTotal += 1;
-		$this->mList.Add($item_2);
-		$this->mEleTotal += 1;
-		$this->mList.Add($item_3);
-		$this->mEleTotal += 1;
-
-		if ($this->mIsSpeedUpFind)
-		{
-			$this->mDic[$item_1] = $this->Count() - 3;
-			$this->mDic[$item_2] = $this->Count() - 2;
-			$this->mDic[$item_3] = $this->Count() - 1;
-		}
-	}
-
-	// 主要是 Add 一个 float 类型的 UV
-	public function Add($item_1, $item_2)
-	{
-		$this->mList.Add($item_1);
-		$this->mEleTotal += 1;
-		$this->mList.Add($item_2);
-		$this->mEleTotal += 1;
-
-		if ($this->mIsSpeedUpFind)
-		{
-			$this->mDic[item_1] = $this->Count() - 2;
-			$this->mDic[item_2] = $this->Count() - 1;
-		}
-	}
-
-	// 主要是 Add 一个 byte 类型的 Color32
-	public function Add($item_1, $item_2, $item_3, $item_4)
-	{
-		$this->mList.Add($item_1);
-		$this->mEleTotal += 1;
-		$this->mList.Add($item_2);
-		$this->mEleTotal += 1;
-		$this->mList.Add($item_3);
-		$this->mEleTotal += 1;
-		$this->mList.Add($item_4);
-		$this->mEleTotal += 1;
-
-		if ($this->mIsSpeedUpFind)
-		{
-			$this->mDic[$item_1] = $this->Count() - 4;
-			$this->mDic[$item_2] = $this->Count() - 3;
-			$this->mDic[$item_3] = $this->Count() - 2;
-			$this->mDic[$item_4] = $this->Count() - 1;
 		}
 	}
 

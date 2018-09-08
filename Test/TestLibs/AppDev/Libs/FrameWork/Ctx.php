@@ -2,7 +2,7 @@
 
 namespace SDK\Lib;
 
-require_once (dirname(__FILE__) / "/../Common/Prequisites.php");
+require_once (dirname(__FILE__) . "/../Common/Prequisites.php");
 
 /**
  * @brief 全局数据区
@@ -13,10 +13,6 @@ class Ctx
 
 	public $mCfg;                       // 整体配置文件
 	public $mLogSys;                    // 日志系统
-
-	public $mLoginModule;
-	public $mGameModule;                 // 游戏系统
-	public $mAutoUpdateModule;
 
 	public $mTickMgr;                  // 心跳管理器，正常 Update
 	public $mFixedTickMgr;        // 固定间隔心跳管理器, FixedUpdate

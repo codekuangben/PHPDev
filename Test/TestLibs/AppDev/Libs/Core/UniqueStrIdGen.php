@@ -21,7 +21,7 @@ class UniqueStrIdGen extends UniqueNumIdGen
 	public function __construct($prefix, $baseUniqueId)
 	{
 		parent::__construct($baseUniqueId);
-		$this->mPrefix = prefix;
+		$this->mPrefix = $prefix;
 	}
 
 	public function genNewStrId()

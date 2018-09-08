@@ -4,6 +4,7 @@
 require_once (dirname(__FILE__) . "/../Core/GObject.php");
 require_once (dirname(__FILE__) . "/../Core/UniqueNumIdGen.php");
 require_once (dirname(__FILE__) . "/../Core/UniqueStrIdGen.php");
+require_once (dirname(__FILE__) . "/../Core/Performance/MProfiler.php");
 
 
 // 数据结构
@@ -75,8 +76,11 @@ require_once (dirname(__FILE__) . "/../Tools/MEndian.php");
 require_once (dirname(__FILE__) . "/../Tools/MEncode.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilStr.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilFileIO.php");
+require_once (dirname(__FILE__) . "/../Tools/PlatformDefine.php");
+require_once (dirname(__FILE__) . "/../Tools/UtilByte.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilSysLibWrap.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilEngineWrap.php");
+require_once (dirname(__FILE__) . "/../Tools/SystemEndian.php");
 
 
 // 日志
@@ -94,8 +98,5 @@ require_once (dirname(__FILE__) . "/../Network/CmdDispatch/CmdDispatchInfo.php")
 //require_once (dirname(__FILE__) . "/../Network/NetMgr.php");
 //require_once (dirname(__FILE__) . "/../Tools/UtilMsg.php");
 
-
-// Profiler
-require_once (dirname(__FILE__) . "/../Core/Performance/MProfiler.php");
 
 ?>

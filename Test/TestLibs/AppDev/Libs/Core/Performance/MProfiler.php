@@ -3,7 +3,7 @@
 namespace SDK\Lib;
 
 /**
- * @brief Profile锛岃涓�娈垫椂闂撮厤缃竴娆★紝姣忎竴甯ч厤缃槸娌℃湁鎰忎箟鐨�
+ * @brief Profile
  */
 class MProfiler
 {
@@ -187,7 +187,7 @@ class MProfiler
 		if (null == newNode)
 		{
 			$newNode = new MProfileInfo(blockName, $this->mCurrentNode);
-			$this->mCurrentNode.mChildren[blockName] = newNode;
+			$this->mCurrentNode->mChildren[blockName] = newNode;
 		}
 
 		// 鍘嬪叆鍫嗘爤
@@ -359,7 +359,7 @@ class MProfiler
 
 		tmpArray.Sort($this->sortByTotalTime);
 
-		foreach ($childPi as $tmpArray->list())
+		foreach ($tmpArray->list() as $childPi)
 		{
 			$this->reportNode($childPi, $indent + 1);
 		}

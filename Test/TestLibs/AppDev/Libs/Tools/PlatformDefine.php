@@ -8,7 +8,7 @@ class PlatformDefine
 
     public static function init()
 	{
-	    $this->$PlatformName = php_uname('s');
+	    PlatformDefine::$PlatformName = php_uname('s');
 	}
 }
 

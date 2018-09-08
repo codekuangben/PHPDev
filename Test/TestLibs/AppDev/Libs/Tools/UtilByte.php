@@ -23,7 +23,7 @@ class UtilByte
 	}
 
 	// 两种编码的 string 字符串之间转换
-	static public function convStr2Str($srcStr, $srcCharSet, $destCharSet)
+	public static function convStr2Str($srcStr, $srcCharSet, $destCharSet)
 	{
 	    $srcEncodeStr = UtilSysLibWrap::convEncode2NativeEncodeStr($srcCharSet);
 	    $destEncodeStr = UtilSysLibWrap::convEncode2NativeEncodeStr($destCharSet);

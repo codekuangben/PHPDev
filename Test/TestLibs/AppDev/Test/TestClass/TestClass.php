@@ -29,6 +29,20 @@ class TestClass extends TestBase
     public function run()
     {
         parent::run();
+        
+        $this->_testFunctionCall();
+        $this->_testFunctionParamDefaultValue($param1 = 20, $param = 10);
+        $this->_testFunctionParamDefaultValue(20, 10);
+    }
+    
+    protected function _testFunctionCall()
+    {
+        
+    }
+    
+    protected function _testFunctionParamDefaultValue($param, $param1, $param2 = 10)
+    {
+        echo $param;
     }
 }
 

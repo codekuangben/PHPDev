@@ -8,9 +8,10 @@ namespace SDK\Lib;
 class UtilMsg
 {
 	// 发送消息， bnet 如果 true 就直接发送到 socket ，否则直接进入输出消息队列
-	public static function sendMsg(stNullUserCmd msg, bool isSendToNet = true)
+	public static function sendMsg($msg, $isSendToNet = true)
 	{
 		Ctx.mInstance.mShareData.mTmpBA = Ctx.mInstance.mNetMgr.getSendBA();
+		
 		if (Ctx.mInstance.mShareData.mTmpBA != null)
 		{
 			msg.serialize(Ctx.mInstance.mShareData.mTmpBA);

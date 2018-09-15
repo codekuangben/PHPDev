@@ -75,9 +75,9 @@ class NoPriorityList implements INoOrPriorityList
 				$index = 0;
 				$listLen = $this->mNoPriorityProcessObjectList->count();
 
-				while (index < listLen)
+				while ($index < $listLen)
 				{
-					if (item == $this->mNoPriorityProcessObjectList->get($index))
+					if ($item == $this->mNoPriorityProcessObjectList->get($index))
 					{
 						$ret = true;
 						break;

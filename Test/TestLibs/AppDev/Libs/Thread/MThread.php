@@ -71,7 +71,7 @@ class MThread /*extends Thread*/
 
 	protected function getCurThreadId()
 	{
-		$this->mCurThreadId = Thread.CurrentThread.ManagedThreadId;       // 当前线程的 ID
+		//$this->mCurThreadId = Thread::$CurrentThread->ManagedThreadId;       // 当前线程的 ID
 	}
 
 	public function isCurThread($threadId)
@@ -81,12 +81,12 @@ class MThread /*extends Thread*/
 
 	static public function getMainThreadId()
 	{
-	    MThread::$msMainThreadId = Thread.CurrentThread.ManagedThreadId;
+	    //MThread::$msMainThreadId = Thread::$CurrentThread->ManagedThreadId;
 	}
 
 	static public function isMainThread()
 	{
-	    return (MThread::msMainThreadId == Thread.CurrentThread.ManagedThreadId);
+	    //return (MThread::msMainThreadId == Thread::$CurrentThread->ManagedThreadId);
 	}
 
 	static public function needMainThread()

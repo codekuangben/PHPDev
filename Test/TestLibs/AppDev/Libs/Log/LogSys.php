@@ -37,19 +37,19 @@ class LogSys
 		}
 
 		$this->mEnableLogTypeList[LogColor::eLC_LOG] = new MList();
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId::eLogCommon);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId::eLogLocalFile);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId::eLogEventRemove);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId::eLogPriorityListCheck);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId::eLogNoPriorityListCheck);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId::eLogPosSyn);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId::eLogProfileDebug);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG]->add(LogTypeId::eLogCommon);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG]->add(LogTypeId::eLogLocalFile);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG]->add(LogTypeId::eLogEventRemove);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG]->add(LogTypeId::eLogPriorityListCheck);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG]->add(LogTypeId::eLogNoPriorityListCheck);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG]->add(LogTypeId::eLogPosSyn);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG]->add(LogTypeId::eLogProfileDebug);
 		$this->mEnableLogTypeList[LogColor::eLC_LOG]->add(LogTypeId::eLogProfile);
 
 		$this->mEnableLogTypeList[LogColor::eLC_WARN] = new MList();
 
 		$this->mEnableLogTypeList[LogColor::eLC_ERROR] = new MList();
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_ERROR].add(LogTypeId::eLogLoadBug);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_ERROR]->add(LogTypeId::eLogLoadBug);
 
 		$this->mEnableLog = new MList();
 		$this->mEnableLog->add(MacroDef::ENABLE_LOG);
@@ -82,17 +82,17 @@ class LogSys
 
 	public function setEnableLog($value)
 	{
-		$this->mEnableLog.set(LogColor::eLC_LOG, value);
+		$this->mEnableLog->set(LogColor::eLC_LOG, value);
 	}
 
 	public function setEnableWarn($value)
 	{
-	    $this->mEnableLog.set(LogColor::eLC_WARN, $value);
+	    $this->mEnableLog->set(LogColor::eLC_WARN, $value);
 	}
 
 	public function setEnableError($value)
 	{
-	    $this->mEnableLog.set(LogColor::eLC_ERROR, $value);
+	    $this->mEnableLog->set(LogColor::eLC_ERROR, $value);
 	}
 
 	protected function registerDevice()
@@ -124,8 +124,8 @@ class LogSys
 			$logDevice = null;
 			$logDevice = new FileLogDevice();
 			$logDevice->setFileSuffix("AcountTest");
-			$logDevice.initDevice();
-			$this->mLogDeviceList.add(logDevice);
+			$logDevice->initDevice();
+			$this->mLogDeviceList->add(logDevice);
 		}
 	}
 
@@ -142,7 +142,7 @@ class LogSys
 		    if(LogDeviceId::eFileLogDevice == $item->getLogDeviceId())
 			{
 				$item->closeDevice();
-				$this->mLogDeviceList.remove($item);
+				$this->mLogDeviceList->remove($item);
 				break;
 			}
 			
@@ -156,7 +156,7 @@ class LogSys
 	    
 		if ($this->mEnableLog[$logColor])
 		{
-			if ($this->mEnableLogTypeList[$logColor].contains($logTypeId))
+			if ($this->mEnableLogTypeList[$logColor]->contains($logTypeId))
 			{
 			    $ret = true;
 			}
@@ -171,7 +171,7 @@ class LogSys
 		{
 			if($this->mIsOutTimeStamp[LogColor::eLC_LOG])
 			{
-				$message = UtilStr::Format("{0}: {1}", UtilSysLibWrap.getFormatTime(), $message);
+				$message = UtilStr::Format("{0}: {1}", UtilSysLibWrap::getFormatTime(), $message);
 			}
 
 			if ($this->mIsOutStack[LogColor::eLC_LOG])
@@ -188,7 +188,7 @@ class LogSys
 				$message = UtilStr::Format("{0}\n{1}", $message, $traceStr);
 			}
 
-			if (MThread.isMainThread())
+			if (MThread::isMainThread())
 			{
 				$this->logout($message, LogColor::eLC_LOG);
 			}
@@ -205,7 +205,7 @@ class LogSys
 		{
 			if ($this->mIsOutTimeStamp[LogColor::eLC_WARN])
 			{
-				$message = UtilStr::Format("{0}: {1}", UtilSysLibWrap.getFormatTime(), $message);
+				$message = UtilStr::Format("{0}: {1}", UtilSysLibWrap::getFormatTime(), $message);
 			}
 
 			if ($this->mIsOutStack[LogColor::eLC_WARN])
@@ -222,7 +222,7 @@ class LogSys
 				$message = string.Format("{0}\n{1}", $message, $traceStr);
 			}
 
-			if (MThread.isMainThread())
+			if (MThread::isMainThread())
 			{
 				$this->logout($message, LogColor::eLC_WARN);
 			}
@@ -270,30 +270,30 @@ class LogSys
 	// 多线程日志
 	protected function asyncLog($message)
 	{
-		$this->mAsyncLogList.add($message);
+		$this->mAsyncLogList->add($message);
 	}
 
 	// 多线程日志
 	protected function asyncWarn($message)
 	{
-		$this->mAsyncWarnList.add($message);
+		$this->mAsyncWarnList->add($message);
 	}
 
 	// 多线程日志
 	protected function asyncError($message)
 	{
-		$this->mAsyncErrorList.add($message);
+		$this->mAsyncErrorList->add($message);
 	}
 
 	public function logout($message, $type = LogColor::eLC_LOG)
 	{
 		if (MacroDef::THREAD_CALLCHECK)
 		{
-			MThread.needMainThread();
+			MThread::needMainThread();
 		}
 
 		$index = 0;
-		$listLen = $this->mLogDeviceList.count();
+		$listLen = $this->mLogDeviceList->count();
 		$logDevice = null;
 
 		while ($index < $listLen)
@@ -309,20 +309,20 @@ class LogSys
 	{
 		if (MacroDef::THREAD_CALLCHECK)
 		{
-			MThread.needMainThread();
+			MThread::needMainThread();
 		}
 
-		while (($this->mTmpStr = $this->mAsyncLogList.removeAt(0)) != UtilStr::msDefaultStr)
+		while (($this->mTmpStr = $this->mAsyncLogList->removeAt(0)) != UtilStr::msDefaultStr)
 		{
 		    $this->logout($this->mTmpStr, LogColor::eLC_LOG);
 		}
 
-		while (($this->mTmpStr = mAsyncWarnList.removeAt(0)) != UtilStr::msDefaultStr)
+		while (($this->mTmpStr = $this->mAsyncWarnList->removeAt(0)) != UtilStr::msDefaultStr)
 		{
 		    $this->logout($this->mTmpStr, LogColor::eLC_WARN);
 		}
 
-		while (($this->mTmpStr = mAsyncErrorList.removeAt(0)) != UtilStr::msDefaultStr)
+		while (($this->mTmpStr = $this->mAsyncErrorList->removeAt(0)) != UtilStr::msDefaultStr)
 		{
 		    $this->logout($this->mTmpStr, LogColor::eLC_ERROR);
 		}
@@ -331,7 +331,7 @@ class LogSys
 	protected function closeDevice()
 	{
 	    $index = 0;
-	    $listLen = $this->mLogDeviceList.count();
+	    $listLen = $this->mLogDeviceList->count();
 	    $logDevice = null;
 	    
 	    while($index < $listLen)

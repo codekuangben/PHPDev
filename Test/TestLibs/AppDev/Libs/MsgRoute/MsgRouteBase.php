@@ -8,7 +8,7 @@ class MsgRouteBase implements IDispatchObject
 	public $mMsgID;          // 只需要一个 ID 就行了
 	public $mIsMainThreadImmeHandle;    // 是否主线程立即处理消息
 
-	public function __construct($id, $type = MsgRouteType.eMRT_BASIC)
+	public function __construct($id, $type = MsgRouteType::eMRT_BASIC)
 	{
 		$this->mMsgType = type;
 		$this->mMsgID = id;

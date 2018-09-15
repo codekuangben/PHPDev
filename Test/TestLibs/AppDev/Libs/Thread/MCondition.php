@@ -25,18 +25,18 @@ class MCondition
 
 	public function wait()
 	{
-	    $this->mMutex.WaitOne();
+	    $this->mMutex->WaitOne();
 	    
 	    if ($this->mCanEnterWait)
 		{
-		    $this->mMutex.ReleaseMutex();   // 这个地方需要释放锁，否则 notifyAll 进不来
-		    $this->mEvent.WaitOne();
-		    $this->mEvent.Reset();      // 重置信号
+		    $this->mMutex->ReleaseMutex();   // 这个地方需要释放锁，否则 notifyAll 进不来
+		    $this->mEvent->WaitOne();
+		    $this->mEvent->Reset();      // 重置信号
 		}
 		else
 		{
 		    $this->mCanEnterWait = true;
-		    $this->mMutex.ReleaseMutex();
+		    $this->mMutex->ReleaseMutex();
 		}
 	}
 
@@ -48,7 +48,7 @@ class MCondition
 		    if ($this->mCanEnterWait) // 如果 mCanEnterWait == false，必然不能进入等待
 			{
 			    $this->mCanEnterWait = false;
-			    $this->mEvent.Set();        // 唤醒线程
+			    $this->mEvent->Set();        // 唤醒线程
 			}
 		}
 	}

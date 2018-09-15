@@ -20,7 +20,7 @@ class Singleton
 	{
 		if (null != $msSingleton)
 		{
-			$msSingleton.dispose();
+			$msSingleton->dispose();
 			$msSingleton= null;
 		}
 	}

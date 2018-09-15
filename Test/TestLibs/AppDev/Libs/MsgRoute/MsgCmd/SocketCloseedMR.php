@@ -6,7 +6,7 @@ class SocketCloseedMR extends MsgRouteBase
 {
 	public function __construct()
 	{
-		parent::__construct(MsgRouteId.eMRIDSocketClosed);
+		parent::__construct(MsgRouteId::eMRIDSocketClosed);
 	}
 }
 

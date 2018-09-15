@@ -14,7 +14,7 @@ class MLock
 		if (MacroDef::NET_MULTHREAD)
 		{
 			$this->mMutex = $mutex;
-			$this->mMutex.WaitOne();
+			$this->mMutex->WaitOne();
 		}
 	}
 
@@ -30,12 +30,12 @@ class MLock
 	// 析构在垃圾回收的时候才会被调用
 	//~MLock()
 	//{
-	//    mMutex.ReleaseMutex();
+	//    mMutex->ReleaseMutex();
 	//}
 
 	//public void unlock()
 	//{
-	//    mMutex.ReleaseMutex();
+	//    mMutex->ReleaseMutex();
 	//}
 }
 

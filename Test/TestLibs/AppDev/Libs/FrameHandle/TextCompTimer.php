@@ -9,7 +9,7 @@ class TextCompTimer extends DaoJiShiTimer
 	protected function onPreCallBack()
 	{
 		parent::onPreCallBack();
-		$this->mText->text = UtilLogic.formatTime((int)$this->mCurRunTime);
+		$this->mText->text = UtilLogic::formatTime((int)$this->mCurRunTime);
 	}
 }
 

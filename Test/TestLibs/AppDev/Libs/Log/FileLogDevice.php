@@ -49,7 +49,7 @@ class FileLogDevice extends  LogDeviceBase
 
 	public function initDevice()
 	{
-	    $path = MFileSys.getWorkPath() . "/Debug";
+	    //$path = MFileSys::getWorkPath() . "/Debug";
 	    $this->checkDirSize($path); // 检查目录大小
 
 		$file = "";
@@ -59,13 +59,13 @@ class FileLogDevice extends  LogDeviceBase
 		}
 		else
 		{
-		    $file = UtilStr::Format("{0}/{1}_{2}{3}{4}{5}", $path, $this->mFilePrefix, $this->mFileSuffix, "_", UtilSysLibWrap::getUTCFormatText(), ".txt");
+		    $file = UtilStr::Format("{0}/{1}_{2}{3}{4}{5}", $path, $this->mFilePrefix, $this->mFileSuffix, "_", UtilSysLibWrap::getUTCFormatText(), "->txt");
 		}
 		
-		if (!Directory.Exists($path))                    // 判断是否存在
-		{
-		    Directory.CreateDirectory($path);            // 创建新路径
-		}
+		//if (!Directory::Exists($path))                    // 判断是否存在
+		//{
+		//    Directory::CreateDirectory($path);            // 创建新路径
+		//}
 
 		if (UtilFileIO::existFile($file))                  // 如果文件存在
 		{
@@ -80,9 +80,9 @@ class FileLogDevice extends  LogDeviceBase
 
 	public function closeDevice()
 	{
-		$this->mStreamWriter.Flush();
+		$this->mStreamWriter->Flush();
 		//关闭流
-		$this->mFileStream.Close();
+		$this->mFileStream->Close();
 		$this->mFileStream = null;
 	}
 

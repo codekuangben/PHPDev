@@ -39,7 +39,7 @@ class EventDispatchFunctionObject extends GObject implements IDelayHandleItem, I
 
 		if($pThis != null)
 		{
-			$ret = UtilSysLibWrap.isAddressEqual($this->mThis, $pThis);
+			$ret = UtilSysLibWrap::isAddressEqual($this->mThis, $pThis);
 
 			if (!$ret)
 			{
@@ -49,7 +49,7 @@ class EventDispatchFunctionObject extends GObject implements IDelayHandleItem, I
 
 		if ($handle != null)
 		{
-			$ret = UtilSysLibWrap.isDelegateEqual($this->mHandle, $handle);
+			$ret = UtilSysLibWrap::isDelegateEqual($this->mHandle, $handle);
 
 			if (!$ret)
 			{

@@ -8,7 +8,7 @@ class LoadedWebResMR extends MsgRouteBase
 
 	public function __construct()
 	{
-		parent::__construct(MsgRouteId.eMRIDLoadedWebRes);
+		parent::__construct(MsgRouteId::eMRIDLoadedWebRes);
 	}
 
 	public function resetDefault()

@@ -25,7 +25,7 @@ class PoolSys
 
 		// 查找
 		$index = 0;
-		$listLen = $this->mPoolList.count();
+		$listLen = $this->mPoolList->count();
 
 		if($listLen > 0)
 		{
@@ -34,9 +34,9 @@ class PoolSys
 			$finded = true;
 
 			$retObj = $tmpObj;
-			$this->mPoolList.removeAt($index);
+			$this->mPoolList->removeAt($index);
 
-			$retObj.resetDefault();
+			$retObj->resetDefault();
 		}
 
 		if (!$finded)
@@ -49,9 +49,9 @@ class PoolSys
 
 	public function deleteObj($obj)
 	{
-		if (!$this->mPoolList.contains($obj))
+		if (!$this->mPoolList->contains($obj))
 		{
-			$this->mPoolList.add($obj);
+			$this->mPoolList->add($obj);
 		}
 	}
 }

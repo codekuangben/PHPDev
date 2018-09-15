@@ -14,11 +14,11 @@ class SysMsgRoute extends LockQueue
 
 	public function pushMsg($msg)
 	{
-		if (msg.isMainThreadImmeHandle())
+	    if ($msg->isMainThreadImmeHandle())
 		{
-			if(MThread.isMainThread())
+			if(MThread::isMainThread())
 			{
-				Ctx::$mInstance->mMsgRouteNotify.handleMsg(msg);
+				Ctx::$mInstance->mMsgRouteNotify->handleMsg(msg);
 			}
 			else
 			{

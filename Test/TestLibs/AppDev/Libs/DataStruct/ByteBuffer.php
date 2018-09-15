@@ -44,7 +44,7 @@ class ByteBuffer implements IDispatchObject
 
 	public function getBytesAvailable()
 	{
-		return ($this->mDynBuffer.getSize() - $this->mPos);
+		return ($this->mDynBuffer->getSize() - $this->mPos);
 	}
 
 	public function getEndian()
@@ -69,7 +69,7 @@ class ByteBuffer implements IDispatchObject
 	
 	public function setLength($value)
 	{
-	    $this->mDynBuffer.setSize($value);
+	    $this->mDynBuffer->setSize($value);
 	}
 
 	public function setPos($pos)
@@ -112,7 +112,7 @@ class ByteBuffer implements IDispatchObject
 
 	protected function extendDeltaCapicity($delta)
 	{
-	    $this->mDynBuffer.extendDeltaCapicity(delta);
+	    $this->mDynBuffer->extendDeltaCapicity(delta);
 	}
 
 	protected function advPos($num)
@@ -257,7 +257,7 @@ class ByteBuffer implements IDispatchObject
 	{
 	    if ($this->canRead(ByteBuffer::msDoubleMemByteNum))
 		{
-			if (mEndian != SystemEndian.msLocalEndian)
+			if ($this->mEndian != SystemEndian::$msLocalEndian)
 			{
 			    UtilList::Copy($this->mDynBuffer->getBuffer(), $this->mPos, $this->mReadDoubleBytes, 0, ByteBuffer::msDoubleMemByteNum);
 			    UtilList::Reverse($this->mReadDoubleBytes, 0, ByteBuffer::msDoubleMemByteNum);
@@ -277,7 +277,7 @@ class ByteBuffer implements IDispatchObject
 
 	public function readMultiByte(&$tmpStr, $len, $encode)
 	{
-	    $charSetStr = UtilSysLibWrap.convEncode2NativeEncodeStr($encode);
+	    $charSetStr = UtilSysLibWrap::convEncode2NativeEncodeStr($encode);
 	    $tmpBytes = "";
 
 		// 如果是 unicode ，需要大小端判断
@@ -333,7 +333,7 @@ class ByteBuffer implements IDispatchObject
 		    $this->extendDeltaCapicity(ByteBuffer::msShortIntMemByteNum);
 		}
 		
-		MBitConverter.GetBytes($value, $this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
+		MBitConverter::GetBytes($value, $this->mDynBuffer->getBuffer(), $this->mPos, $this->mEndian);
 
 		$this->advPosAndLen(ByteBuffer::msShortIntMemByteNum);
 	}
@@ -418,7 +418,7 @@ class ByteBuffer implements IDispatchObject
 		{
 		    UtilList::Reverse($this->mWriteFloatBytes);
 		}
-		UtilList.Copy($this->mWriteFloatBytes, 0, $this->mDynBuffer->getBuffer(), $this->mPos, ByteBuffer::msFloatMemByteNum);
+		UtilList::Copy($this->mWriteFloatBytes, 0, $this->mDynBuffer->getBuffer(), $this->mPos, ByteBuffer::msFloatMemByteNum);
 
 		$this->advPosAndLen(ByteBuffer::msFloatMemByteNum);
 	}
@@ -430,7 +430,7 @@ class ByteBuffer implements IDispatchObject
 		    $this->extendDeltaCapicity(ByteBuffer::msDoubleMemByteNum);
 		}
 
-		$this->mWriteDoubleBytes = System.BitConverter.GetBytes(value);
+		$this->mWriteDoubleBytes = System::BitConverter::GetBytes(value);
 		
 		if ($this->mEndian != SystemEndian::msLocalEndian)
 		{
@@ -467,7 +467,7 @@ class ByteBuffer implements IDispatchObject
 	// 写入字符串
 	//public function writeMultiByte($value, $encode, $len)
 	//{
-	//    $charSetStr = UtilSysLibWrap.convEncode2NativeEncodeStr($encode);
+	//    $charSetStr = UtilSysLibWrap::convEncode2NativeEncodeStr($encode);
 	//	$num = 0;
 
 	//	if (null != $value)
@@ -548,7 +548,7 @@ class ByteBuffer implements IDispatchObject
 	{
 	    if ($this->canRead(ByteBuffer::msCharMemByteNum))
 		{
-		    $tmpBool = System.BitConverter.ToBoolean($this->mDynBuffer->getBuffer(), $this->mPos);
+		    $tmpBool = System::BitConverter::ToBoolean($this->mDynBuffer->getBuffer(), $this->mPos);
 		    $this->advPos(ByteBuffer::msCharMemByteNum);
 		}
 

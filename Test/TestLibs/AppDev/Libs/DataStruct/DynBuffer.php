@@ -83,7 +83,7 @@ class DynBuffer
 
 	public function extendDeltaCapicity($delta)
 	{
-	    $this->setCapacity(DynBufResizePolicy.getCloseSize($this->getSize() + $delta, $this->getCapacity(), $this->getMaxCapacity()));
+	    $this->setCapacity(DynBufResizePolicy::getCloseSize($this->getSize() + $delta, $this->getCapacity(), $this->getMaxCapacity()));
 	}
 }
 

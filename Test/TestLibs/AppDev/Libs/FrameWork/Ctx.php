@@ -117,7 +117,7 @@ class Ctx
 
 		//if(MacroDef::ENABLE_PROFILE)
 		//{
-		//    $this->mProfiler.setIsStartProfile(true);
+		//    $this->mProfiler->setIsStartProfile(true);
 		//}
 	}
 	
@@ -143,33 +143,33 @@ class Ctx
 		}
 		if (null != $this->mGlobalDelegate)
 		{
-			$this->mGlobalDelegate.dispose();
+			$this->mGlobalDelegate->dispose();
 			$this->mGlobalDelegate = null;
 		}
 		if(null != $this->mLogicTickMgr)
 		{
-			$this->mLogicTickMgr.dispose();
+			$this->mLogicTickMgr->dispose();
 			$this->mLogicTickMgr = null;
 		}
 
 		if (null != $this->mDelayTaskMgr)
 		{
-			$this->mDelayTaskMgr.dispose();
+			$this->mDelayTaskMgr->dispose();
 			$this->mDelayTaskMgr = null;
 		}
 		if (null != $this->mIdPoolSys)
 		{
-			$this->mIdPoolSys.dispose();
+			$this->mIdPoolSys->dispose();
 			$this->mIdPoolSys = null;
 		}
 		if (null != $this->mTickMgr)
 		{
-			$this->mTickMgr.dispose();
+			$this->mTickMgr->dispose();
 			$this->mTickMgr = null;
 		}
 		if(null != $this->mProfiler)
 		{
-			$this->mProfiler.dispose();
+			$this->mProfiler->dispose();
 			$this->mProfiler = null;
 		}
 		// 关闭日志设备

@@ -49,18 +49,18 @@ class TickObjectNoPriorityMgr extends DelayNoPriorityHandleMgr implements ITicke
 	protected function onExecAdvance($delta, $tickMode)
 	{
 		$idx = 0;
-		$count = $this->mNoOrPriorityList.count();
+		$count = $this->mNoOrPriorityList->count();
 		$tickObject = null;
 
 		while (idx < count)
 		{
-			$tickObject = $this->mNoOrPriorityList.get(idx);
+			$tickObject = $this->mNoOrPriorityList->get(idx);
 
 			if (null != $tickObject)
 			{
 				if (!$tickObject->isClientDispose())
 				{
-					tickObject.onTick(delta, tickMode);
+				    $tickObject->onTick(delta, tickMode);
 				}
 			}
 			else

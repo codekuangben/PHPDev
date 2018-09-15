@@ -16,17 +16,17 @@ class MEvent
 
 	public function WaitOne()
 	{
-	    $this->mEvent.WaitOne();
+	    $this->mEvent->WaitOne();
 	}
 
 	public function Reset()
 	{
-	    return $this->mEvent.Reset();
+	    return $this->mEvent->Reset();
 	}
 
 	public function Set()
 	{
-	    return $this->mEvent.Set();
+	    return $this->mEvent->Set();
 	}
 }
 

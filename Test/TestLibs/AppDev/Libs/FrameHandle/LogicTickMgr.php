@@ -16,7 +16,7 @@ class LogicTickMgr extends TickMgr
 
 	protected function onExecAdvance($delta, $tickMode)
 	{
-		if($this->mTimeInterval.canExec($delta))
+		if($this->mTimeInterval->canExec($delta))
 		{
 			parent::onExecAdvance($delta, $tickMode);
 		}

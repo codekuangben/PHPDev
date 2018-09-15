@@ -143,13 +143,13 @@ class MList
 
 	public function count()
 	{
-		//return $this->mList.count;
+		//return $this->mList->count;
 		return $this->mEleTotal;
 	}
 
 	public function length()
 	{
-		//return $this->mList.count;
+		//return $this->mList->count;
 		return $this->mEleTotal;
 	}
 

@@ -26,7 +26,7 @@ class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDe
 
 	public function dispose()
 	{
-		$this->mResizeList.clear();
+		$this->mResizeList->clear();
 	}
 
 	public function getWidth()
@@ -75,28 +75,28 @@ class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDe
 
 	public function addResizeObject($obj, $priority = 0)
 	{
-		if (!$this->mResizeList.contains(obj))
+		if (!$this->mResizeList->contains(obj))
 		{
-			$this->mResizeList.add(obj);
+			$this->mResizeList->add(obj);
 		}
 	}
 
 	public function removeResizeObject($obj)
 	{
-		if ($this->mResizeList.indexOf(obj) != -1)
+		if ($this->mResizeList->indexOf(obj) != -1)
 		{
-			$this->mResizeList.remove(obj);
+			$this->mResizeList->remove(obj);
 		}
 	}
 
 	public function onTick($delta, $tickMode)
 	{
 		$this->mPreWidth = $this->mCurWidth;
-		$this->mCurWidth = UtilSysLibWrap.getScreenWidth();
+		$this->mCurWidth = UtilSysLibWrap::getScreenWidth();
 		$this->mCurHalfWidth = $this->mCurWidth / 2;
 
 		$this->mPreHeight = $this->mCurHeight;
-		$this->mCurHeight = UtilSysLibWrap.getScreenHeight();
+		$this->mCurHeight = UtilSysLibWrap::getScreenHeight();
 		$this->mCurHalfHeight = $this->mCurHeight / 2;
 
 		if ($this->mPreWidth != $this->mCurWidth || $this->mPreHeight != $this->mCurHeight)
@@ -115,7 +115,7 @@ class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDe
 		
 		while($indexd < $listLen)
 		{
-			resizeObj.onResize(viewWidth, viewHeight);
+			resizeObj->onResize(viewWidth, viewHeight);
 			
 			$index += 1;
 		}

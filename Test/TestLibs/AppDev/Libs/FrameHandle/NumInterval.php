@@ -17,7 +17,7 @@ class NumInterval
 		$this->mTotalValue = 0;
 		$this->mCurValue = 0;
 
-		$this->mNumIntervalMode = NumIntervalMode.eNIM_Inc;
+		$this->mNumIntervalMode = NumIntervalMode::eNIM_Inc;
 	}
 
 	public function setTotalValue($value)
@@ -32,7 +32,7 @@ class NumInterval
 
 	public function reset()
 	{
-		if (NumIntervalMode.eNIM_Inc == $this->mNumIntervalMode)
+		if (NumIntervalMode::eNIM_Inc == $this->mNumIntervalMode)
 		{
 			$this->mCurValue = 0;
 		}
@@ -46,7 +46,7 @@ class NumInterval
 	{
 		$ret = false;
 
-		if (NumIntervalMode.eNIM_Inc == $this->mNumIntervalMode)
+		if (NumIntervalMode::eNIM_Inc == $this->mNumIntervalMode)
 		{
 			$this->mCurValue += delta;
 

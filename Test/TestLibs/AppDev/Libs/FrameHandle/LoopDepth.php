@@ -53,7 +53,7 @@ class LoopDepth
 
 		if(null != $this->mIncHandle)
 		{
-			$this->mIncHandle.call();
+			$this->mIncHandle->call();
 		}
 	}
 

@@ -28,12 +28,12 @@ class IdPoolSys
 	{
 		$ret = null;
 
-		if ($this->mId2PoolDic.containsKey(id))
+		if ($this->mId2PoolDic->containsKey(id))
 		{
-			if ($this->mId2PoolDic[id].count() > 0)
+			if ($this->mId2PoolDic[id]->count() > 0)
 			{
 				$ret = $this->mId2PoolDic[id][0];
-				$this->mId2PoolDic[id].removeAt(0);
+				$this->mId2PoolDic[id]->removeAt(0);
 			}
 		}
 
@@ -42,15 +42,15 @@ class IdPoolSys
 
 	public function deleteObj($id, $obj)
 	{
-		if(!$this->mId2PoolDic.containsKey($id))
+		if(!$this->mId2PoolDic->containsKey($id))
 		{
 			$this->mId2PoolDic[$id] = new MList();
-			$this->mId2PoolDic[$id].setIsSpeedUpFind(true);
+			$this->mId2PoolDic[$id]->setIsSpeedUpFind(true);
 		}
 
-		if(!$this->mId2PoolDic[$id].contains($obj))
+		if(!$this->mId2PoolDic[$id]->contains($obj))
 		{
-			$this->mId2PoolDic[$id].add($obj);
+			$this->mId2PoolDic[$id]->add($obj);
 		}
 	}
 }

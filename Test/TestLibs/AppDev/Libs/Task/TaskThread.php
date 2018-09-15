@@ -26,24 +26,24 @@ class TaskThread extends MThread
 	{
 	    while (!$this->mIsExitFlag)
 		{
-		    $this->mCurTask = $this->mTaskQueue.pop();
+		    $this->mCurTask = $this->mTaskQueue->pop();
 		    
 		    if($this->mCurTask != null)
 			{
-			    $this->mCurTask.runTask();
+			    $this->mCurTask->runTask();
 			}
 			else
 			{
-			    $this->mCondition.wait();
+			    $this->mCondition->wait();
 			}
 		}
 	}
 
 	public function notifySelf()
 	{
-	    if($this->mCondition.canEnterWait)
+	    if($this->mCondition->canEnterWait)
 		{
-		    $this->mCondition.notifyAll();
+		    $this->mCondition->notifyAll();
 			return true;
 		}
 

@@ -11,7 +11,7 @@ class GCAutoCollect
 	// 收集垃圾
 	public function Collect()
 	{
-		UtilSysLibWrap.ImmeUnloadUnusedAssets();
+		UtilSysLibWrap::ImmeUnloadUnusedAssets();
 	}
 }
 

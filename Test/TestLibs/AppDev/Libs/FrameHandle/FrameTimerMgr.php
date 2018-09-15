@@ -29,7 +29,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 	protected function addObject($delayObject, $priority = 0.0)
 	{
 		// 检查当前是否已经在队列中
-		if (!$this->mTimerList.contains($delayObject))
+		if (!$this->mTimerList->contains($delayObject))
 		{
 			if ($this->isInDepth())
 			{
@@ -37,7 +37,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 			}
 			else
 			{
-				$this->mTimerList.add($delayObject);
+				$this->mTimerList->add($delayObject);
 			}
 		}
 	}
@@ -45,7 +45,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 	protected function removeObject($delayObject)
 	{
 		// 检查当前是否在队列中
-		if ($this->mTimerList.contains($delayObject))
+		if ($this->mTimerList->contains($delayObject))
 		{
 			$delayObject->mDisposed = true;
 
@@ -65,7 +65,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 					
 					if(UtilSysLibWrap::isAddressEqual($item, $delayObject))
 					{
-						$this->mTimerList.remove($item);
+						$this->mTimerList->remove($item);
 						break;
 					}
 					

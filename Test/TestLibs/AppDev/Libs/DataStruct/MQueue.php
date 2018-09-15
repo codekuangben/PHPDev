@@ -13,22 +13,22 @@ class MQueue
 
 	public function count()
 	{
-		return $this->mQueue.count;
+		return $this->mQueue->count;
 	}
 
 	public function Dequeue()
 	{
-		return $this->mQueue.Dequeue();
+		return $this->mQueue->Dequeue();
 	}
 
 	public function Enqueue($item)
 	{
-		$this->mQueue.Enqueue($item);
+		$this->mQueue->Enqueue($item);
 	}
 
 	public function Peek()
 	{
-		return $this->mQueue.Peek();
+		return $this->mQueue->Peek();
 	}
 }
 

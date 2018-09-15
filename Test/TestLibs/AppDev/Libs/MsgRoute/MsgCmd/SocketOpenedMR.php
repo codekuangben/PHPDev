@@ -6,7 +6,7 @@ class SocketOpenedMR extends MsgRouteBase
 {
 	public function __construct()
 	{
-		parent::__construct(MsgRouteId.eMRIDSocketOpened);
+		parent::__construct(MsgRouteId::eMRIDSocketOpened);
 	}
 }
 

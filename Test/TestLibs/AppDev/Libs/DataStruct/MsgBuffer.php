@@ -34,8 +34,8 @@ class MsgBuffer
 	// 设置网络字节序
 	public function setEndian($endian)
 	{
-		$this->mHeaderBA.setEndian($endian);
-		$this->mMsgBodyBA.setEndian($endian);
+		$this->mHeaderBA->setEndian($endian);
+		$this->mMsgBodyBA->setEndian($endian);
 	}
 
 	/**
@@ -43,9 +43,9 @@ class MsgBuffer
 	 */
 	protected function checkHasMsg()
 	{
-		$this->mCircularBuffer.frontBA($this->mHeaderBA, MsgCV::HEADER_SIZE);  // 将数据读取到 mHeaderBA
+		$this->mCircularBuffer->frontBA($this->mHeaderBA, MsgCV::HEADER_SIZE);  // 将数据读取到 mHeaderBA
 		$msglen = 0;
-		$this->mHeaderBA.readUnsignedInt32($this->msglen);
+		$this->mHeaderBA->readUnsignedInt32($this->msglen);
 		
 		if (MacroDef::MSG_COMPRESS)
 		{
@@ -54,7 +54,7 @@ class MsgBuffer
 				$msglen &= (~MsgCV::PACKET_ZIP);         // 去掉压缩标志位
 			}
 		}
-		if ($msglen <= $this->mCircularBuffer.size - MsgCV::HEADER_SIZE)
+		if ($msglen <= $this->mCircularBuffer->size - MsgCV::HEADER_SIZE)
 		{
 			return true;
 		}
@@ -71,24 +71,24 @@ class MsgBuffer
 	{
 		$ret = false;
 		
-		if ($this->mCircularBuffer.size > MsgCV::HEADER_SIZE)         // 至少要是 DataCV.HEADER_SIZE 大小加 1 ，如果正好是 DataCV.HEADER_SIZE ，那只能说是只有大小字段，没有内容
+		if ($this->mCircularBuffer->size > MsgCV::HEADER_SIZE)         // 至少要是 DataCV->HEADER_SIZE 大小加 1 ，如果正好是 DataCV->HEADER_SIZE ，那只能说是只有大小字段，没有内容
 		{
-			$this->mCircularBuffer.frontBA($this->mHeaderBA, MsgCV::HEADER_SIZE);  // 如果不够整个消息的长度，还是不能去掉消息头的
+			$this->mCircularBuffer->frontBA($this->mHeaderBA, MsgCV::HEADER_SIZE);  // 如果不够整个消息的长度，还是不能去掉消息头的
 			$msglen = 0;
-			$this->mHeaderBA.readUnsignedInt32($this->msglen);
+			$this->mHeaderBA->readUnsignedInt32($this->msglen);
 			
 			if (MacroDef::MSG_COMPRESS)
 			{
-				if (($msglen & MsgCV.PACKET_ZIP) > 0)         // 如果有压缩标志
+				if (($msglen & MsgCV::PACKET_ZIP) > 0)         // 如果有压缩标志
 				{
-					$msglen &= (~MsgCV.PACKET_ZIP);         // 去掉压缩标志位
+					$msglen &= (~MsgCV::PACKET_ZIP);         // 去掉压缩标志位
 				}
 			}
 
-			if (msglen <= $this->mCircularBuffer.size - MsgCV::HEADER_SIZE)
+			if (msglen <= $this->mCircularBuffer->size - MsgCV::HEADER_SIZE)
 			{
-				$this->mCircularBuffer.popFrontLen(MsgCV::HEADER_SIZE);
-				$this->mCircularBuffer.popFrontBA($this->mMsgBodyBA, msglen);
+				$this->mCircularBuffer->popFrontLen(MsgCV::HEADER_SIZE);
+				$this->mCircularBuffer->popFrontBA($this->mMsgBodyBA, msglen);
 				$ret = true;
 			}
 		}
@@ -111,9 +111,9 @@ class MsgBuffer
 		if (!$this->mCircularBuffer->empty())
 		{
 			$ret = true;
-			$this->mCircularBuffer.linearize();
-			$this->mCircularBuffer.popFrontBA($this->mMsgBodyBA, $this->mCircularBuffer.size);
-			$this->mCircularBuffer.clear();
+			$this->mCircularBuffer->linearize();
+			$this->mCircularBuffer->popFrontBA($this->mMsgBodyBA, $this->mCircularBuffer->size);
+			$this->mCircularBuffer->clear();
 		}
 
 		return $ret;

@@ -23,7 +23,7 @@ class NetCmdDispatchHandle implements ICalleeObject
 
 	public function addParamHandle($paramId, $handle)
 	{
-	    if(!$this->mId2HandleDic.containsKey($paramId))
+	    if(!$this->mId2HandleDic->containsKey($paramId))
 		{
 		    $this->mId2HandleDic[paramId] = new AddOnceEventDispatch();   
 		}
@@ -31,14 +31,14 @@ class NetCmdDispatchHandle implements ICalleeObject
 		{
 		}
 
-		$this->mId2HandleDic[paramId].addEventHandle(null, $handle);
+		$this->mId2HandleDic[paramId]->addEventHandle(null, $handle);
 	}
 
 	public function removeParamHandle($paramId, $handle)
 	{
-	    if($this->mId2HandleDic.containsKey($paramId))
+	    if($this->mId2HandleDic->containsKey($paramId))
 		{
-		    $this->mId2HandleDic[$paramId].removeEventHandle(null, $handle);
+		    $this->mId2HandleDic[$paramId]->removeEventHandle(null, $handle);
 		}
 		else
 		{
@@ -52,9 +52,9 @@ class NetCmdDispatchHandle implements ICalleeObject
 
 	public function handleMsg($cmd)
 	{
-	    if($this->mId2HandleDic.containsKey($cmd.byParam))
+	    if($this->mId2HandleDic->containsKey($cmd->byParam))
 		{
-		    $this->mId2HandleDic[$cmd.byParam].dispatchEvent($cmd.bu);
+		    $this->mId2HandleDic[$cmd->byParam]->dispatchEvent($cmd->bu);
 		}
 		else
 		{

@@ -29,7 +29,7 @@ class TimerMgr extends DelayPriorityHandleMgrBase
 	protected function addObject($delayObject, $priority = 0.0)
 	{
 		// 检查当前是否已经在队列中
-		if (!$this->mTimerList.contains($delayObject))
+		if (!$this->mTimerList->contains($delayObject))
 		{
 			if ($this->isInDepth())
 			{
@@ -37,7 +37,7 @@ class TimerMgr extends DelayPriorityHandleMgrBase
 			}
 			else
 			{
-				$this->mTimerList.add($delayObject);
+				$this->mTimerList->add($delayObject);
 			}
 		}
 	}
@@ -45,7 +45,7 @@ class TimerMgr extends DelayPriorityHandleMgrBase
 	protected function removeObject($delayObject)
 	{
 		// 检查当前是否在队列中
-		if ($this->mTimerList.contains($delayObject))
+		if ($this->mTimerList->contains($delayObject))
 		{
 			$delayObject->mDisposed = true;
 
@@ -96,16 +96,16 @@ class TimerMgr extends DelayPriorityHandleMgrBase
 		
 		while($index < $listLen)
 		{
-			$item = $this->mTimerList->get($index);
+		    $timerItem = $this->mTimerList->get($index);
 			
-			if (!timerItem.isClientDispose())
+		    if (!$timerItem->isClientDispose())
 			{
-				timerItem.OnTimer(delta);
+			    $timerItem->OnTimer($delta);
 			}
 
-			if (timerItem.mDisposed)        // 如果已经结束
+			if ($timerItem->mDisposed)        // 如果已经结束
 			{
-				$this->removeObject(timerItem);
+			    $this->removeObject($timerItem);
 			}
 			
 			$index += 1;

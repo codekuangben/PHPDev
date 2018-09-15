@@ -32,7 +32,7 @@ class TimerItemBase implements IDelayHandleItem, IDispatchObject
 
 	public function setFuncObject($handle)
 	{
-		$this->mTimerDisp.setFuncObject($handle);
+		$this->mTimerDisp->setFuncObject($handle);
 	}
 
 	public function setTotalTime($value)
@@ -119,9 +119,9 @@ class TimerItemBase implements IDelayHandleItem, IDispatchObject
 			$this->mIntervalLeftTime = $this->mIntervalLeftTime - $this->mInternal;
 			$this->onPreCallBack();
 
-			if ($this->mTimerDisp.isValid())
+			if ($this->mTimerDisp->isValid())
 			{
-				$this->mTimerDisp.call($this);
+				$this->mTimerDisp->call($this);
 			}
 		}
 	}
@@ -132,9 +132,9 @@ class TimerItemBase implements IDelayHandleItem, IDispatchObject
 		$this->mCurCallTime = $this->mTotalTime;
 		$this->onPreCallBack();
 
-		if ($this->mTimerDisp.isValid())
+		if ($this->mTimerDisp->isValid())
 		{
-			$this->mTimerDisp.call($this);
+			$this->mTimerDisp->call($this);
 		}
 	}
 
@@ -160,9 +160,9 @@ class TimerItemBase implements IDelayHandleItem, IDispatchObject
 			$this->mIntervalLeftTime = $this->mIntervalLeftTime - $this->mInternal;
 			$this->onPreCallBack();
 
-			if ($this->mTimerDisp.isValid())
+			if ($this->mTimerDisp->isValid())
 			{
-				$this->mTimerDisp.call($this);
+				$this->mTimerDisp->call($this);
 			}
 		}
 	}
@@ -177,9 +177,9 @@ class TimerItemBase implements IDelayHandleItem, IDispatchObject
 			$this->mIntervalLeftTime = $this->mIntervalLeftTime % $this->mInternal;   // 只保留余数
 			$this->onPreCallBack();
 
-			if ($this->mTimerDisp.isValid())
+			if ($this->mTimerDisp->isValid())
 			{
-				$this->mTimerDisp.call($this);
+				$this->mTimerDisp->call($this);
 			}
 		}
 	}

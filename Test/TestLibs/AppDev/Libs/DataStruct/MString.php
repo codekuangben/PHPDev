@@ -51,13 +51,13 @@ class MString
 	// 回去内部表示的字符串
 	public function getInterStr()
 	{
-		if ($this->mStrLen == $this->mNativeStr.Length)
+		if ($this->mStrLen == $this->mNativeStr->Length)
 		{
 			return $this->mNativeStr;
 		}
 		else
 		{
-			return $this->mNativeStr.Substring($this->mStartIndex, $this->mStrLen);
+			return $this->mNativeStr->Substring($this->mStartIndex, $this->mStrLen);
 		}
 	}
 
@@ -65,14 +65,14 @@ class MString
 	{
 		$this->mNativeStr = str;
 		$this->mStartIndex = 0;
-		$this->mStrLen = $this->mNativeStr.Length;
+		$this->mStrLen = $this->mNativeStr->Length;
 	}
 
 	public function copyFrom($rhv)
 	{
-		$this->mNativeStr = rhv.getNativeStr();
-		$this->mStartIndex = rhv.getStartIndex();
-		$this->mStrLen = rhv.getStrLen();
+		$this->mNativeStr = rhv->getNativeStr();
+		$this->mStartIndex = rhv->getStartIndex();
+		$this->mStrLen = rhv->getStrLen();
 	}
 
 	public function indexOf($findChar)
@@ -132,7 +132,7 @@ class MString
 
 		if ($startIndex + $length <= $this->mStrLen)
 		{
-			$ret.setStrLen($length);
+			$ret->setStrLen($length);
 		}
 		else
 		{
@@ -149,7 +149,7 @@ class MString
 
 		if ($startIndex >= 0 && $startIndex < $this->mStrLen)
 		{
-			$ret.setStartIndex($this->mStartIndex + $startIndex);
+			$ret->setStartIndex($this->mStartIndex + $startIndex);
 		}
 		else
 		{

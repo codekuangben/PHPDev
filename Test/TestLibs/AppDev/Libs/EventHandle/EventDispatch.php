@@ -73,7 +73,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		}
 		else
 		{
-		    Ctx::$msInstance.mLogSys("EventDispatch::addEventHandle error", LogTypeId::eLogEventDispatch);
+		    Ctx::$msInstance->mLogSys("EventDispatch::addEventHandle error", LogTypeId::eLogEventDispatch);
 		}
 	}
 
@@ -124,7 +124,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		}
 		else
 		{
-			if (!$this->mHandleList.remove($delayObject))
+			if (!$this->mHandleList->remove($delayObject))
 			{
 			
 			}
@@ -157,7 +157,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		//}
 		//catch (Exception ex)
 		//{
-		//    Ctx::$mInstance->mLogSys->catchLog(ex.ToString());
+		//    Ctx::$mInstance->mLogSys->catchLog(ex->ToString());
 		//}
 	}
 
@@ -218,7 +218,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		{
 			$handle = $this->mHandleList[idx];
 
-			$this->mHandleList.add($handle);
+			$this->mHandleList->add($handle);
 
 			++$idx;
 		}
@@ -226,7 +226,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 
 	public function hasEventHandle()
 	{
-		return $this->mHandleList.count() > 0;
+		return $this->mHandleList->count() > 0;
 	}
 
 	public function getEventHandleCount()

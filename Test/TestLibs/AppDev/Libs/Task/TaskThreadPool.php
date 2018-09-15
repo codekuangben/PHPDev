@@ -18,8 +18,8 @@ class TaskThreadPool
 		
 		for($idx = 0; $idx < $numThread; ++$idx)
 		{
-		    $this->mList.add(new TaskThread(UtilStr::Format("TaskThread{0}", idx), $taskQueue));
-		    $this->mList[$idx].start();
+		    $this->mList->add(new TaskThread(UtilStr::Format("TaskThread{0}", idx), $taskQueue));
+		    $this->mList[$idx]->start();
 		}
 	}
 
@@ -33,7 +33,7 @@ class TaskThreadPool
 	    {
 	        $item = $this->mList->get($index);
 	        
-	        if($item.notifySelf())       // 如果唤醒某个线程就退出，如果一个都没有唤醒，说明当前线程都比较忙，需要等待
+	        if($item->notifySelf())       // 如果唤醒某个线程就退出，如果一个都没有唤醒，说明当前线程都比较忙，需要等待
 	        {
 	            break;
 	        }

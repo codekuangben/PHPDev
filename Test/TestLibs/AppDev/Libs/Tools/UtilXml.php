@@ -9,13 +9,13 @@ class UtilXml
 
 	public static function getXmlAttrBool($xmlElement, $attrName, $ret)
 	{
-		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.containsKey($attrName))
+		if (null != $xmlElement && null != $xmlElement->Attributes && $xmlElement->Attributes->containsKey($attrName))
 		{
-			if (UtilSysLibWrap.TRUE == $xmlElement.Attribute($attrName))
+			if (UtilSysLibWrap->TRUE == $xmlElement->Attribute($attrName))
 			{
 			    $ret = true;
 			}
-			else if (UtilSysLibWrap.FALSE == $xmlElement.Attribute($attrName))
+			else if (UtilSysLibWrap::FALSE == $xmlElement->Attribute($attrName))
 			{
 			    $ret = false;
 			}
@@ -33,9 +33,9 @@ class UtilXml
 
 	public static function getXmlAttrStr($xmlElement, $attrName, $ret)
 	{
-		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.containsKey($attrName))
+		if (null != $xmlElement && null != $xmlElement->Attributes && $xmlElement->Attributes->containsKey($attrName))
 		{
-		    $ret =  $xmlElement.Attribute($attrName);
+		    $ret =  $xmlElement->Attribute($attrName);
 			return XML_OK;
 		}
 
@@ -45,9 +45,9 @@ class UtilXml
 
 	public static function getXmlAttrUShort($xmlElement, $attrName, $ret)
 	{
-		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.containsKey($attrName))
+		if (null != $xmlElement && null != $xmlElement->Attributes && $xmlElement->Attributes->containsKey($attrName))
 		{
-		    ushort.TryParse($xmlElement.Attribute($attrName), $ret);
+		    ushort->TryParse($xmlElement->Attribute($attrName), $ret);
 			return XML_OK;
 		}
 
@@ -57,9 +57,9 @@ class UtilXml
 
 	public static function getXmlAttrInt($xmlElement, $attrName, $ret)
 	{
-		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.containsKey($attrName))
+		if (null != $xmlElement && null != $xmlElement->Attributes && $xmlElement->Attributes->containsKey($attrName))
 		{
-		    short.TryParse($xmlElement.Attribute($attrName), $ret);
+		    short->TryParse($xmlElement->Attribute($attrName), $ret);
 			return XML_OK;
 		}
 
@@ -69,9 +69,9 @@ class UtilXml
 
 	public static function getXmlAttrUInt($xmlElement, $attrName, $ret)
 	{
-		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.containsKey($attrName))
+		if (null != $xmlElement && null != $xmlElement->Attributes && $xmlElement->Attributes->containsKey($attrName))
 		{
-		    uint.TryParse($xmlElement.Attribute($attrName), $ret);
+		    uint->TryParse($xmlElement->Attribute($attrName), $ret);
 			return XML_OK;
 		}
 
@@ -81,9 +81,9 @@ class UtilXml
 
 	public static function getXmlAttrInt($xmlElement, $attrName, $ret)
 	{
-		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.containsKey($attrName))
+		if (null != $xmlElement && null != $xmlElement->Attributes && $xmlElement->Attributes->containsKey($attrName))
 		{
-		    int.TryParse($xmlElement.Attribute($attrName), $ret);
+		    int->TryParse($xmlElement->Attribute($attrName), $ret);
 			return XML_OK;
 		}
 
@@ -93,9 +93,9 @@ class UtilXml
 
 	public static function getXmlAttrFloat($xmlElement, $attrName, $ret)
 	{
-		if (null != $xmlElement && null != $xmlElement.Attributes && $xmlElement.Attributes.containsKey($attrName))
+		if (null != $xmlElement && null != $xmlElement->Attributes && $xmlElement->Attributes->containsKey($attrName))
 		{
-		    float.TryParse($xmlElement.Attribute($attrName), $ret);
+		    float->TryParse($xmlElement->Attribute($attrName), $ret);
 			return XML_OK;
 		}
 
@@ -109,31 +109,31 @@ class UtilXml
 		if (null != $xmlElement)
 		{
 			$idx = 0;
-			$len = $xmlElement.Children.count;
+			$len = $xmlElement->Children->count;
 			$child = null;
 
-			//foreach (SecurityElement child in $xmlElement.Children)
+			//foreach (SecurityElement child in $xmlElement->Children)
 			while($idx < $len)
 			{
-				$child = $xmlElement.Children[idx];
+				$child = $xmlElement->Children[idx];
 
 				//比对下是否使自己所需要得节点
-				if (child.Tag == $attrName)
+				if (child->Tag == $attrName)
 				{
-					$list.add(child);
+					$list->add(child);
 				}
 
 				++$idx;
 			}
 		}
 
-		if ($list.count > 0)
+		if ($list->count > 0)
 		{
 			return XML_OK;
 		}
 		else
 		{
-			$list.clear();
+			$list->clear();
 			return XML_FAIL;
 		}
 	}
@@ -144,16 +144,16 @@ class UtilXml
 		if (null != $xmlElement)
 		{
 			$idx = 0;
-			$len = $xmlElement.Children.count;
+			$len = $xmlElement->Children->count;
 			$child = null;
 
-			//foreach (SecurityElement child in $xmlElement.Children)
+			//foreach (SecurityElement child in $xmlElement->Children)
 			while($idx < $len)
 			{
-				$child = $xmlElement.Children[idx];
+				$child = $xmlElement->Children[idx];
 
 				//比对下是否使自己所需要得节点
-				if ($child.Tag == $attrName)
+				if ($child->Tag == $attrName)
 				{
 					$childNode = $child;
 					return XML_OK;
@@ -172,7 +172,7 @@ class UtilXml
 	{
 		$objElem = null;
 
-		if (string.IsNullOrEmpty($itemNode))
+		if (string->IsNullOrEmpty($itemNode))
 		{
 			$objElem = $xmlElement;
 		}
@@ -181,15 +181,15 @@ class UtilXml
 			UtilXml::getXmlChild($xmlElement, $itemNode, $objElem);
 		}
 
-		$list = $objElem.Children;
+		$list = $objElem->Children;
 
 		return XML_OK;
 	}
 
-	// 获取一个 Element 中对应目录是 pathListStr 的列表，目录个是为 "aaa.bbb.ccc"
+	// 获取一个 Element 中对应目录是 pathListStr 的列表，目录个是为 "aaa->bbb->ccc"
 	public static function getXmlChildListByPath($xmlElement, $pathListStr, $list)
 	{
-		$pathList = UtilStr.split($pathListStr, '.');
+		$pathList = UtilStr->split($pathListStr, '->');
 		$curName = "";
 		$curElement = $xmlElement;  // 当前元素
 
@@ -215,14 +215,14 @@ class UtilXml
 			if (null != $curElement)
 			{
 				$childIdx = 0;
-				$childLen = $curElement.Children.count;
+				$childLen = $curElement->Children->count;
 
 				while ($childIdx < $childLen)
 				{
-					$child = $curElement.Children[childIdx];
+					$child = $curElement->Children[childIdx];
 
 					//比对下是否使自己所需要得节点
-					if ($child.Tag == $curName)
+					if ($child->Tag == $curName)
 					{
 						if (!$isLastOne)
 						{
@@ -231,7 +231,7 @@ class UtilXml
 						}
 						else
 						{
-							$list.add($child);
+							$list->add($child);
 						}
 					}
 
@@ -242,13 +242,13 @@ class UtilXml
 			++$elemIdx;
 		}
 
-		if ($list.count > 0)
+		if ($list->count > 0)
 		{
 			return XML_OK;
 		}
 		else
 		{
-			$list.clear();
+			$list->clear();
 			return XML_FAIL;
 		}
 	}

@@ -16,7 +16,7 @@ class TaskQueue extends LockQueue
 	    parent::push($item);
 
 		// 检查是否有线程空闲，如果有就唤醒
-		$this->mTaskThreadPool.notifyIdleThread();
+		$this->mTaskThreadPool->notifyIdleThread();
 	}
 }
 

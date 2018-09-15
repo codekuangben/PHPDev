@@ -30,23 +30,23 @@ class MFileStream extends GObject
 	/**
 	 * @brief 仅支持同步操作，目前无视参数 isSyncMode 和 evtDisp。FileMode.CreateNew 如果文件已经存在就抛出异常，FileMode.Append 和 FileAccess.Write 要同时使用
 	 */
-	public function __construct($filePath, $openedHandle = null, $mode = FileMode.Open, $access = FileAccess.Read)
+	public function __construct($filePath, $openedHandle = null, $mode = FileMode::Open, $access = FileAccess->Read)
 	{
 		$this->mTypeId = "MFileStream";
 
 		$this->mFilePath = filePath;
 		$this->mMode = mode;
 		$this->mAccess = access;
-		$this->mFileOpState = eFileOpState.eNoOp;
+		$this->mFileOpState = eFileOpState::eNoOp;
 
 		$this->checkAndOpen(openedHandle);
 	}
 
 	public function seek($offset, $origin)
 	{
-		if($this->mFileOpState == eFileOpState.eOpenSuccess)
+		if($this->mFileOpState == eFileOpState->eOpenSuccess)
 		{
-			$this->mFileStream.Seek(offset, origin);
+			$this->mFileStream->Seek(offset, origin);
 		}
 	}
 
@@ -57,7 +57,7 @@ class MFileStream extends GObject
 			$this->mOpenedEventDispatch = new AddOnceAndCallOnceEventDispatch();
 		}
 
-		$this->mOpenedEventDispatch.addEventHandle(null, openedDisp);
+		$this->mOpenedEventDispatch->addEventHandle(null, openedDisp);
 	}
 
 	public function dispose()
@@ -67,18 +67,18 @@ class MFileStream extends GObject
 
 	protected function syncOpenFileStream()
 	{
-		if ($this->mFileOpState == eFileOpState.eNoOp)
+		if ($this->mFileOpState == eFileOpState::eNoOp)
 		{
-			$this->mFileOpState = eFileOpState.eOpening;
+			$this->mFileOpState = eFileOpState::eOpening;
 
 			try
 			{
 			    $this->mFileStream = fopen($this->mFilePath, $this->mMode, $this->mAccess);
-				$this->mFileOpState = eFileOpState.eOpenSuccess;
+				$this->mFileOpState = eFileOpState::eOpenSuccess;
 			}
 			catch(\Exception $exp)
 			{
-				$this->mFileOpState = eFileOpState.eOpenFail;
+				$this->mFileOpState = eFileOpState::eOpenFail;
 			}
 
 			$this->onAsyncOpened();
@@ -90,7 +90,7 @@ class MFileStream extends GObject
 	{
 		if ($this->mOpenedEventDispatch != null)
 		{
-			$this->mOpenedEventDispatch.dispatchEvent(this);
+			$this->mOpenedEventDispatch->dispatchEvent(this);
 		}
 	}
 
@@ -101,7 +101,7 @@ class MFileStream extends GObject
 			$this->addOpenedHandle(openedHandle);
 		}
 
-		if ($this->mFileOpState == eFileOpState.eNoOp)
+		if ($this->mFileOpState == eFileOpState::eNoOp)
 		{
 			$this->syncOpenFileStream();
 		}
@@ -109,7 +109,7 @@ class MFileStream extends GObject
 
 	public function isValid()
 	{
-		return $this->mFileOpState == eFileOpState.eOpenSuccess;
+		return $this->mFileOpState == eFileOpState::eOpenSuccess;
 	}
 
 	// 获取总共长度
@@ -117,19 +117,19 @@ class MFileStream extends GObject
 	{
 		$len = 0;
 
-		if ($this->mFileOpState == eFileOpState.eOpenSuccess)
+		if ($this->mFileOpState == eFileOpState::eOpenSuccess)
 		{
 			if ($this->mFileStream != null)
 			{
-				$len = $this->mFileStream.Length;
+				$len = $this->mFileStream->Length;
 			}
 			/*
-			if (mFileStream != null && mFileStream.CanSeek)
+			if (mFileStream != null && mFileStream->CanSeek)
 			{
 				try
 				{
-					len = (int)mFileStream.Seek(0, SeekOrigin.End);     // 移动到文件结束，返回长度
-					len = (int)mFileStream.Position;                    // Position 移动到 Seek 位置
+					len = (int)mFileStream->Seek(0, SeekOrigin::End);     // 移动到文件结束，返回长度
+					len = (int)mFileStream->Position;                    // Position 移动到 Seek 位置
 				}
 				catch(Exception exp)
 				{
@@ -143,17 +143,17 @@ class MFileStream extends GObject
 
 	protected function close()
 	{
-		if ($this->mFileOpState == eFileOpState.eOpenSuccess)
+		if ($this->mFileOpState == eFileOpState::eOpenSuccess)
 		{
 			if ($this->mFileStream != null)
 			{
-				$this->mFileStream.Close();
-				$this->mFileStream.Dispose();
+				$this->mFileStream->Close();
+				$this->mFileStream->Dispose();
 				$this->mFileStream = null;
 			}
 
-			$this->mFileOpState = eFileOpState.eOpenClose;
-			$this->mFileOpState = eFileOpState.eNoOp;
+			$this->mFileOpState = eFileOpState::eOpenClose;
+			$this->mFileOpState = eFileOpState::eNoOp;
 		}
 	}
 
@@ -166,7 +166,7 @@ class MFileStream extends GObject
 
 		if ($encode == null)
 		{
-			$encode = Encoding.UTF8;
+			$encode = Encoding::UTF8;
 		}
 
 		if ($count == 0)
@@ -174,16 +174,16 @@ class MFileStream extends GObject
 			$count = getLength();
 		}
 
-		if ($this->mFileOpState == eFileOpState.eOpenSuccess)
+		if ($this->mFileOpState == eFileOpState::eOpenSuccess)
 		{
-			if ($this->mFileStream.CanRead)
+			if ($this->mFileStream->CanRead)
 			{
 				try
 				{
 					//$bytes = new byte[$count];
-					$this->mFileStream.Read(bytes, 0, count);
+					$this->mFileStream->Read(bytes, 0, count);
 
-					$retStr = encode.GetString(bytes);
+					$retStr = encode->GetString(bytes);
 				}
 				catch (\Exception $err)
 				{
@@ -206,12 +206,12 @@ class MFileStream extends GObject
 
 		$bytes = null;
 
-		if ($this->mFileStream.CanRead)
+		if ($this->mFileStream->CanRead)
 		{
 			try
 			{
 				//$bytes = new byte[count];
-				$this->mFileStream.Read(bytes, 0, count);
+				$this->mFileStream->Read(bytes, 0, count);
 			}
 			catch (\Exception $err)
 			{
@@ -222,25 +222,25 @@ class MFileStream extends GObject
 		return $bytes;
 	}
 
-	public function writeText($text, $gkEncode = MEncode.eUTF8)
+	public function writeText($text, $gkEncode = MEncode::eUTF8)
 	{
-		$encode = UtilSysLibWrap.convGkEncode2EncodingEncoding(gkEncode);
+		$encode = UtilSysLibWrap::convGkEncode2EncodingEncoding(gkEncode);
 
 		$this->checkAndOpen();
 
-		if ($this->mFileStream.CanWrite)
+		if ($this->mFileStream->CanWrite)
 		{
 			//if (encode == null)
 			//{
-			//    encode = MEncode.UTF8;
+			//    encode = MEncode->UTF8;
 			//}
 
-			$bytes = encode.GetBytes(text);
+			$bytes = encode->GetBytes(text);
 			if (bytes != null)
 			{
 				try
 				{
-					$this->mFileStream.Write(bytes, 0, bytes.Length);
+					$this->mFileStream->Write(bytes, 0, bytes->Length);
 				}
 				catch (\Exception $err)
 				{
@@ -254,20 +254,20 @@ class MFileStream extends GObject
 	{
 		$this->checkAndOpen();
 
-		if ($this->mFileStream.CanWrite)
+		if ($this->mFileStream->CanWrite)
 		{
 			if (bytes != null)
 			{
 				if (count == 0)
 				{
-					$count = bytes.Length;
+					$count = bytes->Length;
 				}
 
 				if (count != 0)
 				{
 					try
 					{
-						$this->mFileStream.Write(bytes, offset, count);
+						$this->mFileStream->Write(bytes, offset, count);
 					}
 					catch (\Exception $err)
 					{
@@ -278,9 +278,9 @@ class MFileStream extends GObject
 		}
 	}
 
-	public function writeLine($text, $gkEncode = MEncode.eUTF8)
+	public function writeLine($text, $gkEncode = MEncode::eUTF8)
 	{
-		$text = $text + UtilSysLibWrap.CR_LF;
+		$text = $text + UtilSysLibWrap::CR_LF;
 		writeText($text, gkEncode);
 	}
 }

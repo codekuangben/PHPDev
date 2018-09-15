@@ -32,17 +32,17 @@ class NetCmdNotify
 
 	public function addOneNofity($disp)
 	{
-		if ($this->mNetModuleDispList.indexOf($disp) == -1)
+		if ($this->mNetModuleDispList->indexOf($disp) == -1)
 		{
-			$this->mNetModuleDispList.add($disp);
+			$this->mNetModuleDispList->add($disp);
 		}
 	}
 
 	public function removeOneNotify($disp)
 	{
-		if ($this->mNetModuleDispList.indexOf($disp) != -1)
+		if ($this->mNetModuleDispList->indexOf($disp) != -1)
 		{
-			$this->mNetModuleDispList.remove($disp);
+			$this->mNetModuleDispList->remove($disp);
 		}
 	}
 
@@ -51,23 +51,23 @@ class NetCmdNotify
 		//if (false == mIsStopNetHandle)  // 如果没有停止网络处理
 		//{
 		$byCmd = 0;
-		$msg.readUnsignedInt8($byCmd);
+		$msg->readUnsignedInt8($byCmd);
 		$byParam = 0;
-		$msg.readUnsignedInt8($byParam);
-		$msg.setPos(0);
+		$msg->readUnsignedInt8($byParam);
+		$msg->setPos(0);
 
 		$mCmdDispInfo->bu = $msg;
 		$mCmdDispInfo->byCmd = $byCmd;
 		$mCmdDispInfo->byParam = $byParam;
 
 		$index = 0;
-		$listLen = $this->mNetModuleDispList.count();
+		$listLen = $this->mNetModuleDispList->count();
 		$item = null;
 		
 		while ($index < $listLen)
 		{
-		    $item = $this->mNetModuleDispList.get($index);
-			$item.handleMsg($this->mCmdDispInfo);
+		    $item = $this->mNetModuleDispList->get($index);
+			$item->handleMsg($this->mCmdDispInfo);
 			
 			$index += 1;
 		}

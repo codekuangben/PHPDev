@@ -105,7 +105,7 @@ class UtilStr
 	    
 	    while($index < $count)
 	    {
-	        $ret = $ret . $srcStr;
+	        $ret = $ret -> $srcStr;
 
 	        $index += 1;
 	    }

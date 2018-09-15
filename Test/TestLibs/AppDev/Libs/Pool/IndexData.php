@@ -22,19 +22,19 @@ class IndexData
 		UtilList::setCapacity($this->mItemArray, $this->mInitNum);
 
 		$this->mFreeIndexList = new MList();
-		$this->mFreeIndexList.setIsSpeedUpFind(true);
-		$this->mFreeIndexList.setIsOpKeepSort(false);
+		$this->mFreeIndexList->setIsSpeedUpFind(true);
+		$this->mFreeIndexList->setIsOpKeepSort(false);
 
 		$this->mActiveIndexList = new MList();
-		$this->mActiveIndexList.setIsSpeedUpFind(true);
-		$this->mActiveIndexList.setIsOpKeepSort(true);
+		$this->mActiveIndexList->setIsSpeedUpFind(true);
+		$this->mActiveIndexList->setIsOpKeepSort(true);
 
 		$index = 0;
 		$listLen = $this->mInitNum;
 
 		while($index < $listLen)
 		{
-			$this->mFreeIndexList.add($index);
+			$this->mFreeIndexList->add($index);
 
 			$index += 1;
 		}
@@ -56,7 +56,7 @@ class IndexData
 		$freeIndex = -1;
 
 		// 如果没有 free 数据
-		if($this->mFreeIndexList.count() == 0)
+		if($this->mFreeIndexList->count() == 0)
 		{
 			$expandNum = 0;
 
@@ -106,7 +106,7 @@ class IndexData
 
 			while ($index < $listLen)
 			{
-				$this->mFreeIndexList.add($index);
+				$this->mFreeIndexList->add($index);
 				$index += 1;
 			}
 
@@ -114,15 +114,15 @@ class IndexData
 		}
 
 		// 获取 free 元素索引
-		$freeIndex = $this->mFreeIndexList.get(0);
-		$this->mFreeIndexList.removeAt(0);        // 申请需要一次 removeAt
-		$this->mActiveIndexList.add(freeIndex);   // 申请需要一次 add
+		$freeIndex = $this->mFreeIndexList->get(0);
+		$this->mFreeIndexList->removeAt(0);        // 申请需要一次 removeAt
+		$this->mActiveIndexList->add(freeIndex);   // 申请需要一次 add
 
 		// 创建 free 元素
 		if (null == $this->mItemArray[$freeIndex])
 		{
 			$this->mItemArray[$freeIndex] = $this->newItem();
-			$this->mItemArray[$freeIndex].setIndex($freeIndex);
+			$this->mItemArray[$freeIndex]->setIndex($freeIndex);
 		}
 
 		return $this->mItemArray[$freeIndex];
@@ -130,9 +130,9 @@ class IndexData
 
 	public function deleteFreeItem($item)
 	{
-		if(-1 != $item.getIndex())
+		if(-1 != $item->getIndex())
 		{
-			$this->mFreeIndexList.add($item.getIndex());
+			$this->mFreeIndexList->add($item->getIndex());
 		}
 	}
 }

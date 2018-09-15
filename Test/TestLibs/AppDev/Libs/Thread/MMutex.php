@@ -23,7 +23,7 @@ class MMutex
 	{
 		if (MacroDef::NET_MULTHREAD)
 		{
-		    $this->mMutex.WaitOne();
+		    $this->mMutex->WaitOne();
 		}
 	}
 
@@ -31,7 +31,7 @@ class MMutex
 	{
 		if (MacroDef::NET_MULTHREAD)
 		{
-		    $this->mMutex.ReleaseMutex();
+		    $this->mMutex->ReleaseMutex();
 		}
 	}
 
@@ -39,7 +39,7 @@ class MMutex
 	{
 		if (MacroDef::NET_MULTHREAD)
 		{
-		    $this->mMutex.Close();
+		    $this->mMutex->Close();
 		}
 	}
 }

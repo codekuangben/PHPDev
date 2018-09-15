@@ -18,7 +18,7 @@ class UtilSysLibWrap
 	// 剔除字符串末尾的空格
 	public static function trimEndSpace($str)
 	{
-	    $str.TrimEnd('\0');
+	    $str->TrimEnd('\0');
 	}
 
 	// 判断两个 Object 地址是否相等
@@ -98,8 +98,8 @@ class UtilSysLibWrap
 
 	public static function Range($min, $max)
 	{
-		UnityEngine.Random.InitState((int)UtilSysLibWrap.getUTCSec());
-		return UnityEngine.Random.Range(min, max);
+		//UnityEngine::Random::InitState((int)UtilSysLibWrap->getUTCSec());
+		//return UnityEngine::Random::Range(min, max);
 	}
 
 	// 欧拉角增加
@@ -115,12 +115,12 @@ class UtilSysLibWrap
 
 	public static function assert($condition, $message = "")
 	{
-		Debug.Assert(condition, message);
+		//Debug::Assert(condition, message);
 	}
 
 	public static function rangRandom($min, $max)
 	{
-		return UnityEngine.Random.Range(min, max);
+		//return UnityEngine::Random::Range(min, max);
 	}
 
 	public static function convEncode2NativeEncodeStr($srcEncode)
@@ -131,15 +131,15 @@ class UtilSysLibWrap
 		{
 		    $retEncodeStr = MEncodeStr::eGB2312Str;
 		}
-		else if (MEncode.eGB2312 == $srcEncode)
+		else if (MEncode::eGB2312 == $srcEncode)
 		{
 		    $retEncodeStr = MEncodeStr::eUTF8Str;
 		}
-		else if (MEncode.eUnicode == $srcEncode)
+		else if (MEncode::eUnicode == $srcEncode)
 		{
 		    $retEncodeStr = MEncodeStr::eUTF8Str;
 		}
-		else if (MEncode.eDefault == $srcEncode)
+		else if (MEncode::eDefault == $srcEncode)
 		{
 		    //$retEncodeStr = System.Text.Encoding.Default;
 		}

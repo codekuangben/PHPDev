@@ -39,17 +39,17 @@ class CircularBuffer
 
 	public function getBuffer()
 	{
-		return $this->mDynBuffer.mBuffer;
+		return $this->mDynBuffer->mBuffer;
 	}
 
 	public function getSize()
 	{
-		return $this->mDynBuffer.mSize;
+		return $this->mDynBuffer->mSize;
 	}
 	
 	public function setSize()
 	{
-		$this->mDynBuffer.setSize($value);
+		$this->mDynBuffer->setSize($value);
 	}
 
 	public function isLinearized()
@@ -64,12 +64,12 @@ class CircularBuffer
 
 	public function empty()
 	{
-		return $this->mDynBuffer.mSize == 0;
+		return $this->mDynBuffer->mSize == 0;
 	}
 
 	public function capacity()
 	{
-		return $this->mDynBuffer.mCapacity;
+		return $this->mDynBuffer->mCapacity;
 	}
 
 	public function full()
@@ -103,9 +103,9 @@ class CircularBuffer
 			// 数据在两个不连续的内存空间中
 			$tmp = array();
 			UtilList::setCapacity($tmp, $this->mLast);
-			UtilList::Copy($this->mDynBuffer.mBuffer, 0, $tmp, 0, mLast);  // 拷贝一段内存空间中的数据到 tmp
-			UtilList::Copy($this->mDynBuffer.mBuffer, $this->mFirst, $this->mDynBuffer->mBuffer, 0, $this->mDynBuffer->mCapacity - $this->mFirst);  // 拷贝第一段数据到 0 索引位置
-			UtilList::Copy(tmp, 0, $this->mDynBuffer.mBuffer, $this->mDynBuffer->mCapacity - $this->mFirst, $this->mLast);      // 拷贝第二段数据到缓冲区
+			UtilList::Copy($this->mDynBuffer->mBuffer, 0, $tmp, 0, mLast);  // 拷贝一段内存空间中的数据到 tmp
+			UtilList::Copy($this->mDynBuffer->mBuffer, $this->mFirst, $this->mDynBuffer->mBuffer, 0, $this->mDynBuffer->mCapacity - $this->mFirst);  // 拷贝第一段数据到 0 索引位置
+			UtilList::Copy(tmp, 0, $this->mDynBuffer->mBuffer, $this->mDynBuffer->mCapacity - $this->mFirst, $this->mLast);      // 拷贝第二段数据到缓冲区
 
 			$this->mFirst = 0;
 			$this->mLast = $this->size;
@@ -132,16 +132,16 @@ class CircularBuffer
 		if ($this->isLinearized()) // 如果是在一段内存空间
 		{
 			// 已经是线性空间了仍然将数据移动到索引 0 的位置
-		    UtilList::Copy($this->mDynBuffer.mBuffer, $this->mFirst, tmpbuff, 0, $this->mDynBuffer.mSize);
+		    UtilList::Copy($this->mDynBuffer->mBuffer, $this->mFirst, tmpbuff, 0, $this->mDynBuffer->mSize);
 		}
 		else    // 如果在两端内存空间
 		{
-		    UtilList::Copy($this->mDynBuffer.mBuffer, $this->mFirst, $tmpbuff, 0, $this->mDynBuffer.mCapacity - $this->mFirst);
-		    UtilList::Copy($this->mDynBuffer.mBuffer, 0, $tmpbuff, $this->mDynBuffer.mCapacity - $this->mFirst, $this->mLast);
+		    UtilList::Copy($this->mDynBuffer->mBuffer, $this->mFirst, $tmpbuff, 0, $this->mDynBuffer->mCapacity - $this->mFirst);
+		    UtilList::Copy($this->mDynBuffer->mBuffer, 0, $tmpbuff, $this->mDynBuffer->mCapacity - $this->mFirst, $this->mLast);
 		}
 
 		$this->mFirst = 0;
-		$this->mLast = mDynBuffer.mSize;
+		$this->mLast = mDynBuffer->mSize;
 		$this->mDynBuffer->mCapacity = $newCapacity;
 		$this->mDynBuffer->mBuffer = $tmpbuff;
 	}
@@ -151,7 +151,7 @@ class CircularBuffer
 	 */
 	protected function canAddData($num)
 	{
-		if ($this->mDynBuffer.mCapacity - $this->mDynBuffer.mSize > $num) // 浪费一个字节，不用 >= ，使用 > 
+		if ($this->mDynBuffer->mCapacity - $this->mDynBuffer->mSize > $num) // 浪费一个字节，不用 >= ，使用 > 
 		{
 			return true;
 		}
@@ -166,36 +166,36 @@ class CircularBuffer
 	{
 		if (!$this->canAddData(len)) // 存储空间必须要比实际数据至少多 1
 		{
-			$closeSize = DynBufResizePolicy.getCloseSize(len + $this->mDynBuffer.mSize, $this->mDynBuffer.mCapacity, $this->mDynBuffer.mMaxCapacity);
+			$closeSize = DynBufResizePolicy->getCloseSize(len + $this->mDynBuffer->mSize, $this->mDynBuffer->mCapacity, $this->mDynBuffer->mMaxCapacity);
 			$this->setCapacity($closeSize);
 		}
 
 		if ($this->isLinearized())
 		{
-			if (len <= ($this->mDynBuffer.mCapacity - $this->mLast))
+			if (len <= ($this->mDynBuffer->mCapacity - $this->mLast))
 			{
-				UtilList::Copy(items, start, $this->mDynBuffer.mBuffer, $this->mLast, $len);
+				UtilList::Copy(items, start, $this->mDynBuffer->mBuffer, $this->mLast, $len);
 			}
 			else
 			{
-			    UtilList::Copy($items, $start, $this->mDynBuffer.mBuffer, $this->mLast, mDynBuffer.mCapacity - $this->mLast);
-			    UtilList::Copy($items, $this->mDynBuffer.mCapacity - $this->mLast, $this->mDynBuffer.mBuffer, 0, $len - ($this->mDynBuffer.mCapacity - $this->mLast));
+			    UtilList::Copy($items, $start, $this->mDynBuffer->mBuffer, $this->mLast, mDynBuffer->mCapacity - $this->mLast);
+			    UtilList::Copy($items, $this->mDynBuffer->mCapacity - $this->mLast, $this->mDynBuffer->mBuffer, 0, $len - ($this->mDynBuffer->mCapacity - $this->mLast));
 			}
 		}
 		else
 		{
-		    UtilList::Copy($items, $start, $this->mDynBuffer.mBuffer, $this->mLast, $len);
+		    UtilList::Copy($items, $start, $this->mDynBuffer->mBuffer, $this->mLast, $len);
 		}
 
 		$this->mLast += $len;
-		$this->mLast %= $this->mDynBuffer.mCapacity;
+		$this->mLast %= $this->mDynBuffer->mCapacity;
 
 		$this->mDynBuffer->mSize += $len;
 	}
 
 	public function pushBackBA($byteBuffer)
 	{
-		//pushBack(bu.dynBuff.buffer, bu.position, bu.bytesAvailable);
+		//pushBack(bu->dynBuff->buffer, bu->position, bu->bytesAvailable);
 	    $this->pushBackArr($byteBuffer->getDynBuffer()->getBuffer(), 0, $byteBuffer->getLength());
 	}
 
@@ -216,26 +216,26 @@ class CircularBuffer
 		{
 		    if ($byteLength <= $this->mFirst)
 			{
-			    UtilList::Copy($byteArray, 0, $this->mDynBuffer.mBuffer, $this->mFirst - items.Length, $byteLength);
+			    UtilList::Copy($byteArray, 0, $this->mDynBuffer->mBuffer, $this->mFirst - items->Length, $byteLength);
 			}
 			else
 			{
-			    UtilList::Copy($byteArray, $byteLength - $this->mFirst, $this->mDynBuffer.mBuffer, 0, $this->mFirst);
-			    UtilList::Copy($byteArray, 0, $this->mDynBuffer.mBuffer, $this->mDynBuffer.mCapacity - ($byteLength - $this->mFirst), $byteLength - $this->mFirst);
+			    UtilList::Copy($byteArray, $byteLength - $this->mFirst, $this->mDynBuffer->mBuffer, 0, $this->mFirst);
+			    UtilList::Copy($byteArray, 0, $this->mDynBuffer->mBuffer, $this->mDynBuffer->mCapacity - ($byteLength - $this->mFirst), $byteLength - $this->mFirst);
 			}
 		}
 		else
 		{
-		    UtilList::Copy($byteArray, 0, $this->mDynBuffer.mBuffer, $this->mFirst - $byteLength, $byteLength);
+		    UtilList::Copy($byteArray, 0, $this->mDynBuffer->mBuffer, $this->mFirst - $byteLength, $byteLength);
 		}
 
-		if (items.Length <= $this->mFirst)
+		if (items->Length <= $this->mFirst)
 		{
 		    $this->mFirst -= $byteLength;
 		}
 		else
 		{
-		    $this->mFirst = $this->mDynBuffer.mCapacity - ($byteLength - $this->mFirst);
+		    $this->mFirst = $this->mDynBuffer->mCapacity - ($byteLength - $this->mFirst);
 		}
 
 		$this->mDynBuffer->mSize += $byteLength;
@@ -253,22 +253,22 @@ class CircularBuffer
 	// 仅仅是获取数据，并不删除
 	public function frontBA($byteBuffer, $len)
 	{
-	    $byteBuffer.clear();          // 设置数据为初始值
+	    $byteBuffer->clear();          // 设置数据为初始值
 
-	    if ($this->mDynBuffer.mSize >= $len)          // 头部占据 4 个字节
+	    if ($this->mDynBuffer->mSize >= $len)          // 头部占据 4 个字节
 		{
 			if ($this->isLinearized())      // 在一段连续的内存
 			{
-			    $byteBuffer.writeBytes($this->mDynBuffer.mBuffer, $this->mFirst, $len);
+			    $byteBuffer->writeBytes($this->mDynBuffer->mBuffer, $this->mFirst, $len);
 			}
-			else if ($this->mDynBuffer.mCapacity - $this->mFirst >= $len)
+			else if ($this->mDynBuffer->mCapacity - $this->mFirst >= $len)
 			{
-			    $byteBuffer.writeBytes($this->mDynBuffer.mBuffer, $this->mFirst, $len);
+			    $byteBuffer->writeBytes($this->mDynBuffer->mBuffer, $this->mFirst, $len);
 			}
 			else
 			{
-			    $byteBuffer.writeBytes($this->mDynBuffer.mBuffer, $this->mFirst, $this->mDynBuffer.mCapacity - $this->mFirst);
-			    $byteBuffer.writeBytes($this->mDynBuffer.mBuffer, 0, $len - ($this->mDynBuffer.mCapacity - $this->mFirst));
+			    $byteBuffer->writeBytes($this->mDynBuffer->mBuffer, $this->mFirst, $this->mDynBuffer->mCapacity - $this->mFirst);
+			    $byteBuffer->writeBytes($this->mDynBuffer->mBuffer, 0, $len - ($this->mDynBuffer->mCapacity - $this->mFirst));
 			}
 		}
 
@@ -284,13 +284,13 @@ class CircularBuffer
 		{
 		    $this->mFirst += $len;
 		}
-		else if ($this->mDynBuffer.mCapacity - $this->mFirst >= $len)
+		else if ($this->mDynBuffer->mCapacity - $this->mFirst >= $len)
 		{
 		    $this->mFirst += $len;
 		}
 		else
 		{
-		    $this->mFirst = $len - ($this->mDynBuffer.mCapacity - $this->mFirst);
+		    $this->mFirst = $len - ($this->mDynBuffer->mCapacity - $this->mFirst);
 		}
 
 		$this->mDynBuffer->mSize -= $len;
@@ -299,29 +299,29 @@ class CircularBuffer
 	// 向自己尾部添加一个 CircularBuffer
 	public function pushBackCB($circularBuffer)
 	{
-	    if($this->mDynBuffer.mCapacity - $this->mDynBuffer.mSize < $circularBuffer->getSize())
+	    if($this->mDynBuffer->mCapacity - $this->mDynBuffer->mSize < $circularBuffer->getSize())
 		{
-		    $closeSize = DynBufResizePolicy.getCloseSize($circularBuffer.getSize() + $this->mDynBuffer.mSize, $this->mDynBuffer.mCapacity, $this->mDynBuffer.mMaxCapacity);
+		    $closeSize = DynBufResizePolicy->getCloseSize($circularBuffer->getSize() + $this->mDynBuffer->mSize, $this->mDynBuffer->mCapacity, $this->mDynBuffer->mMaxCapacity);
 			$this->setCapacity($closeSize);
 		}
 
-		//$this->mSize += rhv.size;
+		//$this->mSize += rhv->size;
 		//$this->mLast = $this->mSize;
 
-		//mTmpBA.clear();
-		$circularBuffer.frontBA($this->mTmpBA, $circularBuffer->getSize());
+		//mTmpBA->clear();
+		$circularBuffer->frontBA($this->mTmpBA, $circularBuffer->getSize());
 		$this->pushBackBA($this->mTmpBA);
 
-		//if (rhv.isLinearized()) // 如果是在一段内存空间
+		//if (rhv->isLinearized()) // 如果是在一段内存空间
 		//{
-		//    Array.Copy(rhv.buff, rhv.first, mBuffer, 0, rhv.size);
+		//    Array->Copy(rhv->buff, rhv->first, mBuffer, 0, rhv->size);
 		//}
 		//else    // 如果在两端内存空间
 		//{
-		//    Array.Copy(rhv.buff, rhv.first, mBuffer, 0, rhv.capacity() - rhv.first);
-		//    Array.Copy(mBuffer, 0, mBuffer, rhv.capacity() - rhv.first, rhv.last);
+		//    Array::Copy(rhv->buff, rhv->first, mBuffer, 0, rhv->capacity() - rhv->first);
+		//    Array::Copy(mBuffer, 0, mBuffer, rhv->capacity() - rhv->first, rhv->last);
 		//}
-		//rhv.clear();
+		//rhv->clear();
 	}
 }
 

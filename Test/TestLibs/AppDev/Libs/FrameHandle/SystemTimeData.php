@@ -42,7 +42,7 @@ class SystemTimeData
 
 	public function getFixedTimestep()
 	{
-		if (Ctx.mInstance.mCfg.mIsActorMoveUseFixUpdate)
+	    if (Ctx::$mInstance->mCfg->mIsActorMoveUseFixUpdate)
 		{
 			return $this->mFixedTimestep;
 		}

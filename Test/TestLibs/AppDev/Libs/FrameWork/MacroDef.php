@@ -44,12 +44,6 @@ const ENABLE_NETLOG = false;
 // 开启文件日志
 const ENABLE_FILELOG = false;
 
-// 使用打包模式加载资源
-const PKG_RES_LOAD = false;
-
-// 非打包文件系统资源加载
-const UNPKG_RES_LOAD = false;
-
 // 是否开启 EnableProtoBuf
 const ENABLE_PROTOBUF = false;
 
@@ -59,43 +53,11 @@ const ENABLE_SHARP_ZIP_LIB = false;
 // 单元测试，这个需要宏定义
 const UNIT_TEST = true;
 
-// 不使用的代码
-const DEPRECATE_CODE = false;
-
-// 多线程裁剪场景
-const MULTITHREADING_CULL = false;
-
-// Lua 加载方式
-const LUA_EDITOR = true;
-
-// 绘制调试信息
-const DRAW_DEBUG = false;
-
-const ENABLE_BUGLY = false;
-
-// 坐标模式
-const XZ_MODE = false;
-const XY_MODE = true;
-
-// 物理运行
-const PHYSIX_MOVE = false;
-
-// 场景裁剪
-const ENABLE_SCENE2D_CLIP = true;
-
-// Lua 控制台
-const ENABLE_LUA_CONSOLE = false;
-
-// 关闭测试场景
-const DISABLE_TEST_SCENE = true;
-
-// 热更新
-const ENABLE_HOT_UPDATE = false;
-
-const MOBILE_PLATFORM = false;
-
 // Profile 
 const ENABLE_PROFILE = true;
+
+// Profile
+const ENABLE_LOOP = true;
 
 // 宏定义结束
 }

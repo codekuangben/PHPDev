@@ -80,7 +80,7 @@ class UtilSysLibWrap
 	/**
 	 * @ref http://php.net/manual/en/function.microtime.php
 	 */
-	function microtime_float()
+	public static function microtime_float()
 	{
 		list($usec, $sec) = explode(" ", microtime());
 		return ((float)$usec + (float)$sec);
@@ -103,27 +103,27 @@ class UtilSysLibWrap
 	}
 
 	// 欧拉角增加
-	static public function incEulerAngles($degree, $delta)
+	public static function incEulerAngles($degree, $delta)
 	{
 		return (degree + delta) % 360;
 	}
 
-	static public function decEulerAngles($degree, $delta)
+	public static function decEulerAngles($degree, $delta)
 	{
 		return (degree - delta) % 360;
 	}
 
-	static public function assert($condition, $message = "")
+	public static function assert($condition, $message = "")
 	{
 		Debug.Assert(condition, message);
 	}
 
-	static public function rangRandom($min, $max)
+	public static function rangRandom($min, $max)
 	{
 		return UnityEngine.Random.Range(min, max);
 	}
 
-	static public function convEncode2NativeEncodeStr($srcEncode)
+	public static function convEncode2NativeEncodeStr($srcEncode)
 	{
 	    $retEncodeStr = MEncodeStr::eUTF8Str;
 
@@ -147,19 +147,39 @@ class UtilSysLibWrap
 		return $retEncode;
 	}
 	
-	static public function isset($param)
+	public static function isset($param)
 	{
 	    isset($param);
 	}
 	
-	static public function unset($param)
+	public static function unset($param)
 	{
 	    unset($param);
 	}
 	
-	static public function dumpVar($param)
+	public static function dumpVar($param)
 	{
 	    var_dump($param);
+	}
+	
+	public static function setShangHaiTimeZone()
+	{
+	    UtilSysLibWrap::setDefaultTimeZone('Asia/Shanghai');
+	}
+	
+	public static function setDefaultTimeZone($value)
+	{
+	    date_default_timezone_set($value);
+	}
+	
+	public static function set_time_limit($value)
+	{
+	    set_time_limit($value);
+	}
+	
+	public static function ignore_user_abort($value)
+	{
+	    ignore_user_abort($value);
 	}
 }
 

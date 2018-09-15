@@ -57,7 +57,7 @@ const UNIT_TEST = true;
 const ENABLE_PROFILE = false;
 
 // Profile
-const ENABLE_LOOP = true;
+const ENABLE_LOOP = false;
 
 // 宏定义结束
 }

@@ -24,6 +24,7 @@ class AppFrame
         $interval = 1 / 24;
         
         Ctx::$mInstance->run();
+        $this->_update();
         
         if(MacroDef::ENABLE_LOOP)
         {

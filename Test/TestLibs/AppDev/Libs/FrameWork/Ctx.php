@@ -138,7 +138,7 @@ class Ctx
 		// 等待网络关闭
 		if (null != $this->mNetMgr)
 		{
-			$this->mNetMgr.dispose();
+			$this->mNetMgr->dispose();
 			$this->mNetMgr = null;
 		}
 		if (null != $this->mGlobalDelegate)
@@ -175,7 +175,7 @@ class Ctx
 		// 关闭日志设备
 		if (null != $this->mLogSys)
 		{
-			$this->mLogSys.dispose();
+			$this->mLogSys->dispose();
 			$this->mLogSys = null;
 		}
 	}

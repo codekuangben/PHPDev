@@ -134,7 +134,7 @@ public class NetTCPClient
 		catch (System.Exception e)
 		{
 			// 连接失败
-			Ctx.mInstance.mLogSys.error(e.Message);
+			Ctx::$mInstance->mLogSys->error(e.Message);
 			return false;
 		}
 
@@ -163,7 +163,7 @@ public class NetTCPClient
 
 			// 连接成功，通知
 			// 这个在主线程中调用
-			Ctx.mInstance.mSysMsgRoute.pushMsg(new SocketOpenedMR());
+			Ctx::$mInstance->mSysMsgRoute->pushMsg(new SocketOpenedMR());
 		}
 		catch (System.Exception e)
 		{
@@ -175,7 +175,7 @@ public class NetTCPClient
 					// 输出日志
 					if (MacroDef::ENABLE_LOG)
 					{
-						Ctx.mInstance.mLogSys.log(e.Message);
+						Ctx::$mInstance->mLogSys->log(e.Message);
 					}
 				}
 				else
@@ -183,14 +183,14 @@ public class NetTCPClient
 					// 输出日志
 					if (MacroDef::ENABLE_LOG)
 					{
-						Ctx.mInstance.mLogSys.log(e.Message);
+						Ctx::$mInstance->mLogSys->log(e.Message);
 					}
 				}
 			}
 			else
 			{
 				// 输出日志
-				Ctx.mInstance.mLogSys.error(e.Message);
+				Ctx::$mInstance->mLogSys->error(e.Message);
 			}
 
 			// 一旦建立失败
@@ -212,7 +212,7 @@ public class NetTCPClient
 			//bool success = asyncSend.AsyncWaitHandle.WaitOne(m_revTimeout, true);
 			//if (!success)
 			//{
-			//    Ctx.mInstance.mLogSys.asyncLog(string.Format("RecvMsg Timeout {0} ", m_revTimeout));
+			//    Ctx::$mInstance->mLogSys->asyncLog(string.Format("RecvMsg Timeout {0} ", m_revTimeout));
 			//}
 		}
 	}
@@ -241,7 +241,7 @@ public class NetTCPClient
 			{
 				if (MacroDef::ENABLE_LOG)
 				{
-					Ctx.mInstance.mLogSys.log("Receive data " + read.ToString());
+					Ctx::$mInstance->mLogSys->log("Receive data " + read.ToString());
 				}
 
 				$this->mClientBuffer.dynBuffer.size = (uint)read; // 设置读取大小
@@ -260,8 +260,8 @@ public class NetTCPClient
 		catch (System.Exception e)
 		{
 			// 输出日志
-			Ctx.mInstance.mLogSys.error(e.Message);
-			Ctx.mInstance.mLogSys.error("Receive data error");
+			Ctx::$mInstance->mLogSys->error(e.Message);
+			Ctx::$mInstance->mLogSys->error("Receive data error");
 			// 断开链接
 			$this->Disconnect(0);
 		}
@@ -306,14 +306,14 @@ public class NetTCPClient
 			{
 				if (MacroDef::ENABLE_LOG)
 				{
-					Ctx.mInstance.mLogSys.log(string.Format("Start send byte num {0} ", mClientBuffer.sendBuffer.bytesAvailable));
+					Ctx::$mInstance->mLogSys->log(string.Format("Start send byte num {0} ", mClientBuffer.sendBuffer.bytesAvailable));
 				}
 
 				IAsyncResult asyncSend = $this->mSocket.BeginSend(mClientBuffer.sendBuffer.dynBuffer.buffer, (int)mClientBuffer.sendBuffer.position, (int)mClientBuffer.sendBuffer.bytesAvailable, 0, new System.AsyncCallback(SendCallback), 0);
 				//bool success = asyncSend.AsyncWaitHandle.WaitOne(m_sendTimeout, true);
 				//if (!success)
 				//{
-				//    Ctx.mInstance.mLogSys.asyncLog(string.Format("SendMsg Timeout {0} ", m_sendTimeout));
+				//    Ctx::$mInstance->mLogSys->asyncLog(string.Format("SendMsg Timeout {0} ", m_sendTimeout));
 				//}
 			}
 			catch (System.Exception e)
@@ -323,7 +323,7 @@ public class NetTCPClient
 					$this->mMsgSendEndEvent.Set();        // 发生异常，通知等待线程，所有数据都发送完成，防止等待线程不能解锁
 				}
 				// 输出日志
-				Ctx.mInstance.mLogSys.error(e.Message);
+				Ctx::$mInstance->mLogSys->error(e.Message);
 				// 断开链接
 				$this->Disconnect(0);
 			}
@@ -348,14 +348,14 @@ public class NetTCPClient
 
 				if (MacroDef::ENABLE_LOG)
 				{
-					Ctx.mInstance.mLogSys.log(string.Format("End send bytes num {0} ", bytesSent));
+					Ctx::$mInstance->mLogSys->log(string.Format("End send bytes num {0} ", bytesSent));
 				}
 
 				if (mClientBuffer.sendBuffer.length < mClientBuffer.sendBuffer.position + (uint)bytesSent)
 				{
 					if (MacroDef::ENABLE_LOG)
 					{
-						Ctx.mInstance.mLogSys.log(string.Format("End send bytes error {0}", bytesSent));
+						Ctx::$mInstance->mLogSys->log(string.Format("End send bytes error {0}", bytesSent));
 					}
 
 					$this->mClientBuffer.sendBuffer.setPos(mClientBuffer.sendBuffer.length);
@@ -373,7 +373,7 @@ public class NetTCPClient
 			catch (System.Exception e)
 			{
 				// 输出日志
-				Ctx.mInstance.mLogSys.error(e.Message);
+				Ctx::$mInstance->mLogSys->error(e.Message);
 				$this->Disconnect(0);
 			}
 		}
@@ -414,7 +414,7 @@ public class NetTCPClient
 		{
 			if ($this->mIsConnected)
 			{
-				Ctx.mInstance.mSysMsgRoute.pushMsg(new SocketCloseedMR());
+				Ctx::$mInstance->mSysMsgRoute->pushMsg(new SocketCloseedMR());
 			}
 
 			$this->mIsConnected = false;
@@ -425,7 +425,7 @@ public class NetTCPClient
 
 	protected bool checkThread()
 	{
-		if(Ctx.mInstance.mNetMgr.isNetThread(Thread.CurrentThread.ManagedThreadId))
+		if(Ctx::$mInstance->mNetMgr->isNetThread(Thread.CurrentThread.ManagedThreadId))
 		{
 			return true;
 		}

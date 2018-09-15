@@ -12,9 +12,9 @@ class UtilMsg
 	{
 	    Ctx::$mInstance->mShareData->mTmpBA = Ctx::$mInstance->mNetMgr->getSendBA();
 		
-		if (Ctx.mInstance.mShareData.mTmpBA != null)
+		if (Ctx::$mInstance->mShareData.mTmpBA != null)
 		{
-			msg.serialize(Ctx.mInstance.mShareData.mTmpBA);
+			msg.serialize(Ctx::$mInstance->mShareData.mTmpBA);
 		}
 		else
 		{
@@ -24,16 +24,16 @@ class UtilMsg
 			// 打印日志
 		    Ctx::$mInstance->mShareData->mTmpStr = string.Format("Send msg: byCmd = {0}, byParam = {1}", msg.byCmd, msg.byParam);
 		}
-		Ctx.mInstance.mNetMgr.send(isSendToNet);
+		Ctx::$mInstance->mNetMgr->send(isSendToNet);
 	}
 
 	public static function sendMsg($byteArr, $startIndex, $length, $isSendToNet = true)
 	{
 	    Ctx::$mInstance->mShareData->mTmpBA = Ctx::$mInstance->mNetMgr->getSendBA();
 		
-		if (Ctx.mInstance.mShareData.mTmpBA != null)
+		if (Ctx::$mInstance->mShareData.mTmpBA != null)
 		{
-		    Ctx.mInstance.mShareData.mTmpBA.writeBytes($byteArr, $startIndex, $length);
+		    Ctx::$mInstance->mShareData.mTmpBA.writeBytes($byteArr, $startIndex, $length);
 		}
 		else
 		{
@@ -43,7 +43,7 @@ class UtilMsg
 			// 打印日志
 		    Ctx::$mInstance->mShareData->mTmpStr = string.Format("Send msg");
 		}
-		Ctx.mInstance.mNetMgr.send_KBE(isSendToNet);
+		Ctx::$mInstance->mNetMgr->send_KBE(isSendToNet);
 	}
 
 	public static function checkStr($str)

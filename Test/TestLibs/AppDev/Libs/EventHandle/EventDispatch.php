@@ -157,7 +157,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		//}
 		//catch (Exception ex)
 		//{
-		//    Ctx.mInstance.mLogSys.catchLog(ex.ToString());
+		//    Ctx::$mInstance->mLogSys->catchLog(ex.ToString());
 		//}
 	}
 

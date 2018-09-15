@@ -33,7 +33,7 @@ class TickMgr extends TickObjectPriorityMgr
 
 		if (MacroDef::ENABLE_PROFILE)
 		{
-			Ctx.mInstance.mProfiler.exit("TickMgr::Advance");
+			Ctx::$mInstance->mProfiler->exit("TickMgr::Advance");
 		}
 	}
 

@@ -19,7 +19,7 @@ class ProcessSys
 			Ctx::$mInstance->mProfiler->enter("ProcessSys::ProcessNextFrame");
 		}
 
-		//Ctx.mInstance.mSystemTimeData.nextFrame();
+		//Ctx::$mInstance->mSystemTimeData.nextFrame();
 		$this->advance(Ctx::$mInstance->mSystemTimeData->getDeltaSec());
 
 		if (MacroDef::ENABLE_PROFILE)

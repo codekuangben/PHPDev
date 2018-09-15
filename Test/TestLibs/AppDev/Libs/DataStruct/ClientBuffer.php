@@ -355,7 +355,7 @@ class ClientBuffer
 			    $this->mMsgBuffer.circularBuffer.pushBackArr($this->mRawBuffer.msgBodyBA.dynBuffer.buffer, mRawBuffer.msgBodyBA.position - msglen, msglen);      // 保存消息大小字段
 			}
 
-			Ctx.mInstance.mNetCmdNotify.addOneRevMsg();
+			Ctx::$mInstance->mNetCmdNotify->addOneRevMsg();
 
 			// Test 读取消息头
 			// ByteBuffer buff = getMsg();

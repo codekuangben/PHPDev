@@ -1,5 +1,9 @@
 <?php
 
+namespace SDK\Lib;
+
+require_once (dirname(__FILE__) . "/../Common/SystemEnv.php");
+
 // 基础
 require_once (dirname(__FILE__) . "/../Core/GObject.php");
 require_once (dirname(__FILE__) . "/../Core/UniqueNumIdGen.php");
@@ -19,12 +23,6 @@ require_once (dirname(__FILE__) . "/../DataStruct/NoOrPriorityList/PriorityList/
 require_once (dirname(__FILE__) . "/../DataStruct/NoOrPriorityList/PriorityList/PriorityProcessObject.php");
 require_once (dirname(__FILE__) . "/../DataStruct/NoOrPriorityList/PriorityList/PriorityList.php");
 require_once (dirname(__FILE__) . "/../DataStruct/NoOrPriorityList/NoPriorityList/NoPriorityList.php");
-
-
-// Functor
-require_once (dirname(__FILE__) . "/../Functor/CallFuncObjectBase.php");
-require_once (dirname(__FILE__) . "/../Functor/CallFuncObjectFixParam.php");
-require_once (dirname(__FILE__) . "/../Functor/CallFuncObjectNoParam.php");
 
 
 // 延迟处理器

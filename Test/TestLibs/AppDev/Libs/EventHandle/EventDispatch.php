@@ -15,6 +15,8 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 
 	public function __construct($eventId_ = 0)
 	{
+	    Parent::__construct();
+	    
 		$this->mEventId = $eventId_;
 		$this->mHandleList = new MList();
 	}
@@ -47,12 +49,12 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 
 	public function addDispatch($dispatch)
 	{
-		$this->addObject(dispatch);
+	    $this->addObject($dispatch);
 	}
 
 	public function removeDispatch($dispatch)
 	{
-		$this->removeObject(dispatch);
+	    $this->removeObject($dispatch);
 	}
 
 	// 相同的函数只能增加一次，Lua ，Python 这些语言不支持同时存在几个相同名字的函数，只支持参数可以赋值，因此不单独提供同一个名字不同参数的接口了，但是 java 不支持参数默认值，只能通过重载实现参数默认值，真是悲剧中的悲剧， eventId: 分发事件上层唯一 Id，这样一个事件处理函数可以根据 EventId 处理不同的事件
@@ -71,7 +73,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		}
 		else
 		{
-		
+		    Ctx::$msInstance.mLogSys("EventDispatch::addEventHandle error", LogTypeId::eLogEventDispatch);
 		}
 	}
 
@@ -135,20 +137,20 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		//{
 		$this->incDepth();
 
-		$idx = 0;
-		$len = $this->mHandleList->count();
+		$index = 0;
+		$listLen = $this->mHandleList->count();
 		$handle = null;
 
-		while ($idx < $len)
+		while ($index < $listLen)
 		{
-			$handle = $this->mHandleList[$idx];
+		    $handle = $this->mHandleList->get($index);
 
 			if (!$handle->mIsClientDispose)
 			{
 				$handle->call($dispatchObject);
 			}
 
-			++$idx;
+			$index += 1;
 		}
 
 		$this->decDepth();

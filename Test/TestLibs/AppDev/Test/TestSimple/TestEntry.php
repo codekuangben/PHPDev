@@ -2,11 +2,11 @@
 
 namespace SDK\Test;
 
-require_once (dirname(__FILE__) . "/../../Libs/FrameWork/Ctx.php");
+use SDK\Lib\SystemEnv;
 
-use SDK\Lib\Ctx;
+//require_once (dirname(__FILE__) . "/../../Libs/Common/SystemEnv.php");
+//require_once (SystemEnv::$MY_PHP_ROOT_PATH . "/Module/Entry/MainEntry.php");
 
-Ctx::instance()->init();
-Ctx::$mInstance->run();
+require_once (dirname(__FILE__) . "/../../Module/Entry/MainEntry.php");
 
 ?>

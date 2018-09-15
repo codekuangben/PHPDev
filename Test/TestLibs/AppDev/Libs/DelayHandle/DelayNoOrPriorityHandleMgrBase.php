@@ -14,6 +14,8 @@ class DelayNoOrPriorityHandleMgrBase extends GObject
 
 	public function __construct()
 	{
+	    Parent::__construct();
+	    
 		$this->mLoopDepth = new LoopDepth();
 		$this->mLoopDepth->setZeroHandle(null, $this->processDelayObjects);
 	}

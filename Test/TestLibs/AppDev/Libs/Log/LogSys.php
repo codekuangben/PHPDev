@@ -38,41 +38,18 @@ class LogSys
 
 		$this->mEnableLogTypeList[LogColor::eLC_LOG] = new MList();
 		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogCommon);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogResLoader);
 		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogLocalFile);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogTestRL);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogAcceleration);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogUnityCB);
-
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogSplitMergeEmit);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogSceneInterActive);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogKBE);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogScene);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogBeingMove);
 		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogEventRemove);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogMusicBug);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogLoadBug);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogMergeBug);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogEatBug);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogSimHitBullet);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogTwoDTerrain);
 		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogPriorityListCheck);
 		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogNoPriorityListCheck);
 		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogPosSyn);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogPlaneError);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogDownload);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogAutoUpdate);
 		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogProfileDebug);
 		$this->mEnableLogTypeList[LogColor::eLC_LOG]->add(LogTypeId::eLogProfile);
-
-		// 编辑器日志
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogEditorBuildPlayer);
 
 		$this->mEnableLogTypeList[LogColor::eLC_WARN] = new MList();
 
 		$this->mEnableLogTypeList[LogColor::eLC_ERROR] = new MList();
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_ERROR].add(LogTypeId.eLogLoadBug);
-		$this->mEnableLogTypeList[LogColor::eLC_ERROR]->add(LogTypeId::eErrorDownload);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_ERROR].add(LogTypeId::eLogLoadBug);
 
 		$this->mEnableLog = new MList();
 		$this->mEnableLog->add(MacroDef::ENABLE_LOG);

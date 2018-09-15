@@ -2,7 +2,7 @@
 
 namespace SDK\Lib;
 
-class EventDispatchFunctionObject implements IDelayHandleItem, INoOrPriorityObject
+class EventDispatchFunctionObject extends GObject implements IDelayHandleItem, INoOrPriorityObject
 {
 	public $mIsClientDispose;       // 是否释放了资源
 	public $mThis;
@@ -11,6 +11,8 @@ class EventDispatchFunctionObject implements IDelayHandleItem, INoOrPriorityObje
 
 	public function __construct()
 	{
+	    Parent::__construct();
+	    
 		$this->mIsClientDispose = false;
 	}
 

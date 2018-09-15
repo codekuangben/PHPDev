@@ -146,47 +146,20 @@ class UtilSysLibWrap
 
 		return $retEncode;
 	}
-
-	// 转换资源目录到精灵名字
-	static public function convFullPath2SpriteName($fullPath)
+	
+	static public function isset($param)
 	{
-		$spriteName = "";
-		$lastSlashIndex = -1;
-		$dotIndex = -1;
-
-		$lastSlashIndex = UtilStr.LastIndexOf($fullPath, '/');
-
-		if(-1 == $lastSlashIndex)
-		{
-			$lastSlashIndex = UtilStr.LastIndexOf($fullPath, '\\');
-		}
-
-		$dotIndex = UtilStr.LastIndexOf($fullPath, '.');
-		
-		if (-1 == $lastSlashIndex)
-		{
-			if (-1 == $dotIndex)
-			{
-				$spriteName = $fullPath;
-			}
-			else
-			{
-				$spriteName = $fullPath.Substring(0, $dotIndex);
-			}
-		}
-		else
-		{
-			if (-1 == $dotIndex)
-			{
-				$spriteName = $fullPath.Substring($lastSlashIndex + 1, $fullPath.Length - $lastSlashIndex);
-			}
-			else
-			{
-				$spriteName = $fullPath.Substring($lastSlashIndex + 1, $dotIndex - ($lastSlashIndex + 1));
-			}
-		}
-
-		return $spriteName;
+	    isset($param);
+	}
+	
+	static public function unset($param)
+	{
+	    unset($param);
+	}
+	
+	static public function dumpVar($param)
+	{
+	    var_dump($param);
 	}
 }
 

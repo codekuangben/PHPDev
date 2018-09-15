@@ -2,13 +2,15 @@
 
 namespace SDK\Lib;
 
-class EventDispatchGroup
+class EventDispatchGroup extends GObject
 {
 	protected $mGroupID2DispatchDic;
 	protected $mLoopDepth;       // 是否是在循环遍历中
 
 	public function __construct()
 	{
+	    Parent::__construct();
+	    
 		$this->mGroupID2DispatchDic = new MDictionary();
 		$this->mLoopDepth = new LoopDepth();
 	}

@@ -21,30 +21,30 @@ class LoopDepth
 	{
 		if(null == $this->mIncHandle)
 		{
-			$this->mIncHandle = new CallFuncObjectNoParam();
+		    $this->mIncHandle = new EventDispatchFunctionObject();
 		}
 
-		$this->mIncHandle.setThisAndHandleNoParam(pThis, value);
+		$this->mIncHandle->setFuncObject($pThis, $value);
 	}
 
 	public function setDecHandle($pThis, $value)
 	{
 		if (null == $this->mDecHandle)
 		{
-			$this->mDecHandle = new CallFuncObjectNoParam();
+		    $this->mDecHandle = new EventDispatchFunctionObject();
 		}
 
-		$this->mDecHandle.setThisAndHandleNoParam(pThis, value);
+		$this->mDecHandle->setFuncObject($pThis, $value);
 	}
 
 	public function setZeroHandle($pThis, $value)
 	{
 		if (null == $this->mZeroHandle)
 		{
-			$this->mZeroHandle = new CallFuncObjectNoParam();
+		    $this->mZeroHandle = new EventDispatchFunctionObject();
 		}
 
-		$this->mZeroHandle.setThisAndHandleNoParam(pThis, value);
+		$this->mZeroHandle->setFuncObject($pThis, $value);
 	}
 
 	public function incDepth()
@@ -63,14 +63,14 @@ class LoopDepth
 
 		if (null != $this->mDecHandle)
 		{
-			$this->mDecHandle.call();
+		    $this->mDecHandle->call(null);
 		}
 
 		if(0 == $this->mLoopDepth)
 		{
 			if (null != $this->mZeroHandle)
 			{
-				$this->mZeroHandle.call();
+			    $this->mZeroHandle->call(null);
 			}
 		}
 
@@ -78,7 +78,7 @@ class LoopDepth
 		{
 			$this->mLoopDepth = 0;
 			// 错误，不对称
-			UnityEngine.Debug.LogError("LoopDepth::decDepth, Error !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			throw \ErrorException("LoopDepth::decDepth, Error !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		}
 	}
 

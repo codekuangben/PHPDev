@@ -49,11 +49,18 @@ class Ctx
 		
 	}
 
-	public static function instance()
+	public static function instance($value = null)
 	{
 		if (Ctx::$mInstance == null)
 		{
-		    Ctx::$mInstance = new Ctx();
+		    if(null != $value)
+		    {
+		        Ctx::$mInstance = $value;
+		    }
+		    else
+		    {
+		        Ctx::$mInstance = new Ctx();
+		    }
 		}
 		
 		return Ctx::$mInstance;

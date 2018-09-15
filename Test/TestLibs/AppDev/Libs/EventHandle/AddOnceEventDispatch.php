@@ -9,7 +9,7 @@ class AddOnceEventDispatch extends EventDispatch
 {
 	public function __construct($eventId_ = 0)
 	{
-		parent::__construct(eventId_);
+		parent::__construct($eventId_);
 	}
 
 	public function addEventHandle($pThis, $handle, $eventId = 0)

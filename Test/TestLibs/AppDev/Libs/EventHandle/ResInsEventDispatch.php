@@ -12,6 +12,8 @@ class ResInsEventDispatch extends EventDispatch implements IDispatchObject
 
 	public function __construct()
 	{
+	    Parent::__construct();
+	    
 		$this->mIsValid = true;
 	}
 

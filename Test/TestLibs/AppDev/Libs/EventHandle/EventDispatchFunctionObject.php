@@ -76,11 +76,11 @@ class EventDispatchFunctionObject extends GObject implements IDelayHandleItem, I
 		{
 			if(null != $this->mThis)
 			{
-				call_user_func(array($this->mThis, $this->mHandle), $dispObj);
+			    call_user_func(array($this->mThis, $this->mHandle), $dispObj, $this->mEventId);
 			}
 			else
 			{
-				call_user_func($this->mHandle, $dispObj);
+			    call_user_func($this->mHandle, $dispObj, $this->mEventId);
 			}
 		}
 	}

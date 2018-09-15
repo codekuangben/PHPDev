@@ -37,13 +37,13 @@ class LogSys
 		}
 
 		$this->mEnableLogTypeList[LogColor::eLC_LOG] = new MList();
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogCommon);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogLocalFile);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogEventRemove);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogPriorityListCheck);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogNoPriorityListCheck);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogPosSyn);
-		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId.eLogProfileDebug);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId::eLogCommon);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId::eLogLocalFile);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId::eLogEventRemove);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId::eLogPriorityListCheck);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId::eLogNoPriorityListCheck);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId::eLogPosSyn);
+		//$this->mEnableLogTypeList[(int)LogColor::eLC_LOG].add(LogTypeId::eLogProfileDebug);
 		$this->mEnableLogTypeList[LogColor::eLC_LOG]->add(LogTypeId::eLogProfile);
 
 		$this->mEnableLogTypeList[LogColor::eLC_WARN] = new MList();

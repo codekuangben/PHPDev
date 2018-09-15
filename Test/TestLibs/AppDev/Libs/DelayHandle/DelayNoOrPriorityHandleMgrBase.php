@@ -17,7 +17,7 @@ class DelayNoOrPriorityHandleMgrBase extends GObject
 	    Parent::__construct();
 	    
 		$this->mLoopDepth = new LoopDepth();
-		$this->mLoopDepth->setZeroHandle(null, $this->processDelayObjects);
+		$this->mLoopDepth->setZeroHandle($this, "processDelayObjects");
 	}
 
 	public function init()
@@ -64,7 +64,7 @@ class DelayNoOrPriorityHandleMgrBase extends GObject
 		}
 	}
 
-	private function processDelayObjects()
+	public function processDelayObjects($dispObj, $eventId)
 	{
 		$idx = 0;
 		// len 是 Python 的关键字

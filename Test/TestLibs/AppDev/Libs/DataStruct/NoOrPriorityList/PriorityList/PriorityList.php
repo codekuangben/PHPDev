@@ -17,14 +17,14 @@ class PriorityList implements INoOrPriorityList
 	public function __construct()
 	{
 		$this->mPriorityProcessObjectList = new MList();
-		$this->mPrioritySort = PrioritySort.ePS_Great;
+		$this->mPrioritySort = PrioritySort::ePS_Great;
 		$this->mIsSpeedUpFind = false;
 		$this->mIsOpKeepSort = false;
 	}
 
 	public function setIsSpeedUpFind($value)
 	{
-		$this->mIsSpeedUpFind = value;
+	    $this->mIsSpeedUpFind = $value;
 
 		if ($this->mIsSpeedUpFind)
 		{
@@ -34,16 +34,16 @@ class PriorityList implements INoOrPriorityList
 
 	public function setIsOpKeepSort($value)
 	{
-		$this->mIsOpKeepSort = value;
+	    $this->mIsOpKeepSort = $value;
 	}
 
 	public function clear()
 	{
-		$this->mPriorityProcessObjectList.clear();
+		$this->mPriorityProcessObjectList->clear();
 
 		if($this->mIsSpeedUpFind)
 		{
-			$this->mDic.clear();
+			$this->mDic->clear();
 		}
 	}
 
@@ -58,7 +58,7 @@ class PriorityList implements INoOrPriorityList
 
 		if(index < $this->count())
 		{
-			$ret = $this->mPriorityProcessObjectList.get(index).mPriorityObject;
+			$ret = $this->mPriorityProcessObjectList->get($index)->mPriorityObject;
 		}
 
 		return $ret;
@@ -70,7 +70,7 @@ class PriorityList implements INoOrPriorityList
 
 		if ($index < $this->count())
 		{
-			$ret = $this->mPriorityProcessObjectList.get(index).mPriority;
+			$ret = $this->mPriorityProcessObjectList->get($index)->mPriority;
 		}
 
 		return $ret;
@@ -84,16 +84,16 @@ class PriorityList implements INoOrPriorityList
 		{
 			if ($this->mIsSpeedUpFind)
 			{
-				$ret = $this->mDic.containsKey($item);
+				$ret = $this->mDic->containsKey($item);
 			}
 			else
 			{
 				$index = 0;
-				$listLen = $this->mPriorityProcessObjectList.count();
+				$listLen = $this->mPriorityProcessObjectList->count();
 
 				while ($index < $listLen)
 				{
-					if (item == $this->mPriorityProcessObjectList.get($index).mPriorityObject)
+					if (item == $this->mPriorityProcessObjectList->get($index)->mPriorityObject)
 					{
 						$ret = true;
 						break;
@@ -107,7 +107,7 @@ class PriorityList implements INoOrPriorityList
 		{
 			if (MacroDef::ENABLE_LOG)
 			{
-				Ctx::$mInstance->mLogSys->log("PriorityList::contains, failed", LogTypeId.eLogPriorityListCheck);
+				Ctx::$mInstance->mLogSys->log("PriorityList::contains, failed", LogTypeId::eLogPriorityListCheck);
 			}
 		}
 
@@ -118,11 +118,11 @@ class PriorityList implements INoOrPriorityList
 	{
 		if ($this->mIsSpeedUpFind)
 		{
-			$this->effectiveRemove($this->mPriorityProcessObjectList[$index].mPriorityObject);
+			$this->effectiveRemove($this->mPriorityProcessObjectList->get($index)->mPriorityObject);
 		}
 		else
 		{
-			$this->mPriorityProcessObjectList.removeAt($index);
+			$this->mPriorityProcessObjectList->removeAt($index);
 		}
 	}
 
@@ -131,21 +131,21 @@ class PriorityList implements INoOrPriorityList
 		$retIndex = -1;
 
 		$index = 0;
-		$listLen = $this->mPriorityProcessObjectList.count();
+		$listLen = $this->mPriorityProcessObjectList->count();
 
 		while ($index < $listLen)
 		{
-			if (PrioritySort.ePS_Less == $this->mPrioritySort)
+			if (PrioritySort::ePS_Less == $this->mPrioritySort)
 			{
-				if ($this->mPriorityProcessObjectList.get($index).mPriority >= $priority)
+				if ($this->mPriorityProcessObjectList->get($index)->mPriority >= $priority)
 				{
 					$retIndex = $index;
 					break;
 				}
 			}
-			else if (PrioritySort.ePS_Great == $this->mPrioritySort)
+			else if (PrioritySort::ePS_Great == $this->mPrioritySort)
 			{
-				if ($this->mPriorityProcessObjectList.get(index).mPriority <= $priority)
+			    if ($this->mPriorityProcessObjectList->get($index)->mPriority <= $priority)
 				{
 					$retIndex = $index;
 					break;
@@ -163,11 +163,11 @@ class PriorityList implements INoOrPriorityList
 		$retIndex = -1;
 
 		$index = 0;
-		$listLen = $this->mPriorityProcessObjectList.count();
+		$listLen = $this->mPriorityProcessObjectList->count();
 
 		while ($index < $listLen)
 		{
-			if ($this->mPriorityProcessObjectList.get($index).mPriorityObject == $priorityObject)
+			if ($this->mPriorityProcessObjectList->get($index)->mPriorityObject == $priorityObject)
 			{
 				$retIndex = $index;
 				break;
@@ -198,11 +198,11 @@ class PriorityList implements INoOrPriorityList
 
 				if (!$this->mIsOpKeepSort)
 				{
-				    $this->mPriorityProcessObjectList.add(PriorityProcessObjectpriorityProcessObject);
+				    $this->mPriorityProcessObjectList->add($priorityProcessObject);
 
 					if ($this->mIsSpeedUpFind)
 					{
-						$this->mDic.add(priorityObject, $this->mPriorityProcessObjectList.count() - 1);
+						$this->mDic->add(priorityObject, $this->mPriorityProcessObjectList->count() - 1);
 					}
 				}
 				else
@@ -211,20 +211,20 @@ class PriorityList implements INoOrPriorityList
 
 					if (-1 == $index)
 					{
-						$this->mPriorityProcessObjectList.add($priorityProcessObject);
+						$this->mPriorityProcessObjectList->add($priorityProcessObject);
 
 						if ($this->mIsSpeedUpFind)
 						{
-							$this->mDic.add($priorityObject, $this->mPriorityProcessObjectList.count() - 1);
+							$this->mDic->add($priorityObject, $this->mPriorityProcessObjectList->count() - 1);
 						}
 					}
 					else
 					{
-						$this->mPriorityProcessObjectList.insert($index, $priorityProcessObject);
+						$this->mPriorityProcessObjectList->insert($index, $priorityProcessObject);
 
 						if ($this->mIsSpeedUpFind)
 						{
-							$this->mDic.add($priorityObject, $index);
+							$this->mDic->add($priorityObject, $index);
 							$this->updateIndex($index + 1);
 						}
 					}
@@ -235,7 +235,7 @@ class PriorityList implements INoOrPriorityList
 		{
 			if (MacroDef::ENABLE_LOG)
 			{
-				Ctx::$mInstance->mLogSys->log("PriorityList::addPriorityObject, failed", LogTypeId.eLogPriorityListCheck);
+				Ctx::$mInstance->mLogSys->log("PriorityList::addPriorityObject, failed", LogTypeId::eLogPriorityListCheck);
 			}
 		}
 	}
@@ -254,7 +254,7 @@ class PriorityList implements INoOrPriorityList
 
 				if(-1 != index)
 				{
-					$this->mPriorityProcessObjectList.removeAt($index);
+					$this->mPriorityProcessObjectList->removeAt($index);
 				}
 			}
 		}
@@ -275,29 +275,29 @@ class PriorityList implements INoOrPriorityList
 	{
 		$ret = false;
 
-		if ($this->mDic.containsKey($item))
+		if ($this->mDic->containsKey($item))
 		{
 			$ret = true;
 
 			$index = $this->mDic[$item];
-			$this->mDic.remove($item);
+			$this->mDic->remove($item);
 
-			if ($index == $this->mPriorityProcessObjectList.count() - 1)    // 如果是最后一个元素，直接移除
+			if ($index == $this->mPriorityProcessObjectList->count() - 1)    // 如果是最后一个元素，直接移除
 			{
-				$this->mPriorityProcessObjectList.removeAt($index);
+				$this->mPriorityProcessObjectList->removeAt($index);
 			}
 			else
 			{
 				// 这样移除会使优先级顺序改变
 				if (!$this->mIsOpKeepSort)
 				{
-					$this->mPriorityProcessObjectList.set($index, $this->mPriorityProcessObjectList.get($this->mPriorityProcessObjectList.count() - 1));
-					$this->mPriorityProcessObjectList.removeAt($this->mPriorityProcessObjectList.count() - 1);
-					$this->mDic.add($this->mPriorityProcessObjectList.get(index).mPriorityObject, $index);
+					$this->mPriorityProcessObjectList->set($index, $this->mPriorityProcessObjectList->get($this->mPriorityProcessObjectList->count() - 1));
+					$this->mPriorityProcessObjectList->removeAt($this->mPriorityProcessObjectList->count() - 1);
+					$this->mDic->add($this->mPriorityProcessObjectList->get(index)->mPriorityObject, $index);
 				}
 				else
 				{
-					$this->mPriorityProcessObjectList.removeAt($index);
+					$this->mPriorityProcessObjectList->removeAt($index);
 					$this->updateIndex($index);
 				}
 			}
@@ -308,11 +308,11 @@ class PriorityList implements INoOrPriorityList
 
 	protected function updateIndex($index)
 	{
-		$listLen = $this->mPriorityProcessObjectList.count();
+		$listLen = $this->mPriorityProcessObjectList->count();
 
 		while ($index < $listLen)
 		{
-			$this->mDic.add($this->mPriorityProcessObjectList.get($index).mPriorityObject, $index);
+			$this->mDic->add($this->mPriorityProcessObjectList->get($index)->mPriorityObject, $index);
 
 			++$index;
 		}

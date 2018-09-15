@@ -261,7 +261,7 @@ class MList
 	{
 		$ret = false;
 
-		if ($this->mDic.containsKey($item))
+		if ($this->mDic->containsKey($item))
 		{
 			$ret = true;
 

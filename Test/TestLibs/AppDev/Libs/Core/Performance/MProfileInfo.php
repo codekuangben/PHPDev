@@ -26,7 +26,7 @@ class MProfileInfo
 	{
 		if(MacroDef::ENABLE_LOG)
 		{
-			Ctx::$mInstance->mLogSys->log(string.Format("MProfileInfo::wipe, name = {0}", mName), LogTypeId.eLogProfileDebug);
+			Ctx::$mInstance->mLogSys->log(string.Format("MProfileInfo::wipe, name = {0}", mName), LogTypeId::eLogProfileDebug);
 		}
 
 		$this->mStartTime = 0;

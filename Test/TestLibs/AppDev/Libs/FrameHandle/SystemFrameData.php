@@ -21,9 +21,9 @@ class SystemFrameData
 
 	public function nextFrame($delta)
 	{
-		++$this->mTotalFrameCount;
-		++$this->mCurFrameCount;
-		$this->mCurTime += delta;
+		$this->mTotalFrameCount += 1;
+		$this->mCurFrameCount += 1;
+		$this->mCurTime += $delta;
 
 		if($this->mCurTime > 1.0)
 		{

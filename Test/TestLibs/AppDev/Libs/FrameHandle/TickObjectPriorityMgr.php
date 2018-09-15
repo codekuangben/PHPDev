@@ -7,7 +7,7 @@ class TickObjectPriorityMgr extends DelayPriorityHandleMgr implements ITickedObj
 {
 	public function __construct()
 	{
-
+	    parent::__construct();
 	}
 
 	public function init()
@@ -53,30 +53,30 @@ class TickObjectPriorityMgr extends DelayPriorityHandleMgr implements ITickedObj
 
 	protected function onExecAdvance($delta, $tickMode)
 	{
-		$idx = 0;
-		$count = $this->mNoOrPriorityList.count();
+		$index = 0;
+		$listLen = $this->mNoOrPriorityList->count();
 		$tickObject = null;
 
-		while (idx < count)
+		while ($index < $listLen)
 		{
-			$tickObject = $this->mNoOrPriorityList.get(idx);
+		    $tickObject = $this->mNoOrPriorityList->get($index);
 
 			if (null != $tickObject)
 			{
-				if (!$tickObject.isClientDispose())
+			    if (!$tickObject->isClientDispose())
 				{
-					$tickObject.onTick($delta, $tickMode);
+				    $tickObject->onTick($delta, $tickMode);
 				}
 			}
 			else
 			{
 				if (MacroDef::ENABLE_LOG)
 				{
-					Ctx.mInstance.mLogSys.log("TickObjectPriorityMgr::onExecAdvance, failed", LogTypeId.eLogCommon);
+					Ctx::$mInstance->mLogSys->log("TickObjectPriorityMgr::onExecAdvance, failed", LogTypeId::eLogCommon);
 				}
 			}
 
-			++$idx;
+			$index += 1;
 		}
 	}
 

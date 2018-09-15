@@ -11,6 +11,8 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 
 	public function __construct()
 	{
+	    parent::__construct();
+	    
 		$this->mTimerList = new MList();
 	}
 

@@ -162,7 +162,7 @@ class MProfiler
 	{
 		if (MacroDef::ENABLE_LOG)
 		{
-			Ctx.mInstance.mLogSys.log(string.Format("MProfiler::enter, blockName = {0}, ReallyEnabled = {1}, StackDepth = {2}", blockName, $this->mReallyEnabled, $this->mStackDepth), LogTypeId.eLogProfileDebug);
+			Ctx::$mInstance->mLogSys->log(string.Format("MProfiler::enter, blockName = {0}, ReallyEnabled = {1}, StackDepth = {2}", blockName, $this->mReallyEnabled, $this->mStackDepth), LogTypeId::eLogProfileDebug);
 		}
 
 		// 绗竴娆¤繘鍏ョ殑鏃跺�欏垽鏂槸鍚︽湁鏍硅妭鐐�

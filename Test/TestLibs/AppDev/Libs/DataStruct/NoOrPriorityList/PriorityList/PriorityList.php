@@ -49,7 +49,7 @@ class PriorityList implements INoOrPriorityList
 
 	public function count()
 	{
-		return $this->mPriorityProcessObjectList.count();
+		return $this->mPriorityProcessObjectList->count();
 	}
 
 	public function get($index)

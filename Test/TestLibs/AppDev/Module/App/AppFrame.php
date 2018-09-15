@@ -29,7 +29,7 @@ class AppFrame
         {
             while(true)
             {
-                $this->_update($interval);
+                $this->_update();
                 sleep($interval);   //暂停时间（单位为秒）
             }
         }
@@ -40,7 +40,7 @@ class AppFrame
         Ctx::$mInstance->dispose();
     }
     
-    protected function _update($interval)
+    protected function _update()
     {
         Ctx::$mInstance->mProcessSys->ProcessNextFrame();
     }

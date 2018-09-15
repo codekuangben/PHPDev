@@ -54,7 +54,7 @@ const ENABLE_SHARP_ZIP_LIB = false;
 const UNIT_TEST = true;
 
 // Profile 
-const ENABLE_PROFILE = true;
+const ENABLE_PROFILE = false;
 
 // Profile
 const ENABLE_LOOP = true;

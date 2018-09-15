@@ -11,7 +11,7 @@ class DelayNoOrPriorityHandleMgr extends DelayNoOrPriorityHandleMgrBase
 
 	public function __construct()
 	{
-
+	    parent::__construct();
 	}
 
 	public function init()

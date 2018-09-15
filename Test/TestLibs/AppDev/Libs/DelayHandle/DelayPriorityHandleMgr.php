@@ -9,6 +9,8 @@ class DelayPriorityHandleMgr extends DelayNoOrPriorityHandleMgr
 {
 	public function __construct()
 	{
+	    parent::__construct();
+	    
 		$this->mDeferredAddQueue = new NoPriorityList();
 		$this->mDeferredAddQueue->setIsSpeedUpFind(true);
 		$this->mDeferredDelQueue = new NoPriorityList();

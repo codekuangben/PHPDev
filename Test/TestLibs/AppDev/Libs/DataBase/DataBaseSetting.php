@@ -23,8 +23,8 @@ class DataBaseSetting
         $this->mDataBaseName = "mytest";
         $this->mCharSet = "utf8";
         
-        $this->mUserName = "Root";
-        $this->mPassWord = "";
+        $this->mUserName = "aaaa";
+        $this->mPassWord = "aaaaaa";
     }
     
     public function setDataBaseType($value)
@@ -46,7 +46,7 @@ class DataBaseSetting
     {
         $dsn = "";
         
-        if(DataBaseType::MYSQL == $mDataBaseType)
+        if(DataBaseType::MYSQL == $this->mDataBaseType)
         {
             $dsn ="mysql:host=".$this->mHost.";port=".$this->mPort.";dbname=".$this->mDataBaseName.";charset=".$this->mCharSet; 
         }

@@ -14,12 +14,12 @@ class DBPdo
 {
     protected $mDataBaseType;
     protected $mDataBaseSetting;
-    protected $mIsPersistentConnect;       // 保持长连接
-    protected $mPdoErrorMode;
-    protected $mNeedTransaction;
-    protected $mIsDirectExec;           // 是否直接执行
-    protected $mRowCount;       // PDO::exec() 影响的行数
-    protected $mDataBaseOpMode;
+    protected $mIsPersistentConnect;        // 保持长连接
+    protected $mPdoErrorMode;               // 错误处理方式
+    protected $mNeedTransaction;            // 是否需要事务执行 beginTransaction  commit
+    protected $mIsDirectExec;               // 是否直接执行 PDO::exec() ，还是 PDOStatement::execute()
+    protected $mRowCount;                   // PDO::exec() 影响的行数
+    protected $mDataBaseOpMode;             // 增加 删除 修改 查找
     
     protected $mNativePdo;
     protected $mNativePDOStatement;
@@ -29,8 +29,8 @@ class DBPdo
         $this->mDataBaseSetting = new DataBaseSetting();
         $this->mIsPersistent = true;
         $this->mPdoErrorMode = PdoErrorMode::ERRMODE_SILENT;
-        $this->mNeedTransaction = false;
-        $this->mIsDirectExec = true;
+        $this->mNeedTransaction = true;
+        $this->mIsDirectExec = false;
         $this->mNativePdo = null;
         $this->mNativePDOStatement = null;
         $this->mPdoQueryList = null;
@@ -195,7 +195,7 @@ class DBPdo
         {
             $this->mNativePdo->beginTransaction();//开启事务
             
-            $this->_addWithOutTransaction($sql, $opMode, false);
+            $this->_execWithOutTransaction($sql, $opMode, false);
             
             $this->mNativePdo->commit();//提交事务
         }

@@ -25,17 +25,17 @@ class TestDB extends TestBase
         //$deleteSql = "DELETE FROM baseinfo WHERE id=23";
         //Ctx::$mInstance->mDBPdo->delete($deleteSql);
         
-        $findSql = "SELECT * FROM `baseinfo` WHERE `id`=23";
-        Ctx::$mInstance->mDBPdo->find($findSql);
-        while($row = Ctx::$mInstance->mDBPdo->getNextRow())
-        {
-            print_r($row);
-        }
+        $setSql = "UPDATE `baseinfo` SET `name`=aaaa WHERE `id`=23";
+        Ctx::$mInstance->mDBPdo->set($setSql);
         
-        Ctx::$mInstance->mDBPdo->getNextRowOneByOne(null, null);
+        //$findSql = "SELECT * FROM `baseinfo` WHERE `id`=23";
+        //Ctx::$mInstance->mDBPdo->find($findSql);
+        //while($row = Ctx::$mInstance->mDBPdo->getNextRow())
+        //{
+        //    print_r($row);
+        //}
         
-        //$setSql = "insert into baseinfo(id,name)values(23,'Joe')";
-        //Ctx::$mInstance->mDBPdo->add($addSql);
+        //Ctx::$mInstance->mDBPdo->getNextRowOneByOne(null, null);
     }
 }
 

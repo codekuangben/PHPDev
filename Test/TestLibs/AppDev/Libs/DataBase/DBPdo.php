@@ -118,6 +118,73 @@ class DBPdo
         }
     }
     
+    // 执行
+    public function execCommand(string $sql)
+    {
+        if($this->mNeedTransaction)
+        {
+            $this->_execWithTransaction($sql);
+        }
+        else
+        {
+            $this->_execWithOutTransaction($sql);
+        }
+    }
+    
+    public function _execWithOutTransaction(string $sql, bool $isHandleException = true)
+    {
+        if($isHandleException)
+        {
+            try
+            {
+                $this->_execWithOutTransactionNoException($sql);
+            }
+            catch (PDOException $e)
+            {
+                echo('PDO Exception Caught. ');
+                echo('Error with the database: <br />');
+                echo('SQL Query: '. $sql);
+                echo('Error: ' . $e->getMessage());
+            }
+        }
+        else
+        {
+            $this->_execWithOutTransactionNoException($sql);
+        }
+    }
+    
+    public function _execWithOutTransactionNoException(string $sql)
+    {
+        if($this->mIsDirectExec)
+        {
+            $this->mNativePdo->exec($sql);
+        }
+        else
+        {
+            $this->mNativePDOStatement = $this->mNativePdo->prepare($sql);
+            //$this->mNativePDOStatement->bindParam();
+            $this->mNativePDOStatement->execute();
+            //echo($this->mNativePDOStatement->rowCount());
+        }
+    }
+    
+    public function _execWithTransaction(string $sql)
+    {
+        try
+        {
+            $this->mNativePdo->beginTransaction();//开启事务
+            
+            $this->_addWithOutTransaction($sql, false);
+            
+            $this->mNativePdo->commit();//提交事务
+        }
+        catch(Exception $e)
+        {
+            $this->mNativePdo->rollBack();//错误回滚
+            echo("Failed:".$e->getMessage());
+        }
+    }
+    
     // 增加
     public function add(string $sql)
     {
@@ -164,6 +231,7 @@ class DBPdo
             $this->mNativePDOStatement = $this->mNativePdo->prepare($sql);
             //$this->mNativePDOStatement->bindParam();
             $this->mNativePDOStatement->execute();
+            //echo($this->mNativePDOStatement->rowCount());
         }
     }
     

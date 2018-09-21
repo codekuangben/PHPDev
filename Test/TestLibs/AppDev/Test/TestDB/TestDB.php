@@ -21,6 +21,15 @@ class TestDB extends TestBase
         
         $addSql = "insert into baseinfo(id,name)values(23,'Joe')";
         Ctx::$mInstance->mDBPdo->add($addSql);
+        
+        $deleteSql = "DELETE FROM baseinfo WHERE id=23";
+        Ctx::$mInstance->mDBPdo->delete($deleteSql);
+        
+        //$findSql = "insert into baseinfo(id,name)values(23,'Joe')";
+        //Ctx::$mInstance->mDBPdo->add($addSql);
+        
+        //$setSql = "insert into baseinfo(id,name)values(23,'Joe')";
+        //Ctx::$mInstance->mDBPdo->add($addSql);
     }
 }
 

@@ -19,6 +19,11 @@ class UtilList
         array_push($list, $item);
     }
     
+    public static function pushFront($list, $item)
+    {
+        array_unshift($list, $item);
+    }
+    
     public static function setCapacity($list, $capacity)
     {
         $index = 0;

@@ -23,8 +23,8 @@ class DataBaseSetting
         $this->mDataBaseName = "mytest";
         $this->mCharSet = "utf8";
         
-        $mUserName = "";
-        $mPassWord = "";
+        $this->mUserName = "Root";
+        $this->mPassWord = "";
     }
     
     public function setDataBaseType($value)

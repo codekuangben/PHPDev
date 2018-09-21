@@ -42,6 +42,8 @@ class Ctx
 	public $mIdPoolSys;
 	public $mUniqueStrIdGen;
 	public $mProfiler;
+	
+	public $mDBPdo;
 	public $mTestMain;
 
 	public function __construct()
@@ -51,15 +53,15 @@ class Ctx
 
 	public static function instance($value = null)
 	{
-		if (Ctx::$mInstance == null)
+	    if (self::$mInstance == null)
 		{
 		    if(null != $value)
 		    {
-		        Ctx::$mInstance = $value;
+		        self::$mInstance = $value;
 		    }
 		    else
 		    {
-		        Ctx::$mInstance = new Ctx();
+		        self::$mInstance = new Ctx();
 		    }
 		}
 		
@@ -100,6 +102,7 @@ class Ctx
 		$this->mIdPoolSys = new IdPoolSys();
 		$this->mLogicTickMgr = new LogicTickMgr();
 		$this->mProfiler = new MProfiler();
+		$this->mDBPdo = new DBPdo();
 	}
 
 	public function _execInit()
@@ -119,6 +122,8 @@ class Ctx
 		//{
 		//    $this->mProfiler->setIsStartProfile(true);
 		//}
+		
+		$this->mDBPdo->init();
 	}
 	
 	public function _postInit()
@@ -177,6 +182,11 @@ class Ctx
 		{
 			$this->mLogSys->dispose();
 			$this->mLogSys = null;
+		}
+		if(null != $this->mDBPdo)
+		{
+		    $this->mDBPdo->dispose();
+		    $this->mDBPdo = null;
 		}
 	}
 	

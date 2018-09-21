@@ -16,6 +16,11 @@ class TestClass extends TestBase
         parent::__construct();
     }
     
+    public function __destruct()
+    {
+        
+    }
+    
     public function init()
     {
         parent::init();

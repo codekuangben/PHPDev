@@ -181,6 +181,61 @@ class UtilSysLibWrap
 	{
 	    ignore_user_abort($value);
 	}
+	
+	public static function isBool($value)
+	{
+	    return is_bool($value);
+	}
+	
+	public static function isInt($value)
+	{
+	    return is_int($value);
+	}
+	
+	public static function isNumeric($value)
+	{
+	    return is_numeric($value);
+	}
+	
+	public static function unserialize(string $str, array $options = null)
+	{
+	    return unserialize($str);
+	}
+	
+	public static function serialize($value)
+	{
+	    return serialize($value);
+	}
+	
+	public static function json_decode(string $json, bool $assoc = null, int $depth = null, int $options = null)
+	{
+	    return json_decode($json);
+	}
+	
+	public static function jsonEncode($value, int $options = null, int $depth = null)
+	{
+	    return json_encode($value, $options, $depth);
+	}
+	
+	public static function pregReplace($pattern, $replacement, $subject, int $limit = null, int &$count = null)
+	{
+	    return preg_replace($pattern, $replacement, $subject, $limit, $count);
+	}
+	
+	public static function pregMatch(string $pattern, string $subject, array &$matches = null, int $flags = null, int $offset = null)
+	{
+	    return preg_match($pattern, $subject, $matches, $flags, $offset);
+	}
+	
+	public static function die()
+	{
+	    die();
+	}
+	
+	public static function print($str)
+	{
+	    print($str);
+	}
 }
 
 ?>

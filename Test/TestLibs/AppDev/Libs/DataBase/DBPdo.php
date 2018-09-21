@@ -43,8 +43,8 @@ class DBPdo
         try
         {
             $dsn = $this->mDataBaseSetting->getDsn();
-            $userName = getUserName();
-            $passWord = getPassWord();
+            $userName = $this->mDataBaseSetting->getUserName();
+            $passWord = $this->mDataBaseSetting->getPassWord();
             
             $this->mNativePdo = new PDO(
                 $dsn, 

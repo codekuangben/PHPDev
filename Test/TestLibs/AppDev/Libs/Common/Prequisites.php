@@ -152,6 +152,7 @@ require_once (dirname(__FILE__) . "/../Network/CmdDispatch/CmdDispatchInfo.php")
 
 // DataBase
 require_once (dirname(__FILE__) . "/../DataBase/DataBaseType.php");
+require_once (dirname(__FILE__) . "/../DataBase/PdoErrorMode.php");
 require_once (dirname(__FILE__) . "/../DataBase/DataBaseSetting.php");
 require_once (dirname(__FILE__) . "/../DataBase/DBPdo.php");
 

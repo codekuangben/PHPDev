@@ -18,6 +18,9 @@ class TestDB extends TestBase
     {
         Ctx::$mInstance->mDBPdo->setDataBaseType(DataBaseType::MYSQL);
         Ctx::$mInstance->mDBPdo->connect();
+        
+        $addSql = "insert into baseinfo(id,name)values(23,'Joe')";
+        Ctx::$mInstance->mDBPdo->add($addSql);
     }
 }
 

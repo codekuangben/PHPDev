@@ -18,6 +18,8 @@ class DBPdo
     protected $mPdoErrorMode;
     protected $mNeedTransaction;
     protected $mIsDirectExec;           // 是否直接执行
+    protected $mRowCount;       // PDO::exec() 影响的行数
+    protected $mDataBaseOpMode;
     
     protected $mNativePdo;
     protected $mNativePDOStatement;
@@ -31,6 +33,8 @@ class DBPdo
         $this->mIsDirectExec = true;
         $this->mNativePdo = null;
         $this->mNativePDOStatement = null;
+        $this->mPdoQueryList = null;
+        $this->mRowCount = 0;
     }
     
     public function __destruct()
@@ -50,6 +54,16 @@ class DBPdo
     }
     
     public function init()
+    {
+        
+    }
+    
+    public function clear()
+    {
+        $this->mNativePDOStatement->closeCursor();
+    }
+    
+    public function dispose()
     {
         
     }
@@ -119,25 +133,25 @@ class DBPdo
     }
     
     // 执行
-    public function execCommand(string $sql)
+    public function execCommand(string $sql, int $opMode)
     {
         if($this->mNeedTransaction)
         {
-            $this->_execWithTransaction($sql);
+            $this->_execWithTransaction($sql, $opMode);
         }
         else
         {
-            $this->_execWithOutTransaction($sql);
+            $this->_execWithOutTransaction($sql, $opMode);
         }
     }
     
-    public function _execWithOutTransaction(string $sql, bool $isHandleException = true)
+    public function _execWithOutTransaction(string $sql, int $opMode, bool $isHandleException = true)
     {
         if($isHandleException)
         {
             try
             {
-                $this->_execWithOutTransactionNoException($sql);
+                $this->_execWithOutTransactionNoException($sql, $opMode);
             }
             catch (PDOException $e)
             {
@@ -149,15 +163,22 @@ class DBPdo
         }
         else
         {
-            $this->_execWithOutTransactionNoException($sql);
+            $this->_execWithOutTransactionNoException($sql, $opMode);
         }
     }
     
-    public function _execWithOutTransactionNoException(string $sql)
+    public function _execWithOutTransactionNoException(string $sql, int $opMode)
     {
         if($this->mIsDirectExec)
         {
-            $this->mNativePdo->exec($sql);
+            if(DataBaseOpMode::FIND == $opMode)
+            {
+                $this->mNativePDOStatement = $this->mNativePdo->query($sql);
+            }
+            else
+            {
+                $this->mRowCount = $this->mNativePdo->exec($sql);
+            }
         }
         else
         {
@@ -168,13 +189,13 @@ class DBPdo
         }
     }
     
-    public function _execWithTransaction(string $sql)
+    public function _execWithTransaction(string $sql, int $opMode)
     {
         try
         {
             $this->mNativePdo->beginTransaction();//开启事务
             
-            $this->_addWithOutTransaction($sql, false);
+            $this->_addWithOutTransaction($sql, $opMode, false);
             
             $this->mNativePdo->commit();//提交事务
         }
@@ -188,116 +209,96 @@ class DBPdo
     // 增加
     public function add(string $sql)
     {
-        if($this->mNeedTransaction)
-        {
-            $this->_addWithTransaction($sql);
-        }
-        else
-        {
-            $this->_addWithOutTransaction($sql);
-        }
-    }
-    
-    public function _addWithOutTransaction(string $sql, bool $isHandleException = true)
-    {
-        if($isHandleException)
-        {
-            try
-            {
-                $this->_addWithOutTransactionNoException($sql);
-            }
-            catch (PDOException $e)
-            {
-                echo('PDO Exception Caught. ');
-                echo('Error with the database: <br />');
-                echo('SQL Query: '. $sql);
-                echo('Error: ' . $e->getMessage());
-            }
-        }
-        else
-        {
-            $this->_addWithOutTransactionNoException($sql);
-        }
-    }
-    
-    public function _addWithOutTransactionNoException(string $sql)
-    {
-        if($this->mIsDirectExec)
-        {
-            $this->mNativePdo->exec($sql);
-        }
-        else
-        {
-            $this->mNativePDOStatement = $this->mNativePdo->prepare($sql);
-            //$this->mNativePDOStatement->bindParam();
-            $this->mNativePDOStatement->execute();
-            //echo($this->mNativePDOStatement->rowCount());
-        }
-    }
-    
-    public function _addWithTransaction(string $sql)
-    {
-        try
-        {
-            $this->mNativePdo->beginTransaction();//开启事务
-            
-            $this->_addWithOutTransaction($sql, false);
-            
-            $this->mNativePdo->commit();//提交事务
-        }
-        catch(Exception $e)
-        {
-            $this->mNativePdo->rollBack();//错误回滚
-            echo("Failed:".$e->getMessage());
-        } 
+        $this->mDataBaseOpMode = DataBaseOpMode::ADD;
+        $this->execCommand($sql, DataBaseOpMode::ADD);
     }
     
     // 删除
     public function delete(string $sql)
     {
-        
-    }
-    
-    public function _deleteWithOutTransaction(string $sql)
-    {
-        
-    }
-    
-    public function _deleteWithTransaction(string $sql)
-    {
-        
+        $this->mDataBaseOpMode = DataBaseOpMode::DELETE;
+        $this->execCommand($sql, DataBaseOpMode::DELETE);
     }
     
     // 修改
     public function set(string $sql)
     {
-        
-    }
-    
-    public function _setWithOutTransaction(string $sql)
-    {
-        
-    }
-    
-    public function _setWithTransaction(string $sql)
-    {
-        
+        $this->mDataBaseOpMode = DataBaseOpMode::SET;
+        $this->execCommand($sql, DataBaseOpMode::SET);
     }
     
     // 查询
     public function find(string $sql)
     {
-        
+        $this->mDataBaseOpMode = DataBaseOpMode::FIND;
+        $this->execCommand($sql, DataBaseOpMode::FIND);
     }
     
-    public function _findWithOutTransaction(string $sql)
+    public function getRowCount()
     {
+        $ret = 0;
         
+        if($this->mIsDirectExec)
+        {
+            if(DataBaseOpMode::FIND == $this->mDataBaseOpMode)
+            {
+                $ret = $this->mNativePDOStatement->rowcount();
+            }
+            else
+            {
+                $ret = $this->mRowCount;
+            }
+        }
+        else
+        {
+            $ret = $this->mNativePDOStatement->rowcount();
+        }
+        
+        return $ret;
     }
     
-    public function _findWithTransaction(string $sql)
+    public function getColumnCount()
     {
+        $ret = 0;
         
+        if($this->mIsDirectExec)
+        {
+            
+        }
+        else
+        {
+            $ret = $this->mNativePDOStatement->columncount();
+        }
+        
+        return $ret;
+    }
+    
+    public function getNextRow()
+    {
+        $row = null;
+        
+        // 如果没有返回 false
+        $row = $this->mNativePDOStatement->fetch(PDO::FETCH_ASSOC);
+        $this->mNativePDOStatement->nextRowset();
+        
+        return $row;
+    }
+    
+    public function getNextRowOneByOne($pThis, $handle)
+    {
+        $functor = new EventDispatchFunctionObject();
+        $functor->setFuncObject($pThis, $handle);
+        
+        while($row = $this->mNativePDOStatement->fetch(PDO::FETCH_ASSOC))
+        {
+            $functor->call($row);
+        }
+    }
+    
+    public function getAllRow()
+    {
+        $ret = $this->mNativePDOStatement->fetchAll();
+        return $ret;
     }
 }
 

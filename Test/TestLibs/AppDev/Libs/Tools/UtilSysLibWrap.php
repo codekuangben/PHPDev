@@ -241,6 +241,11 @@ class UtilSysLibWrap
 	{
 	    echo($str);
 	}
+	
+	public static function print_r($str)
+	{
+	    print_r($str);
+	}
 }
 
 ?>

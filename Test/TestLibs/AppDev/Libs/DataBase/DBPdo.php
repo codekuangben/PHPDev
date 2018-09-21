@@ -3,7 +3,7 @@
 namespace SDK\Lib;
 
 use PDO;
-use Exception;
+//use Exception;
 use PDOException;
 
 class DBPdo
@@ -27,7 +27,7 @@ class DBPdo
         
     }
     
-    public function setDataBaseType($value)
+    public function setDataBaseType(int $value)
     {
         $this->mDataBaseType = $value;
         $this->mDataBaseSetting->setDataBaseType($this->mDataBaseType);

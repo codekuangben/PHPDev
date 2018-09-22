@@ -9,6 +9,8 @@ use SDK\Lib\MacroDef;
 
 class AppFrame
 {
+    protected $mNetNotify;
+    
     public function __construct()
     {
         Ctx::instance();
@@ -17,6 +19,18 @@ class AppFrame
     public function init()
     {
         Ctx::$mInstance->init();
+        
+        $this->mNetNotify = new NetNotify();
+        $this->mNetNotify->init();
+        Ctx::$mInstance->mNetCmdNotify->addOneNofity($this->mNetNotify);
+    }
+    
+    public function dispose()
+    {
+        Ctx::$mInstance->dispose();
+        
+        $this->mNetNotify->dispose();
+        $this->mNetNotify = null;
     }
     
     public function run()
@@ -34,11 +48,6 @@ class AppFrame
                 sleep($interval);   //暂停时间（单位为秒）
             }
         }
-    }
-    
-    public function dispose()
-    {
-        Ctx::$mInstance->dispose();
     }
     
     protected function _update()

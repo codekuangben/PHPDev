@@ -141,6 +141,8 @@ require_once (dirname(__FILE__) . "/../Log/LogSys.php");
 
 
 // 网络
+require_once (dirname(__FILE__) . "/../Network/CmdDispatch/ProtoCV.php");
+require_once (dirname(__FILE__) . "/../Network/CmdDispatch/NullUserCmd.php");
 require_once (dirname(__FILE__) . "/../Network/CmdDispatch/NetCmdDispatchHandle.php");
 require_once (dirname(__FILE__) . "/../Network/CmdDispatch/NetModuleDispatchHandle.php");
 require_once (dirname(__FILE__) . "/../Network/CmdDispatch/NetCmdNotify.php");

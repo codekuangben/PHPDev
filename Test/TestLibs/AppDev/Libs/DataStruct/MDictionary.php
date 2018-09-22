@@ -23,25 +23,30 @@ class MDictionary
 
 	public function value($key)
 	{
+	    $ret = null;
+	    
 		if(array_key_exists($key, $this->mData))
 		{
-			return $this->mData[$key];
+		    $ret = $this->mData[$key];
 		}
 
-		return null;
+		return $ret;
 	}
 
 	public function key($value)
 	{
+	    $ret = null;
+	    
 		while(list($key, $val)= each($this->mData))
 		{
 			if (UtilSysLibWrap::isObjectEqual($val, $value))
 			{
-				return $key;
+			    $ret = $key;
+			    break;
 			}
 		}
 		
-		return null;
+		return $ret;
 	}
 
 	public function getKeys()
@@ -99,15 +104,18 @@ class MDictionary
 
 	public function containsValue($value)
 	{
+	    $ret = false;
+	    
 		while(list($key, $val)= each($this->mData))
 		{
 			if(UtilSysLibWrap::isObjectEqual($val, $value))
 			{
-				return true;
+			    $ret = true;
+			    break;
 			}
 		}
 	
-		return false;
+		return $ret;
 	}
 
 	public function at($idx)

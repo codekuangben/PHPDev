@@ -23,15 +23,19 @@ class NetCmdDispatchHandle implements ICalleeObject
 
 	public function addParamHandle($paramId, $pThis, $handle)
 	{
+	    $dispatch = null;
+	    
 	    if(!$this->mId2HandleDic->containsKey($paramId))
 		{
-		    $this->mId2HandleDic->add($paramId, new AddOnceEventDispatch());
+		    $dispatch = new AddOnceEventDispatch();
+		    $this->mId2HandleDic->add($paramId, $dispatch);
 		}
 		else
 		{
+		    $dispatch = $this->mId2HandleDic->value($paramId);
 		}
 
-		$this->mId2HandleDic->value($paramId)->addEventHandle(null, $pThis, $handle);
+		$dispatch->addEventHandle($pThis, $handle, 0);
 	}
 
 	public function removeParamHandle($paramId, $pThis, $handle)

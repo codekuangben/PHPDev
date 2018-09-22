@@ -7,7 +7,7 @@ class NetCmdNotify
 	protected $mRevMsgCnt;      // 接收到消息的数量
 	protected $mHandleMsgCnt;   // 处理的消息的数量
 
-	protected $mNetModuleDispList;
+	protected $mNetModuleDispatchList;
 	protected $mIsStopNetHandle;       // 是否停止网络消息处理
 	protected $mCmdDispInfo;
 
@@ -15,9 +15,9 @@ class NetCmdNotify
 	{
 		$this->mRevMsgCnt = 0;
 		$this->mHandleMsgCnt = 0;
-		$this->mNetModuleDispList = new MList();
+		$this->mNetModuleDispatchList = new MList();
 		$this->mIsStopNetHandle = false;
-		$this->mCmdDispInfo = new CmdDispInfo();
+		$this->mCmdDispInfo = new CmdDispatchInfo();
 	}
 
 	public function isStopNetHandle()
@@ -32,17 +32,17 @@ class NetCmdNotify
 
 	public function addOneNofity($disp)
 	{
-		if ($this->mNetModuleDispList->indexOf($disp) == -1)
+		if ($this->mNetModuleDispatchList->indexOf($disp) == -1)
 		{
-			$this->mNetModuleDispList->add($disp);
+			$this->mNetModuleDispatchList->add($disp);
 		}
 	}
 
 	public function removeOneNotify($disp)
 	{
-		if ($this->mNetModuleDispList->indexOf($disp) != -1)
+		if ($this->mNetModuleDispatchList->indexOf($disp) != -1)
 		{
-			$this->mNetModuleDispList->remove($disp);
+			$this->mNetModuleDispatchList->remove($disp);
 		}
 	}
 
@@ -61,12 +61,12 @@ class NetCmdNotify
 		$mCmdDispInfo->byParam = $byParam;
 
 		$index = 0;
-		$listLen = $this->mNetModuleDispList->count();
+		$listLen = $this->mNetModuleDispatchList->count();
 		$item = null;
 		
 		while ($index < $listLen)
 		{
-		    $item = $this->mNetModuleDispList->get($index);
+		    $item = $this->mNetModuleDispatchList->get($index);
 			$item->handleMsg($this->mCmdDispInfo);
 			
 			$index += 1;

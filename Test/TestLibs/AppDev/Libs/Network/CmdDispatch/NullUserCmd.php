@@ -18,17 +18,17 @@ class NullUserCmd
 
 	public function serialize($bu)
 	{
-	    serializebu->writeUnsignedInt8($this->byCmd);
-	    serializebu->writeUnsignedInt8($this->byParam);
+	    $bu->writeUnsignedInt8($this->byCmd);
+	    $bu->writeUnsignedInt8($this->byParam);
 		$this->dwTimestamp = UtilSysLibWrap::getUTCSec();
-		serializebu->writeUnsignedInt32($this->dwTimestamp);
+		$bu->writeUnsignedInt32($this->dwTimestamp);
 	}
 
 	public function derialize($bu)
 	{
-	    serializebu->readUnsignedInt8($this->byCmd);
-	    serializebu->readUnsignedInt8($this->byParam);
-	    serializebu->readUnsignedInt32($this->dwTimestamp);
+	    $bu->readUnsignedInt8($this->byCmd);
+	    $bu->readUnsignedInt8($this->byParam);
+	    $bu->readUnsignedInt32($this->dwTimestamp);
 	}
 }
 

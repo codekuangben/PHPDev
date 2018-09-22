@@ -2,7 +2,7 @@
 
 namespace SDK\Lib;
 
-class CmdDispInfo implements IDispatchObject
+class CmdDispatchInfo implements IDispatchObject
 {
 	public $bu;
 	public $byCmd;

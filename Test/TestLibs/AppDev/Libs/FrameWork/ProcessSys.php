@@ -16,24 +16,24 @@ class ProcessSys
 	{
 		if (MacroDef::ENABLE_PROFILE)
 		{
-			Ctx::$mInstance->mProfiler->enter("ProcessSys::ProcessNextFrame");
+			Ctx::$msInstance->mProfiler->enter("ProcessSys::ProcessNextFrame");
 		}
 
-		//Ctx::$mInstance->mSystemTimeData->nextFrame();
-		$this->advance(Ctx::$mInstance->mSystemTimeData->getDeltaSec());
+		//Ctx::$msInstance->mSystemTimeData->nextFrame();
+		$this->advance(Ctx::$msInstance->mSystemTimeData->getDeltaSec());
 
 		if (MacroDef::ENABLE_PROFILE)
 		{
-		    Ctx::$mInstance->mProfiler->exit("ProcessSys::ProcessNextFrame");
+		    Ctx::$msInstance->mProfiler->exit("ProcessSys::ProcessNextFrame");
 		}
 	}
 
 	public function advance($delta)
 	{
-	    Ctx::$mInstance->mSystemFrameData->nextFrame($delta);
-	    Ctx::$mInstance->mTickMgr->Advance($delta, TickMode::eTM_Update);            // 心跳
-	    Ctx::$mInstance->mTimerMgr->Advance($delta);           // 定时器
-	    Ctx::$mInstance->mFrameTimerMgr->Advance($delta);      // 帧定时器
+	    Ctx::$msInstance->mSystemFrameData->nextFrame($delta);
+	    Ctx::$msInstance->mTickMgr->Advance($delta, TickMode::eTM_Update);            // 心跳
+	    Ctx::$msInstance->mTimerMgr->Advance($delta);           // 定时器
+	    Ctx::$msInstance->mFrameTimerMgr->Advance($delta);      // 帧定时器
 	}
 }
 

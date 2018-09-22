@@ -11,79 +11,79 @@ class EngineLoop
 	{
 		if(MacroDef::ENABLE_PROFILE)
 		{
-			Ctx::$mInstance->mProfiler->enter("EngineLoop::MainLoop");
+			Ctx::$msInstance->mProfiler->enter("EngineLoop::MainLoop");
 		}
 
 		// 时间间隔
-		Ctx::$mInstance->mSystemTimeData->nextFrame();
+		Ctx::$msInstance->mSystemTimeData->nextFrame();
 
 		// 每一帧处理
 		// 处理 input
-		//Ctx::$mInstance->mInputMgr->handleKeyBoard();
+		//Ctx::$msInstance->mInputMgr->handleKeyBoard();
 
 		// 处理客户端的各类消息
 		// 处理客户端自己的消息机制
 
 		$routeMsg = null;
 
-		while (($routeMsg = Ctx::$mInstance->mSysMsgRoute->popMsg()) != null)
+		while (($routeMsg = Ctx::$msInstance->mSysMsgRoute->popMsg()) != null)
 		{
-			Ctx::$mInstance->mMsgRouteNotify->handleMsg(routeMsg);
+			Ctx::$msInstance->mMsgRouteNotify->handleMsg(routeMsg);
 		}
 
 		// 处理网络
-		//if (!Ctx::$mInstance->mNetCmdNotify->isStopNetHandle)
+		//if (!Ctx::$msInstance->mNetCmdNotify->isStopNetHandle)
 		//{
 		//    ByteBuffer ret = null;
-		//    while ((ret = Ctx::$mInstance->mNetMgr->getMsg()) != null)
+		//    while ((ret = Ctx::$msInstance->mNetMgr->getMsg()) != null)
 		//    {
-		//        if (null != Ctx::$mInstance->mNetCmdNotify)
+		//        if (null != Ctx::$msInstance->mNetCmdNotify)
 		//        {
-		//            Ctx::$mInstance->mNetCmdNotify->addOneHandleMsg();
-		//            Ctx::$mInstance->mNetCmdNotify->handleMsg(ret);       // CS 中处理
-		//            Ctx::$mInstance->mLuaSystem->receiveToLuaRpc(ret);    // Lua 中处理
+		//            Ctx::$msInstance->mNetCmdNotify->addOneHandleMsg();
+		//            Ctx::$msInstance->mNetCmdNotify->handleMsg(ret);       // CS 中处理
+		//            Ctx::$msInstance->mLuaSystem->receiveToLuaRpc(ret);    // Lua 中处理
 		//        }
 		//    }
 		//}
 
-		if (null != Ctx::$mInstance->mLightServer_GB)
+		if (null != Ctx::$msInstance->mLightServer_GB)
 		{
-			Ctx::$mInstance->mLightServer_GB->Receive();
+			Ctx::$msInstance->mLightServer_GB->Receive();
 		}
 
 		// 填充数据到 KBEngine ，使用 KBEngine 引擎的逻辑解析
-		//if (!Ctx::$mInstance->mNetCmdNotify->isStopNetHandle)
+		//if (!Ctx::$msInstance->mNetCmdNotify->isStopNetHandle)
 		//{
 		//    ByteBuffer ret = null;
-		//    while ((ret = Ctx::$mInstance->mNetMgr->getMsg_KBE()) != null)
+		//    while ((ret = Ctx::$msInstance->mNetMgr->getMsg_KBE()) != null)
 		//    {
-		//        Ctx::$mInstance->mMKBEMainEntry->gameapp->pushBuffer(ret->dynBuffer->buffer, ret->dynBuffer->size);
+		//        Ctx::$msInstance->mMKBEMainEntry->gameapp->pushBuffer(ret->dynBuffer->buffer, ret->dynBuffer->size);
 		//    }
 		//}
 
 		// KBEngine 引擎逻辑处理
-		//Ctx::$mInstance->mMKBEMainEntry->FixedUpdate();
+		//Ctx::$msInstance->mMKBEMainEntry->FixedUpdate();
 
 		// 每一帧的游戏逻辑处理
-		Ctx::$mInstance->mProcessSys->ProcessNextFrame();
+		Ctx::$msInstance->mProcessSys->ProcessNextFrame();
 		// 日志处理
-		Ctx::$mInstance->mLogSys->updateLog();
+		Ctx::$msInstance->mLogSys->updateLog();
 
 		if (MacroDef::ENABLE_PROFILE)
 		{
-			Ctx::$mInstance->mProfiler->exit("EngineLoop::MainLoop");
+			Ctx::$msInstance->mProfiler->exit("EngineLoop::MainLoop");
 		}
 	}
 
 	public function fixedUpdate()
 	{
-		Ctx::$mInstance->mProcessSys->ProcessNextFixedFrame();
+		Ctx::$msInstance->mProcessSys->ProcessNextFixedFrame();
 	}
 
 	// 循环执行完成后，再次
 	public function postUpdate()
 	{
-		Ctx::$mInstance->mProcessSys->ProcessNextLateFrame();
+		Ctx::$msInstance->mProcessSys->ProcessNextLateFrame();
 	}
 }
 ?>

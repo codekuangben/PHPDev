@@ -50,15 +50,15 @@ class NetCmdNotify
 	{
 		//if (false == mIsStopNetHandle)  // 如果没有停止网络处理
 		//{
-		$byCmd = 0;
-		$msg->readUnsignedInt8($byCmd);
-		$byParam = 0;
-		$msg->readUnsignedInt8($byParam);
-		$msg->setPos(0);
+		//$byCmd = 0;
+		//$msg->readUnsignedInt8($byCmd);
+		//$byParam = 0;
+		//$msg->readUnsignedInt8($byParam);
+		//$msg->setPos(0);
 
-		$mCmdDispInfo->bu = $msg;
-		$mCmdDispInfo->byCmd = $byCmd;
-		$mCmdDispInfo->byParam = $byParam;
+		$this->mCmdDispInfo->bu = $msg;
+		$this->mCmdDispInfo->byCmd = $msg->byCmd;
+		$this->mCmdDispInfo->byParam = $msg->byParam;
 
 		$index = 0;
 		$listLen = $this->mNetModuleDispatchList->count();
@@ -76,22 +76,22 @@ class NetCmdNotify
 
 	public function addOneRevMsg()
 	{
-	    ++$this->$mRevMsgCnt;            
+	    ++$this->mRevMsgCnt;            
 	}
 
 	public function addOneHandleMsg()
 	{
-		++$this->$mHandleMsgCnt;
+		++$this->mHandleMsgCnt;
 	}
 
 	public function clearOneRevMsg()
 	{
-		$this->$mRevMsgCnt = 0;
+		$this->mRevMsgCnt = 0;
 	}
 
 	public function clearOneHandleMsg()
 	{
-		$this->$mHandleMsgCnt = 0;
+		$this->mHandleMsgCnt = 0;
 	}
 }
 

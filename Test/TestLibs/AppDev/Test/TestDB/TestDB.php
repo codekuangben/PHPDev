@@ -16,26 +16,26 @@ class TestDB extends TestBase
     
     protected function _testFunctionCall()
     {
-        Ctx::$mInstance->mDBPdo->setDataBaseType(DataBaseType::MYSQL);
-        Ctx::$mInstance->mDBPdo->connect();
+        Ctx::$msInstance->mDBPdo->setDataBaseType(DataBaseType::MYSQL);
+        Ctx::$msInstance->mDBPdo->connect();
         
         $addSql = "insert into baseinfo(id,name)values(23,'Joe')";
-        Ctx::$mInstance->mDBPdo->add($addSql);
+        Ctx::$msInstance->mDBPdo->add($addSql);
         
         //$deleteSql = "DELETE FROM baseinfo WHERE id=23";
-        //Ctx::$mInstance->mDBPdo->delete($deleteSql);
+        //Ctx::$msInstance->mDBPdo->delete($deleteSql);
         
         $setSql = "UPDATE `baseinfo` SET `name`=aaaa WHERE `id`=23";
-        Ctx::$mInstance->mDBPdo->set($setSql);
+        Ctx::$msInstance->mDBPdo->set($setSql);
         
         //$findSql = "SELECT * FROM `baseinfo` WHERE `id`=23";
-        //Ctx::$mInstance->mDBPdo->find($findSql);
-        //while($row = Ctx::$mInstance->mDBPdo->getNextRow())
+        //Ctx::$msInstance->mDBPdo->find($findSql);
+        //while($row = Ctx::$msInstance->mDBPdo->getNextRow())
         //{
         //    print_r($row);
         //}
         
-        //Ctx::$mInstance->mDBPdo->getNextRowOneByOne(null, null);
+        //Ctx::$msInstance->mDBPdo->getNextRowOneByOne(null, null);
     }
 }
 

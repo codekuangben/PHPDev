@@ -25,10 +25,10 @@ class NetModuleDispatchHandle
 	{
 	    if (!$this->mId2DispDic->containsKey($cmdId))
 		{
-		    $this->mId2DispDic[cmdId] = new AddOnceEventDispatch();
+		    $this->mId2DispDic->add($cmdId, new AddOnceEventDispatch());
 		}
 
-		$this->mId2DispDic[cmdId]->addEventHandle($callee, $handle);
+		$this->mId2DispDic->value($cmdId)->addEventHandle($callee, $handle);
 	}
 
 	public function removeCmdHandle($cmdId, $calleeObj = null)
@@ -38,14 +38,14 @@ class NetModuleDispatchHandle
 		    
 		}
 
-		$this->mId2DispDic[$cmdId]->removeEventHandle($calleeObj, null);
+		$this->mId2DispDic->value($cmdId)->removeEventHandle($calleeObj, null);
 	}
 
 	public function handleMsg($cmdDispInfo)
 	{
 	    if($this->mId2DispDic->containsKey($cmdDispInfo->byCmd))
 		{                
-		    $this->mId2DispDic[$cmdDispInfo->byCmd]->dispatchEvent($cmdDispInfo);
+		    $this->mId2DispDic->value($cmdDispInfo->byCmd)->dispatchEvent($cmdDispInfo);
 		}
 		else
 		{

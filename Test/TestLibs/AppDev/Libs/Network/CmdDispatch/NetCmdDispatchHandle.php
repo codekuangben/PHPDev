@@ -25,20 +25,20 @@ class NetCmdDispatchHandle implements ICalleeObject
 	{
 	    if(!$this->mId2HandleDic->containsKey($paramId))
 		{
-		    $this->mId2HandleDic[$paramId] = new AddOnceEventDispatch();   
+		    $this->mId2HandleDic->add($paramId, new AddOnceEventDispatch());
 		}
 		else
 		{
 		}
 
-		$this->mId2HandleDic[$paramId]->addEventHandle(null, $pThis, $handle);
+		$this->mId2HandleDic->value($paramId)->addEventHandle(null, $pThis, $handle);
 	}
 
 	public function removeParamHandle($paramId, $pThis, $handle)
 	{
 	    if($this->mId2HandleDic->containsKey($paramId))
 		{
-		    $this->mId2HandleDic[$paramId]->removeEventHandle(null, $pThis, $handle);
+		    $this->mId2HandleDic->value($paramId)->removeEventHandle(null, $pThis, $handle);
 		}
 		else
 		{
@@ -54,7 +54,7 @@ class NetCmdDispatchHandle implements ICalleeObject
 	{
 	    if($this->mId2HandleDic->containsKey($cmd->byParam))
 		{
-		    $this->mId2HandleDic[$cmd->byParam]->dispatchEvent($cmd->bu);
+		    $this->mId2HandleDic->value($cmd->byParam)->dispatchEvent($cmd->bu);
 		}
 		else
 		{

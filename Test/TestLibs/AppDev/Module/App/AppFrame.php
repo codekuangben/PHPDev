@@ -3,6 +3,7 @@
 namespace SDK\Module;
 
 require_once (dirname(__FILE__) . "/../../Libs/FrameWork/Ctx.php");
+require_once (dirname(__FILE__) . "/../Common/Common/DataPrequisites.php");
 
 use SDK\Lib\Ctx;
 use SDK\Lib\MacroDef;

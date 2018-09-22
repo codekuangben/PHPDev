@@ -180,15 +180,17 @@ class MList
 
 	public function indexOf($item)
 	{
+	    $ret = -1;
+	    
 		if ($this->mIsSpeedUpFind)
 		{
 			if ($this->mDic->containsKey($item))
 			{
-				return $this->mDic[$item];
+			    $ret =  $this->mDic[$item];
 			}
 			else
 			{
-				return -1;
+			    $ret = -1;
 			}
 		}
 		else
@@ -196,8 +198,15 @@ class MList
 			/**
 			 * @ref PHP array_search() 函数 http://www.w3school.com.cn/php/func_array_search.asp 
 			 */
-			return array_search($this->mList, $item);
+		    $ret = array_search($item, $this->mList);
+		    
+		    if(!$ret)
+		    {
+		        $ret = -1;
+		    }
 		}
+		
+		return $ret;
 	}
 
 	public function insert($index, $item)

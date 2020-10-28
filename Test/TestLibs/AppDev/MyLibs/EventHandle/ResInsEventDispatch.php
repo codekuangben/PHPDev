@@ -1,6 +1,6 @@
 <?php
 
-namespace SDK\Lib;
+namespace MyLibs;
 
 /**
  * @brief 资源实例化事件分发器

@@ -3,7 +3,7 @@ using System.Net.Sockets;
 using System;
 using System.Threading;
 
-namespace SDK\Lib;
+namespace MyLibs;
 {
 public class NetTCPClient
 {

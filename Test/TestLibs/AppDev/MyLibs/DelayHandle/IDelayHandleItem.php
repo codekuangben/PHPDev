@@ -1,6 +1,6 @@
 <?php
 
-namespace SDK\Lib;
+namespace MyLibs;
 
 /**
  * @brief 延迟添加的对象

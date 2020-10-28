@@ -1,6 +1,6 @@
 <?php
 
-namespace SDK\Lib;
+namespace MyLibs;
 
 use PDO;
 use Exception;

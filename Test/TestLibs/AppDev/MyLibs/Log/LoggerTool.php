@@ -1,6 +1,6 @@
 <?php
 
-namespace SDK\Lib;
+namespace MyLibs;
 
 /**
  * @brief 日志系统，只有工具在使用

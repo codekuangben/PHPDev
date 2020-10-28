@@ -1,6 +1,6 @@
 <?php
 
-namespace SDK\Lib;
+namespace MyLibs;
 
 /**
  * @brief 不依赖模块的网络事件处理

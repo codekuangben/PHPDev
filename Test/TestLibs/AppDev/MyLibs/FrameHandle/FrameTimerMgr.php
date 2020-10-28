@@ -3,7 +3,7 @@
 /**
 * @brief 定时器管理器
 */
-namespace SDK\Lib;
+namespace MyLibs;
 
 class FrameTimerMgr extends DelayPriorityHandleMgrBase
 {

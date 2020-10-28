@@ -1,4 +1,4 @@
-namespace SDK\Lib;
+namespace MyLibs;
 {
 public class WebSocketMgr
 {

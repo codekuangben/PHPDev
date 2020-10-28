@@ -2,7 +2,7 @@
 
 namespace SDK\Module;
 
-use SDK\Lib\NetModuleDispatchHandle;
+use MyLibs\NetModuleDispatchHandle;
 
 class NetNotify extends NetModuleDispatchHandle
 {

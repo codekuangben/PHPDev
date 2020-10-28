@@ -1,6 +1,6 @@
 <?php
 
-namespace SDK\Lib;
+namespace MyLibs;
 
 /**
  * @brief MIndexList ，元素是保存一个在列表中的索引的，减少 Key 比较，加快查找

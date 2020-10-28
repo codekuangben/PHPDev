@@ -1,6 +1,6 @@
 using System.Threading;
 
-namespace SDK\Lib;
+namespace MyLibs;
 {
 /**
  * @brief 网络线程

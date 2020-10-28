@@ -2,7 +2,7 @@
 
 namespace SDK\Module;
 
-use SDK\Lib\GObject;
+use MyLibs\GObject;
 
 class CtxExt extends GObject
 {

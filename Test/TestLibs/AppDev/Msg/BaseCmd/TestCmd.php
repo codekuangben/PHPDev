@@ -1,6 +1,6 @@
 <?php
 
-use SDK\Lib\NullUserCmd;
+use MyLibs\NullUserCmd;
 
 class TestCmd extends NullUserCmd
 {

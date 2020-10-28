@@ -2,7 +2,7 @@
 
 namespace SDK\Test;
 
-use SDK\Lib\SystemEnv;
+use MyLibs\SystemEnv;
 
 require_once (dirname(__FILE__) . "/../Base/TestBase.php");
 require_once (dirname(__FILE__) . "/../TestClass/TestClass.php");

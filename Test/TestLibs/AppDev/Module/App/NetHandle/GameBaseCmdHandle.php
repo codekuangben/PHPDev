@@ -2,7 +2,7 @@
 
 namespace SDK\Module;
 
-use SDK\Lib\NetCmdDispatchHandle;
+use MyLibs\NetCmdDispatchHandle;
 
 class GameBaseCmdHandle extends NetCmdDispatchHandle
 {

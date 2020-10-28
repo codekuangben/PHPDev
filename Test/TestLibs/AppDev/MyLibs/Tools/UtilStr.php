@@ -1,6 +1,6 @@
 <?php
 
-namespace SDK\Lib;
+namespace MyLibs;
 
 /**
  * @url http://www.w3school.com.cn/php/php_ref_string.asp

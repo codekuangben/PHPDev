@@ -1,6 +1,6 @@
 <?php
 
-namespace SDK\Lib;
+namespace MyLibs;
 
 class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDelayHandleItem, INoOrPriorityObject
 {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace SDK\Lib;
+namespace MyLibs;
 {
 public class NetworkMgr
 {

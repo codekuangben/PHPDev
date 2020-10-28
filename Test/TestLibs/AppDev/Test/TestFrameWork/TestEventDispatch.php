@@ -2,7 +2,7 @@
 
 namespace SDK\Test;
 
-use SDK\Lib\EventDispatch;
+use MyLibs\EventDispatch;
 
 //public function globalHandle($param)
 function globalHandle($param)

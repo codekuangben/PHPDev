@@ -2,8 +2,8 @@
 
 namespace SDK\Test;
 
-use SDK\Lib\Ctx;
-use SDK\Lib\DataBaseType;
+use MyLibs\Ctx;
+use MyLibs\DataBaseType;
 
 class TestDB extends TestBase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace SDK\Lib;
+namespace MyLibs;
 
 // 线程日志
 class ThreadLogMR extends MsgRouteBase

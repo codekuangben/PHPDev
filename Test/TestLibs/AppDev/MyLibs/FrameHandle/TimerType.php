@@ -3,7 +3,7 @@
 /**
 * @brief 定时器类型
 */
-namespace SDK\Lib;
+namespace MyLibs;
 
 class TimerType
 {

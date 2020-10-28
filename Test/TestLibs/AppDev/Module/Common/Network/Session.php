@@ -4,8 +4,8 @@ namespace SDK\Module;
 
 require_once (dirname(__FILE__) . "/../../Entry/MainEntry.php");
 
-use SDK\Lib\Ctx;
-use SDK\Lib\NullUserCmd;
+use MyLibs\Ctx;
+use MyLibs\NullUserCmd;
 
 if(isset($_REQUEST["byCmd"]) && isset($_REQUEST["byParam"]))
 {

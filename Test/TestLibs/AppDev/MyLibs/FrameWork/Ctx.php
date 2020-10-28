@@ -1,6 +1,6 @@
 <?php
 
-namespace SDK\Lib;
+namespace MyLibs;
 
 require_once (dirname(__FILE__) . "/../Common/Prequisites.php");
 require_once (dirname(__FILE__) . "/../../Test/Base/TestMain.php");

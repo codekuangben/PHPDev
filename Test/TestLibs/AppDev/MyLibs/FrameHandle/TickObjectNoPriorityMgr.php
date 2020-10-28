@@ -1,6 +1,6 @@
 <?php
 
-namespace SDK\Lib;
+namespace MyLibs;
 
 // 每一帧执行的对象管理器
 class TickObjectNoPriorityMgr extends DelayNoPriorityHandleMgr implements ITickedObject, IDelayHandleItem, INoOrPriorityObject

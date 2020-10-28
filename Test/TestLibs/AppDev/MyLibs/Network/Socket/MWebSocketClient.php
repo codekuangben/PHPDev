@@ -1,6 +1,6 @@
 //using WebSocket4Net;
 
-namespace SDK\Lib;
+namespace MyLibs;
 {
 public class MWebSocketClient
 {

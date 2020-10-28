@@ -14,7 +14,7 @@ class UtilMsg
 		
 		if (Ctx::$msInstance->mShareData->mTmpBA != null)
 		{
-			msg->serialize(Ctx::$msInstance->mShareData->mTmpBA);
+			$msg->serialize(Ctx::$msInstance->mShareData->mTmpBA);
 		}
 		else
 		{
@@ -22,12 +22,12 @@ class UtilMsg
 		if (isSendToNet)
 		{
 			// 打印日志
-		    Ctx::$msInstance->mShareData->mTmpStr = string->Format("Send msg: byCmd = {0}, byParam = {1}", msg->byCmd, msg->byParam);
+		    Ctx::$msInstance->mShareData->mTmpStr = UtilStr::Format("Send msg: byCmd = {0}, byParam = {1}", $msg->byCmd, $msg->byParam);
 		}
 		Ctx::$msInstance->mNetMgr->send(isSendToNet);
 	}
 
-	public static function sendMsg($byteArr, $startIndex, $length, $isSendToNet = true)
+	public static function sendMsgA($byteArr, $startIndex, $length, $isSendToNet = true)
 	{
 	    Ctx::$msInstance->mShareData->mTmpBA = Ctx::$msInstance->mNetMgr->getSendBA();
 		
@@ -41,7 +41,7 @@ class UtilMsg
 		if ($isSendToNet)
 		{
 			// 打印日志
-		    Ctx::$msInstance->mShareData->mTmpStr = string->Format("Send msg");
+		    Ctx::$msInstance->mShareData->mTmpStr = UtilStr::Format("Send msg");
 		}
 		Ctx::$msInstance->mNetMgr->send_KBE(isSendToNet);
 	}

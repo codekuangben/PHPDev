@@ -70,9 +70,9 @@ class MString
 
 	public function copyFrom($rhv)
 	{
-		$this->mNativeStr = rhv->getNativeStr();
-		$this->mStartIndex = rhv->getStartIndex();
-		$this->mStrLen = rhv->getStrLen();
+		$this->mNativeStr = $rhv->getNativeStr();
+		$this->mStartIndex = $rhv->getStartIndex();
+		$this->mStrLen = $rhv->getStrLen();
 	}
 
 	public function indexOf($findChar)
@@ -142,7 +142,7 @@ class MString
 		return $ret;
 	}
 
-	public function Substring($startIndex, $length)
+	public function SubstringA($startIndex, $length)
 	{
 		$ret = new MString();
 		$ret->copyFrom(this);

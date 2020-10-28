@@ -208,7 +208,7 @@ class MBitConverter
 		$bytes[$startIndex] = (byte)($data ? 1 : 0);
 	}
 
-	public static function GetBytes(
+	public static function GetBytesA(
 		$data, 
 		$bytes, 
 		$startIndex, 
@@ -218,7 +218,7 @@ class MBitConverter
 		$bytes[$startIndex] = /*(byte)*/$data;
 	}
 
-	public static function GetBytes(
+	public static function GetBytesB(
 		$data, 
 		$bytes, 
 		$startIndex, 
@@ -241,7 +241,7 @@ class MBitConverter
 		}
 	}
 
-	public static function GetBytes(
+	public static function GetBytesC(
 		$data, 
 		$bytes, 
 		$startIndex, 
@@ -260,7 +260,7 @@ class MBitConverter
 		}
 	}
 
-	public static function GetBytes(
+	public static function GetBytesD(
 		$data, 
 		$bytes, 
 		$startIndex, 
@@ -283,7 +283,7 @@ class MBitConverter
 		}
 	}
 
-	public static function GetBytes(
+	public static function GetBytesE(
 		$data, 
 		$bytes, 
 		$startIndex, 
@@ -306,7 +306,7 @@ class MBitConverter
 		}
 	}
 
-	public static function GetBytes(
+	public static function GetBytesF(
 		$data, 
 		$bytes, 
 		$startIndex, 
@@ -339,7 +339,7 @@ class MBitConverter
 		}
 	}
 
-	public static function GetBytes(
+	public static function GetBytesG(
 		$data, 
 		$bytes, 
 		$startIndex, 
@@ -372,9 +372,34 @@ class MBitConverter
 		}
 	}
 
-	static public function ToInt32($value)
+	public static function ToInt32A($value)
 	{
 		return (int)(value);
+	}
+	
+	public static function TryParseUshort($strValue, $refValue)
+	{
+	    return 0;
+	}
+	
+	public static function TryParseShort($strValue, $refValue)
+	{
+	    return 0;
+	}
+	
+	public static function TryParseUint($strValue, $refValue)
+	{
+	    return 0;
+	}
+	
+	public static function TryParseInt($strValue, $refValue)
+	{
+	    return 0;
+	}
+	
+	public static function TryParseFloat($strValue, $refValue)
+	{
+	    return 0;
 	}
 }
 

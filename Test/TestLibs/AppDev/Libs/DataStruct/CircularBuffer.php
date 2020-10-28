@@ -141,7 +141,7 @@ class CircularBuffer
 		}
 
 		$this->mFirst = 0;
-		$this->mLast = mDynBuffer->mSize;
+		$this->mLast = $this->mDynBuffer->mSize;
 		$this->mDynBuffer->mCapacity = $newCapacity;
 		$this->mDynBuffer->mBuffer = $tmpbuff;
 	}
@@ -166,7 +166,7 @@ class CircularBuffer
 	{
 		if (!$this->canAddData(len)) // 存储空间必须要比实际数据至少多 1
 		{
-			$closeSize = DynBufResizePolicy->getCloseSize(len + $this->mDynBuffer->mSize, $this->mDynBuffer->mCapacity, $this->mDynBuffer->mMaxCapacity);
+			$closeSize = DynBufResizePolicy::getCloseSize(len + $this->mDynBuffer->mSize, $this->mDynBuffer->mCapacity, $this->mDynBuffer->mMaxCapacity);
 			$this->setCapacity($closeSize);
 		}
 
@@ -178,7 +178,7 @@ class CircularBuffer
 			}
 			else
 			{
-			    UtilList::Copy($items, $start, $this->mDynBuffer->mBuffer, $this->mLast, mDynBuffer->mCapacity - $this->mLast);
+			    UtilList::Copy($items, $start, $this->mDynBuffer->mBuffer, $this->mLast, $this->mDynBuffer->mCapacity - $this->mLast);
 			    UtilList::Copy($items, $this->mDynBuffer->mCapacity - $this->mLast, $this->mDynBuffer->mBuffer, 0, $len - ($this->mDynBuffer->mCapacity - $this->mLast));
 			}
 		}
@@ -216,7 +216,7 @@ class CircularBuffer
 		{
 		    if ($byteLength <= $this->mFirst)
 			{
-			    UtilList::Copy($byteArray, 0, $this->mDynBuffer->mBuffer, $this->mFirst - items->Length, $byteLength);
+			    UtilList::Copy($byteArray, 0, $this->mDynBuffer->mBuffer, $this->mFirst - $items->Length, $byteLength);
 			}
 			else
 			{
@@ -229,7 +229,7 @@ class CircularBuffer
 		    UtilList::Copy($byteArray, 0, $this->mDynBuffer->mBuffer, $this->mFirst - $byteLength, $byteLength);
 		}
 
-		if (items->Length <= $this->mFirst)
+		if ($this->items->Length <= $this->mFirst)
 		{
 		    $this->mFirst -= $byteLength;
 		}
@@ -301,7 +301,7 @@ class CircularBuffer
 	{
 	    if($this->mDynBuffer->mCapacity - $this->mDynBuffer->mSize < $circularBuffer->getSize())
 		{
-		    $closeSize = DynBufResizePolicy->getCloseSize($circularBuffer->getSize() + $this->mDynBuffer->mSize, $this->mDynBuffer->mCapacity, $this->mDynBuffer->mMaxCapacity);
+		    $closeSize = DynBufResizePolicy::getCloseSize($circularBuffer->getSize() + $this->mDynBuffer->mSize, $this->mDynBuffer->mCapacity, $this->mDynBuffer->mMaxCapacity);
 			$this->setCapacity($closeSize);
 		}
 

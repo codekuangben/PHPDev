@@ -163,7 +163,7 @@ class ClientBuffer
 			// 一次仅仅获取一个消息发送出去，因为每一个消息的长度要填写加密补位后的长度
 		    if ($this->mSendTmpBuffer->popFront())     // 弹出一个消息，如果只有一个消息，内部会重置变量
 			{
-			    $this->mSocketSendBA->writeBytes($this->mSendTmpBuffer->headerBA->dynBuffer->buffer, 0, mSendTmpBuffer->headerBA->length);       // 写入头
+			    $this->mSocketSendBA->writeBytes($this->mSendTmpBuffer->headerBA->dynBuffer->buffer, 0, $this->mSendTmpBuffer->headerBA->length);       // 写入头
 			    $this->mSocketSendBA->writeBytes($this->mSendTmpBuffer->msgBodyBA->dynBuffer->buffer, 0, $this->mSendTmpBuffer->msgBodyBA->length);             // 写入消息体
 			}
 		}
@@ -268,7 +268,7 @@ class ClientBuffer
 	// 压缩解密作为一个包
 	protected function CompressAndEncryptAllInOne()
 	{
-		$origMsgLen = mSocketSendBA->length;       // 原始的消息长度，后面判断头部是否添加压缩标志
+		$origMsgLen = $this->mSocketSendBA->length;       // 原始的消息长度，后面判断头部是否添加压缩标志
 		$compressMsgLen = 0;
 
 		if (origMsgLen > MsgCV::PACKET_ZIP_MIN && MacroDef::MSG_COMPRESS)
@@ -278,12 +278,12 @@ class ClientBuffer
 		else if (MacroDef::MSG_ENCRIPT)
 		{
 			$compressMsgLen = $origMsgLen;
-			$this->mSocketSendBA->incPosDelta((int)origMsgLen);
+			$this->mSocketSendBA->incPosDelta((int)$origMsgLen);
 		}
 
 		if (MacroDef::MSG_ENCRIPT)
 		{
-		    $this->mSocketSendBA->decPosDelta((int)compressMsgLen);
+		    $this->mSocketSendBA->decPosDelta((int)$compressMsgLen);
 		    $compressMsgLen = $this->mSocketSendBA->encrypt($this->mCryptContext, 0);
 		}
 
@@ -352,7 +352,7 @@ class ClientBuffer
 			$mlock = new MLock(mReadMutex);
 			{
 			    $this->mMsgBuffer->circularBuffer->pushBackBA($this->mUnCompressHeaderBA);             // 保存消息大小字段
-			    $this->mMsgBuffer->circularBuffer->pushBackArr($this->mRawBuffer->msgBodyBA->dynBuffer->buffer, mRawBuffer->msgBodyBA->position - msglen, msglen);      // 保存消息大小字段
+			    $this->mMsgBuffer->circularBuffer->pushBackArr($this->mRawBuffer->msgBodyBA->dynBuffer->buffer, $this->mRawBuffer->msgBodyBA->position - $msglen, msglen);      // 保存消息大小字段
 			}
 
 			Ctx::$msInstance->mNetCmdNotify->addOneRevMsg();

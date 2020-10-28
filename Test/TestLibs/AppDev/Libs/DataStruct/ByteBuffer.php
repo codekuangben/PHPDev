@@ -57,11 +57,6 @@ class ByteBuffer implements IDispatchObject
 	    $this->mEndian = $value;
 	}
 
-	public function setEndian($end)
-	{
-		$this->mEndian = $end;
-	}
-
 	public function getLength()
 	{
 		return $this->mDynBuffer->getSize();
@@ -430,7 +425,7 @@ class ByteBuffer implements IDispatchObject
 		    $this->extendDeltaCapicity(ByteBuffer::msDoubleMemByteNum);
 		}
 
-		$this->mWriteDoubleBytes = System::BitConverter::GetBytes(value);
+		$this->mWriteDoubleBytes = MBitConverter::GetBytes(value);
 		
 		if ($this->mEndian != SystemEndian::msLocalEndian)
 		{
@@ -548,7 +543,7 @@ class ByteBuffer implements IDispatchObject
 	{
 	    if ($this->canRead(ByteBuffer::msCharMemByteNum))
 		{
-		    $tmpBool = System::BitConverter::ToBoolean($this->mDynBuffer->getBuffer(), $this->mPos);
+		    $tmpBool = MBitConverter::ToBoolean($this->mDynBuffer->getBuffer(), $this->mPos);
 		    $this->advPos(ByteBuffer::msCharMemByteNum);
 		}
 

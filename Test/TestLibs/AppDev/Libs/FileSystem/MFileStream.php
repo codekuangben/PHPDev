@@ -11,6 +11,16 @@ class eFileOpState
 	public const eOpenClose = 4;     // 关闭
 }
 
+class FileMode
+{
+    public const Open = 0;      // 无操作
+}
+
+class FileAccess
+{
+    public const Read = 0;      // 无操作
+}
+
 /**
  * @brief 仅支持本地文件操作，仅支持同步操作
  */
@@ -30,7 +40,7 @@ class MFileStream extends GObject
 	/**
 	 * @brief 仅支持同步操作，目前无视参数 isSyncMode 和 evtDisp。FileMode.CreateNew 如果文件已经存在就抛出异常，FileMode.Append 和 FileAccess.Write 要同时使用
 	 */
-	public function __construct($filePath, $openedHandle = null, $mode = FileMode::Open, $access = FileAccess->Read)
+	public function __construct($filePath, $openedHandle = null, $mode = FileMode::Open, $access = FileAccess::Read)
 	{
 		$this->mTypeId = "MFileStream";
 
@@ -44,7 +54,7 @@ class MFileStream extends GObject
 
 	public function seek($offset, $origin)
 	{
-		if($this->mFileOpState == eFileOpState->eOpenSuccess)
+		if($this->mFileOpState == eFileOpState::eOpenSuccess)
 		{
 			$this->mFileStream->Seek(offset, origin);
 		}
@@ -166,7 +176,7 @@ class MFileStream extends GObject
 
 		if ($encode == null)
 		{
-			$encode = Encoding::UTF8;
+			$encode = MEncode::UTF8;
 		}
 
 		if ($count == 0)
@@ -181,9 +191,9 @@ class MFileStream extends GObject
 				try
 				{
 					//$bytes = new byte[$count];
-					$this->mFileStream->Read(bytes, 0, count);
+					$this->mFileStream->Read($bytes, 0, $count);
 
-					$retStr = encode->GetString(bytes);
+					$retStr = MUtilEncode::GetString($encode, $bytes);
 				}
 				catch (\Exception $err)
 				{
@@ -235,12 +245,12 @@ class MFileStream extends GObject
 			//    encode = MEncode->UTF8;
 			//}
 
-			$bytes = encode->GetBytes(text);
+			$bytes = MUtilEncode::GetBytes($encode, text);
 			if (bytes != null)
 			{
 				try
 				{
-					$this->mFileStream->Write(bytes, 0, bytes->Length);
+					$this->mFileStream->Write(bytes, 0, $bytes->Length);
 				}
 				catch (\Exception $err)
 				{
@@ -260,7 +270,7 @@ class MFileStream extends GObject
 			{
 				if (count == 0)
 				{
-					$count = bytes->Length;
+					$count = $bytes->Length;
 				}
 
 				if (count != 0)

@@ -11,7 +11,7 @@ class UtilXml
 	{
 		if (null != $xmlElement && null != $xmlElement->Attributes && $xmlElement->Attributes->containsKey($attrName))
 		{
-			if (UtilSysLibWrap->TRUE == $xmlElement->Attribute($attrName))
+			if (UtilSysLibWrap::TRUE == $xmlElement->Attribute($attrName))
 			{
 			    $ret = true;
 			}
@@ -47,7 +47,7 @@ class UtilXml
 	{
 		if (null != $xmlElement && null != $xmlElement->Attributes && $xmlElement->Attributes->containsKey($attrName))
 		{
-		    ushort->TryParse($xmlElement->Attribute($attrName), $ret);
+		    MBitConverter::TryParseUshort($xmlElement->Attribute($attrName), $ret);
 			return XML_OK;
 		}
 
@@ -55,11 +55,11 @@ class UtilXml
 		return XML_FAIL;
 	}
 
-	public static function getXmlAttrInt($xmlElement, $attrName, $ret)
+	public static function getXmlAttrShort($xmlElement, $attrName, $ret)
 	{
 		if (null != $xmlElement && null != $xmlElement->Attributes && $xmlElement->Attributes->containsKey($attrName))
 		{
-		    short->TryParse($xmlElement->Attribute($attrName), $ret);
+		    MBitConverter::TryParseShort($xmlElement->Attribute($attrName), $ret);
 			return XML_OK;
 		}
 
@@ -71,7 +71,7 @@ class UtilXml
 	{
 		if (null != $xmlElement && null != $xmlElement->Attributes && $xmlElement->Attributes->containsKey($attrName))
 		{
-		    uint->TryParse($xmlElement->Attribute($attrName), $ret);
+		    MBitConverter::TryParseUint($xmlElement->Attribute($attrName), $ret);
 			return XML_OK;
 		}
 
@@ -83,7 +83,7 @@ class UtilXml
 	{
 		if (null != $xmlElement && null != $xmlElement->Attributes && $xmlElement->Attributes->containsKey($attrName))
 		{
-		    int->TryParse($xmlElement->Attribute($attrName), $ret);
+		    MBitConverter::TryParseInt($xmlElement->Attribute($attrName), $ret);
 			return XML_OK;
 		}
 
@@ -95,7 +95,7 @@ class UtilXml
 	{
 		if (null != $xmlElement && null != $xmlElement->Attributes && $xmlElement->Attributes->containsKey($attrName))
 		{
-		    float->TryParse($xmlElement->Attribute($attrName), $ret);
+		    MBitConverter::TryParseFloat($xmlElement->Attribute($attrName), $ret);
 			return XML_OK;
 		}
 
@@ -118,7 +118,7 @@ class UtilXml
 				$child = $xmlElement->Children[idx];
 
 				//比对下是否使自己所需要得节点
-				if (child->Tag == $attrName)
+				if ($child->Tag == $attrName)
 				{
 					$list->add(child);
 				}
@@ -172,7 +172,7 @@ class UtilXml
 	{
 		$objElem = null;
 
-		if (string->IsNullOrEmpty($itemNode))
+		if (UtilStr::IsNullOrEmpty($itemNode))
 		{
 			$objElem = $xmlElement;
 		}
@@ -189,7 +189,7 @@ class UtilXml
 	// 获取一个 Element 中对应目录是 pathListStr 的列表，目录个是为 "aaa->bbb->ccc"
 	public static function getXmlChildListByPath($xmlElement, $pathListStr, $list)
 	{
-		$pathList = UtilStr->split($pathListStr, '->');
+		$pathList = UtilStr::split($pathListStr, '->');
 		$curName = "";
 		$curElement = $xmlElement;  // 当前元素
 

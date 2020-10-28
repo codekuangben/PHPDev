@@ -25,4 +25,12 @@ class MEncodeStr
     public const eDefaultStr = "UTF-8";
 }
 
+class MUtilEncode
+{
+    public static function GetBytes($encode, $strText)
+    {
+        return "";
+    }
+}
+
 ?>

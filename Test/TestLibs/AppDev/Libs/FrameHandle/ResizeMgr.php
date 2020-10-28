@@ -115,7 +115,7 @@ class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDe
 		
 		while($indexd < $listLen)
 		{
-			resizeObj->onResize(viewWidth, viewHeight);
+			$resizeObj->onResize($viewWidth, $viewHeight);
 			
 			$index += 1;
 		}

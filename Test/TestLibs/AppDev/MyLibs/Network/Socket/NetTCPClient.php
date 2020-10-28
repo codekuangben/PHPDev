@@ -1,10 +1,3 @@
-using System.Net;
-using System.Net.Sockets;
-using System;
-using System.Threading;
-
-namespace MyLibs;
-{
 public class NetTCPClient
 {
 	// 发送和接收的超时时间
@@ -432,5 +425,4 @@ public class NetTCPClient
 
 		return false;
 	}
-}
 }

@@ -1,5 +1,3 @@
-namespace MyLibs;
-{
 public class WebSocketMgr
 {
 	public MWebSocketClient m_pWebSocketClient;
@@ -25,5 +23,4 @@ public class WebSocketMgr
 	{
 		//m_pWebSocketClient.SendData(msg);
 	}
-}
 }

@@ -1,7 +1,3 @@
-using System.Collections.Generic;
-
-namespace MyLibs;
-{
 public class NetworkMgr
 {
 	// 此处使用 Dictionary ，不适用 Hashable
@@ -236,5 +232,4 @@ public class NetworkMgr
 			return true;
 		}
 	}
-}
 }

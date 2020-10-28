@@ -1,7 +1,3 @@
-//using WebSocket4Net;
-
-namespace MyLibs;
-{
 public class MWebSocketClient
 {
 	/*
@@ -96,5 +92,4 @@ public class MWebSocketClient
 		}
 	}
 	*/
-}
 }

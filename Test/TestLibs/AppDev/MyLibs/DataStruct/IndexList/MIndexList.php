@@ -20,9 +20,9 @@ class MIndexList
 		$this->mIsOpKeepSort = false;
 	}
 
-	public function setIsOpKeepSort(bool value)
+	public function setIsOpKeepSort($value)
 	{
-		$this->mIsOpKeepSort = value;
+		$this->mIsOpKeepSort = $value;
 	}
 
 	public function ToArray()
@@ -35,114 +35,94 @@ class MIndexList
 		return $this->mList;
 	}
 
-	public function uniqueId
+	public function getUniqueId()
 	{
-		get
-		{
-			return $this->mUniqueId;
-		}
-		set
-		{
-			$this->mUniqueId = value;
-		}
+		return $this->mUniqueId;
+	}
+	
+	public function setUniqueId($value)
+	{
+	    $this->mUniqueId = $value;
 	}
 
-	public function buffer
+	public function getBuffer()
 	{
-		get
-		{
-			return $this->mList;
-		}
+		return $this->mList;
 	}
 
-	public function size
-	{
-		get
-		{
-			// 频繁获取这个字段比较耗时
-			//return $this->mList.Count;
-			return $this->mEleTotal;
-		}
+	public function getSize()
+    {
+		// 频繁获取这个字段比较耗时
+		//return $this->mList.Count;
+		return $this->mEleTotal;
 	}
 
-	public function Add(T item)
+	public function Add($item)
 	{
-		$this->mList.Add(item);
+		$this->mList.Add($item);
 		$this->mEleTotal += 1;
 	}
 
 	// 主要是 Add 一个 float 类型的 Vector3
-	public function Add(T item_1, T item_2, T item_3)
+	public function AddA($item_1, $item_2, $item_3)
 	{
-		$this->Add(item_1);
-		$this->Add(item_2);
-		$this->Add(item_3);
+		$this->Add($item_1);
+		$this->Add($item_2);
+		$this->Add($item_3);
 	}
 
 	// 主要是 Add 一个 float 类型的 UV
-	public function Add(T item_1, T item_2)
+	public function AddB($item_1, $item_2)
 	{
-		$this->Add(item_1);
-		$this->Add(item_2);
+		$this->Add($item_1);
+		$this->Add($item_2);
 	}
 
 	// 主要是 Add 一个 byte 类型的 Color32
-	public function Add(T item_1, T item_2, T item_3, T item_4)
+	public function AddC($item_1, $item_2, $item_3, $item_4)
 	{
-		$this->Add(item_1);
-		$this->Add(item_2);
-		$this->Add(item_3);
-		$this->Add(item_4);
+		$this->Add($item_1);
+		$this->Add($item_2);
+		$this->Add($item_3);
+		$this->Add($item_4);
 	}
 
-	public function push(T item)
+	public function push($item)
 	{
-		$this->Add(item);
+		$this->Add($item);
 	}
 
-	public function Remove(T item)
+	public function Remove($item)
 	{
-		return $this->effectiveRemove(item);
+		return $this->effectiveRemove($item);
 	}
 
-	public function this[int index]
+	public function get($index)
 	{
-		get
+		return $this->mList[$index];
+	}
+
+	public function set($index, $value)
+	{
+		if(null != $this->mList[$index])
 		{
-			return $this->mList[index];
-		}
-		set
-		{
-			$this->set(index, value);
-		}
-	}
-
-	public function get(int index)
-	{
-		return $this->mList[index];
-	}
-
-	public function set(int index, T value)
-	{
-		if(null != $this->mList[index])
-		{
-			$this->mList[index].resetIndex();
+			$this->mList[$index].resetIndex();
 		}
 
-		$this->mList[index] = value;
-		$this->mList[index].setIndex(index);
+		$this->mList[$index] = $value;
+		$this->mList[$index].setIndex($index);
 	}
 
 	public function Clear()
 	{
-		int index = 0;
-		int listLen = $this->mEleTotal;
+		$index = 0;
+		$listLen = $this->mEleTotal;
 
-		while(index < listLen)
+		while($index < $listLen)
 		{
-			$this->mList[index].resetIndex();
+			$this->mList[$index].resetIndex();
 
-			index += 1;
+			$index += 1;
 		}
 
 		$this->mList.Clear();
@@ -161,59 +141,59 @@ class MIndexList
 		return $this->mEleTotal;
 	}
 
-	public function setLength(int value)
+	public function setLength($value)
 	{
-		$this->mList.Capacity = value;
+		$this->mList->Capacity = $value;
 	}
 
-	public function RemoveAt(int index)
+	public function RemoveAt($index)
 	{
-		if (index < $this->Count())
+		if ($index < $this->Count())
 		{
 			$this->mList[index].resetIndex();
-			$this->mList.RemoveAt(index);
+			$this->mList.RemoveAt($index);
 			$this->mEleTotal -= 1;
 		}
 	}
 
-	public function IndexOf(T item)
+	public function IndexOf($item)
 	{
 		if(item.getIndex() < $this->Count())
 		{
-			return item.getIndex();
+			return $item.getIndex();
 		}
 
 		return -1;
 	}
 
-	public function Insert(int index, T item)
+	public function Insert($index, $item)
 	{
 		if (index <= $this->Count())
 		{
-			$this->mList.Insert(index, item);
-			item.setIndex(index);
+			$this->mList->Insert($index, $item);
+			$item.setIndex($index);
 			$this->mEleTotal += 1;
-			$this->updateIndex(index + 1);
+			$this->updateIndex($index + 1);
 		}
 	}
 
-	public function Contains(T item)
+	public function Contains($item)
 	{
-		return item.getIndex() != -1;
+		return $item->getIndex() != -1;
 	}
 
-	public function Sort(System.Comparison<T> comparer)
+	public function Sort($comparer)
 	{
-		$this->mList.Sort(comparer);
+		$this->mList->Sort($comparer);
 	}
 
-	public function merge(MList<T> appendList)
+	public function merge($appendList)
 	{
-		if(appendList != null)
+		if($appendList != null)
 		{
-			foreach(T item in appendList.list())
+		    foreach($appendList->list() as $item)
 			{
-				$this->mList.Add(item);
+				$this->mList.Add($item);
 				item.setIndex($this->mEleTotal);
 				$this->mEleTotal += 1;
 			}
@@ -225,32 +205,32 @@ class MIndexList
 	{
 		$ret = false;
 
-		$idx = item.getIndex();
+		$idx = $item->getIndex();
 
-		if (-1 != idx)
+		if (-1 != $idx)
 		{
-			ret = true;
+			$ret = true;
 
-			if (idx == $this->Count() - 1)    // 如果是最后一个元素，直接移除
+			if ($idx == $this->Count() - 1)    // 如果是最后一个元素，直接移除
 			{
-				$this->RemoveAt(idx);
+				$this->RemoveAt($idx);
 			}
 			else
 			{
 				if (!$this->mIsOpKeepSort)
 				{
-					$this->mList[idx] = $this->mList[$this->Count() - 1];
+					$this->mList[$idx] = $this->mList[$this->Count() - 1];
 					$this->RemoveAt($this->Count() - 1);
 				}
 				else
 				{
-					$this->RemoveAt(idx);
-					$this->updateIndex(idx);
+					$this->RemoveAt($idx);
+					$this->updateIndex($idx);
 				}
 			}
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	protected function updateIndex($idx)

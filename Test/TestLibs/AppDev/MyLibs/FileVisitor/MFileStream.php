@@ -24,6 +24,10 @@ class FileMode
 /**
  * @brief 仅支持本地文件操作，仅支持同步操作
  * @url https://www.php.net/manual/zh/function.fopen.php
+ * @brief PHP 文件创建/写入
+ * @url https://www.w3school.com.cn/php/php_file_create.asp
+ * @brief PHP fseek() 函数
+ * @url https://www.w3school.com.cn/php/func_filesystem_fseek.asp
  */
 class MFileStream extends GObject
 {
@@ -36,6 +40,10 @@ class MFileStream extends GObject
 	protected $mText;
 	protected $mBytes;
 	protected $mOpenedEventDispatch;
+	// SEEK_SET - 设定位置等于 offset 字节。默认。
+	// SEEK_CUR - 设定位置为当前位置加上 offset。
+	// SEEK_END - 设定位置为文件末尾加上 offset （要移动到文件尾之前的位置，offset 必须是一个负值）。
+	protected $mFileOffsetMode;
 
 	/**
 	 * @brief 仅支持同步操作，目前无视参数 isSyncMode 和 evtDisp。FileMode.CreateNew 如果文件已经存在就抛出异常，FileMode.Append 和 FileAccess.Write 要同时使用
@@ -47,6 +55,7 @@ class MFileStream extends GObject
 		$this->mFilePath = $filePath;
 		$this->mMode = $mode;
 		$this->mFileOpState = FileOpState::eNoOp;
+		$this->mFileOffsetMode = SEEK_SET;
 	}
 	
 	public function init()
@@ -59,11 +68,11 @@ class MFileStream extends GObject
 	    $this->checkAndOpen();
 	}
 
-	public function seek($offset, $origin)
+	public function seek($offset)
 	{
 		if($this->mFileOpState == FileOpState::eOpenSuccess)
 		{
-			$this->mFileStream->Seek(offset, origin);
+		    fseek($this->mFileStream, $offset, $this->mFileOffsetMode);
 		}
 	}
 
@@ -132,19 +141,6 @@ class MFileStream extends GObject
 		if ($this->mFileOpState == FileOpState::eOpenSuccess)
 		{
 		    $len = filesize($this->mFilePath);
-			/*
-			if (mFileStream != null && mFileStream->CanSeek)
-			{
-				try
-				{
-					len = (int)mFileStream->Seek(0, SeekOrigin::End);     // 移动到文件结束，返回长度
-					len = (int)mFileStream->Position;                    // Position 移动到 Seek 位置
-				}
-				catch(Exception exp)
-				{
-				}
-			}
-			*/
 		}
 
 		return $len;
@@ -165,38 +161,26 @@ class MFileStream extends GObject
 		}
 	}
 
-	public function readText($offset = 0, $count = 0, $encode = null)
+	public function readText($offset = 0, $count = 0)
 	{
 		$this->checkAndOpen();
 
 		$retStr = "";
-		$bytes = null;
-
-		if ($encode == null)
-		{
-			$encode = MEncode::UTF8;
-		}
-
+		
 		if ($count == 0)
 		{
-			$count = getLength();
+		    $count = $this->getLength();
 		}
 
 		if ($this->mFileOpState == FileOpState::eOpenSuccess)
 		{
-			if ($this->mFileStream->CanRead)
+			try
 			{
-				try
-				{
-					//$bytes = new byte[$count];
-					$this->mFileStream->Read($bytes, 0, $count);
-
-					$retStr = MUtilEncode::GetString($encode, $bytes);
-				}
-				catch (\Exception $err)
-				{
-						
-				}
+			    $retStr = fread($this->mFileStream, $count);
+			}
+			catch (\Exception $err)
+			{
+					
 			}
 		}
 
@@ -227,12 +211,17 @@ class MFileStream extends GObject
 		return $bytes;
 	}
 
-	public function writeText($text)
+	public function writeText($text, $offset = 0, $count = 0)
 	{
 		$this->checkAndOpen();
 
 		if ($text != null)
 		{
+		    if ($count == 0)
+		    {
+		        $count = UtilStr::length($bytes);
+		    }
+		    
 			try
 			{
 			    fwrite($this->mFileStream, $text);
@@ -272,7 +261,7 @@ class MFileStream extends GObject
 	public function writeLine($text, $gkEncode = MEncode::eUTF8)
 	{
 		$text = $text + UtilSysLibWrap::CR_LF;
-		writeText($text, $gkEncode);
+		$this->writeText($text, 0, 0);
 	}
 }
 

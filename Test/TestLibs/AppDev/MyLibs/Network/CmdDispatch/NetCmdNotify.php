@@ -50,15 +50,15 @@ class NetCmdNotify
 	{
 		//if (false == mIsStopNetHandle)  // 如果没有停止网络处理
 		//{
-		//$byCmd = 0;
-		//$msg->readUnsignedInt8($byCmd);
-		//$byParam = 0;
-		//$msg->readUnsignedInt8($byParam);
+		//$CmdId = 0;
+		//$msg->readUnsignedInt8($CmdId);
+		//$ParamId = 0;
+		//$msg->readUnsignedInt8($ParamId);
 		//$msg->setPos(0);
 
 		$this->mCmdDispInfo->bu = $msg;
-		$this->mCmdDispInfo->byCmd = $msg->byCmd;
-		$this->mCmdDispInfo->byParam = $msg->byParam;
+		$this->mCmdDispInfo->CmdId = $msg->CmdId;
+		$this->mCmdDispInfo->ParamId = $msg->ParamId;
 
 		$index = 0;
 		$listLen = $this->mNetModuleDispatchList->count();

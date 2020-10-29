@@ -16,8 +16,8 @@ if(UtilSysLibWrap::issetInRequest("Cmd") &&
 {
     $cmdDispatchInfo = new CmdDispatchInfo();
     
-    $cmdDispatchInfo->byCmd = UtilConvert::convStrToInt(UtilSysLibWrap::request("Cmd"));
-    $cmdDispatchInfo->byParam = UtilConvert::convStrToInt(UtilSysLibWrap::request("Param"));
+    $cmdDispatchInfo->CmdId = UtilConvert::convStrToInt(UtilSysLibWrap::request("Cmd"));
+    $cmdDispatchInfo->ParamId = UtilConvert::convStrToInt(UtilSysLibWrap::request("Param"));
 
     $unityNetNotify = new UnityNetNotify();
     $unityNetNotify->init();

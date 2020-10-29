@@ -56,9 +56,9 @@ class NetCmdDispatchHandle implements ICalleeObject
 
 	public function handleMsg($cmd)
 	{
-	    if($this->mId2HandleDic->containsKey($cmd->byParam))
+	    if($this->mId2HandleDic->containsKey($cmd->ParamId))
 		{
-		    $this->mId2HandleDic->value($cmd->byParam)->dispatchEvent($cmd->bu);
+		    $this->mId2HandleDic->value($cmd->ParamId)->dispatchEvent($cmd->bu);
 		}
 		else
 		{

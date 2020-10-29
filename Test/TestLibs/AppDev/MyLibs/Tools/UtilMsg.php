@@ -22,7 +22,7 @@ class UtilMsg
 		if (isSendToNet)
 		{
 			// 打印日志
-		    Ctx::$msInstance->mShareData->mTmpStr = UtilStr::Format("Send msg: byCmd = {0}, byParam = {1}", $msg->byCmd, $msg->byParam);
+		    Ctx::$msInstance->mShareData->mTmpStr = UtilStr::Format("Send msg: CmdId = {0}, ParamId = {1}", $msg->CmdId, $msg->ParamId);
 		}
 		Ctx::$msInstance->mNetMgr->send(isSendToNet);
 	}

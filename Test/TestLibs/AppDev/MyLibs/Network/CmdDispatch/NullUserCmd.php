@@ -12,41 +12,41 @@ class NullUserCmd
 	public const LOGON_USERCMD = 104;
 	public const HERO_CARD_USERCMD = 162;
 
-	public $byCmd;
-	public $byParam;
+	public $CmdId;
+	public $ParamId;
 	public $dwTimestamp;
 
 	// 二进制序列化
-	public function serialize($bu)
+	public function serialize($byteBuffer)
 	{
-	    $bu->writeUnsignedInt8($this->byCmd);
-	    $bu->writeUnsignedInt8($this->byParam);
+	    $byteBuffer->writeUnsignedInt8($this->CmdId);
+	    $byteBuffer->writeUnsignedInt8($this->ParamId);
 		$this->dwTimestamp = UtilSysLibWrap::getUTCSec();
-		$bu->writeUnsignedInt32($this->dwTimestamp);
+		$byteBuffer->writeUnsignedInt32($this->dwTimestamp);
 	}
 	
 	// Get 方式序列化
 	public function serializeGet(MStringBuffer $stringBuffer)
 	{
-	    $bu->writeUnsignedInt8($this->byCmd);
-	    $bu->writeUnsignedInt8($this->byParam);
+	    $byteBuffer->writeUnsignedInt8($this->CmdId);
+	    $byteBuffer->writeUnsignedInt8($this->ParamId);
 	    $this->dwTimestamp = UtilSysLibWrap::getUTCSec();
-	    $bu->writeUnsignedInt32($this->dwTimestamp);
+	    $byteBuffer->writeUnsignedInt32($this->dwTimestamp);
 	}
 
 	// 二进制反序列化
-	public function derialize($bu)
+	public function derialize($byteBuffer)
 	{
-	    $bu->readUnsignedInt8($this->byCmd);
-	    $bu->readUnsignedInt8($this->byParam);
-	    $bu->readUnsignedInt32($this->dwTimestamp);
+	    $byteBuffer->readUnsignedInt8($this->CmdId);
+	    $byteBuffer->readUnsignedInt8($this->ParamId);
+	    $byteBuffer->readUnsignedInt32($this->dwTimestamp);
 	}
 	
 	// Get 方式反序列化
 	public function derializeGet()
 	{
-	    $this->byCmd = $_REQUEST["byCmd"];
-	    $this->byParam = $_REQUEST["byParam"];
+	    $this->CmdId = $_REQUEST["CmdId"];
+	    $this->ParamId = $_REQUEST["ParamId"];
 	}
 }
 

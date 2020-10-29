@@ -4,9 +4,9 @@ namespace MyLibs;
 
 class CmdDispatchInfo implements IDispatchObject
 {
-	public $bu;
-	public $byCmd;
-	public $byParam;
+	public $byteBuffer;
+	public $CmdId;
+	public $ParamId;
 }
 
 ?>

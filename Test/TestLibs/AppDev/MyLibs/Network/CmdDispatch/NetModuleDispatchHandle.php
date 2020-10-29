@@ -43,9 +43,9 @@ class NetModuleDispatchHandle
 
 	public function handleMsg($cmdDispatchInfo)
 	{
-	    if($this->mId2DispatchDic->containsKey($cmdDispatchInfo->byCmd))
+	    if($this->mId2DispatchDic->containsKey($cmdDispatchInfo->CmdId))
 		{                
-		    $this->mId2DispatchDic->value($cmdDispatchInfo->byCmd)->dispatchEvent($cmdDispatchInfo);
+		    $this->mId2DispatchDic->value($cmdDispatchInfo->CmdId)->dispatchEvent($cmdDispatchInfo);
 		}
 		else
 		{

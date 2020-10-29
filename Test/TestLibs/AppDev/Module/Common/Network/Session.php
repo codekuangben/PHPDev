@@ -7,11 +7,11 @@ require_once (dirname(__FILE__) . "/../../Entry/MainEntry.php");
 use MyLibs\Ctx;
 use MyLibs\NullUserCmd;
 
-if(isset($_REQUEST["byCmd"]) && isset($_REQUEST["byParam"]))
+if(isset($_REQUEST["CmdId"]) && isset($_REQUEST["ParamId"]))
 {
     $msg = new NullUserCmd();
-    $msg->byCmd = $_REQUEST["byCmd"];
-    $msg->byParam = $_REQUEST["byParam"];
+    $msg->CmdId = $_REQUEST["CmdId"];
+    $msg->ParamId = $_REQUEST["ParamId"];
     
     if(!Ctx::$msInstance->mNetCmdNotify->isStopNetHandle())
     {

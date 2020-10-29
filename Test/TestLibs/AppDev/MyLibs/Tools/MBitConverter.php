@@ -32,8 +32,8 @@ class MBitConverter
 		if ($endian == MEndian::eLITTLE_ENDIAN)
 		{
 			$retValue = (short)(
-				($bytes[startIndex + 1] << 8) + 
-				 $bytes[startIndex]
+				($bytes[$startIndex + 1] << 8) + 
+				 $bytes[$startIndex]
 				);
 		}
 		else
@@ -137,12 +137,12 @@ class MBitConverter
 		{
 			$retValue = (long)(
 				($bytes[$startIndex + 7] << 56) + 
-				(bytes[$startIndex + 6] << 48) +
-				(bytes[$startIndex + 5] << 40) +
-				(bytes[$startIndex + 4] << 32) +
-				(bytes[$startIndex + 3] << 24) +
-				(bytes[$startIndex + 2] << 16) +
-				(bytes[$startIndex + 1] << 8) + 
+				($bytes[$startIndex + 6] << 48) +
+				($bytes[$startIndex + 5] << 40) +
+				($bytes[$startIndex + 4] << 32) +
+				($bytes[$startIndex + 3] << 24) +
+				($bytes[$startIndex + 2] << 16) +
+				($bytes[$startIndex + 1] << 8) + 
 				 $bytes[$startIndex]
 				);
 		}
@@ -327,7 +327,7 @@ class MBitConverter
 		}
 		else
 		{
-			$bytes[$startIndex] = (byte)(data >> 56);
+			$bytes[$startIndex] = (byte)($data >> 56);
 			$bytes[$startIndex + 1] = (byte)($data << 8 >> 56);
 			$bytes[$startIndex + 2] = (byte)($data << 16 >> 56);
 			$bytes[$startIndex + 3] = (byte)($data << 24 >> 56);

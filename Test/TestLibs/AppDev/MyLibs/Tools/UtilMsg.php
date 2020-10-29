@@ -43,12 +43,12 @@ class UtilMsg
 			// 打印日志
 		    Ctx::$msIns->mShareData->mTmpStr = UtilStr::Format("Send msg");
 		}
-		Ctx::$msIns->mNetMgr->send_KBE(isSendToNet);
+		Ctx::$msIns->mNetMgr->send_KBE($isSendToNet);
 	}
 
 	public static function checkStr($str)
 	{
-		if (string::IsNullOrEmpty(str))
+		if (string::IsNullOrEmpty($str))
 		{
 		}
 	}
@@ -70,7 +70,7 @@ class UtilMsg
 				$str += ", ";
 			}
 			
-			$str += bytes[idx];
+			$str += $bytes[idx];
 		}
 
 		$str += " }";            

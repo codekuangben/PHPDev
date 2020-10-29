@@ -244,12 +244,12 @@ class UtilXml
 
 		if ($list->count > 0)
 		{
-			return XML_OK;
+		    return UtilXml::XML_OK;
 		}
 		else
 		{
 			$list->clear();
-			return XML_FAIL;
+			return UtilXml::XML_FAIL;
 		}
 	}
 }

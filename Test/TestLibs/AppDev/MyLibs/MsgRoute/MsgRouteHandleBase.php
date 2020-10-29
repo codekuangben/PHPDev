@@ -27,17 +27,17 @@ class MsgRouteHandleBase extends GObject implements ICalleeObject
 	{
 	    if(!$this->mId2HandleDic->containsKey($msgRouteId))
 		{
-		    $this->mId2HandleDic[$msgRouteId] = new AddOnceEventDispatch();
+		    $this->mId2HandleDic.add($msgRouteId, new AddOnceEventDispatch());
 		}
 
-		$this->mId2HandleDic[$msgRouteId]->addEventHandle(null, $eventHandle);
+		$this->mId2HandleDic->value($msgRouteId)->addEventHandle(null, $eventHandle);
 	}
 
 	public function removeMsgRouteHandle($msgRouteId, $eventHandle)
 	{
 		if ($this->mId2HandleDic->containsKey((int)$msgRouteId))
 		{
-			$this->mId2HandleDic[(int)$msgRouteId]->removeEventHandle(null, handle);
+			$this->mId2HandleDic->value((int)$msgRouteId)->removeEventHandle(null, handle);
 		}
 	}
 
@@ -47,7 +47,7 @@ class MsgRouteHandleBase extends GObject implements ICalleeObject
 
 	    if ($this->mId2HandleDic->containsKey($msg->mMsgId))
 		{
-		    $this->mId2HandleDic[$msg->mMsgId]->dispatchEvent($msg);
+		    $this->mId2HandleDic->value($msg->mMsgId)->dispatchEvent($msg);
 		}
 		else
 		{

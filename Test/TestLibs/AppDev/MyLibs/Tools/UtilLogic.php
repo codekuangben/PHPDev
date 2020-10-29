@@ -58,7 +58,7 @@ class UtilLogic
 		
 		while($index < $listLen)
 		{
-			if (IsChineseLetter(str, idx))
+			if (IsChineseLetter($str, $idx))
 			{
 				$charCount += 2;
 			}

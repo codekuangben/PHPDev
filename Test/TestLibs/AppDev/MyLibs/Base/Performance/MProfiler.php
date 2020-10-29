@@ -216,27 +216,27 @@ class MProfiler
 		}
 
 		$currentTime = UtilSysLibWrap.getFloatUTCMilliseconds();
-		$elapsedTime = $currentTime - $this->mCurrentNode.mStartTime;
+		$elapsedTime = $currentTime - $this->mCurrentNode->mStartTime;
 
 		$this->mCurrentNode->mActivations += 1;
 		$this->mCurrentNode->mTotalTime += elapsedTime;
 
 		if (MacroDef::ENABLE_LOG)
 		{
-			Ctx::$msIns->mLogSys->log(string.Format("MProfiler::exit, blockName = {0}, TotalTime = {1}, currentTime = {2}", blockName, $this->mCurrentNode.mTotalTime, currentTime), LogTypeId::eLogProfileDebug);
+			Ctx::$msIns->mLogSys->log(UtilStr::Format("MProfiler::exit, blockName = {0}, TotalTime = {1}, currentTime = {2}", blockName, $this->mCurrentNode.mTotalTime, currentTime), LogTypeId::eLogProfileDebug);
 		}
 
-		if (elapsedTime > $this->mCurrentNode.mMaxTime)
+		if (elapsedTime > $this->mCurrentNode->mMaxTime)
 		{
 			$this->mCurrentNode->mMaxTime = elapsedTime;
 		}
 
-		if (elapsedTime < $this->mCurrentNode.mMinTime)
+		if (elapsedTime < $this->mCurrentNode->mMinTime)
 		{
 			$this->mCurrentNode->mMinTime = elapsedTime;
 		}
 
-		$this->mCurrentNode = $this->mCurrentNode.mParent;
+		$this->mCurrentNode = $this->mCurrentNode->mParent;
 	}
 	
 	/**
@@ -283,15 +283,15 @@ class MProfiler
 		$this->mWantReport = false;
 
 		$header = string.Format("[{0}{1}][{2}{3}][{4}{5}][{6}{7}][{8}{9}][{10}{11}][{12}{13}][{14}{15}][{16}{17}]",
-									  UtilStr.toStringByCount(mNameFieldWidth - "name".Length, " "), "name",
-									  UtilStr.toStringByCount($this->mDataWidth - "Total%".Length, " "), "Total%",
-									  UtilStr.toStringByCount($this->mDataWidth - "Self%".Length, " "), "Self%",
-									  UtilStr.toStringByCount($this->mDataWidth - "Calls".Length, " "), "Calls",
-									  UtilStr.toStringByCount($this->mDataWidth - "Total ms".Length, " "), "Total ms",
-									  UtilStr.toStringByCount($this->mDataWidth - "self ms".Length, " "), "self ms",
-									  UtilStr.toStringByCount($this->mDataWidth - "AvgMs".Length, " "), "AvgMs",
-									  UtilStr.toStringByCount($this->mDataWidth - "MinMs".Length, " "), "MinMs",
-									  UtilStr.toStringByCount($this->mDataWidth - "MaxMs".Length, " "), "MaxMs");
+									  UtilStr::toStringByCount(mNameFieldWidth - "name".Length, " "), "name",
+									  UtilStr::toStringByCount($this->mDataWidth - UtilStr::length("Total%"), " "), "Total%",
+		                              UtilStr::toStringByCount($this->mDataWidth - UtilStr::length("Self%"), " "), "Self%",
+		                              UtilStr::toStringByCount($this->mDataWidth - UtilStr::length("Calls"), " "), "Calls",
+		                              UtilStr::toStringByCount($this->mDataWidth - UtilStr::length("Total ms"), " "), "Total ms",
+		                              UtilStr::toStringByCount($this->mDataWidth - UtilStr::length("self ms"), " "), "self ms",
+		                              UtilStr::toStringByCount($this->mDataWidth - UtilStr::length("AvgMs"), " "), "AvgMs",
+		                              UtilStr::toStringByCount($this->mDataWidth - UtilStr::length("MinMs"), " "), "MinMs",
+		                              UtilStr::toStringByCount($this->mDataWidth - UtilStr::length("MaxMs"), " "), "MaxMs");
 
 		if (MacroDef::ENABLE_LOG)
 		{
@@ -376,11 +376,11 @@ class MProfiler
 	{
 		$ret = 0;
 
-		if(a.mTotalTime < b.mTotalTime)
+		if($a->mTotalTime < $b->mTotalTime)
 		{
 			$ret = 1;
 		}
-		else if (a.mTotalTime > b.mTotalTime)
+		else if ($a->mTotalTime > $b->mTotalTime)
 		{
 			$ret = -1;
 		}
@@ -391,46 +391,46 @@ class MProfiler
 	protected function formatProfile($indent, $hasChild, $profileInfo)
 	{
 		$totalTimePercent = -1;
-		if (null != $profileInfo.mParent)
+		if (null != $profileInfo->mParent)
 		{
-			$totalTimePercent = $profileInfo.mTotalTime / $this->mRootNode.mTotalTime * 100;
+		    $totalTimePercent = $profileInfo->mTotalTime / $this->mRootNode->mTotalTime * 100;
 		}
 
 		$selfTimePercent = -1;
-		if (null != $profileInfo.mParent)
+		if (null != $profileInfo->mParent)
 		{
-			$selfTimePercent = $profileInfo.mSelfTime / ($this->mRootNode.mTotalTime) * 100;
+		    $selfTimePercent = $profileInfo->mSelfTime / ($this->mRootNode->mTotalTime) * 100;
 		}
 
 		$startStr = $indent.ToString();
-		$startPrefix = UtilStr.toStringByCount(indent * $this->mIndentAmount - startStr.Length, " ");
+		$startPrefix = UtilStr::toStringByCount(indent * $this->mIndentAmount - $startStr.Length, " ");
 
-		$nameStr = ($hasChild ? "+" : "-") + $profileInfo.mName;
-		$namePrefix = UtilStr.toStringByCount($this->mNameFieldWidth - indent * $this->mIndentAmount - nameStr.Length, " ");
+		$nameStr = ($hasChild ? "+" : "-") + $profileInfo->mName;
+		$namePrefix = UtilStr.toStringByCount($this->mNameFieldWidth - indent * $this->mIndentAmount - UtilStr::length($nameStr), " ");
 
 		$totalTimePercentStr = $totalTimePercent.ToString("F2");
-		$totalTimePercentPrefix = UtilStr.toStringByCount($this->mDataWidth - totalTimePercentStr.Length, " ");
+		$totalTimePercentPrefix = UtilStr.toStringByCount($this->mDataWidth - UtilStr::length($totalTimePercentStr), " ");
 
 		$selfTimePercentStr = $selfTimePercent.ToString("F2");
-		$selfTimePercentPrefix = UtilStr.toStringByCount($this->mDataWidth - selfTimePercentStr.Length, " ");
+		$selfTimePercentPrefix = UtilStr.toStringByCount($this->mDataWidth - UtilStr::length($selfTimePercentStr), " ");
 
 		$activationsStr = $profileInfo.mActivations.ToString();
-		$activationsPrefix = UtilStr.toStringByCount($this->mDataWidth - activationsStr.Length, " ");
+		$activationsPrefix = UtilStr.toStringByCount($this->mDataWidth - UtilStr::length($activationsStr), " ");
 
 		$totalTimeStr = $profileInfo.mTotalTime.ToString("F2");
-		$totalTimePrefix = UtilStr.toStringByCount($this->mDataWidth - totalTimeStr.Length, " ");
+		$totalTimePrefix = UtilStr.toStringByCount($this->mDataWidth - UtilStr::length($totalTimeStr), " ");
 
 		$selfTimeStr = $profileInfo.mSelfTime.ToString("F2");
-		$selfTimePrefix = UtilStr.toStringByCount($this->mDataWidth - selfTimeStr.Length, " ");
+		$selfTimePrefix = UtilStr.toStringByCount($this->mDataWidth - UtilStr::length($selfTimeStr), " ");
 
-		$averageTimeStr = ($profileInfo.mTotalTime / $profileInfo.mActivations).ToString("F2");
-		$averageTimePrefix = UtilStr.toStringByCount(8 - averageTimeStr.Length, " ");
+		$averageTimeStr = ($profileInfo.mTotalTime / $profileInfo->mActivations).ToString("F2");
+		$averageTimePrefix = UtilStr.toStringByCount(8 - UtilStr::length($averageTimeStr), " ");
 
 		$minTimeStr = $profileInfo.mMinTime.ToString("F2");
-		$minTimePrefix = UtilStr.toStringByCount(8 - minTimeStr.Length, " ");
+		$minTimePrefix = UtilStr.toStringByCount(8 - UtilStr::length($minTimeStr), " ");
 
 		$maxTimeStr = $profileInfo.mMaxTime.ToString("F2");
-		$maxTimePrefix = UtilStr.toStringByCount(8 - maxTimeStr.Length, " ");
+		$maxTimePrefix = UtilStr.toStringByCount(8 - UtilStr::length($maxTimeStr), " ");
 
 		$retStr = string.Format("[{0}{1}][{2}{3}][{4}{5}][{6}{7}][{8}{9}][{10}{11}][{12}{13}][{14}{15}][{16}{17}][{18}{19}]",
 									$startStr, $startPrefix,

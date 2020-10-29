@@ -37,7 +37,7 @@ class UniqueStrIdGen extends UniqueNumIdGen
 
 	public function genStrIdById($id)
 	{
-	    $this->mRetId = $this->mPrefix . '_' . id;
+	    $this->mRetId = $this->mPrefix . '_' . $id;
 		return $this->mRetId;
 	}
 }

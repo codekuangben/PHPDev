@@ -16,35 +16,35 @@ class EventDispatchGroup extends GObject
 	}
 
 	// 添加分发器
-	public function addEventDispatch($groupID, $disp)
+	public function addEventDispatch($groupId, $eventDispatch)
 	{
-		if (!$this->mGroupID2DispatchDic->containsKey(groupID))
+		if (!$this->mGroupID2DispatchDic->containsKey($groupId))
 		{
-			$this->mGroupID2DispatchDic[groupID] = disp;
+		    $this->mGroupID2DispatchDic->add($groupId, $eventDispatch);
 		}
 	}
 
-	public function addEventHandle($groupID, $eventListener, $eventHandle)
+	public function addEventHandle($groupId, $eventListener, $eventHandle)
 	{
 		// 如果没有就创建一个
-		if (!$this->mGroupID2DispatchDic->containsKey(groupID))
+		if (!$this->mGroupID2DispatchDic->containsKey($groupId))
 		{
-			$this->addEventDispatch(groupID, new EventDispatch());
+			$this->addEventDispatch($groupId, new EventDispatch());
 		}
 
-		$this->mGroupID2DispatchDic[groupID]->addEventHandle($eventListener, $eventHandle);
+		$this->mGroupID2DispatchDic->value($groupId)->addEventHandle($eventListener, $eventHandle);
 	}
 
-	public function removeEventHandle($groupID, $eventListener, $eventHandle)
+	public function removeEventHandle($groupId, $eventListener, $eventHandle)
 	{
-		if ($this->mGroupID2DispatchDic->containsKey($groupID))
+		if ($this->mGroupID2DispatchDic->containsKey($groupId))
 		{
-			$this->mGroupID2DispatchDic[$groupID]->removeEventHandle($eventListener, $eventHandle);
+		    $this->mGroupID2DispatchDic->value($groupId)->removeEventHandle($eventListener, $eventHandle);
 
 			// 如果已经没有了
-			if (!$this->mGroupID2DispatchDic[$groupID]->hasEventHandle())
+		    if (!$this->mGroupID2DispatchDic.value($groupId)->hasEventHandle())
 			{
-				$this->mGroupID2DispatchDic->remove($groupID);
+				$this->mGroupID2DispatchDic->remove($groupId);
 			}
 		}
 		else
@@ -53,13 +53,13 @@ class EventDispatchGroup extends GObject
 		}
 	}
 
-	public function dispatchEvent($groupID, $dispatchObject)
+	public function dispatchEvent($groupId, $dispatchObject)
 	{
 		$this->mLoopDepth->incDepth();
 
-		if ($this->mGroupID2DispatchDic->containsKey($groupID))
+		if ($this->mGroupID2DispatchDic->containsKey($groupId))
 		{
-			$this->mGroupID2DispatchDic[$groupID]->dispatchEvent($dispatchObject);
+		    $this->mGroupID2DispatchDic->value($groupId)->dispatchEvent($dispatchObject);
 		}
 		else
 		{
@@ -87,14 +87,14 @@ class EventDispatchGroup extends GObject
 		}
 	}
 
-	public function clearGroupEventHandle($groupID)
+	public function clearGroupEventHandle($groupId)
 	{
 		if (!$this->mLoopDepth->isInDepth())
 		{
-			if ($this->mGroupID2DispatchDic->containsKey($groupID))
+			if ($this->mGroupID2DispatchDic->containsKey($groupId))
 			{
-				$this->mGroupID2DispatchDic[$groupID]->clearEventHandle();
-				$this->mGroupID2DispatchDic->remove($groupID);
+			    $this->mGroupID2DispatchDic->value($groupId)->clearEventHandle();
+				$this->mGroupID2DispatchDic->remove($groupId);
 			}
 			else
 			{
@@ -107,11 +107,11 @@ class EventDispatchGroup extends GObject
 		}
 	}
 
-	public function hasEventHandle($groupID)
+	public function hasEventHandle($groupId)
 	{
-		if($this->mGroupID2DispatchDic->containsKey($groupID))
+		if($this->mGroupID2DispatchDic->containsKey($groupId))
 		{
-			return $this->mGroupID2DispatchDic[$groupID]->hasEventHandle();
+			return $this->mGroupID2DispatchDic->value($groupId)->hasEventHandle();
 		}
 
 		return false;

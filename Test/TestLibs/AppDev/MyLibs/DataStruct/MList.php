@@ -38,7 +38,7 @@ class MList
 		$this->mIsOpKeepSort = $value;
 	}
 
-	public function list()
+	public function getList()
 	{
 		return $this->mList;
 	}
@@ -277,7 +277,7 @@ class MList
 			$idx = $this->mDic[$item];
 			$this->mDic->remove($item);
 
-			if (idx == $this->count() - 1)    // 如果是最后一个元素，直接移除
+			if ($idx == $this->count() - 1)    // 如果是最后一个元素，直接移除
 			{
 				array_splice($this->mList, $idx, 1);
 				$this->mEleTotal -= 1;
@@ -300,7 +300,7 @@ class MList
 			}
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	protected function updateIndex($idx)

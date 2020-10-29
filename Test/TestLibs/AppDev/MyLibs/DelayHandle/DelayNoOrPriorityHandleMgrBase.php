@@ -64,7 +64,7 @@ class DelayNoOrPriorityHandleMgrBase extends GObject
 		}
 	}
 
-	public function processDelayObjects($dispObj, $eventId)
+	public function processDelayObjects($dispatchObject, $eventId)
 	{
 		$idx = 0;
 		// len 是 Python 的关键字

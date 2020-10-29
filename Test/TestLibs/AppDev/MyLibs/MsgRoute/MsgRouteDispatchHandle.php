@@ -21,14 +21,14 @@ class MsgRouteDispatchHandle
 
 	}
 
-	public function addRouteHandle($evtId, $pThis, $handle)
+	public function addRouteHandle($eventId, $eventListener, $eventHandle)
 	{
-		$this->mEventDispatchGroup->addEventHandle($evtId, $pThis, $handle);
+		$this->mEventDispatchGroup->addEventHandle($eventId, $eventListener, $eventHandle);
 	}
 
-	public function removeRouteHandle($evtId, $pThis, $handle)
+	public function removeRouteHandle($eventId, $eventListener, $eventHandle)
 	{
-		$this->mEventDispatchGroup->removeEventHandle($evtId, $pThis, $handle);
+		$this->mEventDispatchGroup->removeEventHandle($eventId, $eventListener, $eventHandle);
 	}
 
 	public function handleMsg($msg)

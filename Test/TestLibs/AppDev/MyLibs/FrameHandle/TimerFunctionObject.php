@@ -4,29 +4,29 @@ namespace MyLibs;
 
 class TimerFunctionObject
 {
-	public $mHandle;
+	public $mEventHandle;
 
 	public function __construct()
 	{
-		$this->mHandle = null;
+		$this->mEventHandle = null;
 	}
 
-	public function setFuncObject($handle)
+	public function setFuncObject($eventHandle)
 	{
-		$this->mHandle = $handle;
+		$this->mEventHandle = $eventHandle;
 	}
 
 	public function isValid()
 	{
-		return $this->mHandle != null;
+		return $this->mEventHandle != null;
 	}
 
-	public function isEqual($handle)
+	public function isEqual($eventHandle)
 	{
 		$ret = false;
-		if($handle != null)
+		if($eventHandle != null)
 		{
-			$ret = UtilSysLibWrap::isAddressEqual($this->mHandle, $handle);
+			$ret = UtilSysLibWrap::isAddressEqual($this->mEventHandle, $eventHandle);
 			if(!$ret)
 			{
 				return $ret;
@@ -36,11 +36,11 @@ class TimerFunctionObject
 		return $ret;
 	}
 
-	public function call($dispObj)
+	public function call($dispatchObject)
 	{
-		if (null != $this->mHandle)
+		if (null != $this->mEventHandle)
 		{
-			$this->mHandle($dispObj);
+			$this->mEventHandle($dispatchObject);
 		}
 	}
 }

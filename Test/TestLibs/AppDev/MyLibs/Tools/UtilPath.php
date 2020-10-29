@@ -27,11 +27,11 @@ class UtilPath
 			try
 			{
 			    //先删除目录下的文件：
-			    $handle = opendir($path);
+			    $eventHandle = opendir($path);
 			    
-			    if(null != $handle)
+			    if(null != $eventHandle)
 			    {
-			        while (false !== ($file = readdir($handle)))
+			        while (false !== ($file = readdir($eventHandle)))
     			    {
     			        if($file != "." && $file!="..")
     			        {

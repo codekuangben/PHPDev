@@ -21,7 +21,7 @@ class NetCmdDispatchHandle implements ICalleeObject
 
 	}
 
-	public function addParamHandle($paramId, $pThis, $handle)
+	public function addParamHandle($paramId, $eventListener, $eventHandle)
 	{
 	    $dispatch = null;
 	    
@@ -35,21 +35,21 @@ class NetCmdDispatchHandle implements ICalleeObject
 		    $dispatch = $this->mId2HandleDic->value($paramId);
 		}
 
-		$dispatch->addEventHandle($pThis, $handle, 0);
+		$dispatch->addEventHandle($eventListener, $eventHandle, 0);
 	}
 
-	public function removeParamHandle($paramId, $pThis, $handle)
+	public function removeParamHandle($paramId, $eventListener, $eventHandle)
 	{
 	    if($this->mId2HandleDic->containsKey($paramId))
 		{
-		    $this->mId2HandleDic->value($paramId)->removeEventHandle(null, $pThis, $handle);
+		    $this->mId2HandleDic->value($paramId)->removeEventHandle(null, $eventListener, $eventHandle);
 		}
 		else
 		{
 		}
 	}
 
-	public function call($dispObj)
+	public function call($dispatchObject)
 	{
 
 	}

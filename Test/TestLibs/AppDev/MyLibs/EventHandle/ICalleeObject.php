@@ -7,7 +7,7 @@ namespace MyLibs;
  */
 interface ICalleeObject
 {
-	function call($dispObj);
+	function call($dispatchObject);
 }
 
 ?>

@@ -4,11 +4,11 @@ namespace MyLibs;
 
 class NetModuleDispatchHandle
 {
-	protected $mId2DispDic;
+	protected $mId2DispatchDic;
 	
 	public function __construct()
 	{
-		$this->mId2DispDic = new MDictionary();
+		$this->mId2DispatchDic = new MDictionary();
 	}
 
 	public function init()
@@ -21,31 +21,31 @@ class NetModuleDispatchHandle
 
 	}
 
-	public function addCmdHandle($cmdId, $callee, $handle)
+	public function addCmdHandle($cmdId, $eventListener, $eventHandle)
 	{
-	    if (!$this->mId2DispDic->containsKey($cmdId))
+	    if (!$this->mId2DispatchDic->containsKey($cmdId))
 		{
-		    $this->mId2DispDic->add($cmdId, new AddOnceEventDispatch());
+		    $this->mId2DispatchDic->add($cmdId, new AddOnceEventDispatch());
 		}
 
-		$this->mId2DispDic->value($cmdId)->addEventHandle($callee, $handle);
+		$this->mId2DispatchDic->value($cmdId)->addEventHandle($eventListener, $eventHandle);
 	}
 
-	public function removeCmdHandle($cmdId, $calleeObj = null)
+	public function removeCmdHandle($cmdId, $eventListener = null)
 	{
-	    if(!$this->mId2DispDic->containsKey($cmdId))
+	    if(!$this->mId2DispatchDic->containsKey($cmdId))
 		{
 		    
 		}
 
-		$this->mId2DispDic->value($cmdId)->removeEventHandle($calleeObj, null);
+		$this->mId2DispatchDic->value($cmdId)->removeEventHandle($eventListener, null);
 	}
 
-	public function handleMsg($cmdDispInfo)
+	public function handleMsg($cmdDispatchInfo)
 	{
-	    if($this->mId2DispDic->containsKey($cmdDispInfo->byCmd))
+	    if($this->mId2DispatchDic->containsKey($cmdDispatchInfo->byCmd))
 		{                
-		    $this->mId2DispDic->value($cmdDispInfo->byCmd)->dispatchEvent($cmdDispInfo);
+		    $this->mId2DispatchDic->value($cmdDispatchInfo->byCmd)->dispatchEvent($cmdDispatchInfo);
 		}
 		else
 		{

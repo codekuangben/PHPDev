@@ -48,14 +48,14 @@ class TestEventDispatch extends TestBase
         $aaa->dispatchEvent("asdfasdf");
     }
     
-    //protected function testB($dispObj, $eventId)
-    public function testB($dispObj, $eventId)
+    //protected function testB($dispatchObject, $eventId)
+    public function testB($dispatchObject, $eventId)
     {
         echo("aa");
     }
     
-    //protected static function testC($dispObj, $eventId)
-    public static function testC($dispObj, $eventId)
+    //protected static function testC($dispatchObject, $eventId)
+    public static function testC($dispatchObject, $eventId)
     {
         echo("aa");
     }

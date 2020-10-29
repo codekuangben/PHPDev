@@ -34,7 +34,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 	public function setUniqueId($value)
 	{
 		$this->mUniqueId = $value;
-		$this->mHandleList->$uniqueId = $this->mUniqueId;
+		$this->mHandleList->uniqueId = $this->mUniqueId;
 	}
 
 	public function init()
@@ -58,15 +58,15 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 	}
 
 	// 相同的函数只能增加一次，Lua ，Python 这些语言不支持同时存在几个相同名字的函数，只支持参数可以赋值，因此不单独提供同一个名字不同参数的接口了，但是 java 不支持参数默认值，只能通过重载实现参数默认值，真是悲剧中的悲剧， eventId: 分发事件上层唯一 Id，这样一个事件处理函数可以根据 EventId 处理不同的事件
-	public function addEventHandle($pThis, $handle, $eventId = 0)
+	public function addEventHandle($eventListener, $eventHandle, $eventId = 0)
 	{
-		if (null != $pThis || null != $handle)
+		if (null != $eventListener || null != $eventHandle)
 		{
 			$funcObject = new EventDispatchFunctionObject();
 
-			if (null != $handle)
+			if (null != $eventHandle)
 			{
-				$funcObject->setFuncObject($pThis, $handle, $eventId);
+				$funcObject->setFuncObject($eventListener, $eventHandle, $eventId);
 			}
 
 			$this->addDispatch($funcObject);
@@ -77,7 +77,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		}
 	}
 
-	public function removeEventHandle($pThis, $handle, $eventId = 0)
+	public function removeEventHandle($eventListener, $eventHandle, $eventId = 0)
 	{
 		$idx = 0;
 		$elemLen = 0;
@@ -85,7 +85,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 
 		while ($idx < $elemLen)
 		{
-			if ($this->mHandleList[$idx]->isEqual($pThis, $handle, $eventId))
+			if ($this->mHandleList[$idx]->isEqual($eventListener, $eventHandle, $eventId))
 			{
 				break;
 			}
@@ -139,15 +139,15 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 
 		$index = 0;
 		$listLen = $this->mHandleList->count();
-		$handle = null;
+		$eventHandle = null;
 
 		while ($index < $listLen)
 		{
-		    $handle = $this->mHandleList->get($index);
+		    $eventHandle = $this->mHandleList->get($index);
 
-			if (!$handle->mIsClientDispose)
+			if (!$eventHandle->mIsClientDispose)
 			{
-				$handle->call($dispatchObject);
+				$eventHandle->call($dispatchObject);
 			}
 
 			$index += 1;
@@ -185,7 +185,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 	}
 
 	// 这个判断说明相同的函数只能加一次，但是如果不同资源使用相同的回调函数就会有问题，但是这个判断可以保证只添加一次函数，值得，因此不同资源需要不同回调函数
-	public function isExistEventHandle($pThis, $handle, $eventId)
+	public function isExistEventHandle($eventListener, $eventHandle, $eventId)
 	{
 		$bFinded = false;
 		$idx = 0;
@@ -196,7 +196,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		{
 			$item = $this->mHandleList[$idx];
 
-			if ($item->isEqual($pThis, $handle, $eventId))
+			if ($item->isEqual($eventListener, $eventHandle, $eventId))
 			{
 				$bFinded = true;
 				break;
@@ -212,13 +212,13 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 	{
 		$idx = 0;
 		$len = $this->mHandleList->count();
-		$handle = null;
+		$eventHandle = null;
 
 		while ($idx < $len)
 		{
-			$handle = $this->mHandleList[idx];
+			$eventHandle = $this->mHandleList[idx];
 
-			$this->mHandleList->add($handle);
+			$this->mHandleList->add($eventHandle);
 
 			++$idx;
 		}

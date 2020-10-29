@@ -9,11 +9,11 @@ class AddOnceAndCallOnceEventDispatch extends EventDispatch
         parent::__construct();
     }
     
-	public function addEventHandle($pThis, $handle, $eventId = 0)
+	public function addEventHandle($eventListener, $eventHandle, $eventId = 0)
 	{
-		if (!$this->isExistEventHandle($pThis, $handle, $eventId))
+		if (!$this->isExistEventHandle($eventListener, $eventHandle, $eventId))
 		{
-			parent::addEventHandle($pThis, $handle, $eventId);
+			parent::addEventHandle($eventListener, $eventHandle, $eventId);
 		}
 	}
 

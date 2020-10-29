@@ -284,10 +284,10 @@ class DBPdo
         return $row;
     }
     
-    public function getNextRowOneByOne($pThis, $handle)
+    public function getNextRowOneByOne($eventListener, $eventHandle)
     {
         $functor = new EventDispatchFunctionObject();
-        $functor->setFuncObject($pThis, $handle);
+        $functor->setFuncObject($eventListener, $eventHandle);
         
         while($row = $this->mNativePDOStatement->fetch(PDO::FETCH_ASSOC))
         {

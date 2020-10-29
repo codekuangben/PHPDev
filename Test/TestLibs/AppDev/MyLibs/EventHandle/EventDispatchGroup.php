@@ -24,7 +24,7 @@ class EventDispatchGroup extends GObject
 		}
 	}
 
-	public function addEventHandle($groupID, $pThis, $handle)
+	public function addEventHandle($groupID, $eventListener, $eventHandle)
 	{
 		// 如果没有就创建一个
 		if (!$this->mGroupID2DispatchDic->containsKey(groupID))
@@ -32,14 +32,14 @@ class EventDispatchGroup extends GObject
 			$this->addEventDispatch(groupID, new EventDispatch());
 		}
 
-		$this->mGroupID2DispatchDic[groupID]->addEventHandle($pThis, $handle);
+		$this->mGroupID2DispatchDic[groupID]->addEventHandle($eventListener, $eventHandle);
 	}
 
-	public function removeEventHandle($groupID, $pThis, $handle)
+	public function removeEventHandle($groupID, $eventListener, $eventHandle)
 	{
 		if ($this->mGroupID2DispatchDic->containsKey($groupID))
 		{
-			$this->mGroupID2DispatchDic[$groupID]->removeEventHandle($pThis, $handle);
+			$this->mGroupID2DispatchDic[$groupID]->removeEventHandle($eventListener, $eventHandle);
 
 			// 如果已经没有了
 			if (!$this->mGroupID2DispatchDic[$groupID]->hasEventHandle())

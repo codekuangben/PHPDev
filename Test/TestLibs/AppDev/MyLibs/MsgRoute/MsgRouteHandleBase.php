@@ -23,31 +23,31 @@ class MsgRouteHandleBase extends GObject implements ICalleeObject
 
 	}
 
-	public function addMsgRouteHandle($msgRouteID, $handle)
+	public function addMsgRouteHandle($msgRouteId, $eventHandle)
 	{
-	    if(!$this->mId2HandleDic->containsKey($msgRouteID))
+	    if(!$this->mId2HandleDic->containsKey($msgRouteId))
 		{
-		    $this->mId2HandleDic[$msgRouteID] = new AddOnceEventDispatch();
+		    $this->mId2HandleDic[$msgRouteId] = new AddOnceEventDispatch();
 		}
 
-		$this->mId2HandleDic[$msgRouteID]->addEventHandle(null, $handle);
+		$this->mId2HandleDic[$msgRouteId]->addEventHandle(null, $eventHandle);
 	}
 
-	public function removeMsgRouteHandle($msgRouteID, $handle)
+	public function removeMsgRouteHandle($msgRouteId, $eventHandle)
 	{
-		if ($this->mId2HandleDic->containsKey((int)msgRouteID))
+		if ($this->mId2HandleDic->containsKey((int)$msgRouteId))
 		{
-			$this->mId2HandleDic[(int)msgRouteID]->removeEventHandle(null, handle);
+			$this->mId2HandleDic[(int)$msgRouteId]->removeEventHandle(null, handle);
 		}
 	}
 
-	public function handleMsg($dispObj)
+	public function handleMsg($dispatchObject)
 	{
-	    $msg = $dispObj;
+	    $msg = $dispatchObject;
 
-	    if ($this->mId2HandleDic->containsKey($msg->mMsgID))
+	    if ($this->mId2HandleDic->containsKey($msg->mMsgId))
 		{
-		    $this->mId2HandleDic[$msg->mMsgID]->dispatchEvent($msg);
+		    $this->mId2HandleDic[$msg->mMsgId]->dispatchEvent($msg);
 		}
 		else
 		{
@@ -55,7 +55,7 @@ class MsgRouteHandleBase extends GObject implements ICalleeObject
 		}
 	}
 
-	public function call($dispObj)
+	public function call($dispatchObject)
 	{
 
 	}

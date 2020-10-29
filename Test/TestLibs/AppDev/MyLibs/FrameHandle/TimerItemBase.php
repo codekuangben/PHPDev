@@ -30,9 +30,9 @@ class TimerItemBase implements IDelayHandleItem, IDispatchObject
 		$this->mIsContinuous = false;
 	}
 
-	public function setFuncObject($handle)
+	public function setFuncObject($eventHandle)
 	{
-		$this->mTimerDisp->setFuncObject($handle);
+		$this->mTimerDisp->setFuncObject($eventHandle);
 	}
 
 	public function setTotalTime($value)

@@ -30,19 +30,19 @@ class NetCmdNotify
 	    $this->mIsStopNetHandle = $value;
 	}
 
-	public function addOneNofity($dispObj)
+	public function addOneNofity($dispatchObject)
 	{
-	    if ($this->mNetModuleDispatchList->indexOf($dispObj) == -1)
+	    if ($this->mNetModuleDispatchList->indexOf($dispatchObject) == -1)
 		{
-		    $this->mNetModuleDispatchList->add($dispObj);
+		    $this->mNetModuleDispatchList->add($dispatchObject);
 		}
 	}
 
-	public function removeOneNotify($dispObj)
+	public function removeOneNotify($dispatchObject)
 	{
-	    if ($this->mNetModuleDispatchList->indexOf($dispObj) != -1)
+	    if ($this->mNetModuleDispatchList->indexOf($dispatchObject) != -1)
 		{
-		    $this->mNetModuleDispatchList->remove($dispObj);
+		    $this->mNetModuleDispatchList->remove($dispatchObject);
 		}
 	}
 

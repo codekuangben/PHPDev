@@ -5,8 +5,8 @@ namespace MyLibs;
 class EventDispatchFunctionObject extends GObject implements IDelayHandleItem, INoOrPriorityObject
 {
 	public $mIsClientDispose;       // 是否释放了资源
-	public $mThis;
-	public $mHandle;
+	public $mEventListener;
+	public $mEventHandle;
 	public $mEventId;   // 事件唯一 Id
 
 	public function __construct()
@@ -16,16 +16,16 @@ class EventDispatchFunctionObject extends GObject implements IDelayHandleItem, I
 		$this->mIsClientDispose = false;
 	}
 
-	public function setFuncObject($pThis, $handle, $eventId = 0)
+	public function setFuncObject($eventListener, $eventHandle, $eventId = 0)
 	{
-		$this->mThis = $pThis;
-		$this->mHandle = $handle;
+		$this->mEventListener = $eventListener;
+		$this->mEventHandle = $eventHandle;
 		$this->mEventId = $eventId;
 	}
 
 	public function isValid()
 	{
-		return $this->mThis != null || $this->mHandle != null;
+		return $this->mEventListener != null || $this->mEventHandle != null;
 	}
 
 	public function isEventIdEqual($eventId)
@@ -33,13 +33,13 @@ class EventDispatchFunctionObject extends GObject implements IDelayHandleItem, I
 		return $this->mEventId == eventId;
 	}
 
-	public function isEqual($pThis, $handle, $eventId)
+	public function isEqual($eventListener, $eventHandle, $eventId)
 	{
 		$ret = false;
 
-		if($pThis != null)
+		if($eventListener != null)
 		{
-			$ret = UtilSysLibWrap::isAddressEqual($this->mThis, $pThis);
+			$ret = UtilSysLibWrap::isAddressEqual($this->mEventListener, $eventListener);
 
 			if (!$ret)
 			{
@@ -47,9 +47,9 @@ class EventDispatchFunctionObject extends GObject implements IDelayHandleItem, I
 			}
 		}
 
-		if ($handle != null)
+		if ($eventHandle != null)
 		{
-			$ret = UtilSysLibWrap::isDelegateEqual($this->mHandle, $handle);
+			$ret = UtilSysLibWrap::isDelegateEqual($this->mEventHandle, $eventHandle);
 
 			if (!$ret)
 			{
@@ -57,7 +57,7 @@ class EventDispatchFunctionObject extends GObject implements IDelayHandleItem, I
 			}
 		}
 
-		if ($pThis != null || $handle != null)
+		if ($eventListener != null || $eventHandle != null)
 		{
 			$ret = $this->isEventIdEqual($eventId);
 
@@ -70,17 +70,17 @@ class EventDispatchFunctionObject extends GObject implements IDelayHandleItem, I
 		return $ret;
 	}
 
-	public function call($dispObj)
+	public function call($dispatchObject)
 	{
-		if(null != $this->mHandle)
+		if(null != $this->mEventHandle)
 		{
-			if(null != $this->mThis)
+			if(null != $this->mEventListener)
 			{
-			    call_user_func(array($this->mThis, $this->mHandle), $dispObj, $this->mEventId);
+			    call_user_func(array($this->mEventListener, $this->mEventHandle), $dispatchObject, $this->mEventId);
 			}
 			else
 			{
-			    call_user_func($this->mHandle, $dispObj, $this->mEventId);
+			    call_user_func($this->mEventHandle, $dispatchObject, $this->mEventId);
 			}
 		}
 	}

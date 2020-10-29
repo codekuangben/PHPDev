@@ -12,13 +12,13 @@ class MThread /*extends Thread*/
 	protected $mCurThreadId;                    // 当前线程的 id
 
 	// 数据区域
-	protected $mHandle;
+	protected $mEventHandle;
 	protected $mParam;           // 参数数据
 	protected $mIsExitFlag;           // 退出标志
 
 	public function __construct($func, $param)
 	{
-	    $this->mHandle = $func;
+	    $this->mEventHandle = $func;
 	    $this->mParam = $param;
 	}
 
@@ -34,7 +34,7 @@ class MThread /*extends Thread*/
 
 	public function setHandle($value)
 	{
-	    $this->mHandle = $value;
+	    $this->mEventHandle = $value;
 	}
 
 	public function setParam($value)
@@ -63,9 +63,9 @@ class MThread /*extends Thread*/
 	{
 		$this->getCurThreadId();
 
-		if($this->mHandle != null)
+		if($this->mEventHandle != null)
 		{
-		    $this->mHandle($this->mParam);
+		    $this->mEventHandle($this->mParam);
 		}
 	}
 

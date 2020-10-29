@@ -17,34 +17,34 @@ class LoopDepth
 		$this->mZeroHandle = null;
 	}
 
-	public function setIncHandle($pThis, $value)
+	public function setIncHandle($eventListener, $value)
 	{
 		if(null == $this->mIncHandle)
 		{
 		    $this->mIncHandle = new EventDispatchFunctionObject();
 		}
 
-		$this->mIncHandle->setFuncObject($pThis, $value);
+		$this->mIncHandle->setFuncObject($eventListener, $value);
 	}
 
-	public function setDecHandle($pThis, $value)
+	public function setDecHandle($eventListener, $value)
 	{
 		if (null == $this->mDecHandle)
 		{
 		    $this->mDecHandle = new EventDispatchFunctionObject();
 		}
 
-		$this->mDecHandle->setFuncObject($pThis, $value);
+		$this->mDecHandle->setFuncObject($eventListener, $value);
 	}
 
-	public function setZeroHandle($pThis, $value)
+	public function setZeroHandle($eventListener, $value)
 	{
 		if (null == $this->mZeroHandle)
 		{
 		    $this->mZeroHandle = new EventDispatchFunctionObject();
 		}
 
-		$this->mZeroHandle->setFuncObject($pThis, $value);
+		$this->mZeroHandle->setFuncObject($eventListener, $value);
 	}
 
 	public function incDepth()

@@ -27,7 +27,7 @@ class MIndexList
 
 	public function ToArray()
 	{
-		return $this->mList.ToArray();
+	    return $this->mList->ToArray();
 	}
 
 	public function list()
@@ -53,13 +53,13 @@ class MIndexList
 	public function getSize()
     {
 		// 频繁获取这个字段比较耗时
-		//return $this->mList.Count;
+        //return $this->mList->Count;
 		return $this->mEleTotal;
 	}
 
 	public function Add($item)
 	{
-		$this->mList.Add($item);
+	    $this->mList->Add($item);
 		$this->mEleTotal += 1;
 	}
 
@@ -106,11 +106,11 @@ class MIndexList
 	{
 		if(null != $this->mList[$index])
 		{
-			$this->mList[$index].resetIndex();
+			$this->mList[$index]->resetIndex();
 		}
 
 		$this->mList[$index] = $value;
-		$this->mList[$index].setIndex($index);
+		$this->mList[$index]->setIndex($index);
 	}
 
 	public function Clear()
@@ -120,24 +120,24 @@ class MIndexList
 
 		while($index < $listLen)
 		{
-			$this->mList[$index].resetIndex();
+			$this->mList[$index]->resetIndex();
 
 			$index += 1;
 		}
 
-		$this->mList.Clear();
+		$this->mList->Clear();
 		$this->mEleTotal = 0;
 	}
 
 	public function Count()
 	{
-		//return $this->mList.Count;
+		//return $this->mList->Count;
 		return $this->mEleTotal;
 	}
 
 	public function length()
 	{
-		//return $this->mList.Count;
+		//return $this->mList->Count;
 		return $this->mEleTotal;
 	}
 
@@ -150,17 +150,17 @@ class MIndexList
 	{
 		if ($index < $this->Count())
 		{
-			$this->mList[index].resetIndex();
-			$this->mList.RemoveAt($index);
+			$this->mList[index]->resetIndex();
+			$this->mList->RemoveAt($index);
 			$this->mEleTotal -= 1;
 		}
 	}
 
 	public function IndexOf($item)
 	{
-		if(item.getIndex() < $this->Count())
+		if($item->getIndex() < $this->Count())
 		{
-			return $item.getIndex();
+			return $item->getIndex();
 		}
 
 		return -1;
@@ -171,7 +171,7 @@ class MIndexList
 		if (index <= $this->Count())
 		{
 			$this->mList->Insert($index, $item);
-			$item.setIndex($index);
+			$item->setIndex($index);
 			$this->mEleTotal += 1;
 			$this->updateIndex($index + 1);
 		}
@@ -193,8 +193,8 @@ class MIndexList
 		{
 		    foreach($appendList->list() as $item)
 			{
-				$this->mList.Add($item);
-				item.setIndex($this->mEleTotal);
+				$this->mList->Add($item);
+				$item->setIndex($this->mEleTotal);
 				$this->mEleTotal += 1;
 			}
 		}

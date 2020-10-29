@@ -656,7 +656,7 @@ class UtilPath
 
 		for ($i = 0; $i < $fileList->count(); $i++)
 		{
-			if (fileHandle != null)
+			if ($fileHandle != null)
 			{
 				if (UtilStr::IsNullOrEmpty($destPath))
 				{

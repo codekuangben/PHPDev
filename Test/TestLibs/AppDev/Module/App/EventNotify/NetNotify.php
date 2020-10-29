@@ -25,11 +25,11 @@ class NetNotify extends NetModuleDispatchHandle
     
     public function dispose()
     {
-        if (null != this.mNetCmdDispatchHandle)
+        if (null != $this->mNetCmdDispatchHandle)
         {
             //$this->removeCmdHandle(0, $this->mGameBaseCmdHandle, "call");
             $this->removeCmdHandle(0, $this->mGameBaseCmdHandle, "handleMsg");
-            $this->mGameBaseCmdHandle.dispose();
+            $this->mGameBaseCmdHandle->dispose();
             $this->mGameBaseCmdHandle = null;
         }
         

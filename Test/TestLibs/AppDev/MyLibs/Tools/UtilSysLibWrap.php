@@ -246,6 +246,36 @@ class UtilSysLibWrap
 	{
 	    print_r($str);
 	}
+	
+	public static function issetInRequest($key)
+	{
+	    return isset($_REQUEST[$key]);
+	}
+	
+	public static function request($key)
+	{
+	    return $_REQUEST[$key];
+	}
+	
+	public static function issetInServer($key)
+	{
+	    return isset($_SERVER[$key]);
+	}
+	
+	public static function issetInFiles($key)
+	{
+	    return isset($_FILES[$key]);
+	}
+	
+	public static function issetInCookie($key)
+	{
+	    return isset($_COOKIE[$key]);
+	}
+	
+	public static function issetInEnv($key)
+	{
+	    return isset($_ENV[$key]);
+	}
 }
 
 ?>

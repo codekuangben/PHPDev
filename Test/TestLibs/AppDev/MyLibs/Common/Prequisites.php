@@ -126,6 +126,8 @@ require_once (dirname(__FILE__) . "/../Tools/UtilByte.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilSysLibWrap.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilEngineWrap.php");
 require_once (dirname(__FILE__) . "/../Tools/SystemEndian.php");
+require_once (dirname(__FILE__) . "/../Tools/UtilConvert.php");
+require_once (dirname(__FILE__) . "/../Tools/UtilTime.php");
 
 
 // 日志

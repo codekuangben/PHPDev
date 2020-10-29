@@ -21,7 +21,7 @@ if(UtilSysLibWrap::issetInRequest("Cmd") &&
 
     $unityNetNotify = new UnityNetNotify();
     $unityNetNotify->init();
-    $unityNetNotify->handleMsg();
+    $unityNetNotify->handleMsg($cmdDispatchInfo);
 }
 
 ?>

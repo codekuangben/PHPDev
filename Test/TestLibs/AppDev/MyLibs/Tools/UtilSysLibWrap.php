@@ -247,24 +247,64 @@ class UtilSysLibWrap
 	    print_r($str);
 	}
 	
-	public static function issetInRequest($key)
+	public static function issetInRequest($fieldName)
 	{
-	    return isset($_REQUEST[$key]);
+	    return isset($_REQUEST[$fieldName]);
 	}
 	
-	public static function request($key)
+	public static function request($fieldName)
 	{
-	    return $_REQUEST[$key];
+	    return $_REQUEST[$fieldName];
 	}
 	
-	public static function issetInServer($key)
+	public static function issetInServer($fieldName)
 	{
-	    return isset($_SERVER[$key]);
+	    return isset($_SERVER[$fieldName]);
 	}
 	
-	public static function issetInFiles($key)
+	public static function issetInFiles($fieldName)
 	{
-	    return isset($_FILES[$key]);
+	    return isset($_FILES[$fieldName]);
+	}
+	
+	public static function fileName($fieldName)
+	{
+	    return isset($_FILES[$fieldName]['name']);
+	}
+	
+	public static function fileType($fieldName)
+	{
+	    return isset($_FILES[$fieldName]['type']);
+	}
+	
+	public static function fileSize($fieldName)
+	{
+	    return isset($_FILES[$fieldName]['size']);
+	}
+	
+	public static function fileTmpName($fieldName)
+	{
+	    return isset($_FILES[$fieldName]['tmp_name']);
+	}
+	
+	/**
+	 * @brief PHP $_FILES函数详解
+	 * @url https://www.cnblogs.com/laijinquan/p/8682282.html
+	 * UPLOAD_ERR_OK 
+     * 值：0; 没有错误发生，文件上传成功。 
+     * UPLOAD_ERR_INI_SIZE 
+     * 值：1; 上传的文件超过了 php.ini 中 upload_max_filesize 选项限制的值。 
+     * UPLOAD_ERR_FORM_SIZE 
+     * 值：2; 上传文件的大小超过了 HTML 表单中 MAX_FILE_SIZE 选项指定的值。 
+     * UPLOAD_ERR_PARTIAL 
+     * 值：3; 文件只有部分被上传。 
+     * UPLOAD_ERR_NO_FILE 
+     * 值：4; 没有文件被上传。 
+     * 值：5; 上传文件大小为0.  
+	 */
+	public static function fileError($fieldName)
+	{
+	    return isset($_FILES[$fieldName]['error']);
 	}
 	
 	public static function issetInCookie($key)
@@ -275,6 +315,20 @@ class UtilSysLibWrap
 	public static function issetInEnv($key)
 	{
 	    return isset($_ENV[$key]);
+	}
+	
+	public static function isWin()
+	{
+	    $ret = TRUE;
+	    $ret = (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
+	    return $ret;
+	}
+	
+	public static function isLinux()
+	{
+	    $ret = TRUE;
+	    $ret = (PATH_SEPARATOR == ':');
+	    return $ret;
 	}
 }
 

@@ -307,7 +307,7 @@ class UtilPath
 
 		$ret = UtilStr::replace($ret, "//", "/");
 
-		return ret;
+		return $ret;
 	}
 
 	// 获取扩展名

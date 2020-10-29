@@ -277,6 +277,25 @@ class UtilStr
 	{
 	    return strtoupper($src);
 	}
+	
+	public static function concat(...$strList)
+	{
+	    $idx = 0;
+	    $listLen = UtilList::count($strList);
+	    $ret = "";
+	    
+	    while ($idx < $listLen)
+	    {
+	        if (!UtilStr::IsNullOrEmpty($strList[$idx]))
+	        {
+	            $ret = $ret . $strList[$idx];
+	        }
+	        
+	        $idx += 1;
+	    }
+	    
+	    return $ret;
+	}
 }
 
 ?>

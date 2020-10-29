@@ -2,6 +2,8 @@
 
 namespace MModule;
 
+require_once (dirname(__FILE__) . "/../App/AppFrame.php");
+
 use MyLibs\UtilSysLibWrap;
 use MyLibs\UtilConvert;
 use MyLibs\CmdDispatchInfo;

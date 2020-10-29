@@ -67,9 +67,9 @@ class FileLogDevice extends  LogDeviceBase
 		//    Directory::CreateDirectory($path);            // 创建新路径
 		//}
 
-		if (UtilFileIO::existFile($file))                  // 如果文件存在
+		if (UtilPath::existFile($file))                  // 如果文件存在
 		{
-		    UtilFileIO::deleteFile($file);
+		    UtilPath::deleteFile($file);
 		    $this->mFileStream = fopen(file, "wb");
 		}
 		else

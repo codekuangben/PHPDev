@@ -40,7 +40,7 @@ class TestMain
     {
         $this->mTestClass->run();
         $this->mTestEventDispatch->run();
-        $this->mTestDB->run();
+        //$this->mTestDB->run();
     }
 }
 

@@ -120,7 +120,7 @@ require_once (dirname(__FILE__) . "/../Tools/MEndian.php");
 require_once (dirname(__FILE__) . "/../Tools/MEncode.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilStr.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilList.php");
-require_once (dirname(__FILE__) . "/../Tools/UtilFileIO.php");
+require_once (dirname(__FILE__) . "/../Tools/UtilPath.php");
 require_once (dirname(__FILE__) . "/../Tools/PlatformDefine.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilByte.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilSysLibWrap.php");

@@ -34,7 +34,7 @@ class UnityCmdHandle extends NetCmdDispatchHandle
     
     public function dispose()
     {
-        this.removeParamHandle(UnityCmdCv::eUnityShaderKeyParamId, $this, "HandleUnityShaderKeySave");
+        $this->removeParamHandle(UnityCmdCv::eUnityShaderKeyParamId, $this, "HandleUnityShaderKeySave");
         
         parent::dispose();
     }

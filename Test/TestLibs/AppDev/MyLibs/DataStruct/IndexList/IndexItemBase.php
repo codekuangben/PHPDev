@@ -1,29 +1,29 @@
 <?php
 
-namespace MyLibs
+namespace MyLibs;
 
-public class IndexItemBase
+class IndexItemBase
 {
-	protected int mIndex;   // 索引
+	protected $mIndex;   // 索引
 
-	public IndexItemBase()
+	public function __construct()
 	{
-		this.mIndex = -1;
+		$this->mIndex = -1;
 	}
 
-	public int getIndex()
+	public function getIndex()
 	{
-		return this.mIndex;
+		return $this->mIndex;
 	}
 
-	public void setIndex(int value)
+	public function setIndex($value)
 	{
-		this.mIndex = value;
+	    $this->mIndex = $value;
 	}
 
-	public void resetIndex()
+	public function resetIndex()
 	{
-		this.mIndex = -1;
+	    $this->mIndex = -1;
 	}
 }
 

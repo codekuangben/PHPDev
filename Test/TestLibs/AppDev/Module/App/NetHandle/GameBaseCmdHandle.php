@@ -20,7 +20,7 @@ class GameBaseCmdHandle extends NetCmdDispatchHandle
     
     public function dispose()
     {
-        this.removeParamHandle(0, $this, "handleA");
+        $this->removeParamHandle(0, $this, "handleA");
         
         parent::dispose();
     }

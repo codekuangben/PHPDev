@@ -5,185 +5,180 @@ namespace MyLibs;
 /**
  * @brief MIndexList ，元素是保存一个在列表中的索引的，减少 Key 比较，加快查找
  */
-public class MIndexList<T> where T : IndexItemBase, new()
+class MIndexList
 {
-	protected List<T> mList;
-	protected int mUniqueId;       // 唯一 Id ，调试使用
-	protected int mEleTotal;       // 元素总数
-	protected bool mIsOpKeepSort;           // 操作的时候是否保持排序
+    // IndexItemBase
+	protected $mList;
+	protected $mUniqueId;       // 唯一 Id ，调试使用
+	protected $mEleTotal;       // 元素总数
+	protected $mIsOpKeepSort;           // 操作的时候是否保持排序
 
-	public MIndexList()
+	public function __construct($capacity = 0)
 	{
-		this.mEleTotal = 0;
-		this.mList = new List<T>();
-		this.mIsOpKeepSort = false;
+	    $this->mEleTotal = $capacity;
+	    $this->mList = new MList($capacity);
+		$this->mIsOpKeepSort = false;
 	}
 
-	public MIndexList(int capacity)
+	public function setIsOpKeepSort(bool value)
 	{
-		this.mList = new List<T>(capacity);
-		this.mEleTotal = capacity;
+		$this->mIsOpKeepSort = value;
 	}
 
-	public void setIsOpKeepSort(bool value)
+	public function ToArray()
 	{
-		this.mIsOpKeepSort = value;
+		return $this->mList.ToArray();
 	}
 
-	public T[] ToArray()
+	public function list()
 	{
-		return this.mList.ToArray();
+		return $this->mList;
 	}
 
-	public List<T> list()
-	{
-		return this.mList;
-	}
-
-	public int uniqueId
+	public function uniqueId
 	{
 		get
 		{
-			return this.mUniqueId;
+			return $this->mUniqueId;
 		}
 		set
 		{
-			this.mUniqueId = value;
+			$this->mUniqueId = value;
 		}
 	}
 
-	public List<T> buffer
+	public function buffer
 	{
 		get
 		{
-			return this.mList;
+			return $this->mList;
 		}
 	}
 
-	public int size
+	public function size
 	{
 		get
 		{
 			// 频繁获取这个字段比较耗时
-			//return this.mList.Count;
-			return this.mEleTotal;
+			//return $this->mList.Count;
+			return $this->mEleTotal;
 		}
 	}
 
-	public void Add(T item)
+	public function Add(T item)
 	{
-		this.mList.Add(item);
-		this.mEleTotal += 1;
+		$this->mList.Add(item);
+		$this->mEleTotal += 1;
 	}
 
 	// 主要是 Add 一个 float 类型的 Vector3
-	public void Add(T item_1, T item_2, T item_3)
+	public function Add(T item_1, T item_2, T item_3)
 	{
-		this.Add(item_1);
-		this.Add(item_2);
-		this.Add(item_3);
+		$this->Add(item_1);
+		$this->Add(item_2);
+		$this->Add(item_3);
 	}
 
 	// 主要是 Add 一个 float 类型的 UV
-	public void Add(T item_1, T item_2)
+	public function Add(T item_1, T item_2)
 	{
-		this.Add(item_1);
-		this.Add(item_2);
+		$this->Add(item_1);
+		$this->Add(item_2);
 	}
 
 	// 主要是 Add 一个 byte 类型的 Color32
-	public void Add(T item_1, T item_2, T item_3, T item_4)
+	public function Add(T item_1, T item_2, T item_3, T item_4)
 	{
-		this.Add(item_1);
-		this.Add(item_2);
-		this.Add(item_3);
-		this.Add(item_4);
+		$this->Add(item_1);
+		$this->Add(item_2);
+		$this->Add(item_3);
+		$this->Add(item_4);
 	}
 
-	public void push(T item)
+	public function push(T item)
 	{
-		this.Add(item);
+		$this->Add(item);
 	}
 
-	public bool Remove(T item)
+	public function Remove(T item)
 	{
-		return this.effectiveRemove(item);
+		return $this->effectiveRemove(item);
 	}
 
-	public T this[int index]
+	public function this[int index]
 	{
 		get
 		{
-			return this.mList[index];
+			return $this->mList[index];
 		}
 		set
 		{
-			this.set(index, value);
+			$this->set(index, value);
 		}
 	}
 
-	public T get(int index)
+	public function get(int index)
 	{
-		return this.mList[index];
+		return $this->mList[index];
 	}
 
-	public void set(int index, T value)
+	public function set(int index, T value)
 	{
-		if(null != this.mList[index])
+		if(null != $this->mList[index])
 		{
-			this.mList[index].resetIndex();
+			$this->mList[index].resetIndex();
 		}
 
-		this.mList[index] = value;
-		this.mList[index].setIndex(index);
+		$this->mList[index] = value;
+		$this->mList[index].setIndex(index);
 	}
 
-	public void Clear()
+	public function Clear()
 	{
 		int index = 0;
-		int listLen = this.mEleTotal;
+		int listLen = $this->mEleTotal;
 
 		while(index < listLen)
 		{
-			this.mList[index].resetIndex();
+			$this->mList[index].resetIndex();
 
 			index += 1;
 		}
 
-		this.mList.Clear();
-		this.mEleTotal = 0;
+		$this->mList.Clear();
+		$this->mEleTotal = 0;
 	}
 
-	public int Count()
+	public function Count()
 	{
-		//return this.mList.Count;
-		return this.mEleTotal;
+		//return $this->mList.Count;
+		return $this->mEleTotal;
 	}
 
-	public int length()
+	public function length()
 	{
-		//return this.mList.Count;
-		return this.mEleTotal;
+		//return $this->mList.Count;
+		return $this->mEleTotal;
 	}
 
-	public void setLength(int value)
+	public function setLength(int value)
 	{
-		this.mList.Capacity = value;
+		$this->mList.Capacity = value;
 	}
 
-	public void RemoveAt(int index)
+	public function RemoveAt(int index)
 	{
-		if (index < this.Count())
+		if (index < $this->Count())
 		{
-			this.mList[index].resetIndex();
-			this.mList.RemoveAt(index);
-			this.mEleTotal -= 1;
+			$this->mList[index].resetIndex();
+			$this->mList.RemoveAt(index);
+			$this->mEleTotal -= 1;
 		}
 	}
 
-	public int IndexOf(T item)
+	public function IndexOf(T item)
 	{
-		if(item.getIndex() < this.Count())
+		if(item.getIndex() < $this->Count())
 		{
 			return item.getIndex();
 		}
@@ -191,66 +186,66 @@ public class MIndexList<T> where T : IndexItemBase, new()
 		return -1;
 	}
 
-	public void Insert(int index, T item)
+	public function Insert(int index, T item)
 	{
-		if (index <= this.Count())
+		if (index <= $this->Count())
 		{
-			this.mList.Insert(index, item);
+			$this->mList.Insert(index, item);
 			item.setIndex(index);
-			this.mEleTotal += 1;
-			this.updateIndex(index + 1);
+			$this->mEleTotal += 1;
+			$this->updateIndex(index + 1);
 		}
 	}
 
-	public bool Contains(T item)
+	public function Contains(T item)
 	{
 		return item.getIndex() != -1;
 	}
 
-	public void Sort(System.Comparison<T> comparer)
+	public function Sort(System.Comparison<T> comparer)
 	{
-		this.mList.Sort(comparer);
+		$this->mList.Sort(comparer);
 	}
 
-	public void merge(MList<T> appendList)
+	public function merge(MList<T> appendList)
 	{
 		if(appendList != null)
 		{
 			foreach(T item in appendList.list())
 			{
-				this.mList.Add(item);
-				item.setIndex(this.mEleTotal);
-				this.mEleTotal += 1;
+				$this->mList.Add(item);
+				item.setIndex($this->mEleTotal);
+				$this->mEleTotal += 1;
 			}
 		}
 	}
 
 	// 快速移除元素
-	protected bool effectiveRemove(T item)
+	protected function effectiveRemove($item)
 	{
-		bool ret = false;
+		$ret = false;
 
-		int idx = item.getIndex();
+		$idx = item.getIndex();
 
 		if (-1 != idx)
 		{
 			ret = true;
 
-			if (idx == this.Count() - 1)    // 如果是最后一个元素，直接移除
+			if (idx == $this->Count() - 1)    // 如果是最后一个元素，直接移除
 			{
-				this.RemoveAt(idx);
+				$this->RemoveAt(idx);
 			}
 			else
 			{
-				if (!this.mIsOpKeepSort)
+				if (!$this->mIsOpKeepSort)
 				{
-					this.mList[idx] = this.mList[this.Count() - 1];
-					this.RemoveAt(this.Count() - 1);
+					$this->mList[idx] = $this->mList[$this->Count() - 1];
+					$this->RemoveAt($this->Count() - 1);
 				}
 				else
 				{
-					this.RemoveAt(idx);
-					this.updateIndex(idx);
+					$this->RemoveAt(idx);
+					$this->updateIndex(idx);
 				}
 			}
 		}
@@ -258,15 +253,15 @@ public class MIndexList<T> where T : IndexItemBase, new()
 		return ret;
 	}
 
-	protected void updateIndex(int idx)
+	protected function updateIndex($idx)
 	{
-		int len = this.Count();
+		$len = $this->Count();
 
-		while(idx < len)
+		while($idx < $len)
 		{
-			this.mList[idx].setIndex(idx);
+			$this->mList[$idx]->setIndex($idx);
 
-			++idx;
+			++$idx;
 		}
 	}
 }

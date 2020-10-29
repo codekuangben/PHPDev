@@ -13,7 +13,7 @@ class TimerItemBase implements IDelayHandleItem, IDispatchObject
 	public $mCurCallTime;     // 当前定时器已经调用的时间
 	public $mIsInfineLoop;      // 是否是无限循环
 	public $mIntervalLeftTime;     // 定时器调用间隔剩余时间
-	public $mTimerDisp;       // 定时器分发
+	public $mTimerEventDispatch;       // 定时器分发
 	public $mDisposed;             // 是否已经被释放
 	public $mIsContinuous;          // 是否是连续的定时器
 
@@ -25,14 +25,14 @@ class TimerItemBase implements IDelayHandleItem, IDispatchObject
 		$this->mCurCallTime = 0;
 		$this->mIsInfineLoop = false;
 		$this->mIntervalLeftTime = 0;
-		$this->mTimerDisp = new TimerFunctionObject();
+		$this->mTimerEventDispatch = new EventDispatchFunctionObject();
 		$this->mDisposed = false;
 		$this->mIsContinuous = false;
 	}
 
-	public function setFuncObject($eventHandle)
+	public function setFuncObject($eventListener, $eventHandle)
 	{
-		$this->mTimerDisp->setFuncObject($eventHandle);
+	    $this->mTimerEventDispatch->setFuncObject($eventListener, $eventHandle);
 	}
 
 	public function setTotalTime($value)
@@ -88,7 +88,7 @@ class TimerItemBase implements IDelayHandleItem, IDispatchObject
 		{
 			if ($this->mCurRunTime >= $this->mTotalTime)
 			{
-				$this->disposeAndDisp();
+				$this->disposeAndDispatch();
 			}
 			else
 			{
@@ -97,19 +97,19 @@ class TimerItemBase implements IDelayHandleItem, IDispatchObject
 		}
 	}
 
-	public function disposeAndDisp()
+	public function disposeAndDispatch()
 	{
 		if ($this->mIsContinuous)
 		{
-			$this->continueDisposeAndDisp();
+			$this->continueDisposeAndDispatch();
 		}
 		else
 		{
-			$this->discontinueDisposeAndDisp();
+			$this->discontinueDisposeAndDispatch();
 		}
 	}
 
-	protected function continueDisposeAndDisp()
+	protected function continueDisposeAndDispatch()
 	{
 		$this->mDisposed = true;
 
@@ -119,22 +119,22 @@ class TimerItemBase implements IDelayHandleItem, IDispatchObject
 			$this->mIntervalLeftTime = $this->mIntervalLeftTime - $this->mInternal;
 			$this->onPreCallBack();
 
-			if ($this->mTimerDisp->isValid())
+			if ($this->mTimerEventDispatch->isValid())
 			{
-				$this->mTimerDisp->call($this);
+				$this->mTimerEventDispatch->call($this);
 			}
 		}
 	}
 
-	protected function discontinueDisposeAndDisp()
+	protected function discontinueDisposeAndDispatch()
 	{
 		$this->mDisposed = true;
 		$this->mCurCallTime = $this->mTotalTime;
 		$this->onPreCallBack();
 
-		if ($this->mTimerDisp->isValid())
+		if ($this->mTimerEventDispatch->isValid())
 		{
-			$this->mTimerDisp->call($this);
+			$this->mTimerEventDispatch->call($this);
 		}
 	}
 
@@ -142,16 +142,16 @@ class TimerItemBase implements IDelayHandleItem, IDispatchObject
 	{
 		if($this->mIsContinuous)
 		{
-			$this->continueCheckAndDisp();
+			$this->continueCheckAndDispatch();
 		}
 		else
 		{
-			$this->discontinueCheckAndDisp();
+			$this->discontinueCheckAndDispatch();
 		}
 	}
 
 	// 连续的定时器
-	protected function continueCheckAndDisp()
+	protected function continueCheckAndDispatch()
 	{
 		while ($this->mIntervalLeftTime >= $this->mInternal)
 		{
@@ -160,15 +160,15 @@ class TimerItemBase implements IDelayHandleItem, IDispatchObject
 			$this->mIntervalLeftTime = $this->mIntervalLeftTime - $this->mInternal;
 			$this->onPreCallBack();
 
-			if ($this->mTimerDisp->isValid())
+			if ($this->mTimerEventDispatch->isValid())
 			{
-				$this->mTimerDisp->call($this);
+				$this->mTimerEventDispatch->call($this);
 			}
 		}
 	}
 
 	// 不连续的定时器
-	protected function discontinueCheckAndDisp()
+	protected function discontinueCheckAndDispatch()
 	{
 		if ($this->mIntervalLeftTime >= $this->mInternal)
 		{
@@ -177,9 +177,9 @@ class TimerItemBase implements IDelayHandleItem, IDispatchObject
 			$this->mIntervalLeftTime = $this->mIntervalLeftTime % $this->mInternal;   // 只保留余数
 			$this->onPreCallBack();
 
-			if ($this->mTimerDisp->isValid())
+			if ($this->mTimerEventDispatch->isValid())
 			{
-				$this->mTimerDisp->call($this);
+				$this->mTimerEventDispatch->call($this);
 			}
 		}
 	}

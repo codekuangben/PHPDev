@@ -2,7 +2,7 @@
 
 namespace MyLibs;
 
-class TextCompTimer extends DaoJiShiTimer
+class TextCompTimer extends CountDownTimer
 {
 	protected $mText;
 

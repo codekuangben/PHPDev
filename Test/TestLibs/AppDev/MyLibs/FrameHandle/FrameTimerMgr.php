@@ -33,7 +33,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 		{
 			if ($this->isInDepth())
 			{
-				parent::addObject(delayObject, priority);
+				parent::addObject($delayObject, $priority);
 			}
 			else
 			{
@@ -51,7 +51,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 
 			if ($this->isInDepth())
 			{
-				parent::addObject(delayObject);
+				parent::addObject($delayObject);
 			}
 			else
 			{
@@ -77,12 +77,12 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 
 	public function addFrameTimer($timer, $priority = 0.0)
 	{
-		$this->addObject(timer, priority);
+		$this->addObject($timer, $priority);
 	}
 
 	public function removeFrameTimer($timer)
 	{
-		$this->removeObject(timer);
+		$this->removeObject($timer);
 	}
 
 	public function Advance($delta)
@@ -101,7 +101,7 @@ class FrameTimerMgr extends DelayPriorityHandleMgrBase
 			}
 			if ($timerItem->mDisposed)
 			{
-				$this->removeObject(timerItem);
+				$this->removeObject($timerItem);
 			}
 			
 			$index += 1;

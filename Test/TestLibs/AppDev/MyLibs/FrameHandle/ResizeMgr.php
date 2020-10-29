@@ -65,7 +65,7 @@ class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDe
 	{
 		if($this->isInDepth())
 		{
-			parent::removeObject(delayObject);
+			parent::removeObject($delayObject);
 		}
 		else
 		{
@@ -75,17 +75,17 @@ class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDe
 
 	public function addResizeObject($obj, $priority = 0)
 	{
-		if (!$this->mResizeList->contains(obj))
+		if (!$this->mResizeList->contains($obj))
 		{
-			$this->mResizeList->add(obj);
+			$this->mResizeList->add($obj);
 		}
 	}
 
 	public function removeResizeObject($obj)
 	{
-		if ($this->mResizeList->indexOf(obj) != -1)
+		if ($this->mResizeList->indexOf($obj) != -1)
 		{
-			$this->mResizeList->remove(obj);
+			$this->mResizeList->remove($obj);
 		}
 	}
 

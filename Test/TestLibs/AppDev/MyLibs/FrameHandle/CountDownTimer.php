@@ -5,7 +5,7 @@ namespace MyLibs;
 /**
  * @brief 倒计时定时器
  */
-class DaoJiShiTimer extends TimerItemBase
+class CountDownTimer extends TimerItemBase
 {
 	public function __construct()
 	{
@@ -51,7 +51,7 @@ class DaoJiShiTimer extends TimerItemBase
 		{
 			if ($this->mCurRunTime <= 0)
 			{
-				$this->disposeAndDisp();
+				$this->disposeAndDispatch();
 			}
 			else
 			{

@@ -55,7 +55,7 @@ require_once (dirname(__FILE__) . "/../FrameHandle/ITickedObject.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/TimerItemBase.php");
 //require_once (dirname(__FILE__) . "/../FrameHandle/TickItemBase.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/FrameTimerItem.php");
-require_once (dirname(__FILE__) . "/../FrameHandle/DaoJiShiTimer.php");
+require_once (dirname(__FILE__) . "/../FrameHandle/CountDownTimer.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/SystemTimeData.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/SystemFrameData.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/TickObjectNoPriorityMgr.php");
@@ -63,7 +63,6 @@ require_once (dirname(__FILE__) . "/../FrameHandle/TickObjectPriorityMgr.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/TimerMgr.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/FrameTimerMgr.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/TickMgr.php");
-require_once (dirname(__FILE__) . "/../FrameHandle/TimerFunctionObject.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/LoopDepth.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/LogicTickMgr.php");
 
@@ -128,12 +127,12 @@ require_once (dirname(__FILE__) . "/../Tools/UtilEngineWrap.php");
 require_once (dirname(__FILE__) . "/../Tools/SystemEndian.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilConvert.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilTime.php");
+require_once (dirname(__FILE__) . "/../Tools/UtilLog.php");
 
 
 // 日志
 require_once (dirname(__FILE__) . "/../Log/LogColor.php");
 require_once (dirname(__FILE__) . "/../Log/LogDeviceId.php");
-require_once (dirname(__FILE__) . "/../Log/LoggerTool.php");
 require_once (dirname(__FILE__) . "/../Log/LogTypeId.php");
 require_once (dirname(__FILE__) . "/../Log/LogDeviceBase.php");
 require_once (dirname(__FILE__) . "/../Log/FileLogDevice.php");

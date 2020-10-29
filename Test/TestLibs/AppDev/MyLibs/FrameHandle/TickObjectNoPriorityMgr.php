@@ -54,13 +54,13 @@ class TickObjectNoPriorityMgr extends DelayNoPriorityHandleMgr implements ITicke
 
 		while (idx < count)
 		{
-			$tickObject = $this->mNoOrPriorityList->get(idx);
+			$tickObject = $this->mNoOrPriorityList->get($idx);
 
 			if (null != $tickObject)
 			{
 				if (!$tickObject->isClientDispose())
 				{
-				    $tickObject->onTick(delta, tickMode);
+				    $tickObject->onTick($delta, $tickMode);
 				}
 			}
 			else

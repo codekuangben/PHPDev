@@ -48,7 +48,7 @@ class NumInterval
 
 		if (NumIntervalMode::eNIM_Inc == $this->mNumIntervalMode)
 		{
-			$this->mCurValue += delta;
+			$this->mCurValue += $delta;
 
 			if ($this->mCurValue <= $this->mTotalValue)
 			{
@@ -57,7 +57,7 @@ class NumInterval
 		}
 		else
 		{
-			$this->mCurValue -= delta;
+			$this->mCurValue -= $delta;
 
 			if ($this->mCurValue >= 0)
 			{
@@ -65,7 +65,7 @@ class NumInterval
 			}
 		}
 
-		return ret;
+		return $ret;
 	}
 }
 

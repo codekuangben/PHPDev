@@ -26,7 +26,7 @@ class TimeInterval
 
 	public function setInterval($value)
 	{
-		$this->mInterval = value;
+		$this->mInterval = $value;
 	}
 
 	public function setTotalTime($value)
@@ -54,8 +54,8 @@ class TimeInterval
 	{
 		$ret = false;
 
-		$this->mTotalTime += delta;
-		$this->mCurTime += delta;
+		$this->mTotalTime += $delta;
+		$this->mCurTime += $delta;
 
 		if($this->mCurTime >= $this->mInterval)
 		{
@@ -87,7 +87,7 @@ class TimeInterval
 			$ret = true;
 		}
 
-		return ret;
+		return $ret;
 	}
 }
 

@@ -4,9 +4,9 @@ namespace MyLibs;
 
 class TickMode
 {
-	const eTM_Update = 0;
-	const eTM_FixedUpdate = 1;
-	const eTM_LateUpdate = 2;
+	public const eTM_Update = 0;
+	public const eTM_FixedUpdate = 1;
+	public const eTM_LateUpdate = 2;
 }
 
 ?>

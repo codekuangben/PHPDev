@@ -12,7 +12,7 @@ class FrameTimerItem implements IDelayHandleItem
 	public $mCurFrame;              // 当前已经调用的定时器的时间
 	public $mCurLeftFrame;          // 剩余帧数
 	public $mIsInfineLoop;      // 是否是无限循环
-	public $mTimerDisp;       // 定时器分发
+	public $mTimerEventDispatch;       // 定时器分发
 	public $mDisposed;             // 是否已经被释放
 
 	//protected int m_preFrame = 0;
@@ -24,7 +24,7 @@ class FrameTimerItem implements IDelayHandleItem
 		$this->mCurFrame = 0;
 		$this->mIsInfineLoop = false;
 		$this->mCurLeftFrame = 0;
-		$this->mTimerDisp = null;
+		$this->mTimerEventDispatch = null;
 		$this->mDisposed = false;
 	}
 
@@ -51,9 +51,9 @@ class FrameTimerItem implements IDelayHandleItem
 			{
 				$this->mCurLeftFrame = 0;
 
-				if ($this->mTimerDisp != null)
+				if ($this->mTimerEventDispatch != null)
 				{
-					$this->mTimerDisp(this);
+					$this->mTimerEventDispatch(this);
 				}
 			}
 		}
@@ -62,9 +62,9 @@ class FrameTimerItem implements IDelayHandleItem
 			if ($this->mCurFrame == $this->mTotalFrameCount)
 			{
 				$this->mDisposed = true;
-				if ($this->mTimerDisp != null)
+				if ($this->mTimerEventDispatch != null)
 				{
-					$this->mTimerDisp(this);
+					$this->mTimerEventDispatch($this);
 				}
 			}
 			else
@@ -72,9 +72,9 @@ class FrameTimerItem implements IDelayHandleItem
 				if ($this->mCurLeftFrame == $this->mInternal)
 				{
 					$this->mCurLeftFrame = 0;
-					if ($this->mTimerDisp != null)
+					if ($this->mTimerEventDispatch != null)
 					{
-						$this->mTimerDisp(this);
+						$this->mTimerEventDispatch($this);
 					}
 				}
 			}

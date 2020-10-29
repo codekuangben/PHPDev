@@ -96,7 +96,7 @@ class SystemTimeData
 	public function setServerTime($value)
 	{
 		$this->mServerBaseTime = $value;
-		$this->mServerRelTime = DateTime.Now.Ticks;
+		$this->mServerRelTime = UtilTime::getTimeStamp();
 	}
 
 	// 获取服务器毫秒时间

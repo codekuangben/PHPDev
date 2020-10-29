@@ -1,8 +1,8 @@
 <?php
 
-namespace SDK\Module;
+namespace MModule;
 
-require_once (dirname(__FILE__) . "/../../Libs/FrameWork/Ctx.php");
+require_once (dirname(__FILE__) . "/../../MyLibs/FrameWork/Ctx.php");
 require_once (dirname(__FILE__) . "/../Common/Common/DataPrequisites.php");
 
 use MyLibs\Ctx;

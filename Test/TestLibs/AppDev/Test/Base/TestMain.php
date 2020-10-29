@@ -1,6 +1,6 @@
 <?php
 
-namespace SDK\Test;
+namespace MTest;
 
 use MyLibs\SystemEnv;
 

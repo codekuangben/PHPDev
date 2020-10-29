@@ -5,7 +5,7 @@ namespace MyLibs;
 require_once (dirname(__FILE__) . "/../Common/Prequisites.php");
 require_once (dirname(__FILE__) . "/../../Test/Base/TestMain.php");
 
-use SDK\Test\TestMain;
+use MTest\TestMain;
 
 /**
  * @brief 全局数据区

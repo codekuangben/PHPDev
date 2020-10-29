@@ -1,6 +1,6 @@
 <?php
 
-namespace SDK\Module;
+namespace MModule;
 
 use MyLibs\GObject;
 

@@ -5,10 +5,10 @@ namespace MyLibs;
 require_once (dirname(__FILE__) . "/../Common/SystemEnv.php");
 
 // 基础
-require_once (dirname(__FILE__) . "/../Core/GObject.php");
-require_once (dirname(__FILE__) . "/../Core/UniqueNumIdGen.php");
-require_once (dirname(__FILE__) . "/../Core/UniqueStrIdGen.php");
-require_once (dirname(__FILE__) . "/../Core/Performance/MProfiler.php");
+require_once (dirname(__FILE__) . "/../Base/GObject.php");
+require_once (dirname(__FILE__) . "/../Base/UniqueNumIdGen.php");
+require_once (dirname(__FILE__) . "/../Base/UniqueStrIdGen.php");
+require_once (dirname(__FILE__) . "/../Base/Performance/MProfiler.php");
 
 
 // 数据结构

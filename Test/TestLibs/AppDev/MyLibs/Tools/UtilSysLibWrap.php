@@ -42,11 +42,11 @@ class UtilSysLibWrap
 	// 判断向量是否相等
 	public static function isVectorEqual($lhv, $rhv)
 	{
-		if (UnityEngine.Mathf.Abs(lhv.x - rhv.x) < 0.0001)
+		if (abs($lhv->x - $rhv->x) < 0.0001)
 		{
-			if (UnityEngine.Mathf.Abs(lhv.y - rhv.y) < 0.0001)
+		    if (abs($lhv->y - $rhv->y) < 0.0001)
 			{
-				if (UnityEngine.Mathf.Abs(lhv.z - rhv.z) < 0.0001)
+			    if (abs($lhv->z - $rhv->z) < 0.0001)
 				{
 					return true;
 				}

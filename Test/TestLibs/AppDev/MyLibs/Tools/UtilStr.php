@@ -296,6 +296,16 @@ class UtilStr
 	    
 	    return $ret;
 	}
+	
+	/**
+	 * @brief PHP utf8_encode() 函数
+	 * @url https://www.runoob.com/php/func-xml-utf8-encode.html
+	 */
+	public static function encodeUtf8($strContent)
+	{
+	    $ret = utf8_encode($strContent);
+	    return $ret;
+	}
 }
 
 ?>

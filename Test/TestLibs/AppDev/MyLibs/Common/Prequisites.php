@@ -159,7 +159,11 @@ require_once (dirname(__FILE__) . "/../DataBase/DataBaseOpMode.php");
 require_once (dirname(__FILE__) . "/../DataBase/DataBaseType.php");
 require_once (dirname(__FILE__) . "/../DataBase/PdoErrorMode.php");
 require_once (dirname(__FILE__) . "/../DataBase/DataBaseSetting.php");
-require_once (dirname(__FILE__) . "/../DataBase/DBPdo.php");
+require_once (dirname(__FILE__) . "/../FileVisitor/MFileStream.php");
+
+
+// 文件
+require_once (dirname(__FILE__) . "/../DataBase/MFileStream.php");
 
 
 ?>

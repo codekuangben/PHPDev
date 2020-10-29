@@ -32,6 +32,16 @@ class UtilByte
 		
 		return $retStr;
 	}
+	
+	/**
+	 * @brief PHP utf8_decode() 函数
+	 * @url https://www.w3school.com.cn/php/func_xml_utf8_decode.asp
+	 */
+	public static function decodeUtf8($byteContent)
+	{
+	    $ret = utf8_decode($byteContent);
+	    return $ret;
+	}
 }
 
 ?>

@@ -171,13 +171,16 @@ class UtilPath
 		            UtilPath::deleteFile($destFileName);
 		        }
 		        
-		        $ret = copy($sourceFileName, $destFileName, $overwrite);
+		        // $overwrite 有这个值不能拷贝文件
+		        //$ret = copy($sourceFileName, $destFileName, $overwrite);
+		        $ret = copy($sourceFileName, $destFileName);
 		    }
 		    else
 		    {
 		        if(!UtilPath::existFile($destFileName))
 		        {
-		            $ret = copy($sourceFileName, $destFileName, $overwrite);
+		            //$ret = copy($sourceFileName, $destFileName, $overwrite);
+		            $ret = copy($sourceFileName, $destFileName);
 		        }
 		    }
 		}
@@ -450,7 +453,7 @@ class UtilPath
 				}
 				else
 				{
-				    $parentDir = UtilStr::substr($fullPath, lastSlashIndex + 1, UtilStr::length($fullPath) - (lastSlashIndex + 1));
+				    $parentDir = UtilStr::substr($fullPath, $lastSlashIndex + 1, UtilStr::length($fullPath) - (lastSlashIndex + 1));
 				}
 			}
 		}

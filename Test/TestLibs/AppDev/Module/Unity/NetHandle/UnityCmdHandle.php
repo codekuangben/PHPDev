@@ -7,6 +7,8 @@ use MyLibs\UtilSysLibWrap;
 use MyLibs\UtilPath;
 use MyLibs\UtilTime;
 use MyLibs\UtilStr;
+use MyLibs\MFileStream;
+use MyLibs\UtilByte;
 
 class UnityCmdHandle extends NetCmdDispatchHandle
 {
@@ -51,7 +53,30 @@ class UnityCmdHandle extends NetCmdDispatchHandle
             $fileExtName = UtilPath::getFileExt($fileName);
             $newFileName = UtilStr::concat($fileNameNoExtName, "-", UtilTime::getTimeStr(), ".", $fileExtName);
             $destFileName = UtilPath::combine($this->_SaveRootPath, $newFileName);
-            UtilPath::copyFile($sourceFileName, $destFileName);
+            //UtilPath::copyFile($sourceFileName, $destFileName);
+            $strContent = "";
+            $fileStream = new MFileStream($sourceFileName);
+            $fileStream->init();
+            $fileStream->open();
+            
+            if ($fileStream->isValid())
+            {
+                $byteContent = $fileStream->readByte();
+                $fileStream->close();
+                $fileStream = NULL;
+                $strContent = UtilByte::decodeUtf8($byteContent);
+            }
+            
+            $fileStream = new MFileStream($destFileName);
+            $fileStream->init();
+            $fileStream->open();
+            
+            if ($fileStream->isValid())
+            {
+                $byteContent = $fileStream->writeText($strContent);
+                $fileStream->close();
+                $fileStream = NULL;
+            }
         }
     }
 }

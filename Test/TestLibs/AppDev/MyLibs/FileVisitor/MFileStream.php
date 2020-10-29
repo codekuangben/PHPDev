@@ -48,8 +48,16 @@ class MFileStream extends GObject
 		$this->mMode = mode;
 		$this->mAccess = access;
 		$this->mFileOpState = eFileOpState::eNoOp;
-
-		$this->checkAndOpen(openedHandle);
+	}
+	
+	public function init()
+	{
+	    
+	}
+	
+	public function open()
+	{
+	    $this->checkAndOpen(openedHandle);
 	}
 
 	public function seek($offset, $origin)

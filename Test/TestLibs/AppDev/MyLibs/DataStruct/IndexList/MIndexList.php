@@ -150,7 +150,7 @@ class MIndexList
 	{
 		if ($index < $this->Count())
 		{
-			$this->mList[index]->resetIndex();
+			$this->mList[$index]->resetIndex();
 			$this->mList->RemoveAt($index);
 			$this->mEleTotal -= 1;
 		}
@@ -168,7 +168,7 @@ class MIndexList
 
 	public function Insert($index, $item)
 	{
-		if (index <= $this->Count())
+		if ($index <= $this->Count())
 		{
 			$this->mList->Insert($index, $item);
 			$item->setIndex($index);

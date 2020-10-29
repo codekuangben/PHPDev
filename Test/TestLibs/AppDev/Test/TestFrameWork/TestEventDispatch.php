@@ -13,7 +13,7 @@ function globalHandle($param)
 
 // 测试回调全局
 // call_user_func('globalHandle', "asdf");  // 一定要加名字空间
-//call_user_func('SDK\Test\globalHandle', "asdf");
+//call_user_func('MTest\globalHandle', "asdf");
 
 class TestEventDispatch extends TestBase
 {
@@ -44,7 +44,7 @@ class TestEventDispatch extends TestBase
     {
         $aaa = new EventDispatch();
         //$aaa->addEventHandle($this, "testB", 10);
-        $aaa->addEventHandle("SDK\Test\TestEventDispatch", "testC");
+        $aaa->addEventHandle("MTest\TestEventDispatch", "testC");
         $aaa->dispatchEvent("asdfasdf");
     }
     
@@ -64,7 +64,7 @@ class TestEventDispatch extends TestBase
     {
         // 测试静态回调
         // $classname = "TestEventDispatch";    // 一定要添加名字空间，否则报错
-        $classname = "SDK\Test\TestEventDispatch";
+        $classname = "MTest\TestEventDispatch";
         // call_user_func($classname . '::testC', "ads", 555);
         call_user_func(array($classname, 'testC'), "ads", 555);
         
@@ -73,7 +73,7 @@ class TestEventDispatch extends TestBase
         
         // 测试回调全局
         //call_user_func('globalHandle', "asdf");   // 一定要添加名字空间，否则报错
-        call_user_func('SDK\Test\globalHandle', "asdf");
+        call_user_func('MTest\globalHandle', "asdf");
     }
 }
 

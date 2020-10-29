@@ -19,16 +19,16 @@ class AppFrame
     
     public function init()
     {
-        Ctx::$msInstance->init();
+        Ctx::$msIns->init();
         
         $this->mNetNotify = new NetNotify();
         $this->mNetNotify->init();
-        Ctx::$msInstance->mNetCmdNotify->addOneNofity($this->mNetNotify);
+        Ctx::$msIns->mNetCmdNotify->addOneNofity($this->mNetNotify);
     }
     
     public function dispose()
     {
-        Ctx::$msInstance->dispose();
+        Ctx::$msIns->dispose();
         
         $this->mNetNotify->dispose();
         $this->mNetNotify = null;
@@ -38,7 +38,7 @@ class AppFrame
     {
         $interval = 1 / 24;
         
-        Ctx::$msInstance->run();
+        Ctx::$msIns->run();
         $this->_update();
         
         if(MacroDef::ENABLE_LOOP)
@@ -53,7 +53,7 @@ class AppFrame
     
     protected function _update()
     {
-        Ctx::$msInstance->mProcessSys->ProcessNextFrame();
+        Ctx::$msIns->mProcessSys->ProcessNextFrame();
     }
 }
 

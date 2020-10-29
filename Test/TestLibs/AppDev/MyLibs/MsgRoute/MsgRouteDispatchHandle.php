@@ -37,12 +37,12 @@ class MsgRouteDispatchHandle
 
 		if($this->mEventDispatchGroup->hasEventHandle($msg->mMsgType))
 		{
-		    //$textStr = Ctx::$msInstance->mLangMgr->getText(LangTypeId::eMsgRoute1, LangItemID::eItem2);
+		    //$textStr = Ctx::$msIns->mLangMgr->getText(LangTypeId::eMsgRoute1, LangItemID::eItem2);
 			//$this->mEventDispatchGroup->dispatchEvent($msg->mMsgType, msg);
 		}
 		else
 		{
-		    //$textStr = Ctx::$msInstance->mLangMgr->getText(LangTypeId::eMsgRoute1, LangItemID::eItem3);
+		    //$textStr = Ctx::$msIns->mLangMgr->getText(LangTypeId::eMsgRoute1, LangItemID::eItem3);
 		}
 	}
 }

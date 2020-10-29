@@ -47,7 +47,7 @@ class MProfiler
 	{
 		if (MacroDef::ENABLE_LOG)
 		{
-			Ctx::$msInstance->mLogSys->log("MProfiler::init", LogTypeId::eLogProfileDebug);
+			Ctx::$msIns->mLogSys->log("MProfiler::init", LogTypeId::eLogProfileDebug);
 		}
 	}
 
@@ -55,7 +55,7 @@ class MProfiler
 	{
 		if (MacroDef::ENABLE_LOG)
 		{
-			Ctx::$msInstance->mLogSys->log("MProfiler::dispose", LogTypeId::eLogProfileDebug);
+			Ctx::$msIns->mLogSys->log("MProfiler::dispose", LogTypeId::eLogProfileDebug);
 		}
 	}
 
@@ -70,7 +70,7 @@ class MProfiler
 
 		if (MacroDef::ENABLE_LOG)
 		{
-			Ctx::$msInstance->mLogSys->log(string.Format("MProfiler::setIsStartProfile, IsStartProfile = {0}", $this->mIsStartProfile), LogTypeId::eLogProfileDebug);
+			Ctx::$msIns->mLogSys->log(string.Format("MProfiler::setIsStartProfile, IsStartProfile = {0}", $this->mIsStartProfile), LogTypeId::eLogProfileDebug);
 		}
 	}
 
@@ -80,7 +80,7 @@ class MProfiler
 
 		if (MacroDef::ENABLE_LOG)
 		{
-			Ctx::$msInstance->mLogSys->log(string.Format("MProfiler::toggleIsStartProfile, IsStartProfile = {0}", $this->mIsStartProfile), LogTypeId::eLogProfileDebug);
+			Ctx::$msIns->mLogSys->log(string.Format("MProfiler::toggleIsStartProfile, IsStartProfile = {0}", $this->mIsStartProfile), LogTypeId::eLogProfileDebug);
 		}
 	}
 
@@ -96,7 +96,7 @@ class MProfiler
 
 					if (MacroDef::ENABLE_LOG)
 					{
-						Ctx::$msInstance->mLogSys->log(string.Format("MProfiler::checkInternalState, StackDepth = {0}, IsStartProfile = {1}, Enabled = {2}", $this->mStackDepth, $this->mIsStartProfile, $this->mEnabled), LogTypeId::eLogProfileDebug);
+						Ctx::$msIns->mLogSys->log(string.Format("MProfiler::checkInternalState, StackDepth = {0}, IsStartProfile = {1}, Enabled = {2}", $this->mStackDepth, $this->mIsStartProfile, $this->mEnabled), LogTypeId::eLogProfileDebug);
 					}
 				}
 
@@ -104,7 +104,7 @@ class MProfiler
 				{
 					if (MacroDef::ENABLE_LOG)
 					{
-						Ctx::$msInstance->mLogSys->log("MProfiler::checkInternalState, StartWantWipe", LogTypeId::eLogProfileDebug);
+						Ctx::$msIns->mLogSys->log("MProfiler::checkInternalState, StartWantWipe", LogTypeId::eLogProfileDebug);
 					}
 
 					$this->mWantWipe = true;
@@ -117,7 +117,7 @@ class MProfiler
 				{
 					if (MacroDef::ENABLE_LOG)
 					{
-						Ctx::$msInstance->mLogSys->log("MProfiler::checkInternalState, StartWantReport", LogTypeId::eLogProfileDebug);
+						Ctx::$msIns->mLogSys->log("MProfiler::checkInternalState, StartWantReport", LogTypeId::eLogProfileDebug);
 					}
 
 					$this->mWantReport = true;
@@ -132,7 +132,7 @@ class MProfiler
 			{
 				if (MacroDef::ENABLE_LOG)
 				{
-					Ctx::$msInstance->mLogSys->log("MProfiler::checkInternalState, doWipe", LogTypeId::eLogProfileDebug);
+					Ctx::$msIns->mLogSys->log("MProfiler::checkInternalState, doWipe", LogTypeId::eLogProfileDebug);
 				}
 
 				$this->doWipe();
@@ -142,7 +142,7 @@ class MProfiler
 			{
 				if (MacroDef::ENABLE_LOG)
 				{
-					Ctx::$msInstance->mLogSys->log("MProfiler::checkInternalState, doReport", LogTypeId::eLogProfileDebug);
+					Ctx::$msIns->mLogSys->log("MProfiler::checkInternalState, doReport", LogTypeId::eLogProfileDebug);
 				}
 
 				$this->doReport();
@@ -157,7 +157,7 @@ class MProfiler
 	{
 		if (MacroDef::ENABLE_LOG)
 		{
-			Ctx::$msInstance->mLogSys->log(string.Format("MProfiler::enter, blockName = {0}, ReallyEnabled = {1}, StackDepth = {2}", blockName, $this->mReallyEnabled, $this->mStackDepth), LogTypeId::eLogProfileDebug);
+			Ctx::$msIns->mLogSys->log(string.Format("MProfiler::enter, blockName = {0}, ReallyEnabled = {1}, StackDepth = {2}", blockName, $this->mReallyEnabled, $this->mStackDepth), LogTypeId::eLogProfileDebug);
 		}
 
 		if (null == $this->mCurrentNode)
@@ -189,7 +189,7 @@ class MProfiler
 
 		if (MacroDef::ENABLE_LOG)
 		{
-			Ctx::$msInstance->mLogSys->log(string.Format("MProfiler::enter, blockName = {0}, StartTime = {1}", blockName, $this->mCurrentNode.mStartTime), LogTypeId::eLogProfileDebug);
+			Ctx::$msIns->mLogSys->log(string.Format("MProfiler::enter, blockName = {0}, StartTime = {1}", blockName, $this->mCurrentNode.mStartTime), LogTypeId::eLogProfileDebug);
 		}
 	}
 	
@@ -200,7 +200,7 @@ class MProfiler
 	{
 		if (MacroDef::ENABLE_LOG)
 		{
-			Ctx::$msInstance->mLogSys->log(string.Format("MProfiler::exit, blockName = {0}, ReallyEnabled = {1}, StackDepth = {2}", blockName, $this->mReallyEnabled, $this->mStackDepth), LogTypeId::eLogProfileDebug);
+			Ctx::$msIns->mLogSys->log(string.Format("MProfiler::exit, blockName = {0}, ReallyEnabled = {1}, StackDepth = {2}", blockName, $this->mReallyEnabled, $this->mStackDepth), LogTypeId::eLogProfileDebug);
 		}
 
 		$this->mStackDepth -= 1;
@@ -223,7 +223,7 @@ class MProfiler
 
 		if (MacroDef::ENABLE_LOG)
 		{
-			Ctx::$msInstance->mLogSys->log(string.Format("MProfiler::exit, blockName = {0}, TotalTime = {1}, currentTime = {2}", blockName, $this->mCurrentNode.mTotalTime, currentTime), LogTypeId::eLogProfileDebug);
+			Ctx::$msIns->mLogSys->log(string.Format("MProfiler::exit, blockName = {0}, TotalTime = {1}, currentTime = {2}", blockName, $this->mCurrentNode.mTotalTime, currentTime), LogTypeId::eLogProfileDebug);
 		}
 
 		if (elapsedTime > $this->mCurrentNode.mMaxTime)
@@ -295,7 +295,7 @@ class MProfiler
 
 		if (MacroDef::ENABLE_LOG)
 		{
-			Ctx::$msInstance->mLogSys->log(header, LogTypeId::eLogProfile);
+			Ctx::$msIns->mLogSys->log(header, LogTypeId::eLogProfile);
 		}
 
 		$this->reportNode($this->mRootNode, 0);
@@ -334,7 +334,7 @@ class MProfiler
 
 		if (MacroDef::ENABLE_LOG)
 		{
-			Ctx::$msInstance->mLogSys->log(entry, LogTypeId::eLogProfile);
+			Ctx::$msIns->mLogSys->log(entry, LogTypeId::eLogProfile);
 		}
 
 		$tmpArray = new MList();

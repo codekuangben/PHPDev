@@ -27,7 +27,7 @@ class DynBufResizePolicy
 
 			if ($ret < $needSize)      // 分配失败
 			{
-				Ctx::$msInstance->mLogSys->error(string.Format("Malloc byte buffer failed，cannot malloc {0} byte buffer", needSize));
+				Ctx::$msIns->mLogSys->error(string.Format("Malloc byte buffer failed，cannot malloc {0} byte buffer", needSize));
 			}
 		}
 

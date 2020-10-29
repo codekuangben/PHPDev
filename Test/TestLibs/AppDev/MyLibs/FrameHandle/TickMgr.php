@@ -26,14 +26,14 @@ class TickMgr extends TickObjectPriorityMgr
 	{
 		if (MacroDef::ENABLE_PROFILE)
 		{
-			Ctx::$msInstance->mProfiler->enter("TickMgr::Advance");
+			Ctx::$msIns->mProfiler->enter("TickMgr::Advance");
 		}
 
 		parent::Advance($delta, $tickMode);
 
 		if (MacroDef::ENABLE_PROFILE)
 		{
-			Ctx::$msInstance->mProfiler->exit("TickMgr::Advance");
+			Ctx::$msIns->mProfiler->exit("TickMgr::Advance");
 		}
 	}
 

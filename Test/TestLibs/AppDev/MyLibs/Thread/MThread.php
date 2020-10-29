@@ -93,7 +93,7 @@ class MThread /*extends Thread*/
 	{
 		if (!$this->isMainThread())
 		{
-			Ctx::$msInstance->mLogSys->error("error: log out in other thread");
+			Ctx::$msIns->mLogSys->error("error: log out in other thread");
 			throw new \Exception("cannot call function in thread");
 		}
 	}

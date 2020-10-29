@@ -12,7 +12,7 @@ use MTest\TestMain;
  */
 class Ctx
 {
-	public static $msInstance;
+	public static $msIns;
 
 	public $mCfg;                       // 整体配置文件
 	public $mLogSys;                    // 日志系统
@@ -53,19 +53,19 @@ class Ctx
 
 	public static function instance($value = null)
 	{
-	    if (self::$msInstance == null)
+	    if (self::$msIns == null)
 		{
 		    if(null != $value)
 		    {
-		        self::$msInstance = $value;
+		        self::$msIns = $value;
 		    }
 		    else
 		    {
-		        self::$msInstance = new Ctx();
+		        self::$msIns = new Ctx();
 		    }
 		}
 		
-		return Ctx::$msInstance;
+		return Ctx::$msIns;
 	}
 
 	protected function _preInit()
@@ -205,7 +205,7 @@ class Ctx
 		$this->dispose();
 
 		// 释放自己
-		//msInstance = null;
+		//msIns = null;
 	}
 }
 

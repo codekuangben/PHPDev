@@ -26,7 +26,7 @@ class MProfileInfo
 	{
 		if(MacroDef::ENABLE_LOG)
 		{
-			Ctx::$msInstance->mLogSys->log(string.Format("MProfileInfo::wipe, name = {0}", mName), LogTypeId::eLogProfileDebug);
+			Ctx::$msIns->mLogSys->log(string.Format("MProfileInfo::wipe, name = {0}", mName), LogTypeId::eLogProfileDebug);
 		}
 
 		$this->mStartTime = 0;
@@ -34,8 +34,8 @@ class MProfileInfo
 		$this->mSelfTime = 0;
 		$this->mActivations = 0;
 		// 如果清除后，从没有进入这个块，那么 maxTime 值就是 int.MinValue，minTime 值就是  int.MaxValue
-		$this->mMaxTime = int.MinValue;
-		$this->mMinTime = int.MaxValue;
+		$this->mMaxTime = PHP_INT_MAX;
+		$this->mMinTime = PHP_INT_MAX;
 	}
 }
 

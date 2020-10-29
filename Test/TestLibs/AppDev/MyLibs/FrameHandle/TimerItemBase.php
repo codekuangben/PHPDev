@@ -204,12 +204,12 @@ class TimerItemBase implements IDelayHandleItem, IDispatchObject
 
 	public function startTimer()
 	{
-		Ctx::$msInstance->mTimerMgr->addTimer($this);
+		Ctx::$msIns->mTimerMgr->addTimer($this);
 	}
 
 	public function stopTimer()
 	{
-		Ctx::$msInstance->mTimerMgr->removeTimer($this);
+		Ctx::$msIns->mTimerMgr->removeTimer($this);
 	}
 }
 

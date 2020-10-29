@@ -67,7 +67,7 @@ class TickObjectNoPriorityMgr extends DelayNoPriorityHandleMgr implements ITicke
 			{
 				if (MacroDef::ENABLE_LOG)
 				{
-					Ctx::$msInstance->mLogSys->log("TickObjectNoPriorityMgr::onExecAdvance, failed", LogTypeId::eLogCommon);
+					Ctx::$msIns->mLogSys->log("TickObjectNoPriorityMgr::onExecAdvance, failed", LogTypeId::eLogCommon);
 				}
 			}
 

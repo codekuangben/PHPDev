@@ -10,11 +10,11 @@ class UtilMsg
 	// 发送消息， bnet 如果 true 就直接发送到 socket ，否则直接进入输出消息队列
 	public static function sendMsg($msg, $isSendToNet = true)
 	{
-	    Ctx::$msInstance->mShareData->mTmpBA = Ctx::$msInstance->mNetMgr->getSendBA();
+	    Ctx::$msIns->mShareData->mTmpBA = Ctx::$msIns->mNetMgr->getSendBA();
 		
-		if (Ctx::$msInstance->mShareData->mTmpBA != null)
+		if (Ctx::$msIns->mShareData->mTmpBA != null)
 		{
-			$msg->serialize(Ctx::$msInstance->mShareData->mTmpBA);
+			$msg->serialize(Ctx::$msIns->mShareData->mTmpBA);
 		}
 		else
 		{
@@ -22,18 +22,18 @@ class UtilMsg
 		if (isSendToNet)
 		{
 			// 打印日志
-		    Ctx::$msInstance->mShareData->mTmpStr = UtilStr::Format("Send msg: CmdId = {0}, ParamId = {1}", $msg->CmdId, $msg->ParamId);
+		    Ctx::$msIns->mShareData->mTmpStr = UtilStr::Format("Send msg: CmdId = {0}, ParamId = {1}", $msg->CmdId, $msg->ParamId);
 		}
-		Ctx::$msInstance->mNetMgr->send(isSendToNet);
+		Ctx::$msIns->mNetMgr->send(isSendToNet);
 	}
 
 	public static function sendMsgA($byteArr, $startIndex, $length, $isSendToNet = true)
 	{
-	    Ctx::$msInstance->mShareData->mTmpBA = Ctx::$msInstance->mNetMgr->getSendBA();
+	    Ctx::$msIns->mShareData->mTmpBA = Ctx::$msIns->mNetMgr->getSendBA();
 		
-		if (Ctx::$msInstance->mShareData->mTmpBA != null)
+		if (Ctx::$msIns->mShareData->mTmpBA != null)
 		{
-		    Ctx::$msInstance->mShareData->mTmpBA->writeBytes($byteArr, $startIndex, $length);
+		    Ctx::$msIns->mShareData->mTmpBA->writeBytes($byteArr, $startIndex, $length);
 		}
 		else
 		{
@@ -41,9 +41,9 @@ class UtilMsg
 		if ($isSendToNet)
 		{
 			// 打印日志
-		    Ctx::$msInstance->mShareData->mTmpStr = UtilStr::Format("Send msg");
+		    Ctx::$msIns->mShareData->mTmpStr = UtilStr::Format("Send msg");
 		}
-		Ctx::$msInstance->mNetMgr->send_KBE(isSendToNet);
+		Ctx::$msIns->mNetMgr->send_KBE(isSendToNet);
 	}
 
 	public static function checkStr($str)

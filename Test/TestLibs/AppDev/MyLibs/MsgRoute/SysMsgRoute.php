@@ -18,7 +18,7 @@ class SysMsgRoute extends LockQueue
 		{
 			if(MThread::isMainThread())
 			{
-				Ctx::$msInstance->mMsgRouteNotify->handleMsg(msg);
+				Ctx::$msIns->mMsgRouteNotify->handleMsg(msg);
 			}
 			else
 			{

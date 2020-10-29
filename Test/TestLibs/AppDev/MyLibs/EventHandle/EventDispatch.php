@@ -73,7 +73,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		}
 		else
 		{
-		    Ctx::$msInstance->mLogSys("EventDispatch::addEventHandle error", LogTypeId::eLogEventDispatch);
+		    Ctx::$msIns->mLogSys("EventDispatch::addEventHandle error", LogTypeId::eLogEventDispatch);
 		}
 	}
 
@@ -157,7 +157,7 @@ class EventDispatch extends DelayPriorityHandleMgrBase
 		//}
 		//catch (Exception ex)
 		//{
-		//    Ctx::$msInstance->mLogSys->catchLog(ex->ToString());
+		//    Ctx::$msIns->mLogSys->catchLog(ex->ToString());
 		//}
 	}
 

@@ -40,7 +40,7 @@ class MsgRouteNotify
 		}
 
 		// 暂时不用缓存，非资源数据结构重新申请内存应该不会太耗时
-		//Ctx::$msInstance->mPoolSys->deleteObj(msg);
+		//Ctx::$msIns->mPoolSys->deleteObj(msg);
 	}
 }
 

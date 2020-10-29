@@ -41,7 +41,7 @@ class DelayNoOrPriorityHandleMgr extends DelayNoOrPriorityHandleMgrBase
 		{
 			if (MacroDef::ENABLE_LOG)
 			{
-				Ctx::$msInstance->mLogSys->log("DelayPriorityHandleMgr::addObject, failed", LogTypeId::eLogCommon);
+				Ctx::$msIns->mLogSys->log("DelayPriorityHandleMgr::addObject, failed", LogTypeId::eLogCommon);
 			}
 		}
 	}
@@ -63,7 +63,7 @@ class DelayNoOrPriorityHandleMgr extends DelayNoOrPriorityHandleMgrBase
 		{
 			if (MacroDef::ENABLE_LOG)
 			{
-				Ctx::$msInstance->mLogSys->log("DelayPriorityHandleMgr::removeObject, failed", LogTypeId::eLogCommon);
+				Ctx::$msIns->mLogSys->log("DelayPriorityHandleMgr::removeObject, failed", LogTypeId::eLogCommon);
 			}
 		}
 	}

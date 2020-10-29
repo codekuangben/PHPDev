@@ -13,9 +13,9 @@ if(isset($_REQUEST["CmdId"]) && isset($_REQUEST["ParamId"]))
     $msg->CmdId = $_REQUEST["CmdId"];
     $msg->ParamId = $_REQUEST["ParamId"];
     
-    if(!Ctx::$msInstance->mNetCmdNotify->isStopNetHandle())
+    if(!Ctx::$msIns->mNetCmdNotify->isStopNetHandle())
     {
-        Ctx::$msInstance->mNetCmdNotify->handleMsg($msg);
+        Ctx::$msIns->mNetCmdNotify->handleMsg($msg);
     }
     
     echo("result=1");

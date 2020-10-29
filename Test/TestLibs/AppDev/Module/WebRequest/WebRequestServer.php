@@ -11,13 +11,13 @@ use MyLibs\CmdDispatchInfo;
 /**
  * @brief 所有的网络请求都发送到这里
  */
-if(UtilSysLibWrap::issetInRequest("Cmd") && 
-    UtilSysLibWrap::issetInRequest("Param"))
+if(UtilSysLibWrap::issetInRequest("CmdId") && 
+    UtilSysLibWrap::issetInRequest("ParamId"))
 {
     $cmdDispatchInfo = new CmdDispatchInfo();
     
-    $cmdDispatchInfo->CmdId = UtilConvert::convStrToInt(UtilSysLibWrap::request("Cmd"));
-    $cmdDispatchInfo->ParamId = UtilConvert::convStrToInt(UtilSysLibWrap::request("Param"));
+    $cmdDispatchInfo->CmdId = UtilConvert::convStrToInt(UtilSysLibWrap::request("CmdId"));
+    $cmdDispatchInfo->ParamId = UtilConvert::convStrToInt(UtilSysLibWrap::request("ParamId"));
 
     $unityNetNotify = new UnityNetNotify();
     $unityNetNotify->init();

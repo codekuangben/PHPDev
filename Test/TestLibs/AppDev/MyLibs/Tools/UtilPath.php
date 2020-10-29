@@ -183,6 +183,7 @@ class UtilPath
 		}
 		catch (\Exception $err)
 		{
+		    $ret = false;
 			echo(UtilStr::Format("UtilPath::copyFile, error, ErrorMsg = {0}, sourceFileName = {1}, destFileName = {2}", $err->getMessage(), sourceFileName, destFileName));
 		}
 		
@@ -313,14 +314,15 @@ class UtilPath
 	// 获取扩展名
 	static public function getFileExt($path)
 	{
+	    $ret = NULL;
 	    $dotIdx = UtilStr::LastIndexOf($path, '.');
 
 	    if (-1 != $dotIdx)
 		{
-		    return UtilStr::substr($path, dotIdx + 1);
+		    $ret = UtilStr::substr($path, $dotIdx + 1, UtilStr::length($path) - ($dotIdx + 1));
 		}
 
-		return "";
+		return $ret;
 	}
 
 	// 获取文件名字，没有路径，但是有扩展名字

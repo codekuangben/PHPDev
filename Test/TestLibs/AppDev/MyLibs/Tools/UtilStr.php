@@ -119,7 +119,7 @@ class UtilStr
 		return $s;
 	}
 	
-	public static function replace($srcStr, $findStr, $replaceStr, $count)
+	public static function replace($srcStr, $findStr, $replaceStr, $count = null)
 	{
 	    if(null != $count)
 	    {

@@ -269,22 +269,22 @@ class UtilSysLibWrap
 	
 	public static function fileName($fieldName)
 	{
-	    return isset($_FILES[$fieldName]['name']);
+	    return $_FILES[$fieldName]['name'];
 	}
 	
 	public static function fileType($fieldName)
 	{
-	    return isset($_FILES[$fieldName]['type']);
+	    return $_FILES[$fieldName]['type'];
 	}
 	
 	public static function fileSize($fieldName)
 	{
-	    return isset($_FILES[$fieldName]['size']);
+	    return $_FILES[$fieldName]['size'];
 	}
 	
 	public static function fileTmpName($fieldName)
 	{
-	    return isset($_FILES[$fieldName]['tmp_name']);
+	    return $_FILES[$fieldName]['tmp_name'];
 	}
 	
 	/**

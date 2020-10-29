@@ -26,12 +26,12 @@ class UnityCmdHandle extends NetCmdDispatchHandle
     {
         parent::init();
         
-        $this->addParamHandle(UnityCmdCv::eUnityShaderKeyParamId, $this, "handleMsg");
+        $this->addParamHandle(UnityCmdCv::eUnityShaderKeyParamId, $this, "HandleUnityShaderKeySave");
     }
     
     public function dispose()
     {
-        this.removeParamHandle(UnityCmdCv::eUnityShaderKeyParamId, $this, "handleMsg");
+        this.removeParamHandle(UnityCmdCv::eUnityShaderKeyParamId, $this, "HandleUnityShaderKeySave");
         
         parent::dispose();
     }
@@ -41,14 +41,18 @@ class UnityCmdHandle extends NetCmdDispatchHandle
         parent::handleMsg($cmdDispatchInfo);
     }
     
-    protected function _HandleUnityShaderKeySave($cmdDispatchInfo)
+    public function HandleUnityShaderKeySave($cmdDispatchInfo)
     {
-        $sourceFileName = UtilSysLibWrap::fileTmpName();
-        $fileName = UtilSysLibWrap::fileName();
-        $fileNameNoExtName = UtilPath::getFileNameNoExt($fileName);
-        $newFileName = UtilStr::concat($fileName, "-", UtilTime::getTimeStr(), ".", $fileNameNoExtName);
-        $destFileName = UtilPath::combine($this->_SaveRootPath, $newFileName);
-        UtilPath::copyFile($sourceFileName, $destFileName);
+        if (UtilSysLibWrap::issetInFiles("file"))
+        {
+            $sourceFileName = UtilSysLibWrap::fileTmpName("file");
+            $fileName = UtilSysLibWrap::fileName("file");
+            $fileNameNoExtName = UtilPath::getFileNameNoExt($fileName);
+            $fileExtName = UtilPath::getFileExt($fileName);
+            $newFileName = UtilStr::concat($fileNameNoExtName, "-", UtilTime::getTimeStr(), ".", $fileExtName);
+            $destFileName = UtilPath::combine($this->_SaveRootPath, $newFileName);
+            UtilPath::copyFile($sourceFileName, $destFileName);
+        }
     }
 }
 

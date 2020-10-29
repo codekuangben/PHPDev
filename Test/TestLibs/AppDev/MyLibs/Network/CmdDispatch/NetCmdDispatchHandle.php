@@ -58,7 +58,7 @@ class NetCmdDispatchHandle implements ICalleeObject
 	{
 	    if($this->mId2HandleDic->containsKey($cmd->ParamId))
 		{
-		    $this->mId2HandleDic->value($cmd->ParamId)->dispatchEvent($cmd->bu);
+		    $this->mId2HandleDic->value($cmd->ParamId)->dispatchEvent($cmd->byteBuffer);
 		}
 		else
 		{

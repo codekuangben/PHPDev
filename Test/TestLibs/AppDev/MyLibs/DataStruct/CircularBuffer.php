@@ -195,7 +195,7 @@ class CircularBuffer
 
 	public function pushBackBA($byteBuffer)
 	{
-		//pushBack(bu->dynBuff->buffer, bu->position, bu->bytesAvailable);
+	    //$this->pushBack($byteBuffer->dynBuff->buffer, $byteBuffer->position, $byteBuffer->bytesAvailable);
 	    $this->pushBackArr($byteBuffer->getDynBuffer()->getBuffer(), 0, $byteBuffer->getLength());
 	}
 

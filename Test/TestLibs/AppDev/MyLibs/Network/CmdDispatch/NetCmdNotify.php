@@ -56,7 +56,7 @@ class NetCmdNotify
 		//$msg->readUnsignedInt8($ParamId);
 		//$msg->setPos(0);
 
-		$this->mCmdDispInfo->bu = $msg;
+		$this->mCmdDispInfo->byteBuffer = $msg;
 		$this->mCmdDispInfo->CmdId = $msg->CmdId;
 		$this->mCmdDispInfo->ParamId = $msg->ParamId;
 

@@ -53,7 +53,6 @@ require_once (dirname(__FILE__) . "/../FrameHandle/TimeInterval.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/TickMode.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/ITickedObject.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/TimerItemBase.php");
-//require_once (dirname(__FILE__) . "/../FrameHandle/TickItemBase.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/FrameTimerItem.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/CountDownTimer.php");
 require_once (dirname(__FILE__) . "/../FrameHandle/SystemTimeData.php");

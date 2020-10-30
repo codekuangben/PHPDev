@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameWork;
+
+use MyLibs\DataStruct\MList;
 
 /**
  * @brief 宏定义说明区域

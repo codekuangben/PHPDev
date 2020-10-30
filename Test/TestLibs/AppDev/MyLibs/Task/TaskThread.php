@@ -1,6 +1,9 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Task;
+
+use MyLibs\Thread\MThread;
+use MyLibs\Thread\MCondition;
 
 /**
  * @brief 任务线程

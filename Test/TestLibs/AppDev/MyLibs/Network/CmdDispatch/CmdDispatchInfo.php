@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Network\CmdDispatch;
+
+use MyLibs\EventHandle\IDispatchObject;
 
 class CmdDispatchInfo implements IDispatchObject
 {

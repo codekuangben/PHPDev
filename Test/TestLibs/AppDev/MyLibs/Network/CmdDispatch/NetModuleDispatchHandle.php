@@ -1,6 +1,9 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Network\CmdDispatch;
+
+use MyLibs\DataStruct\MDictionary;
+use MyLibs\EventHandle\AddOnceEventDispatch;
 
 class NetModuleDispatchHandle
 {

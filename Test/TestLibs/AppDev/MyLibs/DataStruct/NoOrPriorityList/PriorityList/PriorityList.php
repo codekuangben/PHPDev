@@ -1,6 +1,14 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\DataStruct\NoOrPriorityList\PriorityList;
+
+use MyLibs\DataStruct\NoOrPriorityList\INoOrPriorityList;
+use MyLibs\DataStruct\NoOrPriorityList\PriorityList\PrioritySort;
+use MyLibs\FrameWork\Ctx;
+use MyLibs\FrameWork\MacroDef;
+use MyLibs\Log\LogTypeId;
+use MyLibs\DataStruct\MList;
+use MyLibs\DataStruct\MDictionary;
 
 /**
  * @brief 优先级队列

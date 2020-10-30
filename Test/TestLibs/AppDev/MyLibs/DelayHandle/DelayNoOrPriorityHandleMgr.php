@@ -1,6 +1,10 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\DelayHandle;
+
+use MyLibs\FrameWork\Ctx;
+use MyLibs\FrameWork\MacroDef;
+use MyLibs\Log\LogTypeId;
 
 /**
  * @brief 延迟优先级处理管理器

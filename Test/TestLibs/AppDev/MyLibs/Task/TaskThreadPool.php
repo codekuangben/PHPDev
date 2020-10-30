@@ -1,6 +1,9 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Task;
+
+use MyLibs\DataStruct\MList;
+use MyLibs\Tools\UtilStr;
 
 class TaskThreadPool
 {

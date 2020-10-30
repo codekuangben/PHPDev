@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameHandle;
 
 /**
  * @brief 时间间隔

@@ -1,6 +1,9 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Pool;
+
+use MyLibs\DataStruct\MDictionary;
+use MyLibs\DataStruct\MList;
 
 /**
  * @brief 有 Id 的缓存池

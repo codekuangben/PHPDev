@@ -1,6 +1,11 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameHandle;
+
+use MyLibs\FrameWork\Ctx;
+use MyLibs\DelayHandle\IDelayHandleItem;
+use MyLibs\EventHandle\EventDispatchFunctionObject;
+use MyLibs\EventHandle\IDispatchObject;
 
 /**
  * @brief 定时器，这个是不断增长的

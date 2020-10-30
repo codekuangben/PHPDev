@@ -1,6 +1,14 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\DataStruct;
+
+use MyLibs\EventHandle\IDispatchObject;
+use MyLibs\Tools\MBitConverter;
+use MyLibs\Tools\MEncodeStr;
+use MyLibs\Tools\MEndian;
+use MyLibs\Tools\SystemEndian;
+use MyLibs\Tools\UtilList;
+use MyLibs\Tools\UtilSysLibWrap;
 
 /**
  *@brief ByteBuffer 功能

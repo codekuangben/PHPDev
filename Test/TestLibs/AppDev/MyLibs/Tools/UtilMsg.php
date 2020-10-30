@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Tools;
+
+use MyLibs\FrameWork\Ctx;
 
 /**
  * @brief 处理消息工具

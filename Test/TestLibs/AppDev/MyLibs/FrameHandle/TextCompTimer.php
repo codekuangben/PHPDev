@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameHandle;
+
+use MyLibs\Tools\UtilLogic;
 
 class TextCompTimer extends CountDownTimer
 {

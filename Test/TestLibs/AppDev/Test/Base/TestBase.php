@@ -1,6 +1,6 @@
 <?php
 
-namespace MTest;
+namespace Test\Base;
 
 class TestBase
 {

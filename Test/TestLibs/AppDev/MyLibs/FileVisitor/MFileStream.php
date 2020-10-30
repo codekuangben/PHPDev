@@ -1,6 +1,12 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FileVisitor;
+
+use MyLibs\Base\GObject;
+use MyLibs\EventHandle\AddOnceAndCallOnceEventDispatch;
+use MyLibs\Tools\MEncode;
+use MyLibs\Tools\UtilStr;
+use MyLibs\Tools\UtilSysLibWrap;
 
 class FileOpState
 {

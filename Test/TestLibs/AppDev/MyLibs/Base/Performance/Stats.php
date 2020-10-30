@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Base\Performance;
 
 class StatsColors
 {

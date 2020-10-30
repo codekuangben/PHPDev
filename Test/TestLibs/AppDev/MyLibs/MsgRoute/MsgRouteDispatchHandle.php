@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\MsgRoute;
+
+use MyLibs\EventHandle\EventDispatchGroup;
 
 class MsgRouteDispatchHandle
 {

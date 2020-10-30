@@ -1,6 +1,10 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Log;
+
+use MyLibs\Tools\UtilPath;
+use MyLibs\Tools\UtilStr;
+use MyLibs\Tools\UtilSysLibWrap;
 
 /**
  * @brief 文件日志

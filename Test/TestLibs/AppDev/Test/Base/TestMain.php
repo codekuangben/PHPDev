@@ -1,8 +1,11 @@
 <?php
 
-namespace MTest;
+namespace Test\Base;
 
-use MyLibs\SystemEnv;
+use MyLibs\Common\SystemEnv;
+use Test\TestClass\TestClass;
+use Test\TestFrameWork\TestEventDispatch;
+use Test\TestDB\TestDB;
 
 require_once (dirname(__FILE__) . "/../Base/TestBase.php");
 require_once (dirname(__FILE__) . "/../TestClass/TestClass.php");

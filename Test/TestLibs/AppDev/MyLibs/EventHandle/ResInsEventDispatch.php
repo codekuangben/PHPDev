@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\EventHandle;
+
+use MyLibs\Tools\UtilSysLibWrap;
 
 /**
  * @brief 资源实例化事件分发器

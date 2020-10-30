@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\EventHandle;
 
 /**
  * @brief 可被调用的函数对象

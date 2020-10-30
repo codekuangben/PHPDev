@@ -1,6 +1,12 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameHandle;
+
+use MyLibs\DataStruct\NoOrPriorityList\INoOrPriorityObject;
+use MyLibs\DelayHandle\DelayPriorityHandleMgrBase;
+use MyLibs\DelayHandle\IDelayHandleItem;
+use MyLibs\DataStruct\MList;
+use MyLibs\Tools\UtilSysLibWrap;
 
 class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDelayHandleItem, INoOrPriorityObject
 {

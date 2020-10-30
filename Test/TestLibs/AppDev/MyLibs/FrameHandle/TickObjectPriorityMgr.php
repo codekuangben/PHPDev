@@ -1,6 +1,13 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameHandle;
+
+use MyLibs\DataStruct\NoOrPriorityList\INoOrPriorityObject;
+use MyLibs\DelayHandle\DelayPriorityHandleMgr;
+use MyLibs\DelayHandle\IDelayHandleItem;
+use MyLibs\FrameWork\Ctx;
+use MyLibs\FrameWork\MacroDef;
+use MyLibs\Log\LogTypeId;
 
 // 每一帧执行的对象管理器
 class TickObjectPriorityMgr extends DelayPriorityHandleMgr implements ITickedObject, IDelayHandleItem, INoOrPriorityObject
@@ -72,7 +79,7 @@ class TickObjectPriorityMgr extends DelayPriorityHandleMgr implements ITickedObj
 			{
 				if (MacroDef::ENABLE_LOG)
 				{
-					Ctx::$msIns->mLogSys->log("TickObjectPriorityMgr::onExecAdvance, failed", LogTypeId::eLogCommon);
+					Ctx::$msIns->mLogSys->log("TickObjectriorityMgr::onExecAdvance, failed", LogTypeId::eLogCommon);
 				}
 			}
 

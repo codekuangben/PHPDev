@@ -3,7 +3,11 @@
 /**
 * @brief 定时器管理器
 */
-namespace MyLibs;
+namespace MyLibs\FrameHandle;
+
+use MyLibs\DelayHandle\DelayPriorityHandleMgrBase;
+use MyLibs\DataStruct\MList;
+use MyLibs\Tools\UtilSysLibWrap;
 
 class TimerMgr extends DelayPriorityHandleMgrBase
 {

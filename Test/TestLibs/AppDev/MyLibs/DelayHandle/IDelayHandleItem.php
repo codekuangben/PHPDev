@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\DelayHandle;
 
 /**
  * @brief 延迟添加的对象

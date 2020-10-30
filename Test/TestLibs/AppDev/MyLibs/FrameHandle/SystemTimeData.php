@@ -1,6 +1,10 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameHandle;
+
+use MyLibs\FrameWork\Ctx;
+use MyLibs\Tools\UtilSysLibWrap;
+use MyLibs\Tools\UtilTime;
 
 class SystemTimeData
 {

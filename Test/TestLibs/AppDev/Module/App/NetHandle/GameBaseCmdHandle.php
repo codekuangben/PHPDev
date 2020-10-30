@@ -1,8 +1,8 @@
 <?php
 
-namespace MModule;
+namespace Module\App\NetHandle;
 
-use MyLibs\NetCmdDispatchHandle;
+use MyLibs\Network\CmdDispatch\NetCmdDispatchHandle;
 
 class GameBaseCmdHandle extends NetCmdDispatchHandle
 {

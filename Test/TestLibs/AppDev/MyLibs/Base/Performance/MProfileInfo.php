@@ -1,6 +1,11 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Base\Performance;
+
+use MyLibs\FrameWork\Ctx;
+use MyLibs\FrameWork\MacroDef;
+use MyLibs\Log\LogTypeId;
+use MyLibs\DataStruct\MDictionary;
 
 class MProfileInfo
 {

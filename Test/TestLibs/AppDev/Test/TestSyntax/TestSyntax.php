@@ -1,6 +1,8 @@
 <?php
 
-namespace MTest;
+namespace Test\TestSyntax;
+
+use Test\Base\TestBase;
 
 /**
  * @brief PHP 中成员变量的访问不允许有 . ,静态成员访问使用 :: 

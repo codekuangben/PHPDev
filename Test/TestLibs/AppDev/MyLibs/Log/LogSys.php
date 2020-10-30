@@ -1,6 +1,14 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Log;
+
+use MyLibs\DataStruct\MList;
+use MyLibs\DataStruct\LockList;
+use MyLibs\FrameWork\MacroDef;
+use MyLibs\Thread\MThread;
+use MyLibs\Tools\UtilList;
+use MyLibs\Tools\UtilStr;
+use MyLibs\Tools\UtilSysLibWrap;
 
 class LogSys
 {

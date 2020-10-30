@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Network\CmdDispatch;
 
 class ProtoCV
 {

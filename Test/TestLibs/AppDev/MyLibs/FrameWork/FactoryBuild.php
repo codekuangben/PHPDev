@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameWork;
+
+use MyLibs\DataStruct\ByteBuffer;
 
 /**
  * @brief 生成一些需要的数据结构

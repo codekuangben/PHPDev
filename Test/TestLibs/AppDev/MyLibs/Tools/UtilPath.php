@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Tools;
+
+use MyLibs\DataStruct\MList;
 
 class MSearchOption
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\DataBase;
 /**
  * @brief 数据库基本设置
  */

@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameHandle;
 
 /**
  * @brief 倒计时定时器

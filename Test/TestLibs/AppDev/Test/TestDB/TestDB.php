@@ -1,9 +1,10 @@
 <?php
 
-namespace MTest;
+namespace Test\TestDB;
 
-use MyLibs\Ctx;
-use MyLibs\DataBaseType;
+use MyLibs\FrameWork\Ctx;
+use MyLibs\DataBase\DataBaseType;
+use Test\Base\TestBase;
 
 class TestDB extends TestBase
 {

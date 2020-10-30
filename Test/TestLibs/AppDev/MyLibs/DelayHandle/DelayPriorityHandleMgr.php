@@ -1,6 +1,9 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\DelayHandle;
+
+use MyLibs\DataStruct\NoOrPriorityList\NoPriorityList;
+use MyLibs\DataStruct\NoOrPriorityList\PriorityList\PriorityList;
 
 /**
  * @brief 延迟优先级处理管理器

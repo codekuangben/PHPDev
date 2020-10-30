@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Base;
 
 /**
  * @brief 唯一字符串生成器

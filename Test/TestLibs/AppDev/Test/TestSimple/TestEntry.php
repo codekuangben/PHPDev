@@ -1,8 +1,8 @@
 <?php
 
-namespace MTest;
+namespace Test\TestSimple;
 
-use MyLibs\SystemEnv;
+use MyLibs\Common\SystemEnv;
 
 //require_once (dirname(__FILE__) . "/../../Libs/Common/SystemEnv.php");
 //require_once (SystemEnv::$MY_PHP_ROOT_PATH . "/Module/Entry/MainEntry.php");

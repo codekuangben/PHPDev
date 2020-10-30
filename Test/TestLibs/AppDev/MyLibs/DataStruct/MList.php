@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\DataStruct;
 
 /**
  * @brief 对系统 List 的封装

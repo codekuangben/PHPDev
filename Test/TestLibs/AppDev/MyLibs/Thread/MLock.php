@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Thread;
+
+use MyLibs\FrameWork\MacroDef;
 
 /**
  * @brief 锁操作

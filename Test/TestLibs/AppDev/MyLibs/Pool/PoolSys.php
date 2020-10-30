@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Pool;
+
+use MyLibs\DataStruct\MList;
 
 /**
  * @brief 对象池

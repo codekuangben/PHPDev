@@ -1,6 +1,8 @@
 <?php
 
-namespace MTest;
+namespace Test\TestFrameWork;
+
+use Test\Base\TestBase;
 
 class TestFrameWork extends TestBase
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Tools;
 
 /**
  * @brief 对 api 的进一步 wrap 

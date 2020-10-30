@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameHandle;
+
+use MyLibs\DelayHandle\IDelayHandleItem;
 
 /**
  * @brief 定时器，这个是不断增长的

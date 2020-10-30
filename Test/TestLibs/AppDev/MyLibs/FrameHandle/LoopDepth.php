@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameHandle;
+
+use MyLibs\EventHandle\EventDispatchFunctionObject;
 
 class LoopDepth
 {

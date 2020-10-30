@@ -1,12 +1,13 @@
 <?php
 
-namespace MModule;
+namespace Module\App;
 
 require_once (dirname(__FILE__) . "/../../MyLibs/FrameWork/Ctx.php");
 require_once (dirname(__FILE__) . "/../Common/Common/DataPrequisites.php");
 
-use MyLibs\Ctx;
-use MyLibs\MacroDef;
+use MyLibs\FrameWork\Ctx;
+use MyLibs\FrameWork\MacroDef;
+use Module\App\EventNotify\NetNotify;
 
 class AppFrame
 {

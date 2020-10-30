@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Network\CmdDispatch;
+
+use MyLibs\DataStruct\MList;
 
 class NetCmdNotify
 {

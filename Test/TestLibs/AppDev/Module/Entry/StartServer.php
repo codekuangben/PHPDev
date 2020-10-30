@@ -1,6 +1,6 @@
 <?php
 
-namespace MModule;
+namespace Module\Entry;
 
 echo("Start server, waiting debug");
 

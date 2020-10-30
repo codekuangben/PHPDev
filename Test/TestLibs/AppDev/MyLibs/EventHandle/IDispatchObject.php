@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\EventHandle;
 
 /**
  * @brief 可分发的对象

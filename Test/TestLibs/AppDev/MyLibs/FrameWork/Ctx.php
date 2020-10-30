@@ -1,11 +1,31 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameWork;
 
 require_once (dirname(__FILE__) . "/../Common/Prequisites.php");
 require_once (dirname(__FILE__) . "/../../Test/Base/TestMain.php");
 
-use MTest\TestMain;
+use MyLibs\Tools\PlatformDefine;
+use MyLibs\Tools\SystemEndian;
+use MyLibs\Tools\UtilByte;
+use Test\Base\TestMain;
+use MyLibs\Base\UniqueStrIdGen;
+use MyLibs\Network\CmdDispatch\NetCmdNotify;
+use MyLibs\MsgRoute\MsgRouteNotify;
+use MyLibs\Pool\PoolSys;
+use MyLibs\Task\TaskQueue;
+use MyLibs\Task\TaskThreadPool;
+use MyLibs\FrameHandle\SystemFrameData;
+use MyLibs\FrameHandle\SystemTimeData;
+use MyLibs\FrameHandle\TickMgr;
+use MyLibs\FrameHandle\TimerMgr;
+use MyLibs\FrameHandle\FrameTimerMgr;
+use MyLibs\MsgRoute\SysMsgRoute;
+use MyLibs\Log\LogSys;
+use MyLibs\Pool\IdPoolSys;
+use MyLibs\FrameHandle\LogicTickMgr;
+use MyLibs\Base\Performance\MProfiler;
+use MyLibs\DataBase\DBPdo;
 
 /**
  * @brief 全局数据区

@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\DataStruct;
+
+use MyLibs\FrameWork\MacroDef;
 
 class MsgBuffer
 {

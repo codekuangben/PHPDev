@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\DataStruct\NoOrPriorityList\PriorityList;
 
 /**
  * @brief 优先级队列对象

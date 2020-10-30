@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameWork;
 
 interface IMyDispose
 {

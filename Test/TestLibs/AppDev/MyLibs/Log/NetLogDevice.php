@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Log;
 
 /**
  * @brief 文件日志

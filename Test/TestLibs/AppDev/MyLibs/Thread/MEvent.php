@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Thread;
 
 /**
  * @同步使用的 Event

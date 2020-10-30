@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\MsgRoute;
+
+use MyLibs\DataStruct\MList;
 
 class MsgRouteNotify
 {

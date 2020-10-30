@@ -1,6 +1,11 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\EventHandle;
+
+use MyLibs\DelayHandle\DelayPriorityHandleMgrBase;
+use MyLibs\FrameWork\Ctx;
+use MyLibs\Log\LogTypeId;
+use MyLibs\DataStruct\MList;
 
 /**
  * @brief 事件分发，之分发一类事件，不同类型的事件使用不同的事件分发

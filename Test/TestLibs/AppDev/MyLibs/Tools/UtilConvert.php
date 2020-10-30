@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Tools;
 
 /**
  * @brief 各种类型转换

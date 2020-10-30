@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Thread;
+
+use MyLibs\FrameWork\Ctx;
 
 /**
  *@brief 基本的线程

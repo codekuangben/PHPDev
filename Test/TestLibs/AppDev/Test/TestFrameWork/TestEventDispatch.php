@@ -1,8 +1,9 @@
 <?php
 
-namespace MTest;
+namespace Test\TestFrameWork;
 
-use MyLibs\EventDispatch;
+use MyLibs\EventHandle\EventDispatch;
+use Test\Base\TestBase;
 
 //public function globalHandle($param)
 function globalHandle($param)

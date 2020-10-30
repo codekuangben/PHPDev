@@ -1,6 +1,9 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Pool;
+
+use MyLibs\DataStruct\MList;
+use MyLibs\Tools\UtilList;
 
 /**
  * @brief 缓存需要的数据，更容易控制需要缓存多少个，以及各种统计信息，但是申请一个 Item 需要一次 removeAt 和 add，而比仅仅使用一个列表多了一次 add

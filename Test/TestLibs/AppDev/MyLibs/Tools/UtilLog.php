@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Tools;
+
+use MyLibs\Base\GObject;
 
 class UtilLog extends GObject
 {

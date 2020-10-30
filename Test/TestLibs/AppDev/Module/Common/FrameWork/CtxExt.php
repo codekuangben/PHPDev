@@ -1,8 +1,8 @@
 <?php
 
-namespace MModule;
+namespace Module\Common\FrameWork;
 
-use MyLibs\GObject;
+use MyLibs\Base\GObject;
 
 class CtxExt extends GObject
 {

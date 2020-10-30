@@ -1,6 +1,10 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\MsgRoute;
+
+use MyLibs\DataStruct\LockQueue;
+use MyLibs\FrameWork\Ctx;
+use MyLibs\Thread\MThread;
 
 /**
  * @brief 系统消息流程，整个系统的消息分发都走这里，仅限单线程

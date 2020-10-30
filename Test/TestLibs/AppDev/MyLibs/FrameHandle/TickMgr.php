@@ -1,6 +1,9 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameHandle;
+
+use MyLibs\FrameWork\Ctx;
+use MyLibs\FrameWork\MacroDef;
 
 /**
  * @brief 心跳管理器

@@ -1,6 +1,11 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\DataStruct;
+
+use MyLibs\Thread\MLock;
+use MyLibs\Thread\MMutex;
+use MyLibs\Tools\UtilList;
+use MyLibs\Tools\UtilSysLibWrap;
 
 /**
  * @brief 线程安全列表， T 是 Object ，便于使用 Equal 比较地址

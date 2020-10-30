@@ -1,6 +1,9 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Network\CmdDispatch;
+
+use MyLibs\DataStruct\MStringBuffer;
+use MyLibs\Tools\UtilSysLibWrap;
 
 class NullUserCmd
 {

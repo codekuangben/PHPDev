@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Task;
+
+use MyLibs\DataStruct\LockQueue;
 
 class TaskQueue extends LockQueue
 {

@@ -1,11 +1,11 @@
 <?php
 
-namespace MModule;
+namespace Module\Common\Network;
 
 require_once (dirname(__FILE__) . "/../../Entry/MainEntry.php");
 
-use MyLibs\Ctx;
-use MyLibs\NullUserCmd;
+use MyLibs\FrameWork\Ctx;
+use MyLibs\Network\CmdDispatch\NullUserCmd;
 
 if(isset($_REQUEST["CmdId"]) && isset($_REQUEST["ParamId"]))
 {

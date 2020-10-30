@@ -1,6 +1,13 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Base\Performance;
+
+use MyLibs\FrameWork\Ctx;
+use MyLibs\FrameWork\MacroDef;
+use MyLibs\Log\LogTypeId;
+use MyLibs\Tools\UtilStr;
+use MyLibs\DataStruct\MList;
+
 
 /**
  * @brief Profile

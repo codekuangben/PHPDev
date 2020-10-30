@@ -3,7 +3,7 @@
 /**
 * @brief 定时器类型
 */
-namespace MyLibs;
+namespace MyLibs\FrameHandle;
 
 class TimerType
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameHandle;
 
 /**
  * @brief Tick 的优先级

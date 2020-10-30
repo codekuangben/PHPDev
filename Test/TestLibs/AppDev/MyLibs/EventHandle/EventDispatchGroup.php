@@ -1,6 +1,10 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\EventHandle;
+
+use MyLibs\Base\GObject;
+use MyLibs\FrameHandle\LoopDepth;
+use MyLibs\DataStruct\MDictionary;
 
 class EventDispatchGroup extends GObject
 {

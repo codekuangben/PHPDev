@@ -1,15 +1,16 @@
 <?php
 
-namespace MTest;
+namespace Test\TestFileVisitor;
 
-use MyLibs\NetCmdDispatchHandle;
-use MyLibs\UtilSysLibWrap;
-use MyLibs\UtilPath;
-use MyLibs\UtilTime;
-use MyLibs\UtilStr;
-use MyLibs\MFileStream;
-use MyLibs\UtilByte;
-use MyLibs\FileMode;
+use MyLibs\Network\CmdDispatch\NetCmdDispatchHandle;
+use MyLibs\Tools\UtilSysLibWrap;
+use MyLibs\Tools\UtilPath;
+use MyLibs\Tools\UtilTime;
+use MyLibs\Tools\UtilStr;
+use MyLibs\FileVisitor\MFileStream;
+use MyLibs\Tools\UtilByte;
+use MyLibs\FileVisitor\FileMode;
+use Test\Base\TestBase;
 
 class TestFileVisitor extends TestBase
 {

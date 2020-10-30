@@ -1,6 +1,11 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\EventHandle;
+
+use MyLibs\Base\GObject;
+use MyLibs\DataStruct\NoOrPriorityList\INoOrPriorityObject;
+use MyLibs\DelayHandle\IDelayHandleItem;
+use MyLibs\Tools\UtilSysLibWrap;
 
 class EventDispatchFunctionObject extends GObject implements IDelayHandleItem, INoOrPriorityObject
 {

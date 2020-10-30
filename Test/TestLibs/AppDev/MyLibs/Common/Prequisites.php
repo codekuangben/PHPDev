@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Common;
 
 require_once (dirname(__FILE__) . "/../Common/SystemEnv.php");
 

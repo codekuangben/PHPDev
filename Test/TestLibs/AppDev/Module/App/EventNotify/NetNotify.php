@@ -1,8 +1,9 @@
 <?php
 
-namespace MModule;
+namespace Module\App\EventNotify;
 
-use MyLibs\NetModuleDispatchHandle;
+use MyLibs\Network\CmdDispatch\NetModuleDispatchHandle;
+use Module\App\NetHandle\GameBaseCmdHandle;
 
 class NetNotify extends NetModuleDispatchHandle
 {

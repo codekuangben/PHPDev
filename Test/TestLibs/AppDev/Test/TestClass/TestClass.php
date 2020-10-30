@@ -1,6 +1,8 @@
 <?php
 
-namespace MTest;
+namespace Test\TestClass;
+
+use Test\Base\TestBase;
 
 class TestClass extends TestBase
 {

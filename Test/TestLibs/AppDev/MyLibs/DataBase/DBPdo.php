@@ -1,10 +1,11 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\DataBase;
 
 use PDO;
 use Exception;
 use PDOException;
+use MyLibs\EventHandle\EventDispatchFunctionObject;
 
 /**
  * @url https://www.cnblogs.com/hellohell/p/5718205.html

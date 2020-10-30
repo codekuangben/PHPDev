@@ -1,6 +1,9 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\MsgRoute\MsgCmd;
+
+use MyLibs\MsgRoute\MsgRouteBase;
+use MyLibs\MsgRoute\MsgRouteId;
 
 // 线程日志
 class ThreadLogMR extends MsgRouteBase

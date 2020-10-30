@@ -1,6 +1,12 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\DataStruct;
+
+use MyLibs\FrameWork\Ctx;
+use MyLibs\Thread\MMutex;
+use MyLibs\Tools\UtilMsg;
+use MyLibs\Thread\MLock;
+use MyLibs\FrameWork\MacroDef;
 
 /**
  *@brief 网络数据缓冲区

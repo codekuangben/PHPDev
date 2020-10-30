@@ -3,7 +3,9 @@
 /**
 * @brief 系统循环
 */
-namespace MyLibs;
+namespace MyLibs\FrameWork;
+
+use MyLibs\FrameHandle\TickMode;
 
 class ProcessSys
 {

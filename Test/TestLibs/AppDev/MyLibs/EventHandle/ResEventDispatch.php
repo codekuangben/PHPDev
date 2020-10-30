@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\EventHandle;
 
 class ResEventDispatch extends EventDispatch
 {

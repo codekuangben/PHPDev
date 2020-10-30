@@ -1,6 +1,10 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Network\CmdDispatch;
+
+use MyLibs\EventHandle\AddOnceEventDispatch;
+use MyLibs\EventHandle\ICalleeObject;
+use MyLibs\DataStruct\MDictionary;
 
 class NetCmdDispatchHandle implements ICalleeObject
 {

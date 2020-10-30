@@ -1,6 +1,11 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\MsgRoute;
+
+use MyLibs\Base\GObject;
+use MyLibs\EventHandle\AddOnceEventDispatch;
+use MyLibs\EventHandle\ICalleeObject;
+use MyLibs\DataStruct\MDictionary;
 
 class MsgRouteHandleBase extends GObject implements ICalleeObject
 {

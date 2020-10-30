@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\DataStruct\IndexList;
 
 class IndexItemBase
 {

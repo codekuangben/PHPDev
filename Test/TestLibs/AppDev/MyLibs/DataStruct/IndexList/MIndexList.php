@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\DataStruct\IndexList;
+
+use MyLibs\DataStruct\MList;
 
 /**
  * @brief MIndexList ，元素是保存一个在列表中的索引的，减少 Key 比较，加快查找

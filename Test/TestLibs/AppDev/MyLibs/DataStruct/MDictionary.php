@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\DataStruct;
+
+use MyLibs\Tools\UtilSysLibWrap;
 
 class MDictionary
 {

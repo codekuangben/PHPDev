@@ -1,6 +1,13 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameHandle;
+
+use MyLibs\DataStruct\NoOrPriorityList\INoOrPriorityObject;
+use MyLibs\DelayHandle\DelayNoPriorityHandleMgr;
+use MyLibs\DelayHandle\IDelayHandleItem;
+use MyLibs\FrameWork\Ctx;
+use MyLibs\FrameWork\MacroDef;
+use MyLibs\Log\LogTypeId;
 
 // 每一帧执行的对象管理器
 class TickObjectNoPriorityMgr extends DelayNoPriorityHandleMgr implements ITickedObject, IDelayHandleItem, INoOrPriorityObject

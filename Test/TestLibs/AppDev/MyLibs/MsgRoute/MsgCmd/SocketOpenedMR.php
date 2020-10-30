@@ -1,6 +1,9 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\MsgRoute\MsgCmd;
+
+use MyLibs\MsgRoute\MsgRouteBase;
+use MyLibs\MsgRoute\MsgRouteId;
 
 class SocketOpenedMR extends MsgRouteBase
 {

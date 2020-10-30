@@ -1,8 +1,8 @@
 <?php
 
-namespace MMsg;
+namespace Msg\BaseCmd;
 
-use MyLibs\NullUserCmd;
+use \MyLibs\Network\CmdDispatch\NullUserCmd;
 
 class TestCmd extends NullUserCmd
 {

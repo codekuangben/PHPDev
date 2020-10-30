@@ -1,6 +1,6 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\Thread;
 
 /**
  * @brief 单一对象同步

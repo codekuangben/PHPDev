@@ -1,6 +1,8 @@
 <?php
 
-namespace MyLibs;
+namespace MyLibs\FrameWork;
+
+use MyLibs\Tools\UtilSysLibWrap;
 
 /**
  * @brief 垃圾自动回收

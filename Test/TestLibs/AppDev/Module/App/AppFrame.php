@@ -2,6 +2,17 @@
 
 namespace Module\App;
 
+// 注册加载器
+require_once (dirname(__FILE__) . "/../../MyLibs/Common/SystemEnv.php");
+require_once (dirname(__FILE__) . "/../../MyLibs/Base/MLoader.php");
+
+use MyLibs\Common\SystemEnv;
+use MyLibs\Base\MLoader;
+
+MLoader::appendPHPPath(SystemEnv::$MY_PHP_ROOT_PATH);
+MLoader::registerLoader(MLoader::$loadClassInSearchPath);
+
+// 开始正式加载
 require_once (dirname(__FILE__) . "/../../MyLibs/FrameWork/Ctx.php");
 require_once (dirname(__FILE__) . "/../Common/Common/DataPrequisites.php");
 

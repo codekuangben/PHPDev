@@ -4,12 +4,6 @@ namespace MyLibs\Tools;
 
 use MyLibs\DataStruct\MList;
 
-class MSearchOption
-{
-	public const eTopDirectoryOnly = 0;
-	public const eAllDirectories = 1;
-}
-
 class UtilPath
 {
 	public const DOT = ".";

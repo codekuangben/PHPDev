@@ -8,6 +8,12 @@ require_once (dirname(__FILE__) . "/../Common/SystemEnv.php");
 require_once (dirname(__FILE__) . "/../Base/GObject.php");
 require_once (dirname(__FILE__) . "/../Base/UniqueNumIdGen.php");
 require_once (dirname(__FILE__) . "/../Base/UniqueStrIdGen.php");
+
+
+# 性能分析
+require_once (dirname(__FILE__) . "/../Base/Performance/StatsColors.php");
+require_once (dirname(__FILE__) . "/../Base/Performance/Stats.php");
+require_once (dirname(__FILE__) . "/../Base/Performance/MProfileInfo.php");
 require_once (dirname(__FILE__) . "/../Base/Performance/MProfiler.php");
 
 
@@ -114,6 +120,7 @@ require_once (dirname(__FILE__) . "/../FrameWork/EngineLoop.php");
 
 
 // 工具
+require_once (dirname(__FILE__) . "/../Tools/MSearchOption.php");
 require_once (dirname(__FILE__) . "/../Tools/MEndian.php");
 require_once (dirname(__FILE__) . "/../Tools/MEncode.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilStr.php");
@@ -160,6 +167,8 @@ require_once (dirname(__FILE__) . "/../DataBase/DBPdo.php");
 
 
 // 文件
+require_once (dirname(__FILE__) . "/../FileVisitor/FileOpState.php");
+require_once (dirname(__FILE__) . "/../FileVisitor/FileMode.php");
 require_once (dirname(__FILE__) . "/../FileVisitor/MFileStream.php");
 
 

@@ -13,6 +13,11 @@ class UtilPath
 	{
 	    return UtilStr::replace($path, '\\', '/');
 	}
+	
+	public static function convAbsolutePath($path)
+	{
+	    return realpath($path);
+	}
 
 	// 删除目录的时候，一定要关闭这个文件夹，否则删除文件夹可能出错
 	// https://www.2cto.com/kf/201707/662517.html
@@ -191,6 +196,9 @@ class UtilPath
 
 	static public function createDirectory($pathAndName, $isRecurse = false)
 	{
+	    // PHP 直接支持递归创建目录
+	    // mkdir($pathAndName, 0777, true);
+	    
 	    $ret = true;
 	    
 	    if ($isRecurse)

@@ -2,7 +2,7 @@
 
 namespace Module\Common\Network;
 
-require_once (dirname(__FILE__) . "/../../Entry/MainEntry.php");
+//require_once (dirname(__FILE__) . "/../../Entry/MainEntry.php");
 
 use MyLibs\FrameWork\Ctx;
 use MyLibs\Network\CmdDispatch\NullUserCmd;

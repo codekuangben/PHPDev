@@ -10,11 +10,11 @@ use MyLibs\Common\SystemEnv;
 use MyLibs\Base\MLoader;
 
 MLoader::appendPHPPath(SystemEnv::$MY_PHP_ROOT_PATH);
-MLoader::registerLoader(MLoader::$loadClassInSearchPath);
+MLoader::registerLoader(array("MyLibs\Base\MLoader", "loadClassInSearchPath"));
 
 // 开始正式加载
-require_once (dirname(__FILE__) . "/../../MyLibs/FrameWork/Ctx.php");
-require_once (dirname(__FILE__) . "/../Common/Common/DataPrequisites.php");
+//require_once (dirname(__FILE__) . "/../../MyLibs/FrameWork/Ctx.php");
+//require_once (dirname(__FILE__) . "/../Common/Common/DataPrequisites.php");
 
 use MyLibs\FrameWork\Ctx;
 use MyLibs\FrameWork\MacroDef;

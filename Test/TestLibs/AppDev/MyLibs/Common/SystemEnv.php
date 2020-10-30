@@ -9,5 +9,7 @@ class SystemEnv
 }
 
 SystemEnv::$MY_PHP_ROOT_PATH = dirname(__FILE__) . "/../..";
+SystemEnv::$MY_PHP_ROOT_PATH = realpath(SystemEnv::$MY_PHP_ROOT_PATH);
+SystemEnv::$MY_PHP_ROOT_PATH = str_replace("\\", "/", SystemEnv::$MY_PHP_ROOT_PATH);
 
 ?>

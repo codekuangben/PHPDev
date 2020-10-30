@@ -35,7 +35,7 @@ class MLoader
         {
             foreach(MLoader::$PHPSearchPathList as $searchPath)
             {
-                $fullPath = $searchPath . $className . '.php';
+                $fullPath = $searchPath . "/" . $className . '.php';
                 
                 if(file_exists($fullPath))
                 {
@@ -48,64 +48,64 @@ class MLoader
         return false;
     }
         
-    public static function __autoload($className)
-    {
-        if ($file = self::_findFile($className))
-        {
-            // 非 Win 环境不严格区分大小写
-            if (!IS_WIN || pathinfo($file, PATHINFO_FILENAME) == pathinfo(realpath($file), PATHINFO_FILENAME))
-            {
-                _includeFile($file);
-                return true;
-            }
-        }
-    }
+//     public static function __autoload($className)
+//     {
+//         if ($file = self::_findFile($className))
+//         {
+//             // 非 Win 环境不严格区分大小写
+//             if (!IS_WIN || pathinfo($file, PATHINFO_FILENAME) == pathinfo(realpath($file), PATHINFO_FILENAME))
+//             {
+//                 _includeFile($file);
+//                 return true;
+//             }
+//         }
+//     }
     
-    private static function _findFile($class)
-    {
-        // 类库映射
-        if (!empty(self::$map[$class]))
-        {
-            return self::$map[$class];
-        }
+//     private static function _findFile($class)
+//     {
+//         // 类库映射
+//         if (!empty(self::$map[$class]))
+//         {
+//             return self::$map[$class];
+//         }
         
-        // 查找 PSR-4
-        $logicalPathPsr4 = strtr($class, '\\', DS) . EXT;
-        $first           = $class[0]; // 获取prefixLengthsPsr4对应下标
+//         // 查找 PSR-4
+//         $logicalPathPsr4 = strtr($class, '\\', DS) . EXT;
+//         $first           = $class[0]; // 获取prefixLengthsPsr4对应下标
         
-        if (isset(self::$prefixLengthsPsr4[$first]))
-        {
-            foreach (self::$prefixLengthsPsr4[$first] as $prefix => $length)
-            {
-                if (0 === strpos($class, $prefix))
-                { // 判断类的命名空间
-                    foreach (self::$prefixDirsPsr4[$prefix] as $dir)
-                    {
-                        // 判断类的文件路径
-                        // 通过$prefixLengthsPsr4的值截取类文件名
-                        if (is_file($file = $dir . DS . substr($logicalPathPsr4, $length))) {
-                            return $file;
-                        }
-                    }
-                }
-            }
-        }
+//         if (isset(self::$prefixLengthsPsr4[$first]))
+//         {
+//             foreach (self::$prefixLengthsPsr4[$first] as $prefix => $length)
+//             {
+//                 if (0 === strpos($class, $prefix))
+//                 { // 判断类的命名空间
+//                     foreach (self::$prefixDirsPsr4[$prefix] as $dir)
+//                     {
+//                         // 判断类的文件路径
+//                         // 通过$prefixLengthsPsr4的值截取类文件名
+//                         if (is_file($file = $dir . DS . substr($logicalPathPsr4, $length))) {
+//                             return $file;
+//                         }
+//                     }
+//                 }
+//             }
+//         }
         
-        // 查找 PSR-4 fallback dirs
-        // $fallbackDirsPsr4 其他的命名空间位置
-        foreach (self::$fallbackDirsPsr4 as $dir)
-        {
-            if (is_file($file = $dir . DS . $logicalPathPsr4))
-            {
-                return $file;
-            }
-        }
-    }
+//         // 查找 PSR-4 fallback dirs
+//         // $fallbackDirsPsr4 其他的命名空间位置
+//         foreach (self::$fallbackDirsPsr4 as $dir)
+//         {
+//             if (is_file($file = $dir . DS . $logicalPathPsr4))
+//             {
+//                 return $file;
+//             }
+//         }
+//     }
     
-    function _includeFile($file)
-    {
-        return include $file;
-    }
+//     function _includeFile($file)
+//     {
+//         return include $file;
+//     }
 }
 
 ?>

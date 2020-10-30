@@ -2,8 +2,8 @@
 
 namespace MyLibs\FrameWork;
 
-require_once (dirname(__FILE__) . "/../Common/Prequisites.php");
-require_once (dirname(__FILE__) . "/../../Test/Base/TestMain.php");
+//require_once (dirname(__FILE__) . "/../Common/Prequisites.php");
+//require_once (dirname(__FILE__) . "/../../Test/Base/TestMain.php");
 
 use MyLibs\Tools\PlatformDefine;
 use MyLibs\Tools\SystemEndian;

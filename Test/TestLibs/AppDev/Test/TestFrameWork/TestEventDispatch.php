@@ -45,7 +45,7 @@ class TestEventDispatch extends TestBase
     {
         $aaa = new EventDispatch();
         //$aaa->addEventHandle($this, "testB", 10);
-        $aaa->addEventHandle("MTest\TestEventDispatch", "testC");
+        $aaa->addEventHandle("Test\TestFrameWork\TestEventDispatch", "testC");
         $aaa->dispatchEvent("asdfasdf");
     }
     

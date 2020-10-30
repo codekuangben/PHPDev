@@ -2,7 +2,7 @@
 
 namespace MyLibs\DelayHandle;
 
-use MyLibs\DataStruct\NoOrPriorityList\NoPriorityList;
+use MyLibs\DataStruct\NoOrPriorityList\NoPriorityList\NoPriorityList;
 use MyLibs\DataStruct\NoOrPriorityList\PriorityList\PriorityList;
 
 /**

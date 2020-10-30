@@ -206,7 +206,7 @@ class MFileStream extends GObject
 		{
 		    if ($count == 0)
 		    {
-		        $count = UtilStr::length($bytes);
+		        $count = UtilStr::length($text);
 		    }
 		    
 			try

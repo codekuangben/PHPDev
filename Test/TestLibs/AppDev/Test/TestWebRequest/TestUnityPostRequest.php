@@ -1,5 +1,7 @@
 <?php
 
+namespace Test\TestWebRequest;
+
 /**
  * @brief unity3d和php后台简单交互--一
  * @url https://www.cnblogs.com/fyluyg/p/5865687.html

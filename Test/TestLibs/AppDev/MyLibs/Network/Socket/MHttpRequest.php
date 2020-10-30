@@ -1,5 +1,7 @@
 <?php
 
+namespace MyLibs\Network\Socket;
+
 use MyLibs\Base\GObject;
 
 /**

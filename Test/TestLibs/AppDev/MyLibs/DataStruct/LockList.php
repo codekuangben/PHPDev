@@ -49,7 +49,7 @@ class LockList
 	{
 		$mlock = new MLock($this->mVisitMutex);
 		{
-			$this->mDynamicBuffer->mBuffer->set($index, $value);
+		    $this->mDynamicBuffer->mBuffer->set($index, $item);
 		}
 	}
 
@@ -121,7 +121,7 @@ class LockList
 		{
 			$idx = 0;
 
-			foreach ($this->mDynamicBuffer->mBuffer as $item)
+			foreach ($this->mDynamicBuffer->mBuffer as $elem)
 			{
 				if (UtilSysLibWrap::isObjectEqual($item, $elem))       // 地址比较
 				{

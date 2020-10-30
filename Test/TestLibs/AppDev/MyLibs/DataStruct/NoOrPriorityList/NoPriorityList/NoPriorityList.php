@@ -230,7 +230,7 @@ class NoPriorityList implements INoOrPriorityList
 			}
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	protected function updateIndex($idx)

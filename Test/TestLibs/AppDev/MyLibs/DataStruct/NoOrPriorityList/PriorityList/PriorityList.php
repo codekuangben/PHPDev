@@ -119,7 +119,7 @@ class PriorityList implements INoOrPriorityList
 			}
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	public function removeAt($index)
@@ -311,7 +311,7 @@ class PriorityList implements INoOrPriorityList
 			}
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	protected function updateIndex($index)

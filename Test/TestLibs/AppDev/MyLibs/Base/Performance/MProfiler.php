@@ -392,7 +392,7 @@ class MProfiler
 			$ret = -1;
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	protected function formatProfile($indent, $hasChild, $profileInfo)

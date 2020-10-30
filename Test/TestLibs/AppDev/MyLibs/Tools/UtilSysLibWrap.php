@@ -144,7 +144,7 @@ class UtilSysLibWrap
 		    //$retEncodeStr = System.Text.Encoding.Default;
 		}
 
-		return $retEncode;
+		return $retEncodeStr;
 	}
 	
 	public static function isset($param)

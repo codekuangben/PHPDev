@@ -8,20 +8,20 @@ class Singleton
 	
 	public static function setSingletonPtr($value)
 	{
-		$msSingleton = $value;
+	    Singleton::$msSingleton = $value;
 	}
 
 	public static function getSingletonPtr()
 	{
-		return $msSingleton;
+	    return Singleton::$msSingleton;
 	}
 
 	public static function deleteSingletonPtr()
 	{
-		if (null != $msSingleton)
+	    if (null != Singleton::$msSingleton)
 		{
-			$msSingleton->dispose();
-			$msSingleton= null;
+		    Singleton::$msSingleton->dispose();
+		    Singleton::$msSingleton= null;
 		}
 	}
 }

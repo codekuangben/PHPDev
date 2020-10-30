@@ -49,7 +49,7 @@ class CircularBuffer
 		return $this->mDynBuffer->mSize;
 	}
 	
-	public function setSize()
+	public function setSize($value)
 	{
 		$this->mDynBuffer->setSize($value);
 	}

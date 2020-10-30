@@ -133,6 +133,7 @@ require_once (dirname(__FILE__) . "/../Tools/SystemEndian.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilConvert.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilTime.php");
 require_once (dirname(__FILE__) . "/../Tools/UtilLog.php");
+require_once (dirname(__FILE__) . "/../Tools/UtilHttpRequest.php");
 
 
 // 日志

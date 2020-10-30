@@ -75,7 +75,9 @@ class UtilMsg
 			$str += $bytes[idx];
 		}
 
-		$str += " }";            
+		$str += " }"; 
+		
+		return $str;
 	}
 }
 

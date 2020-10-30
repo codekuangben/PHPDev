@@ -394,7 +394,7 @@ class UtilPath
 		    $ret = $fullPath;
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	// 获取文件路径，没有文件名字扩展
@@ -758,7 +758,7 @@ class UtilPath
 			$index += 1;
 		}
 		
-		$dirList = UtilPath::getAllDirectory($srcPath);
+		$dirList = UtilPath::getAllDirectory($curDir);
 		$index = 0;
 		$listLen = $dirList->count();
 

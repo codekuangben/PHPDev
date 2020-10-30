@@ -87,7 +87,7 @@ class UtilLogic
 			$ret = string.Format("{0}{1}", "000", $digit.ToString());
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	// 格式化时间，显示格式为 00年00天00时00分00秒

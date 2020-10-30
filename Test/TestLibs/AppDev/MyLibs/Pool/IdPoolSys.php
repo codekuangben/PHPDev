@@ -40,7 +40,7 @@ class IdPoolSys
 			}
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	public function deleteObj($id, $obj)

@@ -100,7 +100,7 @@ class MsgBuffer
 			$this->mCircularBuffer->clear();    // 读写指针从头开始，方式写入需要写入两部分
 		}
 
-		return ret;
+		return $ret;
 	}
 
 	/**

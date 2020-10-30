@@ -54,6 +54,7 @@ class FileLogDevice extends  LogDeviceBase
 	public function initDevice()
 	{
 	    //$path = MFileSys::getWorkPath() . "/Debug";
+	    $path = "";
 	    $this->checkDirSize($path); // 检查目录大小
 
 		$file = "";

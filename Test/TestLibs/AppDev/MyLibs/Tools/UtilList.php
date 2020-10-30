@@ -59,7 +59,7 @@ class UtilList
         
         while($index < $length && $srcIndex + $index < $srcListLen && $destIndex + $index < $destListLen)
         {
-            $destArray[$destIndex + $index] = $retArray[$srcIndex + $index];
+            $destArray[$destIndex + $index] = $srcArray[$srcIndex + $index];
             $index += 1;
         }
     }
@@ -74,11 +74,11 @@ class UtilList
         {
             if($destIndex + $index < $destListLen)
             {
-                $destStr[$destIndex + $index] = (string)($retArray[$srcIndex + $index]);
+                $destStr[$destIndex + $index] = (string)($srcArray[$srcIndex + $index]);
             }
             else
             {
-                $destStr = $destStr . (string)($retArray[$srcIndex + $index]);
+                $destStr = $destStr . (string)($srcArray[$srcIndex + $index]);
             }
             
             $index += 1;

@@ -12,7 +12,7 @@ class MLoader
 {
     public static $PHPSearchPathList;
     
-    public static function appendPHPPath($searchPath)
+    public static function appendPHPSearchPath($searchPath)
     {
         if (null == MLoader::$PHPSearchPathList)
         {
@@ -107,5 +107,10 @@ class MLoader
 //         return include $file;
 //     }
 }
+
+require_once (dirname(__FILE__) . "/../../MyLibs/Common/SystemEnv.php");
+
+MLoader::appendPHPSearchPath(\MyLibs\Common\SystemEnv::$MY_PHP_ROOT_PATH);
+MLoader::registerLoader(array("MyLibs\Base\MLoader", "loadClassInSearchPath"));
 
 ?>

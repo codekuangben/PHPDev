@@ -28,7 +28,7 @@ class EngineLoop
 
 		while (($routeMsg = Ctx::$msIns->mSysMsgRoute->popMsg()) != null)
 		{
-			Ctx::$msIns->mMsgRouteNotify->handleMsg(routeMsg);
+		    Ctx::$msIns->mMsgRouteNotify->handleMsg($routeMsg);
 		}
 
 		// 处理网络

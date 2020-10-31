@@ -58,7 +58,7 @@ class UtilLogic
 		
 		while($index < $listLen)
 		{
-			if (IsChineseLetter($str, $idx))
+		    if (IsChineseLetter($str, $index))
 			{
 				$charCount += 2;
 			}
@@ -96,15 +96,15 @@ class UtilLogic
 		$ret = "";
 
 		$left = 0;
-		$year = second / (356 * 24 * 60 * 60);
-		$left = second % (356 * 24 * 60 * 60);
-		$day = left / (24 * 60 * 60);
-		$left = left % (24 * 60 * 60);
-		$hour = left / (60 * 60);
-		$left = left % (60 * 60);
-		$min = left / 60;
-		$left = left % 60;
-		$sec = left;
+		$year = $second / (356 * 24 * 60 * 60);
+		$left = $second % (356 * 24 * 60 * 60);
+		$day = $left / (24 * 60 * 60);
+		$left = $left % (24 * 60 * 60);
+		$hour = $left / (60 * 60);
+		$left = $left % (60 * 60);
+		$min = $left / 60;
+		$left = $left % 60;
+		$sec = $left;
 
 		if($year != 0)
 		{

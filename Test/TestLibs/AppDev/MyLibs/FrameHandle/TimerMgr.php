@@ -96,7 +96,7 @@ class TimerMgr extends DelayPriorityHandleMgrBase
 
 		$index = 0;
 		$listLen = $this->mTimerList->count();
-		$item = null;
+		$timerItem = null;
 		
 		while($index < $listLen)
 		{

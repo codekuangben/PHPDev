@@ -755,7 +755,7 @@ class UtilPath
 		
 		while($index < $listLen)
 		{
-		    $fileName = UtilPath::getFileNameWithExt($fileList->get($index));
+		    //$fileName = UtilPath::getFileNameWithExt($fileList->get($index));
 		    $normalPath = UtilPath::normalPath($fileList->get($index));
 		    
 		    if (!UtilPath::isEqualStrInList($normalPath, $excludeFileList))

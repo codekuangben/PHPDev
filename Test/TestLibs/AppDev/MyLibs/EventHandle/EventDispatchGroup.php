@@ -77,7 +77,8 @@ class EventDispatchGroup extends GObject
 	{
 		if (!$this->mLoopDepth->isInDepth())
 		{
-			while(list($key, $val)= each($this->mGroupID2DispatchDic))
+		    //while(list($key, $val) = each($this->mGroupID2DispatchDic))
+		    while(list(_, $val) = each($this->mGroupID2DispatchDic))
 			{
 				$dispatch = $val;
 				$dispatch->clearEventHandle();

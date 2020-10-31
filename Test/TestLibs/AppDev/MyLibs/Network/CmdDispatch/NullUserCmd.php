@@ -29,7 +29,7 @@ class NullUserCmd
 	}
 	
 	// Get 方式序列化
-	public function serializeGet(MStringBuffer $stringBuffer)
+	public function serializeGet($byteBuffer)
 	{
 	    $byteBuffer->writeUnsignedInt8($this->CmdId);
 	    $byteBuffer->writeUnsignedInt8($this->ParamId);

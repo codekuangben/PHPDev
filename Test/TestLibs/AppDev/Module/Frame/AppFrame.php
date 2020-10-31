@@ -1,6 +1,6 @@
 <?php
 
-namespace Module\App;
+namespace Module\Frame;
 
 // 注册加载器
 require_once (dirname(__FILE__) . "/../../MyLibs/Base/MLoader.php");
@@ -11,7 +11,8 @@ require_once (dirname(__FILE__) . "/../../MyLibs/Base/MLoader.php");
 
 use MyLibs\FrameWork\Ctx;
 use MyLibs\FrameWork\MacroDef;
-use Module\App\EventNotify\NetNotify;
+use Module\Common\FrameWork\CtxExt;
+use Module\Frame\EventNotify\NetNotify;
 
 class AppFrame
 {
@@ -20,11 +21,14 @@ class AppFrame
     public function __construct()
     {
         Ctx::instance();
+        CtxExt::instance();
     }
     
     public function init()
     {
         Ctx::$msIns->init();
+        CtxExt::$msIns->init();
+        
         
         $this->mNetNotify = new NetNotify();
         $this->mNetNotify->init();
@@ -33,6 +37,7 @@ class AppFrame
     
     public function dispose()
     {
+        CtxExt::$msIns->dispose();
         Ctx::$msIns->dispose();
         
         $this->mNetNotify->dispose();
@@ -44,6 +49,7 @@ class AppFrame
         $interval = 1 / 24;
         
         Ctx::$msIns->run();
+        CtxExt::$msIns->run();
         $this->_update();
         
         if(MacroDef::ENABLE_LOOP)

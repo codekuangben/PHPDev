@@ -1,6 +1,6 @@
 <?php
 
-namespace Module\App\NetHandle;
+namespace Module\Frame\NetHandle;
 
 use MyLibs\Network\CmdDispatch\NetCmdDispatchHandle;
 

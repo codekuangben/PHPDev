@@ -2,9 +2,9 @@
 
 namespace Module\Entry;
 
-require_once (dirname(__FILE__) . "/../App/AppFrame.php");
+require_once (dirname(__FILE__) . "/../Frame/AppFrame.php");
 
-use Module\App\AppFrame;
+use Module\Frame\AppFrame;
 
 /**
  * @brief 入口 

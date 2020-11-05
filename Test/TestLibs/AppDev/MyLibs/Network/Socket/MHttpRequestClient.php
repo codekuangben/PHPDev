@@ -9,7 +9,7 @@ use MyLibs\Base\GObject;
  * @brief PHP发送POST请求的三种方式
  * @url https://www.cnblogs.com/linux-centos/p/5604511.html
  */
-class MHttpRequest extends GObject
+class MHttpRequestClient extends GObject
 {
     public function __construct()
     {

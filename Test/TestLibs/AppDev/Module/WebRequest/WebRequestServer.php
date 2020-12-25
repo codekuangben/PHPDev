@@ -2,7 +2,7 @@
 
 namespace Module\WebRequest;
 
-require_once (dirname(__FILE__) . "/../App/AppFrame.php");
+require_once (dirname(__FILE__) . "/../Frame/AppFrame.php");
 
 use MyLibs\Tools\UtilSysLibWrap;
 use MyLibs\Tools\UtilConvert;

@@ -10,6 +10,7 @@ use MyLibs\Tools\UtilStr;
 //use MyLibs\FileVisitor\MFileStream;
 //use MyLibs\Tools\UtilByte;
 //use MyLibs\FileVisitor\FileMode;
+use MyLibs\Common\SystemEnv;
 
 class UnityCmdHandle extends NetCmdDispatchHandle
 {
@@ -53,7 +54,14 @@ class UnityCmdHandle extends NetCmdDispatchHandle
             $fileNameNoExtName = UtilPath::getFileNameNoExt($fileName);
             $fileExtName = UtilPath::getFileExt($fileName);
             $newFileName = UtilStr::concat($fileNameNoExtName, "-", UtilTime::getTimeStr(), ".", $fileExtName);
-            $destFileName = UtilPath::combine($this->_SaveRootPath, $newFileName);
+            //$destFileName = UtilPath::combine($this->_SaveRootPath, $newFileName);
+            $destDirPath = SystemEnv::$MY_PHP_ROOT_PATH + "/Temp";
+            if (!UtilPath::existDirectory($destDirPath)):
+            {
+                UtilPath::createDirectory($destDirPath);
+            }
+            
+            $destFileName = SystemEnv::$MY_PHP_ROOT_PATH;
             UtilPath::copyFile($sourceFileName, $destFileName);
         }
     }

@@ -24,6 +24,8 @@ class UnityCmdHandle extends NetCmdDispatchHandle
         {
             $this->_SaveRootPath = "Y:/ShaderVariantInfo";
         }
+        
+        $this->_FileCompleteSuffix = "-Complete";
     }
     
     public function init()
@@ -55,13 +57,17 @@ class UnityCmdHandle extends NetCmdDispatchHandle
             $fileExtName = UtilPath::getFileExt($fileName);
             $newFileName = UtilStr::concat($fileNameNoExtName, "-", UtilTime::getTimeStr(), ".", $fileExtName);
             //$destFileName = UtilPath::combine($this->_SaveRootPath, $newFileName);
-            $destDirPath = SystemEnv::$MY_PHP_ROOT_PATH + "/Temp";
+            
+            $destDirPath = SystemEnv::$MY_PHP_ROOT_PATH + "/SVCReport";
+            
             if (!UtilPath::existDirectory($destDirPath)):
             {
                 UtilPath::createDirectory($destDirPath);
             }
             
-            $destFileName = SystemEnv::$MY_PHP_ROOT_PATH;
+            $destFileName = UtilPath::combine(SystemEnv::$MY_PHP_ROOT_PATH, $newFileName);
+            UtilPath::copyFile($sourceFileName, $destFileName);
+            $destFileName = $destFileName . $this->_FileCompleteSuffix;
             UtilPath::copyFile($sourceFileName, $destFileName);
         }
     }

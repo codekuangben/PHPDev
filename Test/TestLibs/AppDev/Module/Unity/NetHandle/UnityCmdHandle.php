@@ -58,14 +58,14 @@ class UnityCmdHandle extends NetCmdDispatchHandle
             $newFileName = UtilStr::concat($fileNameNoExtName, "-", UtilTime::getTimeStr(), ".", $fileExtName);
             //$destFileName = UtilPath::combine($this->_SaveRootPath, $newFileName);
             
-            $destDirPath = SystemEnv::$MY_PHP_ROOT_PATH + "/SVCReport";
+            $destDirPath = SystemEnv::$MY_PHP_ROOT_PATH . "/SVCReport";
             
-            if (!UtilPath::existDirectory($destDirPath)):
+            if (!UtilPath::existDirectory($destDirPath))
             {
                 UtilPath::createDirectory($destDirPath);
             }
             
-            $destFileName = UtilPath::combine(SystemEnv::$MY_PHP_ROOT_PATH, $newFileName);
+            $destFileName = UtilPath::combine($destDirPath, $newFileName);
             UtilPath::copyFile($sourceFileName, $destFileName);
             $destFileName = $destFileName . $this->_FileCompleteSuffix;
             UtilPath::copyFile($sourceFileName, $destFileName);
